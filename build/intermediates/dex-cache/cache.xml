@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c14f0c89f28cf782e42581ab0aba5f63af39b3d2">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-10.0.1_3d67d0790a68bcf48d6bee7f25359af3be31a541/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="09cf6aa1390f95157e8295d02be7868f568825fc">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-10.0.1_125e3fa92b0f79f7074a6388317d0940b7152f91/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8308ed003522a2ee8958311afcc4cfd0470377cd">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-10.0.1_55a60aeba85f913428531bec92d75003033233ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics-impl/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e871881b36b32e6bfd271a830c6eeb54ff0fc185">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-impl-10.0.1_07d7f7715aa5e73296c6d08be5406af5407abb33/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/palette-v7/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-palette-v7-24.0.0_e9495a3ced384717fc27e5fe8ae38b74b6dce9fa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7a64bf6dc775198eed9db9468a133adf7dfe6562">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-10.0.1_fea39e566caf49fda8b8e7d57962de73788b4096/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c198018e6d6f6e0a2d93d0b5b00bb2bdab61921b">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_956d350671753a05df0375c4417f0e03112c600d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-10.0.1_d271e6af2cae31592b1c443757e311968d34ec3b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-awareness/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4385ccc0a88b33d182a836eadb47be55c8eb1107">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-awareness-10.0.1_55d94e05bb66a992148d09639b19678804a7cbea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e96c6974cf924e7ee3b230e6847d5731423388c9">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-10.0.1_abc4501e6b50a9cdbba07dd8aa3621bec2d5189b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="27777b3cad3c20b1acab19f6e37fe3e03371bf6e">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-10.0.1_480aebb2fd5b4697169e8902a30f71df4153454a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c6e1f361e9d61aece9dac39b77fcc98a337a144d">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-nearby-10.0.1_f5389b566a90afb90de67ec69a6f671c71035b5e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-instantapps/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="45305e6af414dab5aba6c3225081c2f15c3bdd1e">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-instantapps-10.0.1_f4bea4177a0ad9ac54b037d32567beacaf5db56c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-10.0.1_848404b15f89f65fd51c6789a471f62356fb7191/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_7343f8c736c637b36fc762738881536e9e0c21bc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_cf97baa72535f60111cf8f9851642d42ac8a3737/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-10.0.1_0d9e7e995e7eb71dea4ec585320c2c4d66e7e223/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_768fee59471778ccadf700d3fdf67358a96346b4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-api/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b1df8fa3d372a27e4e969ce00b00689ee1eed031">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-10.0.1_5e949c034eec2d9638c5d8ac68927736162561f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="408a599ac77cd17fe8e8919326bec617b3d005bd">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-10.0.1_b157edaad0d8d7245b69cbf89e7a4222fb7b9254/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f6cf557be4dbd0282ea2388633e5378634423226">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-safetynet-10.0.1_717d08970019e7ab77884fb32b1e78639485e5af/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="aee64634871d88a419d59eb743c1258a60f19700">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.0_3d698f3938de5c6a65d52d89e99d379578350ca4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_9c7d713f947494dbec97c3140166e83ee8ef5c28/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ba6aa5e69ef31dee57208125323cee958fc67565">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-vision-10.0.1_33c969d8da674bdc39866691c22bf3e5bba3417f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-10.0.1_49700ebacecb25f4d49d229342b26902d2963aad/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-24.0.0_e3e711ff7a8a5c1e289d753ad7eceb356c3ac727/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4c829ff0ccfecb28a999ee46d9e75948dfc777a4">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-10.0.1_971f2754af7789b2a47d9507da6e1ee6b3181d42/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-appindexing/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ae80d328a8548b4610ead6c624bab8c6a6984f5b">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-appindexing-10.0.1_a1473039859c4cdb4a327f8f72d646d8021804b3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-10.0.1_a68ebabce6c21395a7265dfb71e23f62507d9621/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="028f8255cb977b29cdffbfcf05caa0459686120c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-10.0.1_91bf2be85a2b825637f22016734b554600c55e81/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4b17463c814bdc562fb0392fa3494063623a0904">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-10.0.1_2266a74af8e03d112225284d9a2132bcd9a10793/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1e11c68fec92a17c84dd8d1dd80e74c4e67b12e2">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-10.0.1_af0c7e48bb8904a9eb11d854188c2cd469e6a17d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a48dc0b148059764d32500be558702d5ff932058">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-10.0.1_52cfd4cfbfa63e4da0b8cb72e2b7f21d2ac9e2f0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_b9fdcf7b9a0ccf9850ccc84b2fc9863a9170572f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads-lite/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b955cb3a1ad6f1b6ff728ce1e0cd592c1717b440">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-lite-10.0.1_029768c1287e66604836d8e7fe1d5c557ba8d523/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-10.0.1_9037f6478625875136a3f4bf43f4213576b8d65c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8f128aeeb7e31271b28a7adb9dac1f3a6ed9f5e7">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-10.0.1_5506cfb63c9c63f43e2fc619c1e23f0427dddb29/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2185aff89caeb337b1ffc36d5e525d8318e7cfe">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-10.0.1_cfb6f3705fd0577bef98af8aa56b8d45d299456f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="92c871a22463a247e8a77a9f3fd231c278788c4a">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-panorama-10.0.1_b6274a8120b1b382e1b60faba3a814ed2f968330/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d0460bf07cc3657e0be518ca01c174493951c6b8">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-10.0.1_33bdb1191080dac191f29678cdde6afe0f8c31ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-clearcut/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1d193729baf37df3d902a423291423a0df7e3779">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-clearcut-10.0.1_f70fbd741ffe29bbc493cd67a7d77719f0b6e770/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8010ae6ed32828a145b25ec97bc07b7a83c6318f">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-10.0.1_02d1283cefff6727c4a00bf659ef15c11e28ad71/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="771267c5b0c7a5b348d3205dcfa1f871af7e0177">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-10.0.1_3798cd1f3ecd86328280ea46531a4411852ab341/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0370a30541c3519c15a726c48155b8c5210292da">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_681f061c36021dadf9dfd0cd2d2dcbab9b25c58a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="dd39827d2067497e60e21da48a7926000b6d4b0c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-10.0.1_602a3dac61d9e43e8a5e5316943e2e41c9a32ca9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.0_f9d0752a8014e40ea28e0185392fec5031213b19/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-iid/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6bb5d347ebc0c6ef3c83a905222a688da5d2f7b4">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-iid-10.0.1_05dc3d52a26a1cf4363d1c7efd17d4b9b31cce69/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-10.0.1_1467e44c65d2b8a870ca7ea0eb6c59876e0b9ba7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="df1cb17511aabbb63264a0024949d1e42502a512">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-framework-10.0.1_8edb3103f0a2fd54d736deee7bf9cef756cf3c2e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-crash/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="de29a39f9260f88151b1ef453140e71c76b6c415">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-crash-10.0.1_ecb7c6b14f9eec7f40a5c55b568aa2f40f933639/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="39907d5c8f5902fffef30160ca7447c93b82405c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appinvite-10.0.1_ebf590c5a8b988d27ffccba182c0bf005a099ec6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_ff8cccbda2f27ac0bd75b3bbdab52808cc1da2be/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.0_cec5db9d54aa1d8abf1a16faa0a70dc3c6bcc839/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_950803deca647b2be3695719aa9f0ea20d518922/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f3e51e9c5233b8897f61e08a6a27bc36283c2724">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-places-10.0.1_ce0d33c96761ee5b746be7583f8450ada1dd3397/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2d5d113b0352ab60946fc44c518cf68fd26cbb79">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-10.0.1_a8b7a68bc5923589975e77f3f118d15c9782c4b1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gass/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57c2eceb8548de84509d1ebc293fedec53231f6c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gass-10.0.1_cf5b069bee703a42b07edb5abc9cbdbf1cdda99b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-config/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ffc15e965a9e8c28f24455eedd4cac215c45d1fc">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-config-10.0.1_606f2a43d6bbfe4be38270f778f76aa6efe8867d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_b56b02c0c5bb057dccd1395049bac9bb5d08f04c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-10.0.1_3eba0970ccd29a628ef8db3d73ad5eabf3f98e3c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager-v4-impl/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f23ad0f8e58713ff4b55f61c0bbde3830378347c">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-v4-impl-10.0.1_21ec18f795727cb9060a5d446741616cf1c470b9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-10.0.1_4689d2de13da9d71007efbadf1509d301db4fabb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tagmanager/10.0.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="971509bbe30bb7b971fc1c49d7b23d0d818830ac">
+        <dex dex="/Users/archen/AndroidStudioProjects/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-10.0.1_980b36e31ec1630c8b21fbcd3b999a0e01917346/classes.dex" />
+    </item>
+
+</items>
