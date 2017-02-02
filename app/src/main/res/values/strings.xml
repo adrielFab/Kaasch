@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lecture</string>
+    <string name="app_name">MRides</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

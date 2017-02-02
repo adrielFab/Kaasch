@@ -1,4 +1,4 @@
-package com.example.lecture;
+package com.example.mrides;
 
 import org.junit.Test;
 
