@@ -1,1 +1,1 @@
-testin smart
+testing smart commit
