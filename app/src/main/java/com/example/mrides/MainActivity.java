@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_main);
 
         // Request only the user's ID token, which can be used to identify the
-        // user securely to your backend. This will contain the user's basic
-        // profile (name, profile picture URL, etc) so you should not need to
-        // make an additional call to personalize your application.
+        // user securely for the backend. This will contain the user's basic
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
                 .build();
@@ -51,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    // [START signOut]
     public void signOut(View view) {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
@@ -61,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 });
     }
 
+    //result from the sign in
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -76,9 +74,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-            startActivity(intent);
+            String idToken = acct.getIdToken();
+            RequestHandler requestHandler = new RequestHandler();
+            requestHandler.authenticateGoogleAccount(this,idToken);
+           // Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+           // startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");
