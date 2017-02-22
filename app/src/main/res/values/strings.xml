@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">mRides</string>
     <string name="Sign_In">Sign In</string>
-    <string name="Register">Register"</string>
+    <string name="GetStarted">Get Started"</string>
+    <string name="GmailSignIn">SIGN IN WITH GMAIL</string>
 
 </resources>

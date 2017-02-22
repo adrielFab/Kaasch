@@ -5,10 +5,15 @@
     android:id="@+id/activity_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mrides.SignInActivity">
+    tools:context="com.example.mrides.SignInActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:text="Existing User :"
+
+    <Button
+        style="@style/orange_rounded_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/GmailSignIn"
+        android:background="@drawable/orange_button_rounded"/>
+
 </LinearLayout>
