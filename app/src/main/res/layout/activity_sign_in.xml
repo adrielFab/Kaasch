@@ -13,8 +13,12 @@
         android:layout_height="wrap_content"
         android:text="@string/welcome"
         android:layout_gravity="center_horizontal"
-        style="@style/header1"
-        />
+        style="@style/header1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/introText"
+        style="@style/header2"/>
     <Button
         style="@style/orange_rounded_button"
         android:layout_width="match_parent"
