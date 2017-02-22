@@ -24,5 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/GmailSignIn"
+        android:background="@drawable/orange_button_rounded"
+        android:onClick="googleSignIn"/>
+    <Button
+        style="@style/orange_rounded_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="logout temperary"
+        android:onClick="signOut"
         android:background="@drawable/orange_button_rounded"/>
 </LinearLayout>
