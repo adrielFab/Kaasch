@@ -45,6 +45,7 @@
             android:onClick="goToSignIn"/>
         <Button
             style="@style/greyButton"
+            android:id="@+id/sign_in_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
