@@ -1,13 +1,9 @@
 <resources>
     <string name="app_name">mRides</string>
     <string name="Sign_In">Sign In</string>
-<<<<<<< HEAD
     <string name="GetStarted">Get Started"</string>
     <string name="GmailSignIn">SIGN IN WITH GMAIL</string>
     <string name="welcome">Welcome To mRides</string>
-=======
     <string name="Logout">Logout To be removed"</string>
     <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
->>>>>>> 16e3d814d4531c5aed35a0bf04f824c9e4a3f52e
-
 </resources>

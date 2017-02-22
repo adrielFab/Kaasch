@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .build();
     }
 
+    public void SignInPage(View view){
+        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+        startActivity(intent);
+    }
+
     /** got to sign in page */
     public void goToSignIn(View view) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);

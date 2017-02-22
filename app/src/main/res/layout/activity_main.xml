@@ -37,25 +37,9 @@
         android:orientation="horizontal">
         <Button
             style="@style/orangeButton"
-<<<<<<< HEAD
             android:layout_width="fill_parent"
-=======
-            android:id="@+id/sign_out_button"
-            android:layout_width="0dp"
->>>>>>> 16e3d814d4531c5aed35a0bf04f824c9e4a3f52e
             android:layout_height="fill_parent"
             android:text="@string/GetStarted"
-            android:onClick="goToSignIn"/>
-<<<<<<< HEAD
-=======
-        <Button
-            style="@style/greyButton"
-            android:id="@+id/sign_in_button"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/Logout"
-            android:onClick="signOut"/>
->>>>>>> 16e3d814d4531c5aed35a0bf04f824c9e4a3f52e
+            android:onClick="SignInPage"/>
     </LinearLayout>
 </LinearLayout>

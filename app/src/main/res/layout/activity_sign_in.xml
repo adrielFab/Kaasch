@@ -14,8 +14,6 @@
         android:text="@string/welcome"
         android:layout_gravity="center_horizontal"
         style="@style/header1"
-
-
         />
     <Button
         style="@style/orange_rounded_button"
