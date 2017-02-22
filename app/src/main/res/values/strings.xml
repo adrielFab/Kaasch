@@ -2,5 +2,6 @@
     <string name="app_name">mRides</string>
     <string name="Sign_In">Sign In</string>
     <string name="Logout">Logout To be removed"</string>
+    <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
 
 </resources>
