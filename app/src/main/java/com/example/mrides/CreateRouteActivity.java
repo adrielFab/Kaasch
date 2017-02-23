@@ -129,6 +129,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             public void onLocationChanged(Location location) {
 
                 LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                mGoogleMap.clear();
                 mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
             }
@@ -164,8 +166,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-
                 LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                mGoogleMap.clear();
+
                 mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
             }
