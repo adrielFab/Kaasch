@@ -11,14 +11,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etStart"
+        android:id="@+id/editTextStart"
         android:hint="Enter start address" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter destination address"
-        android:id="@+id/etDestination" />
+        android:id="@+id/editTextDestination" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find path"
-            android:id="@+id/btnFindPath" />
+            android:id="@+id/buttonFindPath" />
         <ImageView
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"

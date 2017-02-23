@@ -14,7 +14,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".CreateRouteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignInActivity"/>
-        <activity android:name=".CreateRouteActivity">
+        <activity android:name=".MainActivity">
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package Model;
+package DirectionModel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

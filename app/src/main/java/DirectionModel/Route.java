@@ -1,4 +1,4 @@
-package Model;
+package DirectionModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
