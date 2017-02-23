@@ -18,8 +18,8 @@ import android.os.Bundle;
 
 public class preferencePage extends AppCompatActivity implements View.OnClickListener{
 
-    Button btnDatePicker, btnTimePicker2, btnTimePicker;
-    EditText txtDate, txtTime, txtTime2;
+    Button btnDatePicker, btnTimePicker;
+    EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -29,13 +29,12 @@ public class preferencePage extends AppCompatActivity implements View.OnClickLis
 
         //btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
-        btnTimePicker2=(Button)findViewById(R.id.btn_time2);
+
         //txtDate=(EditText)findViewById(R.id.in_date);
         txtTime=(EditText)findViewById(R.id.in_time);
-        txtTime2=(EditText)findViewById(R.id.in_time2);
+
         //btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
-        btnTimePicker2.setOnClickListener(this);
 
     }
 
@@ -80,26 +79,6 @@ public class preferencePage extends AppCompatActivity implements View.OnClickLis
                                               int minute) {
 
                             txtTime.setText(hourOfDay + ":" + minute);
-                        }
-                    }, mHour, mMinute, false);
-            timePickerDialog.show();
-        }
-        if (v == btnTimePicker2) {
-
-            // Get Current Time
-            final Calendar c = Calendar.getInstance();
-            mHour = c.get(Calendar.HOUR_OF_DAY);
-            mMinute = c.get(Calendar.MINUTE);
-
-            // Launch Time Picker Dialog
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-
-                            txtTime2.setText(hourOfDay + ":" + minute);
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();

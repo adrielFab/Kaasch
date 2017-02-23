@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/route_name"
             android:layout_weight="3"
+            android:textStyle="bold"
             style="@style/regularSizeText"/>
         <EditText
             android:layout_weight="7"
@@ -29,37 +30,49 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35sp"
         android:weightSum="12"
         android:orientation="horizontal">
         <ImageView
             android:layout_weight="2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@mipmap/calendar" />
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/Frequency"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
             style="@style/regularSizeText"/>
         <RadioGroup
             android:layout_weight="7"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:checkedButton="@+id/Frequency_repeated">
             <RadioButton
                 android:id="@+id/Frequency_once"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Once"/>
+                android:text="@string/Once"
+                style="@style/regularSizeText"/>
             <RadioButton
                 android:id="@+id/Frequency_repeated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Repeated"/>
+                android:text="@string/Repeated"
+                style="@style/regularSizeText"/>
         </RadioGroup>
     </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,12 +80,15 @@
         android:orientation="horizontal">
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"/>
+            android:layout_height="35sp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:src="@mipmap/clock" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
+            android:textStyle="bold"
             android:text="@string/Arrival_time"
             style="@style/regularSizeText"/>
         <EditText
@@ -83,38 +99,19 @@
             android:layout_weight="2"
             android:focusable="false"/>
         <Button
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Select_time"
             android:id="@+id/btn_time"/>
     </LinearLayout>
-    <LinearLayout
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="12"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="@string/Departure_time"
-            android:gravity="center"
-            style="@style/regularSizeText"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/in_time2"
-            android:text="@string/Sample_time"
-            android:layout_weight="2"
-            android:focusable="false"/>
-        <Button
-            android:layout_weight="5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/Select_time"
-            android:id="@+id/btn_time2"/>
-    </LinearLayout>
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,12 +120,14 @@
         <ImageView
             android:layout_weight="2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="35sp"
+            android:src="@mipmap/car"/>
         <TextView
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Rider_type"
+            android:textStyle="bold"
             style="@style/regularSizeText"/>
         <RadioGroup
             android:layout_weight="7"
@@ -140,12 +139,14 @@
                 android:id="@+id/Driver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Driver"/>
+                android:text="@string/Driver"
+                style="@style/regularSizeText"/>
             <RadioButton
                 android:id="@+id/Passenger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Passenger"/>
+                android:text="@string/Passenger"
+                style="@style/regularSizeText"/>
         </RadioGroup>
     </LinearLayout>
     <LinearLayout
