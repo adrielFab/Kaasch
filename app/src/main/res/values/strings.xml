@@ -2,5 +2,6 @@
     <string name="app_name">mRides</string>
     <string name="Sign_In">Sign In</string>
     <string name="Register">Register"</string>
+    <string name="title_activity_create_route">CreateRouteActivity</string>
 
 </resources>
