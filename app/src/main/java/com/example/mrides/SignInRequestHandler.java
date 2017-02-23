@@ -6,14 +6,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.mrides.Domain.User;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class SignInRequestHandler {
 
-    private String url = "http://192.168.0.154:80";
-    boolean validAccout = false; // flag for authentic google account
+    private boolean validAccout = false; // flag for authentic google account
+    private User user;
 
     public boolean authenticateGoogleAccount(Context context,String clientId){
         // Request a string response from the provided URL.
@@ -40,11 +43,17 @@ public class SignInRequestHandler {
     public void logInUser(Context context){
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url+"/login.php", null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, context.getString(R.string.url)+"/login.php", null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println("Response: " + response.toString());
+                        /*Gson gson = new Gson();
+                        try {
+                            user = gson.fromJson(response.getJSONObject("user").toString(), User.class);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -53,7 +62,6 @@ public class SignInRequestHandler {
                     }
                 });
         RequestQueueSingleton.getInstance(context).addToRequestQueue(jsObjRequest);
-
     }
 
 
