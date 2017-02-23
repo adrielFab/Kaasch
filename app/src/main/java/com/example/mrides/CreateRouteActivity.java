@@ -161,20 +161,27 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             } else {
 
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+
+                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+                LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
             }
         }
 
-        int height = 100;
-        int width = 100;
-        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
-        Bitmap b=bitmapdraw.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
-        LatLng jewish = new LatLng(45.49785, -73.628719);
-        mGoogleMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                .title("Donald Trump")
-                .position(jewish));
+//        int height = 100;
+//        int width = 100;
+//        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
+//        Bitmap b=bitmapdraw.getBitmap();
+//        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+//
+//        LatLng jewish = new LatLng(45.49785, -73.628719);
+//        mGoogleMap.addMarker(new MarkerOptions()
+//                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+//                .title("Donald Trump")
+//                .position(jewish));
     }
 
 
