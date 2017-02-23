@@ -1,7 +1,6 @@
 package com.example.mrides;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +25,7 @@ public class RequestQueueSingleton {
         if (mInstance == null) {
             mInstance = new RequestQueueSingleton(context);
         }
+
         return mInstance;
     }
 
@@ -37,6 +37,8 @@ public class RequestQueueSingleton {
         }
         return mRequestQueue;
     }
+
+
 
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);

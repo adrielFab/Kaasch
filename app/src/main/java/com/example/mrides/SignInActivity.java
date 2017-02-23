@@ -70,9 +70,11 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
-            RequestHandler requestHandler = new RequestHandler();
-            requestHandler.authenticateGoogleAccount(this,idToken);
-
+            SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
+            boolean validAccount = signInRequestHandler.authenticateGoogleAccount(this,idToken);
+            if(validAccount){
+                signInRequestHandler.logInUser(this);
+            }
         } else {
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");
