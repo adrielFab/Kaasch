@@ -6,11 +6,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.mrides.Domain.User;
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignInRequestHandler {
@@ -18,7 +23,7 @@ public class SignInRequestHandler {
     private boolean validAccout = false; // flag for authentic google account
     private User user;
 
-    public boolean authenticateGoogleAccount(Context context,String clientId){
+    public void authenticateGoogleAccount(Context context, String clientId) {
         // Request a string response from the provided URL.
         String url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + clientId;
 
@@ -32,38 +37,46 @@ public class SignInRequestHandler {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
                         validAccout = false;
                     }
                 });
         // Add the request to the RequestQueue.
         RequestQueueSingleton.getInstance(context).addToRequestQueue(jsObjRequest);
-        return validAccout;
     }
 
-    public void logInUser(Context context){
+    public void logInUser(Context context) {
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, context.getString(R.string.url)+"/login.php", null, new Response.Listener<JSONObject>() {
+        StringRequest jsObjRequest = new StringRequest
+                (Request.Method.POST, context.getString(R.string.url) + "/logIn.php", new Response.Listener<String>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("Response: " + response.toString());
-                        /*Gson gson = new Gson();
-                        try {
-                            user = gson.fromJson(response.getJSONObject("user").toString(), User.class);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+                        JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+                        System.out.println("email" + obj.get("email"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                     }
-                });
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", "harrison@hotmail.com");
+                return params;
+            }
+            @Override
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded";
+            }
+
+        };
         RequestQueueSingleton.getInstance(context).addToRequestQueue(jsObjRequest);
     }
-
 
 
 }
