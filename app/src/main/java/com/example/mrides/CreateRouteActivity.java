@@ -25,8 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DirectionModel.ObtainDirection;
+import DirectionModel.ObtainDirectionListener;
+import DirectionModel.Route;
 
-public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener {
 
     private Button mButtonFindPath;
     private EditText mEditTextStart;
@@ -85,6 +87,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .position(jewish));
     }
 
-    //Start direction method with dialog
-    //Success -> return route
+
+    @Override
+    public void startObtainDirection() {
+        //progress loading
+    }
+
+    @Override
+    public void successObtainDirection(List<Route> route) {
+        //display route
+    }
 }
