@@ -40,6 +40,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="@string/GetStarted"
-            android:onClick="SignInPage"/>
+            android:onClick="googleSignIn"/>
     </LinearLayout>
 </LinearLayout>
