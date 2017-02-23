@@ -47,14 +47,46 @@ public class SignInRequestHandler {
 
     public void logInUser(Context context) {
 
-        StringRequest jsObjRequest = new StringRequest
-                (Request.Method.POST, context.getString(R.string.url) + "/logIn.php", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest
+                (Request.Method.POST, context.getString(R.string.url) +"/testing.php", new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
                         System.out.println("Response: " + response);
-                        JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
-                        System.out.println("email" + obj.get("email"));
+                        //JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+                        //System.out.println("email" + obj.get("email"));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", "harrison@hotmail.com");
+                return params;
+            }
+            @Override
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded";
+            }
+
+        };
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void testServer(Context context){
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, "http://192.175.117.171:10922/test.json",null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                       // JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+                        //System.out.println("email" + obj.get("email"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -76,6 +108,7 @@ public class SignInRequestHandler {
 
         };
         RequestQueueSingleton.getInstance(context).addToRequestQueue(jsObjRequest);
+
     }
 
 

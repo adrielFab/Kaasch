@@ -28,18 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
     }
 
     public void SignInPage(View view){
         Intent intent = new Intent(MainActivity.this, SignInActivity.class);
         startActivity(intent);
     }
-
-
-
-
-
 
 
 }

@@ -44,15 +44,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void signOut(View view) {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                    }
-                });
-    }
-
     //result from the sign in
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -71,8 +62,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
-            //signInRequestHandler.authenticateGoogleAccount(this,idToken);
+            signInRequestHandler.authenticateGoogleAccount(this,idToken);
             signInRequestHandler.logInUser(this);
+            System.out.println("inside");
+            Intent intent = new Intent(SignInActivity.this, TempMainActivity.class);
+            startActivity(intent);
+            //signInRequestHandler.testServer(this);
         } else {
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");

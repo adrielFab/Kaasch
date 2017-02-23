@@ -6,5 +6,6 @@
     <string name="welcome">Welcome To mRides</string>
     <string name="Logout">Logout To be removed"</string>
     <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
-    <string name="url">"http://192.168.0.122:80"</string>
+    <string name="url">http://successdrivingschool.ca</string>
+    <string name="title_activity_temp_main">TempMainActivity</string>
 </resources>
