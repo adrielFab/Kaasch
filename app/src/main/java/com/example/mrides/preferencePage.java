@@ -3,6 +3,7 @@ package com.example.mrides;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import java.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ public class preferencePage extends AppCompatActivity implements View.OnClickLis
 
     Button btnDatePicker, btnTimePicker;
     EditText txtDate, txtTime;
+
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -27,16 +30,22 @@ public class preferencePage extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference_page);
 
-        //btnDatePicker=(Button)findViewById(R.id.btn_date);
+        btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
 
-        //txtDate=(EditText)findViewById(R.id.in_date);
+        txtDate=(EditText)findViewById(R.id.in_date);
         txtTime=(EditText)findViewById(R.id.in_time);
 
-        //btnDatePicker.setOnClickListener(this);
+        btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
 
+
     }
+    public void goToPreferencesTwo(View view) {
+        Intent intent = new Intent(preferencePage.this, PreferencesTwo.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onClick(View v) {
