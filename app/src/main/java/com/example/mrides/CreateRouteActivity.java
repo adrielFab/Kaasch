@@ -37,10 +37,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import DirectionModel.ObtainDirection;
 import DirectionModel.ObtainDirectionListener;
+import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener {
@@ -128,11 +130,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             @Override
             public void onLocationChanged(Location location) {
 
-                LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-                mGoogleMap.clear();
-                mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
             }
 
             @Override
@@ -174,18 +171,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
 
-//        int height = 100;
-//        int width = 100;
-//        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
-//        Bitmap b=bitmapdraw.getBitmap();
-//        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-//
-//        LatLng jewish = new LatLng(45.49785, -73.628719);
-//        mGoogleMap.addMarker(new MarkerOptions()
-//                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-//                .title("Donald Trump")
-//                .position(jewish));
+        PopulateMap populateMap = new PopulateMap(this);
+        populateMap.execute();
     }
+
 
 
     @Override
