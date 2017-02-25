@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -17,6 +19,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
 
 
     private GoogleApiClient mGoogleApiClient;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .enableAutoManage(this /* FragmentActivity */, (GoogleApiClient.OnConnectionFailedListener) this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        handleSignInResult(result);
     }
 
     public void signOut(View view) {
@@ -44,6 +50,37 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                         startActivity(intent);
                     }
                 });
+    }
+
+    //result from the sign in
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            System.out.println("display name: " +acct.getDisplayName());
+            System.out.println("given name: "+ acct.getGivenName());
+            System.out.println("family name" + acct.getFamilyName());
+            System.out.println("email" + acct.getEmail());
+            System.out.println("url" + acct.getPhotoUrl());
+
+            //signInRequestHandler.testServer(this);
+        } else {
+            // Signed out, show unauthenticated UI.
+            System.out.println("Failed");
+            //updateUI(false);
+        }
     }
 
     @Override

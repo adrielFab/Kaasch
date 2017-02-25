@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Request only the user's ID token, which can be used to identify the
-        // user securely for the backend. This will contain the user's basic
+        // Request only the user's email
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.server_client_id))
+                .requestProfile()
                 .build();
+
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -69,11 +69,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            String idToken = acct.getIdToken();
+            /*System.out.println("display name: " +acct.getDisplayName());
+            System.out.println("given name: "+ acct.getGivenName());
+            System.out.println("family name" + acct.getFamilyName());
+            System.out.println("email" + acct.getEmail());
+            System.out.println("url" + acct.getPhotoUrl());*/
+
+            /*String idToken = acct.getIdToken();
+            System.out.println("asdf " + acct.getIdToken());
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
             signInRequestHandler.authenticateGoogleAccount(this,idToken);
             signInRequestHandler.logInUser(this);
-            System.out.println("inside");
+            System.out.println("inside");*/
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
             startActivity(intent);
             //signInRequestHandler.testServer(this);

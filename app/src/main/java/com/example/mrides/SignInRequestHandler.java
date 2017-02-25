@@ -11,9 +11,7 @@ import com.example.mrides.Domain.User;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +25,31 @@ public class SignInRequestHandler {
         // Request a string response from the provided URL.
         String url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" + clientId;
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+       /* JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         validAccout = true;
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        validAccout = false;
+                    }
+                });
+        // Add the request to the RequestQueue.
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(jsObjRequest); */
+
+       StringRequest jsObjRequest = new StringRequest
+                (Request.Method.GET, url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+                        System.out.print("Response: " + response);
+                        System.out.println("\"email\"" + obj.get("email"));
                     }
                 }, new Response.ErrorListener() {
                     @Override

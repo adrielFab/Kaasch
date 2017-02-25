@@ -14,7 +14,7 @@ import com.android.volley.toolbox.Volley;
 public class RequestQueueSingleton {
     private static RequestQueueSingleton mInstance;
     private RequestQueue mRequestQueue;
-    private static Context mCtx;
+    private Context mCtx;
 
     private RequestQueueSingleton(Context context) {
         mCtx = context;
