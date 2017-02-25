@@ -3,9 +3,11 @@ package com.example.mrides;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mrides.Domain.User;
@@ -25,6 +27,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,15 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .enableAutoManage(this , (GoogleApiClient.OnConnectionFailedListener) this )
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        TextView view = (TextView) findViewById(R.id.email);
-        User user = (User) Parcels.unwrap(getIntent().getParcelableExtra("session"));
-        view.setText(user.getEmail());
+
+        TextView text = (TextView) findViewById(R.id.email);
+        user = (User) Parcels.unwrap(getIntent().getParcelableExtra("session"));
+        if(user !=null)
+            text.setText(user.getEmail());
     }
 
     public void signOut(View view) {
+
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override

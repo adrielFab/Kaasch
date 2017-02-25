@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             User user = new User(acct);
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-            intent.putExtra("session", Parcels.wrap(user));
+            intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
             startActivity(intent);
             //signInRequestHandler.logInUser(this,user);
         } else {

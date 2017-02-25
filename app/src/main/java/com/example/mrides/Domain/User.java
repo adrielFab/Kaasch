@@ -5,24 +5,26 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel //parcel annotation is used to help activities communicate with eachother
 public class User {
 
     private String email;
     private String displayName;
     private GoogleSignInAccount acct; //
 
-    public User(){
+    public User(){ //empty constructor needed for Parcel
 
     }
+
+    public User(String email, String displayName){
+        this.email = email;
+        this.displayName = displayName;
+    }
+
 
     public User(GoogleSignInAccount acct){
         email = acct.getEmail();
         displayName = acct.getDisplayName();
-    }
-
-    public User(String asdf){
-        asdf = email;
     }
 
     public String getEmail() {

@@ -1,39 +1,50 @@
 package com.example.mrides;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
+
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 
+import com.example.mrides.Domain.User;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import java.lang.reflect.Field;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
 public class SignInTest {
 
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<TempMainActivity> mActivityRule = new ActivityTestRule<>(
+            TempMainActivity.class);
 
-    @Mock
-    MainActivity mainActivity;
-    @Mock
-    View view;
+    private User user;
 
     @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context context = Mockito.mock(Context.class);
-      //  when(mainActivity.googleSignIn(new View(appContext))).thenReturn("asdf");
-        //assertEquals("com.example.mrides", appContext.getPackageName());
+    public void testEmailContext() {
+        try {
+            user = new User("h@hotmail","displayName");
+            Field f = mActivityRule.getActivity().getClass().getDeclaredField("user"); //NoSuchFieldException
+            f.setAccessible(true);
+            f.set(mActivityRule.getActivity(), user);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch(NoSuchFieldException e){
+            e.printStackTrace();
+        }
+        onView(withId(R.id.email)).perform(click())
+                .check(matches(isDisplayed()));
+
+
     }
 
 
