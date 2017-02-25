@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.mrides.Domain.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -19,6 +20,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
+import org.parceler.Parcels;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+          //  LoginSessionSingleton session = LoginSessionSingleton.getInstance();
+            User user = new User(acct);
+
             /*System.out.println("display name: " +acct.getDisplayName());
             System.out.println("given name: "+ acct.getGivenName());
             System.out.println("family name" + acct.getFamilyName());
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             signInRequestHandler.logInUser(this);
             System.out.println("inside");*/
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+            intent.putExtra("session", Parcels.wrap(user));
             startActivity(intent);
             //signInRequestHandler.testServer(this);
         } else {
@@ -89,6 +96,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             System.out.println("Failed");
             //updateUI(false);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
     @Override

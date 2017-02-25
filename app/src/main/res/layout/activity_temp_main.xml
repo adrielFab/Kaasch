@@ -14,8 +14,21 @@
         style="@style/orange_rounded_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="logout temperary"
+        android:text="@string/Logout"
         android:onClick="signOut"
-        android:background="@drawable/orange_button_rounded"/>
+        android:background="@drawable/orange_button_rounded"
+        android:id="@+id/button2" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/email" />
 
 </RelativeLayout>

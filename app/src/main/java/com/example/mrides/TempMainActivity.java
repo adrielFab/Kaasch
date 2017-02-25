@@ -2,10 +2,13 @@ package com.example.mrides;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.example.mrides.Domain.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -15,11 +18,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import org.parceler.Parcels;
+
 public class TempMainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    private LoginSessionSingleton session = LoginSessionSingleton.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +39,22 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, (GoogleApiClient.OnConnectionFailedListener) this /* OnConnectionFailedListener */)
+                .enableAutoManage(this , (GoogleApiClient.OnConnectionFailedListener) this )
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-        handleSignInResult(result);
+        TextView view = (TextView) findViewById(R.id.email);
+        User user = (User) Parcels.unwrap(getIntent().getParcelableExtra("session"));
+        System.out.print("email: ");
+        view.setText(user.getEmail());
     }
+
 
     public void signOut(View view) {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
+                        System.out.print("email: ");
                         Intent intent = new Intent(TempMainActivity.this, MainActivity.class);
                         startActivity(intent);
                     }

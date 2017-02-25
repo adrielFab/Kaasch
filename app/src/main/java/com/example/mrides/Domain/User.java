@@ -1,15 +1,29 @@
 package com.example.mrides.Domain;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class User {
 
     private String email;
-    private String name;
-    private String profilePictureUrl;
-    private String givenName;
-    private String familyName;
+    private String displayName;
+    private GoogleSignInAccount acct; //
 
+    public User(){
+
+    }
+
+    public User(GoogleSignInAccount acct){
+        email = acct.getEmail();
+        displayName = acct.getDisplayName();
+    }
+
+    public User(String asdf){
+        asdf = email;
+    }
 
     public String getEmail() {
         return email;
@@ -19,35 +33,19 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public String getGivenName() {
-        return givenName;
+    public GoogleSignInAccount getAcct() {
+        return acct;
     }
 
-    public void setGivenName(String givenName) {
-        this.givenName = givenName;
-    }
-
-    public String getProfilePictureUrl() {
-        return profilePictureUrl;
-    }
-
-    public void setProfilePictureUrl(String profilePictureUrl) {
-        this.profilePictureUrl = profilePictureUrl;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setAcct(GoogleSignInAccount acct) {
+        this.acct = acct;
     }
 }

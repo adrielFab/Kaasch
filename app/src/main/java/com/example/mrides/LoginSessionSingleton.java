@@ -1,32 +1,32 @@
 package com.example.mrides;
 
-import android.content.Context;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.mrides.Domain.User;
 
 
 public class LoginSessionSingleton {
 
     private static LoginSessionSingleton session;
-    private User user;
+    private static User user;
 
 
-    private LoginSessionSingleton(User logedInUser) {
-        user = logedInUser;
-        session = getInstance();
+    private LoginSessionSingleton() {
+
     }
 
-    public static synchronized LoginSessionSingleton getInstance(User user) {
+    public static synchronized LoginSessionSingleton getInstance() {
         if (session == null) {
-            session = new LoginSessionSingleton(user);
+            session = new LoginSessionSingleton();
         }
 
         return session;
     }
 
-    public RequestQueue getUser() {
-        return mRequestQueue;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
