@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class SignInRequestHandler {
 
-    
+
 
     public void logInUser(Context context, final User user) {
         StringRequest stringRequest = new StringRequest

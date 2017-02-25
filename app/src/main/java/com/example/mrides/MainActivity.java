@@ -77,11 +77,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
             intent.putExtra("session", Parcels.wrap(user));
             startActivity(intent);
-            signInRequestHandler.logInUser(this,user);
+            //signInRequestHandler.logInUser(this,user);
         } else {
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");
-            //updateUI(false);
         }
     }
 
