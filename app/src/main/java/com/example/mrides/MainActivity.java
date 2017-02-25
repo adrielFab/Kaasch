@@ -72,25 +72,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-          //  LoginSessionSingleton session = LoginSessionSingleton.getInstance();
             User user = new User(acct);
-
-            /*System.out.println("display name: " +acct.getDisplayName());
-            System.out.println("given name: "+ acct.getGivenName());
-            System.out.println("family name" + acct.getFamilyName());
-            System.out.println("email" + acct.getEmail());
-            System.out.println("url" + acct.getPhotoUrl());*/
-
-            /*String idToken = acct.getIdToken();
-            System.out.println("asdf " + acct.getIdToken());
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
-            signInRequestHandler.authenticateGoogleAccount(this,idToken);
-            signInRequestHandler.logInUser(this);
-            System.out.println("inside");*/
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
             intent.putExtra("session", Parcels.wrap(user));
             startActivity(intent);
-            //signInRequestHandler.testServer(this);
+            signInRequestHandler.logInUser(this,user);
         } else {
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");

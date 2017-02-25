@@ -25,7 +25,6 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
-    private LoginSessionSingleton session = LoginSessionSingleton.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,52 +43,18 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .build();
         TextView view = (TextView) findViewById(R.id.email);
         User user = (User) Parcels.unwrap(getIntent().getParcelableExtra("session"));
-        System.out.print("email: ");
         view.setText(user.getEmail());
     }
-
 
     public void signOut(View view) {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        System.out.print("email: ");
                         Intent intent = new Intent(TempMainActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
-    }
-
-    //result from the sign in
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
-
-    private void handleSignInResult(GoogleSignInResult result) {
-
-        if (result.isSuccess()) {
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            System.out.println("display name: " +acct.getDisplayName());
-            System.out.println("given name: "+ acct.getGivenName());
-            System.out.println("family name" + acct.getFamilyName());
-            System.out.println("email" + acct.getEmail());
-            System.out.println("url" + acct.getPhotoUrl());
-
-            //signInRequestHandler.testServer(this);
-        } else {
-            // Signed out, show unauthenticated UI.
-            System.out.println("Failed");
-            //updateUI(false);
-        }
     }
 
     @Override
