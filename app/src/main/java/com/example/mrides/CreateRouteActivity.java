@@ -175,6 +175,24 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         populateMap.execute();
     }
 
+    public void populateGoogleMap(HashMap<String, LatLng> hashMap){
+        HashMap<String, LatLng> hashUsers = hashMap;
+        String result = "";
+
+        int height = 100;
+        int width = 100;
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
+        Bitmap b=bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+        for(String key: hashUsers.keySet()){
+            LatLng location = hashUsers.get(key);
+            mGoogleMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                    .title(key)
+                    .position(location));
+        }
+    }
 
 
     @Override
