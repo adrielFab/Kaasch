@@ -138,7 +138,8 @@
             android:layout_height="wrap_content"
             android:text="@string/Next"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:id="@+id/submitBtn"/>
     </RelativeLayout>
 
 

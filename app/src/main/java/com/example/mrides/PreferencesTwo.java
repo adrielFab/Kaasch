@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class PreferencesTwo extends AppCompatActivity {
     private TextView textDog, textSmoke, textBoy, textGirl, textTitle;
     private int [] preferenceChoice = {1, 1, 1, 1};
     private Typeface tf1;
+    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,27 @@ public class PreferencesTwo extends AppCompatActivity {
                 }
             }
         });
+
+        btn =(Button)findViewById(R.id.submitBtn);
+        btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                nextButton();
+            }
+        });
+
+    }
+
+    public void nextButton(){
+        boolean[] conv_data={true,true,true,true};
+        for(int i: preferenceChoice){
+            conv_data[i] = ((preferenceChoice[i] == 1) ? true:false);
+        }
+        //TO DO:Obtain current user email and add to conv_data as String.
+
+        BackgroundWork backgroundWork = new BackgroundWork(this);
+        backgroundWork.execute(conv_data);
 
     }
 
