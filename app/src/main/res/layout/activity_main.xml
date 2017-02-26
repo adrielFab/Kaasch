@@ -34,11 +34,10 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="horizontal">
         <Button
             style="@style/orangeButton"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="Sign in"
@@ -49,5 +48,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="@string/Register" />
+            android:text="@string/GetStarted"
+            android:onClick="googleSignIn"/>
+
     </LinearLayout>
 </LinearLayout>
