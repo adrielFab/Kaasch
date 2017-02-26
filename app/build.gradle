@@ -28,4 +28,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
+    androidTestCompile "org.mockito:mockito-core:2.0.57-beta"
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 }
