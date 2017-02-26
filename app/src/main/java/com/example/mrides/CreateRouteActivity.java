@@ -227,27 +227,27 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
-            ((TextView) findViewById(R.id.textDuration)).setText(route.duration.text);
-            ((TextView) findViewById(R.id.textDistance)).setText(route.distance.text);
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
+            ((TextView) findViewById(R.id.textDuration)).setText(route.getDuration().getText());
+            ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
 
             startMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                    .title(route.startAddress)
-                    .position(route.startLocation)));
+                    .title(route.getStartAddress())
+                    .position(route.getStartLocation())));
 
             destinationMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .title(route.endAddress)
-                    .position(route.endLocation)));
+                    .title(route.getEndAddress())
+                    .position(route.getEndLocation())));
 
             PolylineOptions polylineOptions = new PolylineOptions(). //Route
                     geodesic(true).
                     color(Color.CYAN).
                     width(10);
 
-            for (int i = 0; i < route.points.size(); i++)
-                polylineOptions.add(route.points.get(i));
+            for (int i = 0; i < route.getPoints().size(); i++)
+                polylineOptions.add(route.getPoints().get(i));
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
         }
