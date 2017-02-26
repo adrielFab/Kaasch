@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">mRides</string>
     <string name="Sign_In">Sign In</string>
+
+    <string name="Register">Register"</string>
+    <string name="title_activity_create_route">CreateRouteActivity</string>
+
     <string name="GetStarted">Get Started"</string>
     <string name="GmailSignIn">SIGN IN WITH GMAIL</string>
     <string name="welcome">Welcome To mRides</string>
@@ -9,4 +13,5 @@
     <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
     <string name="url">http://successdrivingschool.ca</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
+
 </resources>
