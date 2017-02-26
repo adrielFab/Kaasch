@@ -37,7 +37,7 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
         String wantsSmoking = String.valueOf(array1[1]);
         String wantsMale = String.valueOf(array1[3]);
         String wantsFemale = String.valueOf(array1[2]);
-        String email = "test2@app.com";//temporary hardcoded email.
+        String email = "adriel@app.com";//temporary hardcoded email.
 
         try {
             URL url = new URL(save_url);
@@ -60,7 +60,7 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
             InputStream inputStream =  httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result ="Initial Result\n";
+            String result ="Result: \n";
             String line = "";
             while ((line = bufferedReader.readLine()) != null){
                 result += line;
