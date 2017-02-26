@@ -2,10 +2,20 @@ package com.example.mrides;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.lang.reflect.Method;
+import java.util.List;
+
+import DirectionModel.ObtainDirection;
+import DirectionModel.ObtainDirectionListener;
+import DirectionModel.Route;
 
 import static org.junit.Assert.*;
 
@@ -16,11 +26,50 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    @Rule
+    public ActivityTestRule mActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
+
     @Test
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.example.mrides", appContext.getPackageName());
+    }
+
+    @Test
+    public void decodePoly(){
+        ObtainDirectionListener listener = new ObtainDirectionListener() {
+            @Override
+            public void startObtainDirection() {
+
+            }
+
+            @Override
+            public void successObtainDirection(List<Route> route) {
+
+            }
+        };
+        String start = "Montreal";
+        String end = "Ottawa";
+
+        ObtainDirection direction = new ObtainDirection(listener,start,end);
+
+        Method method;
+        // Encoded polyline for going from one location to another
+        String encoded ="au|tGnsg`MxfIdP";
+        // Decoded polyline for the same locations
+        String decoded = "[lat/lng: (45.53569,-73.6084), lat/lng: (45.48324,-73.61115)]";
+        try {
+            method = direction.getClass().getDeclaredMethod("decodePoly", String.class);
+            method.setAccessible(true);
+            encoded=(String)method.invoke(direction,encoded).toString();
+        }catch (Exception e){
+            System.out.println("Exception caught: "+e.getMessage());
+        }
+        assertEquals(encoded, decoded);
+
     }
 }
