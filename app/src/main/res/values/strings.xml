@@ -3,6 +3,30 @@
     <string name="Sign_In">Sign In</string>
 
     <string name="Register">Register"</string>
+  
+    <string name="title_activity_preference_page">preference_page</string>
+    <string name="route_name">Route Name :"</string>
+    <string name="action_settings">Settings</string>
+    <string name="hint_name">ex: Work</string>
+    <string name="Frequency">Frequency :</string>
+    <string name="Once">Once</string>
+    <string name="Repeated">Repeated</string>
+    <string name="Arrival_time">Arrival Time:</string>
+    <string name="Departure_time">Departure Time:</string>
+    <string name="Rider_type">Rider Type:</string>
+    <string name="Driver">Driver</string>
+    <string name="Passenger">Passenger</string>
+    <string name="Next">Next</string>
+    <string name="Sample_time">20:00</string>
+    <string name="Select">Change</string>
+    <string name="Departure_date">Departure Date:</string>
+    <string name="Sample_date">1-5-2017</string>
+    <string name="Select_preferences">Select Preferences</string>
+    <string name="mind_men">I do not mind men</string>
+    <string name="mind_women">I do not mind women</string>
+    <string name="mind_smoking">I do not mind smoking</string>
+    <string name="mind_pets">I do not mind pets</string>
+
     <string name="title_activity_create_route">CreateRouteActivity</string>
 
     <string name="GetStarted">Get Started"</string>
@@ -13,5 +37,6 @@
     <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
     <string name="url">http://successdrivingschool.ca</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
+
 
 </resources>
