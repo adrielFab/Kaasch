@@ -21,7 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class PreferenceUserInterfaceTest {
 
     @Rule
-    public ActivityTestRule<preferencePage> mActivityRule = new ActivityTestRule<>(preferencePage.class);
+    public ActivityTestRule<PreferencePageActivity> mActivityRule = new ActivityTestRule<>(PreferencePageActivity.class);
 
     @Test
     public void searchRouteSpecifications(){

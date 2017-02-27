@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PreferencesTwo extends AppCompatActivity {
+public class PreferencesTwoActivity extends AppCompatActivity {
     private ImageView imageDog, imageSmoke, imageBoy, imageGirl;
     private TextView textDog, textSmoke, textBoy, textGirl, textTitle;
     private int [] preferenceChoice = {1, 1, 1, 1};

@@ -6,22 +6,17 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TimePicker;
 import java.util.Calendar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public class preferencePage extends AppCompatActivity implements View.OnClickListener{
+public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button btnDatePicker, btnTimePicker;
-    EditText txtDate, txtTime;
+    private Button btnDatePicker, btnTimePicker;
+    private EditText txtDate, txtTime;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -42,7 +37,7 @@ public class preferencePage extends AppCompatActivity implements View.OnClickLis
 
     }
     public void goToPreferencesTwo(View view) {
-        Intent intent = new Intent(preferencePage.this, PreferencesTwo.class);
+        Intent intent = new Intent(PreferencePageActivity.this, PreferencesTwoActivity.class);
         startActivity(intent);
     }
 

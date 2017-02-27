@@ -26,6 +26,8 @@
     <string name="mind_women">I do not mind women</string>
     <string name="mind_smoking">I do not mind smoking</string>
     <string name="mind_pets">I do not mind pets</string>
+    <string name="createRoute">Create Route</string>
+    <string name="preferences">Preferences</string>
 
     <string name="title_activity_create_route">CreateRouteActivity</string>
 

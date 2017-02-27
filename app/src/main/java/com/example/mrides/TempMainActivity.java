@@ -63,6 +63,16 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 });
     }
 
+    public void createRoute(View view){
+        Intent intent = new Intent(TempMainActivity.this, CreateRouteActivity.class);
+        startActivity(intent);
+    }
+
+    public void preferences(View view){
+        Intent intent = new Intent(TempMainActivity.this, PreferencePageActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 

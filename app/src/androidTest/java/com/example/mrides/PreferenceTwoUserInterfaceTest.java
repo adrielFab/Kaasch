@@ -20,7 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class PreferenceTwoUserInterfaceTest {
 
     @Rule
-    public ActivityTestRule<PreferencesTwo> mActivityRule = new ActivityTestRule<>(PreferencesTwo.class);
+    public ActivityTestRule<PreferencesTwoActivity> mActivityRule = new ActivityTestRule<>(PreferencesTwoActivity.class);
 
     @Test
     public void searchUserPreferences(){
