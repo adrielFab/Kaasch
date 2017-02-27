@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:textStyle="bold"
-            android:text="@string/Departure_date"
+            android:text="Departure Date:"
             style="@style/regularSizeText"/>
         <EditText
             android:layout_width="0dp"
@@ -183,5 +183,4 @@
         android:layout_height="wrap_content"
         android:text="@string/Next"
         android:onClick="goToPreferencesTwo"/>
-
 </LinearLayout>
