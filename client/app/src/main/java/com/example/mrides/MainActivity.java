@@ -36,9 +36,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Request only the user's email address
+       /* // Request only the user's email address
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestProfile()
+                .build();*/
+
+        // Request only the user's ID token, which can be used to identify the
+        // user securely to your backend. This will contain the user's basic
+        // profile (name, profile picture URL, etc) so you should not need to
+        // make an additional call to personalize your application.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
@@ -72,11 +80,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            User user = new User(acct);
+            String idToken = acct.getIdToken();
+            SignInRequestHandler handler = new SignInRequestHandler();
+            handler.logInUser(this,idToken);
+            Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+            //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
+            startActivity(intent);
+            /*User user = new User(acct);
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
             intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
-            startActivity(intent);
+            startActivity(intent);*/
             //signInRequestHandler.logInUser(this,user);
         } else {
             // Signed out, show unauthenticated UI.

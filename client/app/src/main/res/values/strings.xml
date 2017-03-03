@@ -38,6 +38,7 @@
     <string name="introText">To start taking advantage of the wonderful features offered to you by mRides, you must first log in using a gmail account</string>
     <string name="server_client_id">1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com</string>
     <string name="url">http://successdrivingschool.ca</string>
+    <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
 
 

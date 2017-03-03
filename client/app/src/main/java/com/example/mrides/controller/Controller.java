@@ -1,8 +1,57 @@
 package com.example.mrides.controller;
 
-/**
- * Created by Deez Nuts on 2/28/2017.
- */
+
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.mrides.R;
+import com.example.mrides.RequestQueueSingleton;
+
+import org.parceler.Parcel;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import DirectionModel.IPersistanceObject;
 
 public class Controller {
+
+    private IPersistanceObject persistance;
+
+    public void postStringRequest(String path, IPersistanceObject parcel, Context context){
+        StringRequest stringRequest = new StringRequest
+                (Request.Method.POST, context.getString(R.string.url) +"/testing.php",
+                        new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response);
+                        //System.out.println("Response: " + response);
+                        //JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
+                        //System.out.println("email" + obj.get("email"));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+            @Override
+            public String getBodyContentType()
+            {
+                return "application/x-www-form-urlencoded";
+            }
+
+        };
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
 }

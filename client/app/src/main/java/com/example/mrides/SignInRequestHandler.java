@@ -20,12 +20,14 @@ public class SignInRequestHandler {
 
 
 
-    public void logInUser(Context context, final User user) {
+    public void logInUser(Context context, final String clientId) {
         StringRequest stringRequest = new StringRequest
-                (Request.Method.POST, context.getString(R.string.url) +"/testing.php", new Response.Listener<String>() {
+                (Request.Method.POST, context.getString(R.string.googleVerificationURL) +clientId,
+                        new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
+                        System.out.println(response);
                         //System.out.println("Response: " + response);
                         //JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
                         //System.out.println("email" + obj.get("email"));
@@ -39,8 +41,8 @@ public class SignInRequestHandler {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", user.getEmail());
-                params.put("displayName", user.getDisplayName());
+                //params.put("email", user.getEmail());
+                //params.put("displayName", user.getDisplayName());
                 return params;
             }
             @Override

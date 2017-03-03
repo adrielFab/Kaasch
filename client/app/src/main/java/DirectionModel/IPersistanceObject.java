@@ -1,8 +1,15 @@
 package DirectionModel;
 
-/**
- * Created by Deez Nuts on 3/2/2017.
- */
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 public interface IPersistanceObject {
+
+    public Map<String,String> parameters = new HashMap<>();
+
+    public Map<String,String> getParameters();
+    public Map<String,String> setParameters();
+
 }
