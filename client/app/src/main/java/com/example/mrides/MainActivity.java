@@ -45,8 +45,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // user securely to your backend. This will contain the user's basic
         // profile (name, profile picture URL, etc) so you should not need to
         // make an additional call to personalize your application.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+       /* GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
+                .build();*/
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
                 .build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
+            System.out.println("email: " + acct.getEmail());
             SignInRequestHandler handler = new SignInRequestHandler();
             handler.logInUser(this,idToken);
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
