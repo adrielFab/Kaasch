@@ -59,7 +59,7 @@ public class RequestHandler implements Subject{
                 (url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Notify();
+                                Notify(response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -81,9 +81,9 @@ public class RequestHandler implements Subject{
     }
 
     @Override
-    public void Notify() {
+    public void Notify(String response) {
         for(ActivityObserver e : observers){
-            e.responseReceived();
+            e.responseReceived(response);
         }
     }
 }

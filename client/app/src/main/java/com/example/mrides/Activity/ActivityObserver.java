@@ -4,5 +4,5 @@ package com.example.mrides.Activity;
 
 public interface ActivityObserver {
 
-    public void responseReceived();
+    public void responseReceived(String response);
 }

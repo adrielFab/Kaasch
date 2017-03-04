@@ -37,6 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONException;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ import DirectionModel.ObtainDirection;
 import DirectionModel.ObtainDirectionListener;
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
+import DirectionModel.RouteDeserializer;
 
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener, ActivityObserver {
 
@@ -264,7 +267,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
-    public void responseReceived() {
-
+    public void responseReceived(String response) {
+        RouteDeserializer deserializer = new RouteDeserializer();
+        ArrayList<Route> route = new ArrayList<>();
+        try {
+            route = (ArrayList<Route>) deserializer.parseJSON(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        successObtainDirection(route);
     }
 }
