@@ -59,6 +59,7 @@ public class RequestHandler implements Subject{
                 (url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+                                Notify();
                             }
                         }, new Response.ErrorListener() {
                     @Override

@@ -115,23 +115,18 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
+        String url = "";
         try {
             String urlOrigin = URLEncoder.encode(start, "utf-8");
             String urlDestination = URLEncoder.encode(destination, "utf-8");
-            return R.string.direction_url_api + "origin=" + urlOrigin + "&destination=" +
-                    urlDestination + "&key=" + R.string.google_maps_api_key;
+            url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
+                    urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         }
         catch (UnsupportedEncodingException e){
-
-        }
-        startObtainDirection();
-        requestHandler.getStringRequest();
-        try{
-            new ObtainDirection(this, start, destination).execute();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
+        startObtainDirection();
+        requestHandler.getStringRequest(url,this);
     }
 
 
