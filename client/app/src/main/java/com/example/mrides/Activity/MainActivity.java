@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        requestHandler.attach(this);
         // Build a GoogleApiClient with access to the Google Sign-In API and the
         // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -67,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
             System.out.println("email: " + acct.getEmail());
+            requestHandler.attach(this);
             requestHandler.getStringRequest(getString(R.string.googleVerificationURL)
                     +idToken,this);
             //SignInRequestHandler handler = new SignInRequestHandler();
