@@ -67,11 +67,13 @@ public class MainActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
             System.out.println("email: " + acct.getEmail());
-            SignInRequestHandler handler = new SignInRequestHandler();
-            handler.logInUser(this,idToken);
-            Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+            requestHandler.getStringRequest(getString(R.string.googleVerificationURL)
+                    +idToken,this);
+            //SignInRequestHandler handler = new SignInRequestHandler();
+            //handler.logInUser(this,idToken);
+           // Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
             //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
-            startActivity(intent);
+            //startActivity(intent);
             /*User user = new User(acct);
             SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
             Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
@@ -101,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void responseReceived(String response) {
-        
+        requestHandler.detach(this);
+        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+        //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
+        startActivity(intent);
     }
 }

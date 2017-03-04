@@ -94,8 +94,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
         mEditTextStart = (EditText) findViewById(R.id.editTextStart);
         mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
-        requestHandler.attach(this);
-
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -129,6 +127,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             e.printStackTrace();
         }
         startObtainDirection();
+        requestHandler.attach(this);
         requestHandler.getStringRequest(url,this);
     }
 
@@ -268,6 +267,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void responseReceived(String response) {
+        requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
         ArrayList<Route> route = new ArrayList<>();
         try {
