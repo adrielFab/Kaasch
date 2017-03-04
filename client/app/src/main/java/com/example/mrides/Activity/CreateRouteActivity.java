@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +91,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
         mEditTextStart = (EditText) findViewById(R.id.editTextStart);
         mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+        requestHandler.attach(this);
 
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
@@ -113,7 +115,17 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
+        try {
+            String urlOrigin = URLEncoder.encode(start, "utf-8");
+            String urlDestination = URLEncoder.encode(destination, "utf-8");
+            return R.string.direction_url_api + "origin=" + urlOrigin + "&destination=" +
+                    urlDestination + "&key=" + R.string.google_maps_api_key;
+        }
+        catch (UnsupportedEncodingException e){
 
+        }
+        startObtainDirection();
+        requestHandler.getStringRequest();
         try{
             new ObtainDirection(this, start, destination).execute();
         } catch (UnsupportedEncodingException e) {
