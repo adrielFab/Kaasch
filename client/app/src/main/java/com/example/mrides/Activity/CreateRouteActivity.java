@@ -46,7 +46,7 @@ import DirectionModel.ObtainDirectionListener;
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 
-public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener {
+public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener, ActivityObserver {
 
     private Button mButtonFindPath;
     private EditText mEditTextStart;
@@ -252,5 +252,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
         }
+    }
+
+    @Override
+    public void responseReceived() {
+
     }
 }
