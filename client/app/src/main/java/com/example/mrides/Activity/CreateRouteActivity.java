@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.R;
+import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -58,6 +59,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private List<Polyline> polylinePaths = new ArrayList<>();
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private RequestHandler requestHandler = new RequestHandler();
 
 
     @Override

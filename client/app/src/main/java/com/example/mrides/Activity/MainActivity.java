@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.mrides.R;
 import com.example.mrides.SignInRequestHandler;
+import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
+    private RequestHandler requestHandler = new RequestHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
