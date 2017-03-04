@@ -31,10 +31,6 @@ public class RequestHandler implements Subject{
 
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
-                        //System.out.println("Response: " + response);
-                        //JsonObject obj = new JsonParser().parse(response).getAsJsonObject();
-                        //System.out.println("email" + obj.get("email"));
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -55,6 +51,21 @@ public class RequestHandler implements Subject{
             }
 
         };
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void getStringRequest(String url, Context context){
+        StringRequest stringRequest = new StringRequest
+                (url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
