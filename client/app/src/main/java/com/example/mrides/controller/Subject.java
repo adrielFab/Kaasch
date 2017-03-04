@@ -11,8 +11,6 @@ import DirectionModel.IPersistanceObject;
  */
 
 public interface Subject {
-    ArrayList<ActivityObserver> observers = new ArrayList<>();
-    IPersistanceObject response;
     public void attach(ActivityObserver observerToAdd);
     public void detach(ActivityObserver observerToRemove);
     public void Notify();

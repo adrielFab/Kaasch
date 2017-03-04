@@ -5,4 +5,6 @@ package DirectionModel;
  */
 
 public class RouteDeserializer {
+
+
 }
