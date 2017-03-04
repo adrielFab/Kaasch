@@ -1,4 +1,4 @@
-package com.example.mrides;
+package com.example.mrides.Activity;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.mrides.BackgroundWork;
+import com.example.mrides.R;
 
 public class PreferencesTwoActivity extends AppCompatActivity {
     private ImageView imageDog, imageSmoke, imageBoy, imageGirl;

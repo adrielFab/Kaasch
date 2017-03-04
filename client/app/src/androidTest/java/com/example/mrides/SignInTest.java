@@ -4,6 +4,7 @@ package com.example.mrides;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.mrides.Activity.TempMainActivity;
 import com.example.mrides.Domain.User;
 import org.junit.Rule;
 import org.junit.Test;

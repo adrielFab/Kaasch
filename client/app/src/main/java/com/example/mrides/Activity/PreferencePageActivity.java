@@ -1,4 +1,4 @@
-package com.example.mrides;
+package com.example.mrides.Activity;
 
 
 import android.app.DatePickerDialog;
@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
+import com.example.mrides.R;
+
 import java.util.Calendar;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{

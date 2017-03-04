@@ -5,25 +5,22 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.mrides.Activity.CreateRouteActivity;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import DirectionModel.ObtainDirection;
 import DirectionModel.ObtainDirectionListener;
-import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
 
 /**
  * Instrumentation test, which will execute on an Android device.

@@ -1,4 +1,4 @@
-package com.example.mrides;
+package com.example.mrides.Activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
