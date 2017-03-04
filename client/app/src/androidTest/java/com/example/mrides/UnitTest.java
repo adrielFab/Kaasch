@@ -114,26 +114,5 @@ public class UnitTest {
 
     }
 
-    @Test
-    public void assertParseJSON()  {
-
-        String start = "Montreal";
-        String end = "Ottawa";
-
-        ObtainDirection direction = new ObtainDirection(listener,start,end);
-
-        Method method;
-        String url=null;
-        try {
-            method = direction.getClass().getDeclaredMethod("parseJSON", String.class);
-            method.setAccessible(true);
-            method.invoke(direction);
-        }catch (Exception e){
-            System.out.println("Exception caught: "+e.getMessage());
-        }
-
-
-    }
-
 
 }

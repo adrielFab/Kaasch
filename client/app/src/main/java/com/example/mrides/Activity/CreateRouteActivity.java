@@ -44,14 +44,11 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import DirectionModel.ObtainDirection;
-import DirectionModel.ObtainDirectionListener;
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
-public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ObtainDirectionListener, ActivityObserver {
+public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ActivityObserver {
 
     private Button mButtonFindPath;
     private EditText mEditTextStart;
@@ -207,7 +204,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
 
-    @Override
+
     public void startObtainDirection() {
         mProgressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction...", true);
@@ -231,7 +228,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-    @Override
     public void successObtainDirection(List<Route> routes) {
         mProgressDialog.dismiss();
         polylinePaths = new ArrayList<>();
