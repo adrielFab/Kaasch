@@ -22,7 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends DefaultActivity implements
         GoogleApiClient.OnConnectionFailedListener, ActivityObserver{
 
     private GoogleApiClient mGoogleApiClient;
