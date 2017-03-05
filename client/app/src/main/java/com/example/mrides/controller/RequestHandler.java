@@ -29,10 +29,10 @@ public class RequestHandler implements Subject{
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
 
 
-    public void postStringRequest(String path, IPersistanceObject parcel, Context context){
+    public void postStringRequest(String url, IPersistanceObject parcel, Context context){
 
         StringRequest stringRequest = new StringRequest
-                (Request.Method.POST, context.getString(R.string.url) +"/testing.php",
+                (Request.Method.POST, url,
                         new Response.Listener<String>() {
 
                     @Override
