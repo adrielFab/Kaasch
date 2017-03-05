@@ -1,3 +1,8 @@
+/*
+* Class RequestQueueSingleton
+*
+* 03/04/17
+*/
 package com.example.mrides;
 
 import android.content.Context;
@@ -12,17 +17,21 @@ import com.android.volley.toolbox.Volley;
  */
 
 public class RequestQueueSingleton {
+
     private static RequestQueueSingleton mInstance;
     private RequestQueue mRequestQueue;
     private static Context mCtx;
 
     private RequestQueueSingleton(Context context) {
+
         mCtx = context;
         mRequestQueue = getRequestQueue();
     }
 
     public static synchronized RequestQueueSingleton getInstance(Context context) {
+
         if (mInstance == null) {
+
             mInstance = new RequestQueueSingleton(context);
         }
 
@@ -30,7 +39,9 @@ public class RequestQueueSingleton {
     }
 
     public RequestQueue getRequestQueue() {
+
         if (mRequestQueue == null) {
+
             //create a new RequestQueue for a new context, however removing the previous
             //instance of RequestQueue from memory
             mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
@@ -38,9 +49,8 @@ public class RequestQueueSingleton {
         return mRequestQueue;
     }
 
-
-
     public <T> void addToRequestQueue(Request<T> req) {
+
         getRequestQueue().add(req);
     }
 }

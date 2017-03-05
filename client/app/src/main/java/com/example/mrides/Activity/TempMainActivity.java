@@ -1,3 +1,8 @@
+/*
+* Class TempMainActivity
+*
+* 03/04/17
+*/
 package com.example.mrides.Activity;
 
 import android.content.Intent;
@@ -20,13 +25,13 @@ import org.parceler.Parcels;
 
 public class TempMainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
-
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_main);
         // Request only the user's ID token, which can be used to identify the
@@ -53,6 +58,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
+
                         Intent intent = new Intent(TempMainActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -60,11 +66,13 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public void createRoute(View view){
+
         Intent intent = new Intent(TempMainActivity.this, CreateRouteActivity.class);
         startActivity(intent);
     }
 
     public void preferences(View view){
+
         Intent intent = new Intent(TempMainActivity.this, PreferencePageActivity.class);
         startActivity(intent);
     }

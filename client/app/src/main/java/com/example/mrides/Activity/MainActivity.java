@@ -1,3 +1,8 @@
+/*
+* Class MainActivity
+*
+* 03/04/17
+*/
 package com.example.mrides.Activity;
 
 import android.content.Intent;
@@ -20,13 +25,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, ActivityObserver{
 
-
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements
 
     // onclick event for sign in button
     public void googleSignIn(View view) {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
     //result from the sign in
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -61,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
+
         if (result.isSuccess()) {
+
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
@@ -81,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements
             startActivity(intent);*/
             //signInRequestHandler.logInUser(this,user);
         } else {
+
             // Signed out, show unauthenticated UI.
             System.out.println("Failed");
         }
@@ -88,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -96,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
         //TODO message must show up if gmail user account could not be optained
         //most likely related to no wifi connection
     }
@@ -103,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void responseReceived(String response) {
+
         requestHandler.detach(this);
         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
         //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity

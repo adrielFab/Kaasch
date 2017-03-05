@@ -1,3 +1,8 @@
+/*
+* Class BackgroundWork
+*
+* 03/04/17
+*/
 package com.example.mrides;
 
 import android.content.Context;
@@ -24,11 +29,13 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
     AlertDialog mAlertDialog;
 
     public BackgroundWork(Context context){
+
         this.context = context;
     }
 
     @Override
     protected String doInBackground(boolean[]... params) {
+
         String save_url = "http://successdrivingschool.ca/new_test_android.php";
         //String save_url = "https://httpbin.org/post";
 
@@ -40,6 +47,7 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
         String email = "adriel@app.com";//temporary hardcoded email.
 
         try {
+
             URL url = new URL(save_url);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -72,8 +80,10 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
             return result;
 
         } catch (MalformedURLException e) {
+
             e.printStackTrace();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
@@ -83,18 +93,21 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
     @Override
     protected void onPreExecute() {
+
         mAlertDialog = new AlertDialog.Builder(context).create();
         mAlertDialog.setTitle("Adding Preferences");
     }
 
     @Override
     protected void onPostExecute(String result) {
+
         mAlertDialog.setMessage(result);
         mAlertDialog.show();
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
+
         super.onProgressUpdate(values);
     }
 }
