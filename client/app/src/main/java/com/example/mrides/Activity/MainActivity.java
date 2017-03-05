@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements
 
     // onclick event for sign in button
     public void googleSignIn(View view) {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        if (requestHandler.isInternetConnected(this)){
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        }
     }
 
     //result from the sign in

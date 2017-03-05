@@ -220,7 +220,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
 
     public void startObtainDirection() {
-
+        if(!requestHandler.isInternetConnected(this)){
+            return;
+        }
         mProgressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction...", true);
 

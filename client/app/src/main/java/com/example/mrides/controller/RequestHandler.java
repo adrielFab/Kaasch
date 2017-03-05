@@ -91,10 +91,10 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    private boolean isInternetConnected(Context context){
+    public boolean isInternetConnected(Context context){
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
+        System.out.println("check");
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
@@ -110,7 +110,9 @@ public class RequestHandler implements Subject{
 
     @Override
     public void attach(ActivityObserver observerToAdd) {
-
+        if(observers.contains(observerToAdd)){
+            return;
+        }
         observers.add(observerToAdd);
     }
 
