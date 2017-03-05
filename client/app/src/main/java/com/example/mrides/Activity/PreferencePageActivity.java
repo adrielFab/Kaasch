@@ -1,3 +1,8 @@
+/*
+* Class PreferencePageActivity
+*
+* 03/04/17
+*/
 package com.example.mrides.Activity;
 
 
@@ -25,6 +30,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference_page);
 
@@ -40,6 +46,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
     }
     public void goToPreferencesTwo(View view) {
+
         Intent intent = new Intent(PreferencePageActivity.this, PreferencesTwoActivity.class);
         startActivity(intent);
     }

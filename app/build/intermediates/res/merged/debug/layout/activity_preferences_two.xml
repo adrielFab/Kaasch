@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_preferences_two"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.example.mrides.PreferencesTwoActivity">
+
+
+    <TextView
+        android:text="@string/Select_preferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textTitle"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textSize="30dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/dog"
+            android:id="@+id/img_dog"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"/>
+
+        <TextView
+            android:text="@string/mind_pets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_dog"
+            android:layout_weight="1"
+            android:paddingLeft="40dp"
+            android:paddingTop="35dp"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/smoke"
+            android:id="@+id/img_smoke"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"/>
+
+        <TextView
+            android:text="@string/mind_smoking"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_smoke"
+            android:layout_weight="1"
+            android:paddingLeft="40dp"
+            android:paddingTop="35dp"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/girl"
+            android:id="@+id/img_girl"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"/>
+
+        <TextView
+            android:text="@string/mind_women"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_girl"
+            android:layout_weight="1"
+            android:paddingLeft="40dp"
+            android:paddingTop="35dp"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/boy"
+            android:id="@+id/img_boy"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"/>
+
+        <TextView
+            android:text="@string/mind_men"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_boy"
+            android:layout_weight="1"
+            android:paddingLeft="40dp"
+            android:paddingTop="35dp"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Next"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/submitBtn"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,3 +1,8 @@
+/*
+* Class PopulateMap
+*
+* 03/04/17
+*/
 package DirectionModel;
 
 import android.os.AsyncTask;
@@ -25,9 +30,11 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     @Override
     protected String doInBackground(Void... voids) {
+
         String retrieve_url = "http://successdrivingschool.ca/test2_android.php";
 
         try {
+
             URL url = new URL(retrieve_url);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("GET");
@@ -39,6 +46,7 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             String result = "";
             String line = "";
             while ((line = bufferedReader.readLine()) != null){
+
                 result += line;
             }
             bufferedReader.close();
@@ -48,8 +56,10 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             return result;
 
         } catch (MalformedURLException e) {
+
             e.printStackTrace();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
@@ -59,26 +69,32 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(String result) {
+
         try{
+
             parseUserandMarker(result);
         } catch (JSONException e){
+
             e.printStackTrace();
         }
 
     }
 
     private void parseUserandMarker(String result) throws JSONException {
+
         if (result == null)
             return;
         HashMap<String, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
+
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
             String name = jsonObject.getString("firstName");
             String[] latlong =  jsonObject.getString("start").split(",");
@@ -91,9 +107,4 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
         this.createRouteActivity.populateGoogleMap(hashUsers);
     }
-
-
-
-
-
 }

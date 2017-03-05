@@ -1,3 +1,8 @@
+/*
+* Class CreateRouteActivity
+*
+* 03/04/17
+*/
 package com.example.mrides.Activity;
 
 import android.Manifest;
@@ -84,6 +89,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
 
@@ -109,21 +115,25 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         String start = mEditTextStart.getText().toString();
         String destination = mEditTextDestination.getText().toString();
         if(start.isEmpty()){
+
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
         }
         if (destination.isEmpty()) {
+
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
         String url = "";
         try {
+
             String urlOrigin = URLEncoder.encode(start, "utf-8");
             String urlDestination = URLEncoder.encode(destination, "utf-8");
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         }
         catch (UnsupportedEncodingException e){
+
             e.printStackTrace();
         }
         startObtainDirection();
@@ -134,11 +144,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mGoogleMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         locationListener = new LocationListener() {
+
             @Override
             public void onLocationChanged(Location location) {
 
@@ -188,6 +200,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     public void populateGoogleMap(HashMap<String, LatLng> hashMap){
+
         HashMap<String, LatLng> hashUsers = hashMap;
         String result = "";
 
@@ -198,6 +211,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         for(String key: hashUsers.keySet()){
+
             LatLng location = hashUsers.get(key);
             mGoogleMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
@@ -209,23 +223,30 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void startObtainDirection() {
+
         mProgressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction...", true);
 
         if (startMarkers != null) {
+
             for (Marker marker : startMarkers) {
+
                 marker.remove();
             }
         }
 
         if (destinationMarkers != null) {
+
             for (Marker marker : destinationMarkers) {
+
                 marker.remove();
             }
         }
 
         if (polylinePaths != null) {
+
             for (Polyline polyline:polylinePaths ) {
+
                 polyline.remove();
             }
         }
@@ -233,12 +254,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void successObtainDirection(List<Route> routes) {
+
         mProgressDialog.dismiss();
         polylinePaths = new ArrayList<>();
         startMarkers = new ArrayList<>();
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
+
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
             ((TextView) findViewById(R.id.textDuration)).setText(route.getDuration().getText());
             ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
@@ -267,10 +290,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void responseReceived(String response) {
+
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
         ArrayList<Route> route = new ArrayList<>();
         try {
+
             route = (ArrayList<Route>) deserializer.parseJSON(response);
         } catch (JSONException e) {
             e.printStackTrace();

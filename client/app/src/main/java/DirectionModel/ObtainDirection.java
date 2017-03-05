@@ -1,3 +1,8 @@
+/*
+* Class ObtainDirection
+*
+* 03/04/17
+*/
 package DirectionModel;
 
 import android.os.AsyncTask;
@@ -28,17 +33,20 @@ public class ObtainDirection {
     private String destination;
 
     public ObtainDirection(ObtainDirectionListener listener, String start, String destination){
+
         this.listener = listener;
         this.start = start;
         this.destination = destination;
     }
 
     public void execute() throws UnsupportedEncodingException {
+
         listener.startObtainDirection();
         new GetData().execute(createUrl());
     }
 
     private String createUrl() throws UnsupportedEncodingException {
+
         String urlOrigin = URLEncoder.encode(start, "utf-8");
         String urlDestination = URLEncoder.encode(destination, "utf-8");
         return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
@@ -48,8 +56,10 @@ public class ObtainDirection {
 
         @Override
         protected String doInBackground(String... params) {
+
             String link = params[0];
             try {
+
                 URL url = new URL(link);
                 InputStream is = url.openConnection().getInputStream();
                 StringBuffer buffer = new StringBuffer();
@@ -57,14 +67,17 @@ public class ObtainDirection {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
+
                     buffer.append(line + "\n");
                 }
 
                 return buffer.toString();
 
             } catch (MalformedURLException e) {
+
                 e.printStackTrace();
             } catch (IOException e) {
+
                 e.printStackTrace();
             }
             return null;
@@ -72,15 +85,19 @@ public class ObtainDirection {
 
         @Override
         protected void onPostExecute(String res) {
+
             try {
+
                 parseJSON(res);
             } catch (JSONException e) {
+
                 e.printStackTrace();
             }
         }
     }
 
     private void parseJSON(String res) throws JSONException{
+
         if (res == null)
             return;
 
@@ -88,6 +105,7 @@ public class ObtainDirection {
         JSONObject jsonData = new JSONObject(res);
         JSONArray jsonRoutes = jsonData.getJSONArray("routes");
         for (int i = 0; i < jsonRoutes.length(); i++) {
+
             JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
             Route route = new Route();
 
@@ -125,8 +143,10 @@ public class ObtainDirection {
         int lat = 0, lng = 0;
 
         while (index < len) {
+
             int b, shift = 0, result = 0;
             do {
+
                 b = encoded.charAt(index++) - 63;
                 result |= (b & 0x1f) << shift;
                 shift += 5;
@@ -137,6 +157,7 @@ public class ObtainDirection {
             shift = 0;
             result = 0;
             do {
+
                 b = encoded.charAt(index++) - 63;
                 result |= (b & 0x1f) << shift;
                 shift += 5;

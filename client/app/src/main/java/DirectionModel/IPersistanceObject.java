@@ -11,5 +11,4 @@ public interface IPersistanceObject {
 
     public Map<String,String> getParameters();
     public Map<String,String> setParameters();
-
 }
