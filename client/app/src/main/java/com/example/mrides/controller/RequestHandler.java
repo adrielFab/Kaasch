@@ -1,0 +1,106 @@
+/*
+* Class RequestHandler
+*
+* 03/04/17
+*/
+package com.example.mrides.controller;
+
+
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.mrides.Activity.ActivityObserver;
+import com.example.mrides.R;
+import com.example.mrides.RequestQueueSingleton;
+
+import org.parceler.Parcel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import DirectionModel.IPersistanceObject;
+
+public class RequestHandler implements Subject{
+
+    private ArrayList<ActivityObserver> observers = new ArrayList<>();
+
+
+    public void postStringRequest(String url, IPersistanceObject parcel, Context context){
+
+        StringRequest stringRequest = new StringRequest
+                (Request.Method.POST, url,
+                        new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        error.printStackTrace();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+            @Override
+            public String getBodyContentType() {
+
+                return "application/x-www-form-urlencoded";
+            }
+
+        };
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    public void getStringRequest(String url, Context context){
+
+        StringRequest stringRequest = new StringRequest
+                (url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                Notify(response);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        error.printStackTrace();
+                    }
+                });
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
+    }
+
+    @Override
+    public void attach(ActivityObserver observerToAdd) {
+
+        observers.add(observerToAdd);
+    }
+
+    @Override
+    public void detach(ActivityObserver observerToRemove) {
+
+        observers.remove(observerToRemove);
+    }
+
+    @Override
+    public void Notify(String response) {
+
+        for(ActivityObserver e : observers){
+
+            e.responseReceived(response);
+        }
+    }
+}
