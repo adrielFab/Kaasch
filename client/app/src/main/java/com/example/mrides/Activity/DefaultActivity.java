@@ -21,9 +21,9 @@ import com.example.mrides.R;
 *
 */
 
-public abstract class DefaultActivity extends AppCompatActivity {
+public abstract class DefaultActivity extends AppCompatActivity{
 
-    protected void checkWifi(){
+    protected boolean isWifiConnected(){
         ConnectivityManager cm =
                 (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -35,7 +35,9 @@ public abstract class DefaultActivity extends AppCompatActivity {
             builder.setMessage(R.string.wifi_not_found)
                     .setTitle(R.string.ok);
             AlertDialog dialog = builder.create();
+            dialog.show();
         }
+        return isConnected;
     }
 
 }

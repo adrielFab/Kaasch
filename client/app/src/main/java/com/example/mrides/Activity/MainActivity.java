@@ -50,9 +50,10 @@ public class MainActivity extends DefaultActivity implements
 
     // onclick event for sign in button
     public void googleSignIn(View view) {
-
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        if(isWifiConnected()){
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        }
     }
 
     //result from the sign in
