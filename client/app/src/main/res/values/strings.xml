@@ -41,6 +41,8 @@
     <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="direction_url_api">https://maps.googleapis.com/maps/api/directions/json?</string>
     <string name="google_maps_api_key">AIzaSyDBjGOW7Yv5t-RwJI-Dhl86rZnZcQCd93c</string>
+    <string name="wifi_not_found">Internet not connected</string>
+    <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
 
 

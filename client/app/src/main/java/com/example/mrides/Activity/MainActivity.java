@@ -5,6 +5,7 @@
 */
 package com.example.mrides.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -121,4 +122,5 @@ public class MainActivity extends DefaultActivity implements
         //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
         startActivity(intent);
     }
+
 }
