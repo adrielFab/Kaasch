@@ -23,7 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class MainActivity extends DefaultActivity implements
+public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, ActivityObserver{
 
     private GoogleApiClient mGoogleApiClient;
@@ -50,10 +50,8 @@ public class MainActivity extends DefaultActivity implements
 
     // onclick event for sign in button
     public void googleSignIn(View view) {
-        if(isWifiConnected()){
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        }
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     //result from the sign in
@@ -117,7 +115,6 @@ public class MainActivity extends DefaultActivity implements
 
     @Override
     public void responseReceived(String response) {
-
         requestHandler.detach(this);
         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
         //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
