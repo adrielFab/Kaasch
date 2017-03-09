@@ -12,6 +12,8 @@ import org.parceler.Parcel;
 @Parcel //parcel annotation is used to help activities communicate with eachother
 public class User {
 
+    private String firstName;
+    private String lastName;
     private String email;
     private String displayName;
     private GoogleSignInAccount acct; //
@@ -61,5 +63,21 @@ public class User {
     public void setAcct(GoogleSignInAccount acct) {
 
         this.acct = acct;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -7,6 +7,7 @@ package DirectionModel;
 
 import android.os.AsyncTask;
 import com.example.mrides.Activity.CreateRouteActivity;
+import com.example.mrides.Domain.User;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,6 +91,7 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
         if (result == null)
             return;
+        
         HashMap<String, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
