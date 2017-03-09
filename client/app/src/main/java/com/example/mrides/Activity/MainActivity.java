@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements
             String idToken = acct.getIdToken();
             System.out.println("email: " + acct.getEmail());
             requestHandler.attach(this);
-            requestHandler.getStringRequest(getString(R.string.googleVerificationURL)
+            requestHandler.httpGetStringRequest(getString(R.string.googleVerificationURL)
                     +idToken,this);
         } else {
 

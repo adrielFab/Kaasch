@@ -136,7 +136,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
         startObtainDirection();
         requestHandler.attach(this);
-        requestHandler.getStringRequest(url,this);
+        requestHandler.httpGetStringRequest(url,this);
     }
 
 
