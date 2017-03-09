@@ -32,7 +32,7 @@ public class RequestHandler implements Subject{
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
 
 
-    public void postStringRequest(String url, IPersistanceObject parcel, Context context){
+    public void httpPostStringRequest(String url, IPersistanceObject parcel, Context context){
 
         if(!isInternetConnected(context)){
             return;
@@ -70,7 +70,7 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    public void getStringRequest(String url, Context context){
+    public void httpGetStringRequest(String url, Context context){
 
         if(!isInternetConnected(context)){
             return;
