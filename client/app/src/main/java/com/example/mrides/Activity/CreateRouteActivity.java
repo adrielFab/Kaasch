@@ -8,6 +8,7 @@ package com.example.mrides.Activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +68,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationManager locationManager;
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
+    private PopulateMap populateMap = new PopulateMap(this);
 
 
     @Override
@@ -111,7 +114,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void createPath(){
         String start = mEditTextStart.getText().toString();
         String destination = mEditTextDestination.getText().toString();
-        if(start.isEmpty()){
+        if(start.isEmpty()) {
 
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -129,7 +132,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         }
-        catch (UnsupportedEncodingException e){
+        catch (UnsupportedEncodingException e) {
 
             e.printStackTrace();
         }
@@ -169,7 +172,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         };
 
-        if(Build.VERSION.SDK_INT < 23){
+        if(Build.VERSION.SDK_INT < 23) {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
@@ -192,28 +195,48 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
 
-        PopulateMap populateMap = new PopulateMap(this);
         populateMap.execute();
     }
 
-    public void populateGoogleMap(HashMap<String, LatLng> hashMap){
+    public void populateGoogleMap(HashMap<String, LatLng> hashMap) {
 
         HashMap<String, LatLng> hashUsers = hashMap;
-        String result = "";
 
+        /* Creating a custom icon (passenger) */
         int height = 100;
         int width = 100;
         BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
         Bitmap b=bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
-        for(String key: hashUsers.keySet()){
-
+        for(final String key: hashUsers.keySet()) {
             LatLng location = hashUsers.get(key);
             mGoogleMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                     .title(key)
+                    .snippet("This is a snippet")
                     .position(location));
+            mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateRouteActivity.this);
+                    builder.setTitle(key);
+                    builder.setMessage("I wna ride with you all night ");
+                    builder.setPositiveButton("Invite", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //Perform invite
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", null);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                    return false;
+                }
+            });
         }
     }
 
@@ -298,4 +321,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
         successObtainDirection(route);
     }
+
+//    @Override
+//    public boolean onMarkerClick(Marker marker) {
+//
+//        return true;
+//    }
 }
