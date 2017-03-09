@@ -3,7 +3,7 @@
     <string name="Sign_In">Sign In</string>
 
     <string name="Register">Register"</string>
-  
+
     <string name="title_activity_preference_page">preference_page</string>
     <string name="route_name">Route Name :"</string>
     <string name="action_settings">Settings</string>
@@ -28,6 +28,8 @@
     <string name="mind_pets">I do not mind pets</string>
     <string name="createRoute">Create Route</string>
     <string name="preferences">Preferences</string>
+    <string name="email">Email:</string>
+    <string name="rating">Rating</string>
 
     <string name="title_activity_create_route">CreateRouteActivity</string>
 

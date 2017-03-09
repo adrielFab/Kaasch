@@ -3,6 +3,10 @@
 <resources>
     <color name="colorPrimary">#F1564D</color>
     <color name="colorPrimaryDark">#c4453e</color>
-    <color name="OrangeAccent">#F1564D</color>
-    <color name="GreyAccent">#7B7A7A</color>
+    <color name="orangeAccent">#F1564D</color>
+    <color name="greyAccent">#7B7A7A</color>
+
+    <!-- For profile page -->
+    <color name="backgroundColor">#EF5350</color>
+
 </resources>
