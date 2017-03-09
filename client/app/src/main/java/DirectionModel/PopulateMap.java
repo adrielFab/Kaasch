@@ -19,11 +19,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     private CreateRouteActivity createRouteActivity;
+    private ArrayList<User> userCatalog = new ArrayList<>();
 
     public PopulateMap(CreateRouteActivity createRouteActivity){
         this.createRouteActivity = createRouteActivity;
@@ -91,20 +93,25 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
         if (result == null)
             return;
-        
+
         HashMap<String, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
 
+            User user = new User();
+
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
-            String name = jsonObject.getString("firstName");
+            String firstName = jsonObject.getString("firstName");
+            String lastName = jsonObject.getString("lastName");
+            String email = jsonObject.getString("email");
+
             String[] latlong =  jsonObject.getString("start").split(",");
             double latitude = Double.parseDouble(latlong[0]);
             double longitude = Double.parseDouble(latlong[1]);
             LatLng location = new LatLng(latitude, longitude);
 
-            hashUsers.put(name, location);
+            hashUsers.put(firstName, location);
         }
 
         this.createRouteActivity.populateGoogleMap(hashUsers);

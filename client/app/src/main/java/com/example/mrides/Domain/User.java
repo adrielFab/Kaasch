@@ -12,6 +12,7 @@ import org.parceler.Parcel;
 @Parcel //parcel annotation is used to help activities communicate with eachother
 public class User {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -80,4 +81,13 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
