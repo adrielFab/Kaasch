@@ -7,6 +7,9 @@ package com.example.mrides.controller;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v7.app.AlertDialog;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,8 +32,11 @@ public class RequestHandler implements Subject{
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
 
 
-    public void postStringRequest(String url, IPersistanceObject parcel, Context context){
+    public void httpPostStringRequest(String url, IPersistanceObject parcel, Context context){
 
+        if(!isInternetConnected(context)){
+            return;
+        }
         StringRequest stringRequest = new StringRequest
                 (Request.Method.POST, url,
                         new Response.Listener<String>() {
@@ -64,7 +70,11 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
-    public void getStringRequest(String url, Context context){
+    public void httpGetStringRequest(String url, Context context){
+
+        if(!isInternetConnected(context)){
+            return;
+        }
 
         StringRequest stringRequest = new StringRequest
                 (url, new Response.Listener<String>() {
@@ -83,15 +93,35 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
+    public boolean isInternetConnected(Context context){
+
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        System.out.println("check");
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if(!isConnected){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(R.string.wifi_not_found)
+                    .setTitle(R.string.ok);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        return isConnected;
+    }
+
     @Override
     public void attach(ActivityObserver observerToAdd) {
 
+        if(observers.contains(observerToAdd)){
+            return;
+        }
         observers.add(observerToAdd);
     }
 
     @Override
     public void detach(ActivityObserver observerToRemove) {
-
         observers.remove(observerToRemove);
     }
 

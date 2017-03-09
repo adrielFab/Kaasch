@@ -45,12 +45,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
 
     }
+
     public void goToPreferencesTwo(View view) {
 
         Intent intent = new Intent(PreferencePageActivity.this, PreferencesTwoActivity.class);
         startActivity(intent);
     }
-
 
     @Override
     public void onClick(View v) {

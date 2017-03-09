@@ -78,6 +78,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 //requestLocationUpdates demands an explicit permission check
                 if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 }
             }
@@ -105,10 +106,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         });
 
-
     }
 
     public void createPath(){
+
         String start = mEditTextStart.getText().toString();
         String destination = mEditTextDestination.getText().toString();
         if(start.isEmpty()){
@@ -221,6 +222,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     public void startObtainDirection() {
 
+        if(!requestHandler.isInternetConnected(this)){
+            return;
+        }
         mProgressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction...", true);
 
