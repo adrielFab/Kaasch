@@ -33,6 +33,7 @@ public class RequestHandler implements Subject{
 
 
     public void postStringRequest(String url, IPersistanceObject parcel, Context context){
+
         if(!isInternetConnected(context)){
             return;
         }
@@ -70,6 +71,7 @@ public class RequestHandler implements Subject{
     }
 
     public void getStringRequest(String url, Context context){
+
         if(!isInternetConnected(context)){
             return;
         }
@@ -92,6 +94,7 @@ public class RequestHandler implements Subject{
     }
 
     public boolean isInternetConnected(Context context){
+
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         System.out.println("check");
@@ -110,6 +113,7 @@ public class RequestHandler implements Subject{
 
     @Override
     public void attach(ActivityObserver observerToAdd) {
+
         if(observers.contains(observerToAdd)){
             return;
         }
@@ -118,7 +122,6 @@ public class RequestHandler implements Subject{
 
     @Override
     public void detach(ActivityObserver observerToRemove) {
-
         observers.remove(observerToRemove);
     }
 

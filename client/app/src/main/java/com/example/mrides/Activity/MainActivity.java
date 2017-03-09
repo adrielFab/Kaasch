@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements
 
     // onclick event for sign in button
     public void googleSignIn(View view) {
+
         if (requestHandler.isInternetConnected(this)){
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -80,17 +81,6 @@ public class MainActivity extends AppCompatActivity implements
             requestHandler.attach(this);
             requestHandler.getStringRequest(getString(R.string.googleVerificationURL)
                     +idToken,this);
-            //SignInRequestHandler handler = new SignInRequestHandler();
-            //handler.logInUser(this,idToken);
-           // Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-            //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
-            //startActivity(intent);
-            /*User user = new User(acct);
-            SignInRequestHandler signInRequestHandler = new SignInRequestHandler();
-            Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-            intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
-            startActivity(intent);*/
-            //signInRequestHandler.logInUser(this,user);
         } else {
 
             // Signed out, show unauthenticated UI.
@@ -117,9 +107,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void responseReceived(String response) {
+
         requestHandler.detach(this);
         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-        //intent.putExtra("session", Parcels.wrap(user)); //pass data to another activity
         startActivity(intent);
     }
 
