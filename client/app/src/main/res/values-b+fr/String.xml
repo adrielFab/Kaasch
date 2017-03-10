@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    All French string are contained here. All strings added here must also be added
+    in res/values/String.xml with the identical string name and a value translated to English
+ -->
+
 <resources>
     <string name="app_name">mRides</string>
     <string name="Sign_In">Connexion</string>
@@ -28,9 +33,7 @@
     <string name="preferences">Préférences</string>
     <string name="email">Courriel:</string>
     <string name="rating">Évaluation</string>
-
     <string name="title_activity_create_route">CreateRouteActivity</string>
-
     <string name="GetStarted">Commencer"</string>
     <string name="GmailSignIn">Connexion Avec GMAIL</string>
     <string name="welcome">Bienvenue à mRides</string>
@@ -43,13 +46,4 @@
     <string name="wifi_not_found">Internet non connecté</string>
     <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
-
-
-
-
-
-
-
-
-
 </resources>
