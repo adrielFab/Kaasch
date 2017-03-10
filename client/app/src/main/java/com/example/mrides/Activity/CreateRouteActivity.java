@@ -6,6 +6,7 @@
 package com.example.mrides.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,9 +26,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -229,25 +232,37 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateRouteActivity.this);
+               User user = googleMarkerHash.get(marker);
 
-                User user = googleMarkerHash.get(marker);
+                final Dialog dialog = new Dialog(CreateRouteActivity.this);
+                dialog.setTitle(marker.getTitle());
+                dialog.setContentView(R.layout.userprofile_dialog_layout);
+                dialog.show();
 
-                builder.setTitle(marker.getTitle());
-                builder.setMessage("Email: " + user.getEmail() + "\r\n" +
-                "User id: " + user.getId() + "\r\n");
-                builder.setPositiveButton("Invite", new DialogInterface.OnClickListener() {
+                TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+                textViewFullName.setText(marker.getTitle());
 
+                TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+                textViewEmail.setText(user.getEmail());
+
+                ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+                imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+                Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+                buttonInvite.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //Perform invite
-                        Toast.makeText(CreateRouteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+                    public void onClick(View view) {
+                        Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
                     }
                 });
-                builder.setNegativeButton("Cancel", null);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
 
+                Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
                 return false;
             }
         });
