@@ -6,8 +6,11 @@
 package com.example.mrides.Domain;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-
 import org.parceler.Parcel;
+
+import java.util.ArrayList;
+
+import DirectionModel.Route;
 
 @Parcel //parcel annotation is used to help activities communicate with eachother
 public class User {
@@ -17,7 +20,9 @@ public class User {
     private String lastName;
     private String email;
     private String displayName;
-    private GoogleSignInAccount acct; //
+    private GoogleSignInAccount acct;
+
+    private ArrayList<Route> routes = new ArrayList<>();
 
     public User(){ //empty constructor needed for Parcel
 
@@ -88,6 +93,19 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addRoute (Route route) {
+        this.routes.add(route);
+    }
+
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(ArrayList<Route> routes) {
+        this.routes = routes;
     }
 
 }

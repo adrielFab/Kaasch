@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.Domain.User;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -198,9 +199,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         populateMap.execute();
     }
 
-    public void populateGoogleMap(HashMap<String, LatLng> hashMap) {
+    public void populateGoogleMap(HashMap<User, LatLng> hashMap) {
 
-        HashMap<String, LatLng> hashUsers = hashMap;
+        HashMap<User, LatLng> hashUsers = hashMap;
+        ArrayList<User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
         /* Creating a custom icon (passenger) */
         int height = 100;
@@ -209,35 +211,39 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         Bitmap b=bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
-        for(final String key: hashUsers.keySet()) {
-            LatLng location = hashUsers.get(key);
-            mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                    .title(key)
-                    .snippet("This is a snippet")
-                    .position(location));
-            mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateRouteActivity.this);
-                    builder.setTitle(key);
-                    builder.setMessage("I wna ride with you all night ");
-                    builder.setPositiveButton("Invite", new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //Perform invite
-                            finish();
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", null);
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
-
-                    return false;
-                }
-            });
+        for(User user : userOnMapCatalog) {
+            ArrayList<Route> userRoutes = user.getRoutes();
+            for(Route route : userRoutes) {
+                LatLng location = route.getStartLocation();
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                        .title(user.getFirstName() + " " + user.getLastName())
+                        .position(location));
+            }
         }
+
+        //Displays a dialog
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateRouteActivity.this);
+                builder.setTitle(marker.getTitle());
+                builder.setMessage("I wna ride with you all night ");
+                builder.setPositiveButton("Invite", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //Perform invite
+                        Toast.makeText(CreateRouteActivity.this, "Invitation sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                return false;
+            }
+        });
     }
 
 

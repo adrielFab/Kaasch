@@ -25,10 +25,19 @@ import java.util.HashMap;
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     private CreateRouteActivity createRouteActivity;
-    private ArrayList<User> userCatalog = new ArrayList<>();
+    private ArrayList<User> usersOnMapCatalog = new ArrayList<>();
+
 
     public PopulateMap(CreateRouteActivity createRouteActivity){
         this.createRouteActivity = createRouteActivity;
+    }
+
+    public ArrayList<User> getUsersOnMapCatalog() {
+        return usersOnMapCatalog;
+    }
+
+    public void setUsersOnMapCatalog(ArrayList<User> usersOnMapCatalog) {
+        this.usersOnMapCatalog = usersOnMapCatalog;
     }
 
     @Override
@@ -94,12 +103,13 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
         if (result == null)
             return;
 
-        HashMap<String, LatLng> hashUsers = new HashMap<>();
+        HashMap<User, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
 
             User user = new User();
+            Route route = new Route();
 
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
             int id = jsonObject.getInt("user_ID");
@@ -117,8 +127,11 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             double longitude = Double.parseDouble(latlong[1]);
             LatLng location = new LatLng(latitude, longitude);
 
-            userCatalog.add(user);
-            hashUsers.put(firstName, location);
+            route.setStartLocation(location);
+            user.addRoute(route);
+
+            usersOnMapCatalog.add(user);
+            hashUsers.put(user, location);
         }
 
         this.createRouteActivity.populateGoogleMap(hashUsers);

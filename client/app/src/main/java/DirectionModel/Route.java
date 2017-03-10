@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Route {
 
+    private int id;
+    private int userId;
     private Distance distance;
     private Duration duration;
     private String endAddress;
@@ -89,5 +91,22 @@ public class Route {
 
         this.duration = duration;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 
 }
