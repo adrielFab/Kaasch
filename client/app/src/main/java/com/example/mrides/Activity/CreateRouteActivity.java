@@ -199,10 +199,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         populateMap.execute();
     }
 
-    public void populateGoogleMap(HashMap<User, LatLng> hashMap) {
+    public void populateGoogleMap() {
 
-        HashMap<User, LatLng> hashUsers = hashMap;
-        ArrayList<User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+        ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+        final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
 
         /* Creating a custom icon (passenger) */
         int height = 100;
@@ -215,20 +215,27 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             ArrayList<Route> userRoutes = user.getRoutes();
             for(Route route : userRoutes) {
                 LatLng location = route.getStartLocation();
-                mGoogleMap.addMarker(new MarkerOptions()
+
+                Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(user.getFirstName() + " " + user.getLastName())
                         .position(location));
+
+                googleMarkerHash.put(marker, user);
             }
         }
 
-        //Displays a dialog
+        //This dialog can use a design pattern!
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CreateRouteActivity.this);
+
+                User user = googleMarkerHash.get(marker);
+
                 builder.setTitle(marker.getTitle());
-                builder.setMessage("I wna ride with you all night ");
+                builder.setMessage("Email: " + user.getEmail() + "\r\n" +
+                "User id: " + user.getId() + "\r\n");
                 builder.setPositiveButton("Invite", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -328,9 +335,4 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
-//    @Override
-//    public boolean onMarkerClick(Marker marker) {
-//
-//        return true;
-//    }
 }

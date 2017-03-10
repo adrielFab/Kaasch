@@ -131,9 +131,8 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             user.addRoute(route);
 
             usersOnMapCatalog.add(user);
-            hashUsers.put(user, location);
         }
 
-        this.createRouteActivity.populateGoogleMap(hashUsers);
+        this.createRouteActivity.populateGoogleMap();
     }
 }
