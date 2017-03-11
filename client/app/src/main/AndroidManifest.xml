@@ -14,14 +14,14 @@
     </receiver>
 
     <service
-        android:name=".Notification.FirebaseMessagingService">
+        android:name=".Notification.MatchingMessagingService">
         <intent-filter>
             <action android:name="com.google.firebase.MESSAGING_EVENT"/>
         </intent-filter>
     </service>
 
     <service
-        android:name=".Notification.FirebaseInstanceIdService">
+        android:name=".Notification.RegistrationTokenInstanceIdService">
         <intent-filter>
             <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
         </intent-filter>
