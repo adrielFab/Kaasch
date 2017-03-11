@@ -6,8 +6,10 @@
 package com.example.mrides.Activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -20,15 +22,19 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.Domain.User;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +72,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationManager locationManager;
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
+    private PopulateMap populateMap = new PopulateMap(this);
 
 
     @Override
@@ -112,7 +119,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         String start = mEditTextStart.getText().toString();
         String destination = mEditTextDestination.getText().toString();
-        if(start.isEmpty()){
+        if(start.isEmpty()) {
 
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -130,7 +137,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         }
-        catch (UnsupportedEncodingException e){
+        catch (UnsupportedEncodingException e) {
 
             e.printStackTrace();
         }
@@ -170,7 +177,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         };
 
-        if(Build.VERSION.SDK_INT < 23){
+        if(Build.VERSION.SDK_INT < 23) {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
@@ -193,29 +200,73 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
 
-        PopulateMap populateMap = new PopulateMap(this);
         populateMap.execute();
     }
 
-    public void populateGoogleMap(HashMap<String, LatLng> hashMap){
+    public void populateGoogleMap() {
 
-        HashMap<String, LatLng> hashUsers = hashMap;
-        String result = "";
+        ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+        final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
 
+        /* Creating a custom icon (passenger) */
         int height = 100;
         int width = 100;
         BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
         Bitmap b=bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
-        for(String key: hashUsers.keySet()){
+        for(User user : userOnMapCatalog) {
+            ArrayList<Route> userRoutes = user.getRoutes();
+            for(Route route : userRoutes) {
+                LatLng location = route.getStartLocation();
 
-            LatLng location = hashUsers.get(key);
-            mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                    .title(key)
-                    .position(location));
+                Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                        .title(user.getFirstName() + " " + user.getLastName())
+                        .position(location));
+
+                googleMarkerHash.put(marker, user);
+            }
         }
+
+        //This dialog can use a design pattern!
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+               User user = googleMarkerHash.get(marker);
+
+                final Dialog dialog = new Dialog(CreateRouteActivity.this);
+                dialog.setTitle(marker.getTitle());
+                dialog.setContentView(R.layout.userprofile_dialog_layout);
+                dialog.show();
+
+                TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+                textViewFullName.setText(marker.getTitle());
+
+                TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+                textViewEmail.setText(user.getEmail());
+
+                ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+                imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+                Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+                buttonInvite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.cancel();
+                    }
+                });
+                return false;
+            }
+        });
     }
 
 
@@ -302,4 +353,5 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
         successObtainDirection(route);
     }
+
 }
