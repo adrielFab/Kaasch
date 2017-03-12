@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.example.mrides.Activity.MainActivity;
+import com.example.mrides.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -45,6 +46,7 @@ public class MatchingMessagingService extends FirebaseMessagingService {
         notificationBuilder.setContentTitle("FCM NOTIFICATION");
         notificationBuilder.setContentText(remoteMessage.getNotification().getBody());
         notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
         notificationBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build());
