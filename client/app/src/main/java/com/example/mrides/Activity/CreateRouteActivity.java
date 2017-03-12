@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -236,7 +237,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                User user = googleMarkerHash.get(marker);
 
                 final Dialog dialog = new Dialog(CreateRouteActivity.this);
-                dialog.setTitle(marker.getTitle());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.userprofile_dialog_layout);
                 dialog.show();
 
@@ -332,8 +333,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     color(Color.CYAN).
                     width(10);
 
-            for (int i = 0; i < route.getPoints().size(); i++)
+            for (int i = 0; i < route.getPoints().size(); i++){
+
+                System.out.println(route.getPoints().get(i));
                 polylineOptions.add(route.getPoints().get(i));
+            }
+
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
         }
@@ -351,7 +356,103 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+//        List <LatLng> currentUser = route.get(0).getPoints();
+        List <LatLng> currentUser = new ArrayList<LatLng>();;
+
+        // H2S 2K5 to McDonald
+        currentUser.add(new LatLng(45.53598, -73.60092));
+        currentUser.add(new LatLng(45.5353,-73.59939));
+        currentUser.add(new LatLng(45.535,-73.59966));
+        currentUser.add(new LatLng(45.5347,-73.59994));
+        currentUser.add(new LatLng(45.53612,-73.60307));
+        currentUser.add(new LatLng(45.53619,-73.60324));
+
+        matchRoute(route, currentUser);
         successObtainDirection(route);
+    }
+
+    public void matchRoute(ArrayList<Route> route, List <LatLng> currentUser){
+
+        // For each route
+        for (int i = 0; i < route.size(); i++){
+            // If not current user...
+
+            for(int j = 0; j < route.get(i).getPoints().size(); j++){
+
+                System.out.println("Checking new route with data "+route.get(i).getPoints());
+                for (int k = 0; k < currentUser.size(); k++){
+
+                    // If the distance between two coordinates is less or equal to 20 meters,
+                    // they are considered to be on the same path.
+                    if(distance(route.get(i).getRoutePointsLatitudeAt(j),
+                            route.get(i).getRoutePointsLongtitudeAt(j),
+                            currentUser.get(j).latitude,
+                            currentUser.get(j).longitude)
+                            <=0.0124274){
+
+                        System.out.println("Distance if statement passed: checkEqual now");
+                        checkEqual(currentUser, j, route.get(i).getPoints(), j);
+                        // if the distance is more than 20 meters, check next point.
+
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
+    private void checkEqual (List <LatLng> currentUser, int position1, List <LatLng> route, int position2){
+
+        int maxLength;
+        String result=null;
+        if (currentUser.size()>route.size()){
+            maxLength = currentUser.size();
+        } else{
+            maxLength = route.size();
+        }
+
+        for(int i = 0; position2+i < maxLength && position1+i < maxLength; i++){
+            System.out.println("Comparing the following data:" + " Latitude 2: " +
+                    route.get(position2+i).latitude + " Longitude 2: " +
+                    route.get(position2+i).longitude +" Latitude 1: " +
+                    currentUser.get(position1+i).latitude + " Longitude 1: " +
+                    currentUser.get(position1+i).longitude);
+
+            if(distance(route.get(position2+i).latitude,
+                    route.get(position2+i).longitude,
+                    currentUser.get(position1+i).latitude,
+                    currentUser.get(position1+i).longitude)
+                    >0.0124274){
+                result = "false";
+                break;
+            }
+            result = "true";
+        }
+    }
+
+    /** calculates the distance between two locations in MILES */
+    private double distance(double lat1, double lng1, double lat2, double lng2) {
+
+        double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
+
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        double dist = earthRadius * c;
+
+        return dist; // output distance, in MILES
     }
 
 }

@@ -8,5 +8,5 @@
 /build
 /captures
 .externalNativeBuild
-
+/client/app/google-services.json
 .idea/vcs.xml

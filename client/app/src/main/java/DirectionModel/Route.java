@@ -92,6 +92,16 @@ public class Route {
         this.duration = duration;
     }
 
+    public double getRoutePointsLatitudeAt (int i){
+
+        return this.getPoints().get(i).latitude;
+    }
+
+    public double getRoutePointsLongtitudeAt (int i){
+
+        return this.getPoints().get(i).longitude;
+    }
+
     public int getId() {
         return id;
     }
