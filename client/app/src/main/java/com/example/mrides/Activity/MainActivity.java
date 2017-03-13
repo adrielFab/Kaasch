@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
 
@@ -50,43 +49,39 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, (GoogleApiClient.OnConnectionFailedListener) this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         System.out.println("Refreshed token: " + FirebaseInstanceId.getInstance().getToken());
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
                     System.out.println("onAuthStateChanged:email:" + user.getEmail());
                     System.out.println("onAuthStateChanged:profil" + user.getPhotoUrl());
-
-
                 } else {
-                    // User is signed out
+
                     System.out.println("onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
-
     }
 
     @Override
     public void onStart() {
+
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
+
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
@@ -97,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
     public void googleSignIn(View view) {
 
         if (requestHandler.isInternetConnected(this)){
+
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
@@ -107,9 +103,9 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
@@ -124,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
             firebaseAuthWithGoogle(acct);
         } else {
 
-            // Signed out, show unauthenticated UI.
             System.out.println("Failed");
         }
     }
@@ -143,18 +138,20 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
                         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
                         startActivity(intent);
 
                         if (!task.isSuccessful()) {
+
                             System.out.println( task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        // ...
                     }
                 });
     }
@@ -162,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
 
     @Override
     public void responseReceived(String response) {
+
         requestHandler.detach(this);
         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
         startActivity(intent);
