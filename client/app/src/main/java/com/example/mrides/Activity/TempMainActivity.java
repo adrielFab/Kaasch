@@ -29,26 +29,26 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
 
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
-    private User user;
     private RequestHandler requestHandler = new RequestHandler();
+    private User user = requestHandler.getUser();
 
+    /**
+     * When activity is created the APIs are requested through GoogleApiClient
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_main);
-        // Request only the user's ID token, which can be used to identify the
-        // user securely for the backend. This will contain the user's basic
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
                 .build();
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this , (GoogleApiClient.OnConnectionFailedListener) this )
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
         TextView text = (TextView) findViewById(R.id.email);
         user = requestHandler.getUser();
         System.out.println("Parcing." + user.getFirebaseAcct().getEmail());
@@ -56,6 +56,13 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
             text.setText(user.getEmail());
     }
 
+    /**
+     * Handles signing out the user and removing the FirebaseAuthentication credentials from
+     * the current device.
+     *http://stackoverflow.com/questions/38707133/google-firebase-sign-out-and-forget-user-in-android-app
+     *
+     * @param view
+     */
     public void signOut(View view) {
 
         FirebaseAuth.getInstance().signOut();
@@ -71,18 +78,33 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 });
     }
 
+    /**
+     * Brings the user to the create route page.
+     *
+     * @param view
+     */
     public void createRoute(View view){
 
         Intent intent = new Intent(TempMainActivity.this, CreateRouteActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Brings the user to the preference page.
+     *
+     * @param view
+     */
     public void preferences(View view){
 
         Intent intent = new Intent(TempMainActivity.this, PreferencePageActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method called when the application can't connect to Google sign in API
+     * 
+     * @param connectionResult
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
