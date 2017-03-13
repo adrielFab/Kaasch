@@ -18,55 +18,8 @@
         android:layout_marginTop="80dp"
         android:id="@+id/textViewMatch"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_below="@+id/textViewMatch"
-        android:id="@+id/scrollViewMatch"
-        android:layout_height="160dp"
-        android:layout_marginTop="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <Button
-                android:text="habs game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button3"
-                android:background="@color/backgroundColor"
-                android:layout_marginTop="10dp"/>
-
-            <Button
-                android:text="habs game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button6"
-                android:background="@color/backgroundColor"
-                android:layout_marginTop="10dp"/>
-
-            <Button
-                android:text="habs game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button5"
-                android:background="@color/backgroundColor"
-                android:layout_marginTop="10dp"/>
-
-            <Button
-                android:text="habs game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button4"
-                android:background="@color/backgroundColor"/>
-
-
-        </LinearLayout>
-    </ScrollView>
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:text="Unmatched Routes"
@@ -75,7 +28,8 @@
         android:id="@+id/textViewUnmatch"
         android:layout_marginBottom="209dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -93,8 +47,29 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="98dp">
+            android:layout_marginBottom="98dp"
+            android:id="@+id/layoutScrollUnmatch">
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/scrollViewMatch"
+        android:layout_height="160dp"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/textViewMatch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/layoutScrollMatch">
+
 
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
