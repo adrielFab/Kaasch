@@ -12,7 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.mrides.Domain.User;
+import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.User;
 import com.example.mrides.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,6 +30,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private User user;
+    private RequestHandler requestHandler = new RequestHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,8 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .build();
 
         TextView text = (TextView) findViewById(R.id.email);
-        user = (User) Parcels.unwrap(getIntent().getParcelableExtra("session"));
+        user = requestHandler.getUser();
+        System.out.println("Parcing." + user.getFirebaseAcct().getEmail());
         if(user !=null)
             text.setText(user.getEmail());
     }
