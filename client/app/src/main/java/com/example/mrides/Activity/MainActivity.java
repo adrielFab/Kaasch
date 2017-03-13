@@ -34,15 +34,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,ActivityObserver{
+public class MainActivity extends AppCompatActivity implements
+        GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener{
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    //private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
     private User user;
 
+    /**
+     * When activity is initialized the APIs are requested through GoogleApiClient
+     *
+     * @param savedInstanceState The bundle is required for all Activites to pass to the
+     *                           parrent class
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,41 +64,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         System.out.println("Refreshed token: " + FirebaseInstanceId.getInstance().getToken());
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
-
-                if (firebaseuser != null) {
-                    // User is signed in
-                    user = new User(firebaseuser);
-                    requestHandler.setUser(user);
-                    System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
-                    System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
-                    System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
-                } else {
-
-                    System.out.println("onAuthStateChanged:signed_out");
-                }
-            }
-        };
     }
 
     @Override
     public void onStart() {
 
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        mAuth.addAuthStateListener(this);
     }
 
     @Override
     public void onStop() {
 
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+        mAuth.removeAuthStateListener(this);
     }
 
     // onclick event for sign in button
@@ -174,5 +160,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
+
+        if (firebaseuser != null) {
+            // User is signed in
+            user = new User(firebaseuser);
+            requestHandler.setUser(user);
+            System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
+            System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
+            System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
+        } else {
+
+            System.out.println("onAuthStateChanged:signed_out");
+        }
     }
 }
