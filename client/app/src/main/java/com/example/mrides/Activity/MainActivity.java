@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.example.mrides.R;
@@ -22,12 +23,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, ActivityObserver{
 
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
 
@@ -48,6 +59,39 @@ public class MainActivity extends AppCompatActivity implements
                 .build();
         System.out.println("Refreshed token: " + FirebaseInstanceId.getInstance().getToken());
 
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
+                    System.out.println("onAuthStateChanged:email:" + user.getEmail());
+                    System.out.println("onAuthStateChanged:profil" + user.getPhotoUrl());
+
+
+                } else {
+                    // User is signed out
+                    System.out.println("onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     // onclick event for sign in button
@@ -80,9 +124,10 @@ public class MainActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             String idToken = acct.getIdToken();
             System.out.println("email: " + acct.getEmail());
-            requestHandler.attach(this);
-            requestHandler.httpGetStringRequest(getString(R.string.googleVerificationURL)
-                    +idToken,this);
+            //requestHandler.attach(this);
+            //requestHandler.httpGetStringRequest(getString(R.string.googleVerificationURL)
+                   // +idToken,this);
+            firebaseAuthWithGoogle(acct);
         } else {
 
             // Signed out, show unauthenticated UI.
@@ -97,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
     }
 
     @Override
