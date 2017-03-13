@@ -6,31 +6,23 @@
 package com.example.mrides.Domain;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.parceler.Parcel;
 
-@Parcel //parcel annotation is used to help activities communicate with eachother
 public class User {
 
     private String email;
     private String displayName;
-    private GoogleSignInAccount acct; //
-
-    public User(){ //empty constructor needed for Parcel
-
-    }
-
-    public User(String email, String displayName){
-
-        this.email = email;
-        this.displayName = displayName;
-    }
+    private String photoUrl;
+    private FirebaseUser acct;
 
 
-    public User(GoogleSignInAccount acct){
+    public User(FirebaseUser acct){
 
         email = acct.getEmail();
         displayName = acct.getDisplayName();
+        photoUrl = acct.getPhotoUrl().getPath();
     }
 
     public String getEmail() {
@@ -38,28 +30,18 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-
-        this.email = email;
-    }
-
     public String getDisplayName() {
 
         return displayName;
     }
 
-    public void setDisplayName(String displayName) {
+    public String getPhotoUrl(){
 
-        this.displayName = displayName;
+        return photoUrl;
     }
 
-    public GoogleSignInAccount getAcct() {
+    public void setAcct(FirebaseUser acct) {
 
-        return acct;
-    }
-
-    public void setAcct(GoogleSignInAccount acct) {
-
-        this.acct = acct;
+       this.acct = acct;
     }
 }
