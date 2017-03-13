@@ -134,6 +134,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     *  When the user selects the back button from the Sign in page, the user will be brought
+     *  back to the Android home page. This prevents the user from accesing the application without
+     *  logging in.
+     */
     @Override
     public void onBackPressed() {
 
@@ -167,19 +172,32 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * Response returned by the requestHandler
+     *
+     * @param response A string response formated in a json string returned from the request handler
+     */
     @Override
     public void responseReceived(String response) {
 
         requestHandler.detach(this);
-        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-        startActivity(intent);
     }
 
+    /**
+     * Method called when the application can't connect to Google sign in API
+     *
+     * @param connectionResult
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 
+    /**
+     * This method handles loging in and logging out the user.
+     * Here is where the user credentials are recieved
+     * @param firebaseAuth
+     */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
