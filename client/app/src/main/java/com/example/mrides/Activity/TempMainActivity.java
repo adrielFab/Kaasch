@@ -20,6 +20,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.parceler.Parcels;
 
@@ -53,7 +54,9 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public void signOut(View view) {
-
+        FirebaseAuth.getInstance().signOut();
+        //Intent intent = new Intent(TempMainActivity.this, MainActivity.class);
+        //startActivity(intent);
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
