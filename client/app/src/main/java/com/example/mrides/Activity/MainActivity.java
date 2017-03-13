@@ -32,8 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener, ActivityObserver{
+public class MainActivity extends AppCompatActivity implements ActivityObserver{
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -122,11 +121,6 @@ public class MainActivity extends AppCompatActivity implements
 
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            String idToken = acct.getIdToken();
-            System.out.println("email: " + acct.getEmail());
-            //requestHandler.attach(this);
-            //requestHandler.httpGetStringRequest(getString(R.string.googleVerificationURL)
-                   // +idToken,this);
             firebaseAuthWithGoogle(acct);
         } else {
 
@@ -145,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        System.out.println("firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -155,9 +148,7 @@ public class MainActivity extends AppCompatActivity implements
                         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
                         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
                         startActivity(intent);
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+
                         if (!task.isSuccessful()) {
                             System.out.println( task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
@@ -168,17 +159,9 @@ public class MainActivity extends AppCompatActivity implements
                 });
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-        //TODO message must show up if gmail user account could not be optained
-        //most likely related to no wifi connection
-    }
-
 
     @Override
     public void responseReceived(String response) {
-        System.out.print(response);
         requestHandler.detach(this);
         Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
         startActivity(intent);
