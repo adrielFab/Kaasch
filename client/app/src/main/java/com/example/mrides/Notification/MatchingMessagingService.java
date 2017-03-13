@@ -14,11 +14,15 @@ import com.example.mrides.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-/**
- *
- */
+
 public class MatchingMessagingService extends FirebaseMessagingService {
 
+    /**
+     * The message received from Firebase Cloud Messaging. Allows for users to send
+     * notifications to each other devices.
+     *
+     * @param remoteMessage
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // ...

@@ -102,7 +102,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
 
     /**
      * Method called when the application can't connect to Google sign in API
-     * 
+     *
      * @param connectionResult
      */
     @Override
