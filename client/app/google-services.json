@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "1088243710681",
-    "project_id": "mrides-159422"
+    "firebase_url": "https://mrides-159422.firebaseio.com",
+    "project_id": "mrides-159422",
+    "storage_bucket": "mrides-159422.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1088243710681-ji9ihgs7u30dddl1aiifqa8usnd6ojaa.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "1088243710681-v6rie9t656bfomkt3n2lj1icij8l7nvg.apps.googleusercontent.com",
           "client_type": 1,
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088243710681-ji9ihgs7u30dddl1aiifqa8usnd6ojaa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
