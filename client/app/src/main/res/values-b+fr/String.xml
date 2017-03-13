@@ -15,8 +15,6 @@
     <string name="Once">Une Fois</string>
     <string name="Repeated">Répété</string>
     <string name="Arrival_time">Heure D’Arrivée:</string>
-    // What is rider in french?
-    <string name="Rider_type">Rider Type:?</string>
     <string name="Driver">Pilote</string>
     <string name="Passenger">Passenger</string>
     <string name="Next">suivant</string>
