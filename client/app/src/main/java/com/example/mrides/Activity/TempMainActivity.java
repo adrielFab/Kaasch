@@ -54,10 +54,10 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
     }
 
     public void signOut(View view) {
+
         FirebaseAuth.getInstance().signOut();
-        //Intent intent = new Intent(TempMainActivity.this, MainActivity.class);
-        //startActivity(intent);
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
