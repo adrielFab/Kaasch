@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
     private User user;
 
     /**
-     * When activity is initialized the APIs are requested through GoogleApiClient
+     * When activity is created the APIs are requested through GoogleApiClient
      *
      * @param savedInstanceState The bundle is required for all Activites to pass to the
      *                           parrent class
@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements
         System.out.println("Refreshed token: " + FirebaseInstanceId.getInstance().getToken());
     }
 
+    /**
+     * When the Activity is initialized this activity is added as a listener to
+     * the FirebaseAuthentication
+     */
     @Override
     public void onStart() {
 
@@ -73,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements
         mAuth.addAuthStateListener(this);
     }
 
+    /**
+     * Remove this activity as a listener to the firebase authentication.
+     */
     @Override
     public void onStop() {
 
@@ -80,7 +87,11 @@ public class MainActivity extends AppCompatActivity implements
         mAuth.removeAuthStateListener(this);
     }
 
-    // onclick event for sign in button
+    /**
+     * When the user clicks the Get started button, the user is then brought to the home page
+     *
+     * @param view
+     */
     public void googleSignIn(View view) {
 
         if (requestHandler.isInternetConnected(this)){
@@ -90,7 +101,14 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    //result from the sign in
+    /**
+     * Result from the sign in. See google documentation
+     * https://developers.google.com/identity/sign-in/android/
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
