@@ -32,7 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity implements ActivityObserver{
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,ActivityObserver{
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                System.out.println(user.getPhotoUrl());
                 if (user != null) {
                     // User is signed in
                     System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
@@ -165,4 +166,8 @@ public class MainActivity extends AppCompatActivity implements ActivityObserver{
         startActivity(intent);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
