@@ -3,12 +3,9 @@
 *
 * 03/04/17
 */
-package com.example.mrides.Domain;
+package com.example.mrides.userDomain;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.parceler.Parcel;
 
 public class User {
 
@@ -23,6 +20,7 @@ public class User {
         email = acct.getEmail();
         displayName = acct.getDisplayName();
         photoUrl = acct.getPhotoUrl().getPath();
+        this.acct = acct;
     }
 
     public String getEmail() {
@@ -40,8 +38,7 @@ public class User {
         return photoUrl;
     }
 
-    public void setAcct(FirebaseUser acct) {
-
-       this.acct = acct;
+    public FirebaseUser getFirebaseAcct() {
+        return acct;
     }
 }
