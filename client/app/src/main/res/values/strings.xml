@@ -47,4 +47,8 @@
     <string name="wifi_not_found">Internet not connected</string>
     <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="matched_routes">Matched Routes</string>
+    <string name="unmatched_routes">Unmatched Routes</string>
 </resources>

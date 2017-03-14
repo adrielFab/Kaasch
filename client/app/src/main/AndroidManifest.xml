@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <receiver android:name="WifiReceiver">
+    <receiver android:name=".WifiReceiver">
         <intent-filter>
             <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             <action android:name="android.net.wifi.STATE_CHANGE"/>
@@ -29,7 +29,7 @@
 
         <activity android:name=".Activity.ProfileActivity"/>
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.HomePage"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -44,6 +44,9 @@
         <activity android:name=".Activity.TempMainActivity">
         </activity>
         <activity android:name=".Activity.CreateRouteActivity">
+        </activity>
+        <activity android:name=".Activity.MainActivity"
+            android:theme="@style/AppTheme2">
         </activity>
     </application>
 
