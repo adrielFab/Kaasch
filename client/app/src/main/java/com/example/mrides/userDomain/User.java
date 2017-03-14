@@ -7,6 +7,7 @@ package com.example.mrides.userDomain;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.parceler.Parcel;
 
@@ -23,14 +24,9 @@ public class User {
     private String displayName;
     private String photoUrl;
     private String deviceId;
-
     private FirebaseUser acct;
-
     private ArrayList<Route> routes = new ArrayList<>();
 
-    public User(){ //empty constructor needed for Parcel
-
-    }
 
     public User(String email, String displayName, String deviceId){
 
@@ -40,10 +36,13 @@ public class User {
     }
 
 
-    public User(GoogleSignInAccount acct){
+    public User(FirebaseUser acct){
 
         email = acct.getEmail();
         displayName = acct.getDisplayName();
+        this.deviceId = FirebaseInstanceId.getInstance().getToken();
+        this.photoUrl = acct.getPhotoUrl().getPath();
+
     }
 
     public String getEmail() {
@@ -76,15 +75,6 @@ public class User {
         this.acct = acct;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
 
         return lastName;
@@ -100,9 +90,18 @@ public class User {
         return id;
     }
 
+    public String getFirstName(){
+
+        return firstName;
+    }
+
     public void setId(int id) {
 
         this.id = id;
+    }
+
+    public void setDeviceId(String deviceId){
+        this.deviceId = deviceId;
     }
 
     public void addRoute (Route route) {
@@ -127,6 +126,11 @@ public class User {
 
     public String getPhotoUrl() {
         return photoUrl;
+    }
+
+    public FirebaseUser getFirebaseAcct(){
+
+        return acct;
     }
 
 }
