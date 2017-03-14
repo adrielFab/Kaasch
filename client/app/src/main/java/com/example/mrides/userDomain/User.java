@@ -27,6 +27,9 @@ public class User {
     private FirebaseUser acct;
     private ArrayList<Route> routes = new ArrayList<>();
 
+    public User(){
+
+    }
 
     public User(String email, String displayName, String deviceId){
 
@@ -36,13 +39,14 @@ public class User {
     }
 
 
-    public User(FirebaseUser acct){
+    public User(FirebaseUser acct, GoogleSignInAccount googleSignInAccount){
 
         email = acct.getEmail();
         displayName = acct.getDisplayName();
         this.deviceId = FirebaseInstanceId.getInstance().getToken();
         this.photoUrl = acct.getPhotoUrl().getPath();
-
+        firstName = googleSignInAccount.getGivenName();
+        lastName = googleSignInAccount.getFamilyName();
     }
 
     public String getEmail() {
@@ -133,4 +137,11 @@ public class User {
         return acct;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }

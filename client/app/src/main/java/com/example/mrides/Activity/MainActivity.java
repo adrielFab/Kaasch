@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
     private User user = new User();
-
+    private FirebaseUser firebaseuser;
+    private GoogleSignInAccount googleuser;
     /**
      * When activity is created the APIs are requested through GoogleApiClient
      *
@@ -149,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        googleuser = acct;
+        AuthCredential credential = GoogleAuthProvider.getCredential(googleuser.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this,this);
     }
@@ -184,11 +185,11 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
+        firebaseuser = firebaseAuth.getCurrentUser();
 
-        if (firebaseuser != null) {
+        if (firebaseuser != null && googleuser!=null) {
             // User is signed in
-            user = new User(firebaseuser);
+            user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
