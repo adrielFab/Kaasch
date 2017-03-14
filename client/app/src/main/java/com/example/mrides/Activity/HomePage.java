@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.example.mrides.R;
 
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener {
+public class HomePage extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Typeface tf1;
     private TextView textViewMatch, textViewUnmatch;
@@ -51,23 +51,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navigationView = (NavigationView) findViewById(R.id.navvy);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_account:
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nav_inbox:
-                        //perform the notification checking (inbox)
-                        break;
-                }
-                return true;
-            }
-        });
-
-
+        navigationView.setNavigationItemSelectedListener(this);
 
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
@@ -138,12 +122,32 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
      * @param button
      * @return params
      */
-    public LinearLayout.LayoutParams styleButton(Button button){
+    public LinearLayout.LayoutParams styleButton(Button button) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 30, 0, 0);
         button.setLayoutParams(params);
         button.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         return params;
+    }
+
+    /**
+     * Method with a switch case that performs the corresponding intent depending on the
+     * item selected from the nav
+     * @param item
+     * @return boolean
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_account:
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_inbox:
+                //perform the notification checking (inbox)
+                break;
+        }
+        return true;
     }
 }
