@@ -7,7 +7,7 @@ package DirectionModel;
 
 import android.os.AsyncTask;
 import com.example.mrides.Activity.CreateRouteActivity;
-import com.example.mrides.Domain.User;
+import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
