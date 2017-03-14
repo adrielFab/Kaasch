@@ -45,7 +45,8 @@
         </activity>
         <activity android:name=".Activity.CreateRouteActivity">
         </activity>
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity"
+            android:theme="@style/AppTheme2">
         </activity>
     </application>
 
