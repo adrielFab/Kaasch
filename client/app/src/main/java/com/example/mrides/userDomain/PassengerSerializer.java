@@ -10,6 +10,7 @@ public class PassengerSerializer {
         Map<String, String> map = new HashMap<>();
         map.put("passengerEmail", user.getEmail());
         map.put("passengerLastName", user.getLastName());
+        map.put("passengerFirstName",user.getFirstName());
         map.put("passengerDisplayName", user.getDisplayName());
         map.put("passengerDeviceId", user.getDeviceId());
         return map;

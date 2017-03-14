@@ -12,6 +12,7 @@ public class UserSerializer {
         Map<String, String> map = new HashMap<>();
         map.put("loggedInUserEmail", user.getEmail());
         map.put("loggedInUserLastName", user.getLastName());
+        map.put("loggedInUserFirstName", user.getFirstName());
         map.put("loggedInUserDisplayName", user.getDisplayName());
         map.put("loggedInUserDeviceId", user.getDeviceId());
         return map;
