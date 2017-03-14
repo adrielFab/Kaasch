@@ -7,6 +7,7 @@ package DirectionModel;
 
 import android.os.AsyncTask;
 import com.example.mrides.Activity.CreateRouteActivity;
+import com.example.mrides.Domain.User;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,14 +19,25 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     private CreateRouteActivity createRouteActivity;
+    private ArrayList<User> usersOnMapCatalog = new ArrayList<>();
+
 
     public PopulateMap(CreateRouteActivity createRouteActivity){
         this.createRouteActivity = createRouteActivity;
+    }
+
+    public ArrayList<User> getUsersOnMapCatalog() {
+        return usersOnMapCatalog;
+    }
+
+    public void setUsersOnMapCatalog(ArrayList<User> usersOnMapCatalog) {
+        this.usersOnMapCatalog = usersOnMapCatalog;
     }
 
     @Override
@@ -90,21 +102,37 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
         if (result == null)
             return;
-        HashMap<String, LatLng> hashUsers = new HashMap<>();
+
+        HashMap<User, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
 
+            User user = new User();
+            Route route = new Route();
+
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
-            String name = jsonObject.getString("firstName");
+            int id = jsonObject.getInt("id");
+            String firstName = jsonObject.getString("firstName");
+            String lastName = jsonObject.getString("lastName");
+            String email = jsonObject.getString("email");
+
+            user.setId(id);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+
             String[] latlong =  jsonObject.getString("start").split(",");
             double latitude = Double.parseDouble(latlong[0]);
             double longitude = Double.parseDouble(latlong[1]);
             LatLng location = new LatLng(latitude, longitude);
 
-            hashUsers.put(name, location);
+            route.setStartLocation(location);
+            user.addRoute(route);
+
+            usersOnMapCatalog.add(user);
         }
 
-        this.createRouteActivity.populateGoogleMap(hashUsers);
+        this.createRouteActivity.populateGoogleMap();
     }
 }

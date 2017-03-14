@@ -23,6 +23,7 @@ import java.util.Map;
 
 public class SignInRequestHandler {
 
+
     public void logInUser(Context context, final String clientId) {
 
         StringRequest stringRequest = new StringRequest

@@ -11,6 +11,17 @@ import java.util.List;
 
 public class Route {
 
+    private int id;
+    private int userId;
+    private Distance distance;
+    private Duration duration;
+    private String endAddress;
+    private LatLng endLocation;
+    private String startAddress;
+    private LatLng startLocation;
+
+    private List<LatLng> points;
+
     public Distance getDistance() {
 
         return distance;
@@ -81,12 +92,21 @@ public class Route {
         this.duration = duration;
     }
 
-    private Distance distance;
-    private Duration duration;
-    private String endAddress;
-    private LatLng endLocation;
-    private String startAddress;
-    private LatLng startLocation;
+    public int getId() {
+        return id;
+    }
 
-    private List<LatLng> points;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
 }
