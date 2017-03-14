@@ -56,6 +56,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
@@ -350,14 +352,20 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonInvite:
-                requestHandler.attach(this);
-                requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
-                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedUser),this);
-                Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
+                invitePassenger();
                 break;
             case R.id.buttonCancel:
                 dialog.cancel();
                 break;
         }
+    }
+
+    private void invitePassenger(){
+        requestHandler.attach(this);
+        //Map<String,String> jsonBody = user
+        requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
+                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedUser),this);
+
+        Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }
 }
