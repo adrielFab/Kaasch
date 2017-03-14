@@ -50,6 +50,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                     case R.id.nav_account:
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        break;
+                    case R.id.nav_inbox:
+                        //perform the notification checking (inbox)
+                        break;
                 }
                 return true;
             }
