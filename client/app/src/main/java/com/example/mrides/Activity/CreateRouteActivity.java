@@ -353,7 +353,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 requestHandler.attach(this);
                 requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
                         /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedUser),this);
-                Toast.makeText(CreateRouteActivity.this, R., Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.buttonCancel:
                 dialog.cancel();
