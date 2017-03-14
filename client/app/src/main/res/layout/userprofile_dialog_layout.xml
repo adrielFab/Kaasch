@@ -86,7 +86,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/buttonInvite"
             android:layout_weight="1"
-            android:textColor="@color/backgroundColor"/>
+            android:textColor="@color/backgroundColor"
+            android:onClick="sendInvite" />
 
         <Button
             android:text="Cancel"
