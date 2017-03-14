@@ -77,6 +77,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
     private User selectedUser;
+    private Dialog dialog;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -322,7 +323,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedUser = googleMarkerHash.get(marker);
-        Dialog dialog = new Dialog(CreateRouteActivity.this);
+        dialog = new Dialog(CreateRouteActivity.this);
         dialog.setTitle(marker.getTitle());
         dialog.setContentView(R.layout.userprofile_dialog_layout);
         dialog.show();
@@ -338,34 +339,25 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
 
-        buttonInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                requestHandler.attach(activity);
-                requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
-                        UserSerializer.getParameters(user));
-                Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
-            }
-        });
+        buttonInvite.setOnClickListener(this);
 
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
-        return false;    }
+        buttonCancel.setOnClickListener(this);
+        return false;
+    }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonInvite){
-            requestHandler.attach(this);
-            requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
-                    UserSerializer.getParameters(selectedUser));
-            Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
-
+        switch (v.getId()){
+            case R.id.buttonInvite:
+                requestHandler.attach(this);
+                requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
+                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedUser),this);
+                Toast.makeText(CreateRouteActivity.this, R., Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.buttonCancel:
+                dialog.cancel();
+                break;
         }
     }
 }
