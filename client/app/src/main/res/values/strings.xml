@@ -41,6 +41,7 @@
     <string name="server_client_id">346814516997-7ia3jkkg2arc7lukroqrccmoqh676c8a.apps.googleusercontent.com</string>
     <string name="web_server_ip">192.175.117.171</string>
     <string name="web_server_port">80</string>
+    <string name="invie_sent">Invite Sent</string>
     <string name="url">http://successdrivingschool.ca</string>
     <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="direction_url_api">https://maps.googleapis.com/maps/api/directions/json?</string>
