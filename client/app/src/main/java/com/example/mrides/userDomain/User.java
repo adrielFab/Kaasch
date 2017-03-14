@@ -69,11 +69,6 @@ public class User {
         this.displayName = displayName;
     }
 
-    public FirebaseUser getAcct() {
-
-        return acct;
-    }
-
     public void setAcct(FirebaseUser acct) {
 
         this.acct = acct;
@@ -129,19 +124,17 @@ public class User {
     }
 
     public String getPhotoUrl() {
+
         return photoUrl;
     }
 
-    public FirebaseUser getFirebaseAcct(){
-
-        return acct;
-    }
-
     public void setFirstName(String firstName) {
+
         this.firstName = firstName;
     }
 
     public void setPhotoUrl(String photoUrl) {
+
         this.photoUrl = photoUrl;
     }
 }

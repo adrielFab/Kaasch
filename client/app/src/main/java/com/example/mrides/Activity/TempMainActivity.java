@@ -51,7 +51,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .build();
         TextView text = (TextView) findViewById(R.id.email);
         user = RequestHandler.getUser();
-        System.out.println("Parcing." + user.getFirebaseAcct().getEmail());
+        System.out.println("Parcing." + user.getEmail());
         if(user !=null)
             text.setText(user.getEmail());
     }
