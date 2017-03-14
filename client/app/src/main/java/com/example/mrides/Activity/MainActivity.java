@@ -35,14 +35,14 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener{
+        GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
+        OnCompleteListener<AuthResult>{
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    //private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
-    private User user;
+    private User user = new User();
 
     /**
      * When activity is created the APIs are requested through GoogleApiClient
@@ -152,23 +152,7 @@ public class MainActivity extends AppCompatActivity implements
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-                        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
-                        startActivity(intent);
-
-                        if (!task.isSuccessful()) {
-
-                            System.out.println( task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                .addOnCompleteListener(this,this);
     }
 
 
@@ -212,6 +196,20 @@ public class MainActivity extends AppCompatActivity implements
         } else {
 
             System.out.println("onAuthStateChanged:signed_out");
+        }
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<AuthResult> task) {
+        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
+        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+        startActivity(intent);
+
+        if (!task.isSuccessful()) {
+
+            System.out.println( task.getException());
+            Toast.makeText(MainActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }
