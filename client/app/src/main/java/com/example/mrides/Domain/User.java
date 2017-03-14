@@ -20,6 +20,8 @@ public class User {
     private String lastName;
     private String email;
     private String displayName;
+    private String deviceId;
+
     private GoogleSignInAccount acct;
 
     private ArrayList<Route> routes = new ArrayList<>();
@@ -28,10 +30,11 @@ public class User {
 
     }
 
-    public User(String email, String displayName){
+    public User(String email, String displayName, String deviceId){
 
         this.email = email;
         this.displayName = displayName;
+        this.deviceId = deviceId;
     }
 
 
@@ -76,35 +79,47 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
+
         this.firstName = firstName;
     }
 
     public String getLastName() {
+
         return lastName;
     }
 
     public void setLastName(String lastName) {
+
         this.lastName = lastName;
     }
 
     public int getId() {
+
         return id;
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
     public void addRoute (Route route) {
+
         this.routes.add(route);
     }
 
+    public String getDeviceId(){
+
+        return deviceId;
+    }
 
     public ArrayList<Route> getRoutes() {
+
         return routes;
     }
 
     public void setRoutes(ArrayList<Route> routes) {
+
         this.routes = routes;
     }
 
