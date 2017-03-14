@@ -10,11 +10,10 @@ public class UserSerializer {
 
     public static Map<String, String> getParameters(User user){
         Map<String, String> map = new HashMap<>();
-        map.put("email", user.getEmail());
-        map.put("lastName", user.getLastName());
-        map.put("displayName", user.getDisplayName());
-        map.put("deviceId", user.getDeviceId());
-
+        map.put("loggedInUserEmail", user.getEmail());
+        map.put("loggedInUserLastName", user.getLastName());
+        map.put("loggedInUserDisplayName", user.getDisplayName());
+        map.put("loggedInUserDeviceId", user.getDeviceId());
         return map;
     }
 }
