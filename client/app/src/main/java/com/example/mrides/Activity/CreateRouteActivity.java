@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.example.mrides.R;
@@ -357,12 +358,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     private void invitePassenger(){
-        requestHandler.attach(this);
-        Map<String,String> jsonBody = UserSerializer.getParameters(loggedInUser);
-        
-        requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
-                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedPassenger),this);
 
+        requestHandler.attach(this);
+        //combine map so that it contains driver information and passenger information
+        Map<String,String> logedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
+        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
+        Map<String,String> jsonBody = new HashMap<>();
+        jsonBody.putAll(logedInUserJsonBody);
+        jsonBody.putAll(passengerJSonBody);
+        requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
+                        /*+ "/invitePassenger.php"*/,jsonBody ,this);
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }
 }
