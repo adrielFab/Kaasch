@@ -75,6 +75,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
+    private final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
 
 
     @Override
@@ -208,7 +209,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void populateGoogleMap() {
 
         ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
-        final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
 
         /* Creating a custom icon (passenger) */
         int height = 100;
@@ -231,49 +231,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
         final CreateRouteActivity activity = this;
-
-        //This dialog can use a design pattern!
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                final User selectedUser = googleMarkerHash.get(marker);
-
-                final Dialog dialog = new Dialog(CreateRouteActivity.this);
-                dialog.setTitle(marker.getTitle());
-                dialog.setContentView(R.layout.userprofile_dialog_layout);
-                dialog.show();
-
-                TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-                textViewFullName.setText(marker.getTitle());
-
-                TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-                textViewEmail.setText(user.getEmail());
-
-                ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-                imageViewProfile.setImageResource(R.drawable.sample_profile_image);
-
-                Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
-
-                buttonInvite.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        requestHandler.attach(activity);
-                        requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
-                                UserSerializer.getParameters(user));
-                        Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                    }
-                });
-                return false;
-            }
-        });
+        mGoogleMap.setOnMarkerClickListener(this);
     }
 
 
@@ -363,6 +321,40 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
-    }
+        final User selectedUser = googleMarkerHash.get(marker);
+        final Dialog dialog = new Dialog(CreateRouteActivity.this);
+        dialog.setTitle(marker.getTitle());
+        dialog.setContentView(R.layout.userprofile_dialog_layout);
+        dialog.show();
+
+        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+        textViewFullName.setText(marker.getTitle());
+
+        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+        textViewEmail.setText(selectedUser.getEmail());
+
+        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+
+        buttonInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.getid
+                requestHandler.attach(activity);
+                requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
+                        UserSerializer.getParameters(user));
+                Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+        return false;    }
 }
