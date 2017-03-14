@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.R;
@@ -20,6 +21,7 @@ import com.example.mrides.R;
 public class HomePage extends AppCompatActivity implements View.OnClickListener {
 
     private Typeface tf1;
+    private TextView textViewMatch, textViewUnmatch;
     private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
     private String [] unmatchedRoutes = {"Party", "Trip to CN", "Engineering workshop", "another one"};
 
@@ -54,7 +56,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         });
 
 
+
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
+        textViewMatch = (TextView) findViewById(R.id.textViewMatch);
+        textViewMatch.setTypeface(tf1);
+        textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
+        textViewUnmatch.setTypeface(tf1);
 
         createMatchedRoutes();
         createUnmatchedRoutes();
@@ -76,27 +83,27 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void createMatchedRoutes() {
-//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollMatch);
-//
-//        for (int i = 0; i < matchedRoutes.length; i++) {
-//            Button route = new Button(this);
-//            LinearLayout.LayoutParams params = styleButton(route);
-//            route.setText(matchedRoutes[i]);
-//            linearLayout.addView(route, params);
-//
-//        }
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollMatch);
+
+        for (int i = 0; i < matchedRoutes.length; i++) {
+            Button route = new Button(this);
+            LinearLayout.LayoutParams params = styleButton(route);
+            route.setText(matchedRoutes[i]);
+            linearLayout.addView(route, params);
+
+        }
     }
 
     public void createUnmatchedRoutes() {
-//        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollUnmatch);
-//
-//        for (int i = 0; i < unmatchedRoutes.length; i++) {
-//            Button route = new Button(this);
-//            LinearLayout.LayoutParams params = styleButton(route);
-//            route.setText(unmatchedRoutes[i]);
-//            linearLayout.addView(route, params);
-//
-//        }
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollUnmatch);
+
+        for (int i = 0; i < unmatchedRoutes.length; i++) {
+            Button route = new Button(this);
+            LinearLayout.LayoutParams params = styleButton(route);
+            route.setText(unmatchedRoutes[i]);
+            linearLayout.addView(route, params);
+
+        }
     }
 
     public LinearLayout.LayoutParams styleButton(Button button){
