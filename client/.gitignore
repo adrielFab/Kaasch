@@ -9,4 +9,4 @@
 .externalNativeBuild
 /app/google-services.json
 .idea/vcs.xml
-.idea/misc.xml
+.idea/*

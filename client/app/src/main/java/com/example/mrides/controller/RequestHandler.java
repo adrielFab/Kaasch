@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.R;
 import com.example.mrides.RequestQueueSingleton;
+import com.example.mrides.userDomain.User;
 
 import org.parceler.Parcel;
 
@@ -30,7 +31,17 @@ import DirectionModel.IPersistanceObject;
 public class RequestHandler implements Subject{
 
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
+    private static User user;
 
+    public void setUser(User user){
+
+        this.user = user;
+    }
+
+    public User getUser(){
+
+        return user;
+    }
 
     public void httpPostStringRequest(String url, final Map<String,String> parameters, Context context){
 
