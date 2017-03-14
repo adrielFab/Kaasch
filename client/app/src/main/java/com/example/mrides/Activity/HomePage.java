@@ -1,3 +1,9 @@
+/*
+* Homepage.java
+*
+* March 13, 2017
+*
+*/
 package com.example.mrides.Activity;
 
 import android.content.Intent;
@@ -13,8 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.mrides.R;
 
 
@@ -29,6 +33,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
 
+    /**
+     * Method that creates the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +81,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    /**
+     * Opens the navigation drawer to view the navigation list
+     * @param item
+     * @return boolean
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (toggle.onOptionsItemSelected(item)) {
@@ -81,11 +94,18 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
 
     }
 
+    /**
+     * Displays the matched routes of the user
+     */
     public void createMatchedRoutes() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollMatch);
 
@@ -98,6 +118,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    /**
+     * Displays the unmatched routes of the user
+     */
     public void createUnmatchedRoutes() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollUnmatch);
 
@@ -110,6 +133,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    /**
+     * Styles each route to be displayed on the Homepage Activity
+     * @param button
+     * @return params
+     */
     public LinearLayout.LayoutParams styleButton(Button button){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
