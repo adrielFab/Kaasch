@@ -116,7 +116,9 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             String firstName = jsonObject.getString("firstName");
             String lastName = jsonObject.getString("lastName");
             String email = jsonObject.getString("email");
+            String passengerDeviceId = jsonObject.getString("deviceId"); //TODO needs to be added to database
 
+            user.setDeviceId(passengerDeviceId);
             user.setId(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);
