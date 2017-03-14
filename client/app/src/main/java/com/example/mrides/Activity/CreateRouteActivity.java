@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.Domain.User;
+import com.example.mrides.Domain.UserSerializer;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -59,7 +60,8 @@ import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
-public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ActivityObserver {
+public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
+        ActivityObserver, GoogleMap.OnMarkerClickListener {
 
     private Button mButtonFindPath;
     private EditText mEditTextStart;
@@ -228,12 +230,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 googleMarkerHash.put(marker, user);
             }
         }
+        final CreateRouteActivity activity = this;
 
         //This dialog can use a design pattern!
         mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-               User user = googleMarkerHash.get(marker);
+                final User selectedUser = googleMarkerHash.get(marker);
 
                 final Dialog dialog = new Dialog(CreateRouteActivity.this);
                 dialog.setTitle(marker.getTitle());
@@ -250,9 +253,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
                 Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+
                 buttonInvite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        requestHandler.attach(activity);
+                        requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
+                                UserSerializer.getParameters(user));
                         Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -354,4 +361,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
 }
