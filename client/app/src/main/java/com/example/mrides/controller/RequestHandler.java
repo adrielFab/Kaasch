@@ -43,7 +43,8 @@ public class RequestHandler implements Subject{
         return user;
     }
 
-    public void httpPostStringRequest(String url, final Map<String,String> parameters, Context context){
+    public void httpPostStringRequest(String url, final Map<String,String> parameters,
+                                      final String contentType, Context context){
 
         if(!isInternetConnected(context)){
             return;
@@ -72,7 +73,7 @@ public class RequestHandler implements Subject{
             @Override
             public String getBodyContentType() {
 
-                return "application/x-www-form-urlencoded";
+                return contentType;
             }
 
         };
