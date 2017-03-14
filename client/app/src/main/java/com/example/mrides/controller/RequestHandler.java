@@ -32,7 +32,7 @@ public class RequestHandler implements Subject{
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
 
 
-    public void httpPostStringRequest(String url, IPersistanceObject parcel, Context context){
+    public void httpPostStringRequest(String url, final Map<String,String> parameters, Context context){
 
         if(!isInternetConnected(context)){
             return;
@@ -55,10 +55,8 @@ public class RequestHandler implements Subject{
                 }) {
             @Override
             protected Map<String, String> getParams() {
-
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
+                
+                return parameters;
             }
             @Override
             public String getBodyContentType() {

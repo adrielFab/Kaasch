@@ -61,7 +61,7 @@ import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
-        ActivityObserver, GoogleMap.OnMarkerClickListener {
+        ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
     private Button mButtonFindPath;
     private EditText mEditTextStart;
@@ -75,8 +75,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
-    private final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
-
+    private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
+    private User selectedUser;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -321,8 +321,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        final User selectedUser = googleMarkerHash.get(marker);
-        final Dialog dialog = new Dialog(CreateRouteActivity.this);
+        selectedUser = googleMarkerHash.get(marker);
+        Dialog dialog = new Dialog(CreateRouteActivity.this);
         dialog.setTitle(marker.getTitle());
         dialog.setContentView(R.layout.userprofile_dialog_layout);
         dialog.show();
@@ -341,7 +341,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         buttonInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getid
+
                 requestHandler.attach(activity);
                 requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
                         UserSerializer.getParameters(user));
@@ -357,4 +357,15 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         });
         return false;    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.buttonInvite){
+            requestHandler.attach(this);
+            requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),
+                    UserSerializer.getParameters(selectedUser));
+            Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 }
