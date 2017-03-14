@@ -30,7 +30,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
-    private User user = requestHandler.getUser();
+    private User user = RequestHandler.getUser();
 
     /**
      * When activity is created the APIs are requested through GoogleApiClient
@@ -50,7 +50,7 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         TextView text = (TextView) findViewById(R.id.email);
-        user = requestHandler.getUser();
+        user = RequestHandler.getUser();
         System.out.println("Parcing." + user.getFirebaseAcct().getEmail());
         if(user !=null)
             text.setText(user.getEmail());

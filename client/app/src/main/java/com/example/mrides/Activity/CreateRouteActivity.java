@@ -51,6 +51,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
@@ -72,7 +73,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
-    private User selectedUser;
+    private User selectedPassenger;
+    private User loggedInUser = RequestHandler.getUser();
     private Dialog dialog;
 
     @Override
@@ -318,7 +320,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        selectedUser = googleMarkerHash.get(marker);
+        selectedPassenger = googleMarkerHash.get(marker);
         dialog = new Dialog(CreateRouteActivity.this);
         dialog.setTitle(marker.getTitle());
         dialog.setContentView(R.layout.userprofile_dialog_layout);
@@ -328,7 +330,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         textViewFullName.setText(marker.getTitle());
 
         TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(selectedUser.getEmail());
+        textViewEmail.setText(selectedPassenger.getEmail());
 
         ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
         imageViewProfile.setImageResource(R.drawable.sample_profile_image);
@@ -356,9 +358,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     private void invitePassenger(){
         requestHandler.attach(this);
-        //Map<String,String> jsonBody = user
+        Map<String,String> jsonBody = UserSerializer.getParameters(loggedInUser);
+        
         requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)
-                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedUser),this);
+                        /*+ "/invitePassenger.php"*/, UserSerializer.getParameters(selectedPassenger),this);
 
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }

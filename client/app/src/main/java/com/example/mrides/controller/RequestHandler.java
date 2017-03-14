@@ -38,7 +38,7 @@ public class RequestHandler implements Subject{
         this.user = user;
     }
 
-    public User getUser(){
+    public static User getUser(){
 
         return user;
     }
