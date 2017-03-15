@@ -141,11 +141,17 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_account:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                //Go to account
                 break;
             case R.id.nav_inbox:
-                //perform the notification checking (inbox)
+                Intent intentInbox = new Intent(getApplicationContext(), InboxActivity.class);
+                startActivity(intentInbox);
+                break;
+            case R.id.nav_settings:
+                //settings
+                break;
+            case R.id.nav_logout:
+                //perform logout
                 break;
         }
         return true;
