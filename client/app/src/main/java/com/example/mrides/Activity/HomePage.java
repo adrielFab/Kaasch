@@ -148,7 +148,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
                 startActivity(intentInbox);
                 break;
             case R.id.nav_settings:
-                //settings
+                Intent intentSettings = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intentSettings);
                 break;
             case R.id.nav_logout:
                 //perform logout

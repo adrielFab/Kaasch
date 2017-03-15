@@ -50,6 +50,8 @@
         </activity>
         <activity android:name=".Activity.InboxActivity">
         </activity>
+        <activity android:name=".Activity.SettingsActivity">
+        </activity>
     </application>
 
 </manifest>
