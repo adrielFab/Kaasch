@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements
             // User is signed in
             user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
-            requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)+"/login.php",
+            requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)+"/register_user.php",
                     UserSerializer.getParameters(user), "application/x-www-form-urlencoded",
                     this);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());

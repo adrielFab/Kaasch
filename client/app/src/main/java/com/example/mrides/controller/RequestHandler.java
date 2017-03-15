@@ -72,7 +72,7 @@ public class RequestHandler implements Subject{
             }
             @Override
             public String getBodyContentType() {
-
+                //System.out.
                 return contentType;
             }
 
