@@ -13,6 +13,7 @@ public class PassengerSerializer {
         map.put("passengerFirstName",user.getFirstName());
         map.put("passengerDisplayName", user.getDisplayName());
         map.put("passengerDeviceId", user.getDeviceId());
+        map.put("passengerProfileUrl", user.getPhotoUrl());
         return map;
     }
 }

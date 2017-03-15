@@ -15,6 +15,7 @@ public class UserSerializer {
         map.put("loggedInUserFirstName", user.getFirstName());
         map.put("loggedInUserDisplayName", user.getDisplayName());
         map.put("loggedInUserDeviceId", user.getDeviceId());
+        map.put("loggedInUserProfileUrl", user.getPhotoUrl());
         return map;
     }
 }
