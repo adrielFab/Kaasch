@@ -19,6 +19,7 @@ import com.example.mrides.R;
 import com.example.mrides.SignInRequestHandler;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.User;
+import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -191,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements
             // User is signed in
             user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
+            requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)+"/login.php",
+                    UserSerializer.getParameters(user), "application/x-www-form-urlencoded",
+                    this);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
             System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
