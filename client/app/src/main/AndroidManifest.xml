@@ -48,7 +48,7 @@
         </activity>
         <activity android:name=".Activity.HomePage">
         </activity>
-        <activity android:name=".InboxActivity">
+        <activity android:name=".Activity.InboxActivity">
         </activity>
     </application>
 
