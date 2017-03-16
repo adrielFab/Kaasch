@@ -10,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
+    private int [] preferenceChoice = {1, 1, 1};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,16 +54,27 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         btnMalePref = (ImageView) findViewById(R.id.img_boy);
         btnFemalePref = (ImageView) findViewById(R.id.img_girl);
 
+        btnMalePref.setOnClickListener(this);
+        btnSmokePref.setOnClickListener(this);
+        btnFemalePref.setOnClickListener(this);
 
 
     }
 
+    /**
+     * Method moves to the next page (CreateRouteActivity)
+     * @param view
+     */
     public void goToPreferencesTwo(View view) {
 
         Intent intent = new Intent(PreferencePageActivity.this, PreferencesTwoActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Handles the click events of the preference buttons and the date buttons
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 
@@ -105,6 +119,31 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
+                break;
+
+            case R.id.img_smoke:
+                changeButtonPreference(btnSmokePref, 0);
+                break;
+
+            case R.id.img_boy:
+                changeButtonPreference(btnMalePref, 1);
+                break;
+
+            case R.id.img_girl:
+                changeButtonPreference(btnFemalePref, 2);
+                break;
+
+        }
+
+    }
+
+    public void changeButtonPreference(ImageView img, int index) {
+        if(preferenceChoice[index] == 1) {
+            img.setBackgroundColor(Color.RED);
+            preferenceChoice[index] = 0;
+        } else {
+            img.setBackgroundColor(Color.GREEN);
+            preferenceChoice[index] = 1;
         }
 
     }
