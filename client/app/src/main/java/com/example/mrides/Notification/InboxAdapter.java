@@ -14,11 +14,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+                .inflate(R.layout.activity_inbox_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
-        return null;
+        return vh;
     }
 
     @Override
