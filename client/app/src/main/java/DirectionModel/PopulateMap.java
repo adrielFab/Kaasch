@@ -7,7 +7,7 @@ package DirectionModel;
 
 import android.os.AsyncTask;
 import com.example.mrides.Activity.CreateRouteActivity;
-import com.example.mrides.Domain.User;
+import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
