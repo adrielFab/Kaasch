@@ -141,4 +141,9 @@ public class RequestHandler implements Subject{
             e.responseReceived(response);
         }
     }
+
+    @Override
+    public void Notify(Map<String, String> response) {
+        
+    }
 }

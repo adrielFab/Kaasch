@@ -18,9 +18,15 @@ import com.example.mrides.controller.Subject;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MatchingMessagingService extends FirebaseMessagingService implements Subject{
 
+    private ArrayList<ActivityObserver> observers = new ArrayList<>();
+    private Map<String,String> notificationBody = new HashMap<>();
     /**
      * The message received from Firebase Cloud Messaging. Allows for users to send
      * notifications to each other devices.
@@ -60,21 +66,31 @@ public class MatchingMessagingService extends FirebaseMessagingService implement
         notificationBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build());
+        Notify(remoteMessage.getData());
     }
+
 
 
     @Override
     public void attach(ActivityObserver observerToAdd) {
 
+        if(observers.contains(observerToAdd)){
+            return;
+        }
+        observers.add(observerToAdd);
     }
 
     @Override
     public void detach(ActivityObserver observerToRemove) {
-
+        observers.remove(observerToRemove);
     }
 
     @Override
-    public void Notify(String response) {
+    public void Notify() {
 
+        for(ActivityObserver e : observers){
+
+            e.responseReceived(response);
+        }
     }
 }
