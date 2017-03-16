@@ -23,8 +23,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.parceler.Parcels;
-
 public class TempMainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     private GoogleApiClient mGoogleApiClient;
@@ -50,7 +48,6 @@ public class TempMainActivity extends AppCompatActivity implements GoogleApiClie
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         TextView text = (TextView) findViewById(R.id.email);
-        user = RequestHandler.getUser();
         System.out.println("Parcing." + user.getEmail());
         if(user !=null)
             text.setText(user.getEmail());

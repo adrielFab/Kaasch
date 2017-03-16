@@ -5,9 +5,7 @@
 */
 package com.example.mrides.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 
 
 import com.example.mrides.R;
-import com.example.mrides.SignInRequestHandler;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
@@ -43,9 +40,10 @@ public class MainActivity extends AppCompatActivity implements
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
-    private User user = new User();
+    private User user;
     private FirebaseUser firebaseuser;
     private GoogleSignInAccount googleuser;
+
     /**
      * When activity is created the APIs are requested through GoogleApiClient
      *
@@ -124,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-
         if (result.isSuccess()) {
 
             // Signed in successfully, show authenticated UI.
@@ -188,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         firebaseuser = firebaseAuth.getCurrentUser();
 
-        if (firebaseuser != null && googleuser!=null) {
+        if (firebaseuser != null && googleuser!= null) {
             // User is signed in
             user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
@@ -207,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomePage.class);
         startActivity(intent);
 
         if (!task.isSuccessful()) {

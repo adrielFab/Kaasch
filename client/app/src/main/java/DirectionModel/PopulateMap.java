@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
@@ -32,14 +31,30 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
         this.createRouteActivity = createRouteActivity;
     }
 
+    /**
+     * Accessor method for usersOnMapCatalog
+     * @return ArrayList<User> This returns a list of all the user to be shown on the map
+     */
     public ArrayList<User> getUsersOnMapCatalog() {
+
         return usersOnMapCatalog;
     }
 
+    /**
+     * Mutator method for usersOnMapCatalog
+     * @param usersOnMapCatalog
+     */
     public void setUsersOnMapCatalog(ArrayList<User> usersOnMapCatalog) {
+
         this.usersOnMapCatalog = usersOnMapCatalog;
     }
 
+    /**
+     * Method that establishes a connection with the web server, sends a GET request
+     * and retrieves the corresponding data
+     * @param voids
+     * @return String This returns the response of the request
+     */
     @Override
     protected String doInBackground(Void... voids) {
 
@@ -79,12 +94,20 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     }
 
+    /**
+     * This method is executed before doInBackground
+     */
     @Override
     protected void onPreExecute() {
 
         super.onPreExecute();
     }
 
+    /**
+     * This method is executed after doInBackground. If the result is not a successful
+     * JSON string, the method will display an error message.
+     * @param result
+     */
     @Override
     protected void onPostExecute(String result) {
 
@@ -98,12 +121,17 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     }
 
+    /**
+     * This method parses the jsonData and stores the information of the users
+     * on the map and adds each user to the usersOnMapCatalog
+     * @param result
+     * @throws JSONException
+     */
     private void parseUserandMarker(String result) throws JSONException {
 
         if (result == null)
             return;
 
-        HashMap<User, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
@@ -116,9 +144,9 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             String firstName = jsonObject.getString("firstName");
             String lastName = jsonObject.getString("lastName");
             String email = jsonObject.getString("email");
-            String passengerDeviceId = jsonObject.getString("deviceId"); //TODO needs to be added to database
+            //String passengerDeviceId = jsonObject.getString("deviceId"); //TODO needs to be added to database
 
-            user.setDeviceId(passengerDeviceId);
+            //user.setDeviceId(passengerDeviceId);
             user.setId(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);

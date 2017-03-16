@@ -18,6 +18,13 @@ import java.util.List;
 
 public class RouteDeserializer {
 
+    /**
+     * This method takes the jsonData provided by the google maps api. Then, it stores all the needed values
+     * which characterize a route, according to the Route.java model
+     * @param res
+     * @return List<Route>
+     * @throws JSONException
+     */
     public List<Route> parseJSON(String res) throws JSONException {
 
         List<Route> routes = new ArrayList<Route>();
@@ -53,10 +60,13 @@ public class RouteDeserializer {
     }
 
     /**
-     * Method to decode polyline points
+     * This is a method that takes the polyline provided by google maps api, and returns a list of points
+     * which can be interconnected to form the route
      * Courtesy : http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
-     * */
-
+     * @param encoded
+     * @return List<LatLng> This returns a list of latitude and longitude coordinates that the new polyline
+     * will pass through to form the route
+     */
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();

@@ -20,8 +20,6 @@ import com.example.mrides.R;
 import com.example.mrides.RequestQueueSingleton;
 import com.example.mrides.userDomain.User;
 
-import org.parceler.Parcel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
