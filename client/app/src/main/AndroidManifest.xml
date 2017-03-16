@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mrides">
+          package="com.example.mrides">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <receiver android:name="WifiReceiver">
+    <receiver android:name=".WifiReceiver">
         <intent-filter>
             <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             <action android:name="android.net.wifi.STATE_CHANGE"/>
@@ -19,37 +19,31 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".Activity.PreferencePageActivity"
+            android:theme="@style/AppTheme2"
             android:screenOrientation="portrait"/>
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity android:name=".Activity.CreateRouteActivity"/>
-
+        <activity android:name=".Activity.ProfileActivity"/>
         <activity
             android:name=".Activity.MainActivity"
-            android:screenOrientation="portrait">
-
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.PreferencesTwoActivity"
             android:screenOrientation="portrait">
         </activity>
-
         <activity android:name=".Activity.TempMainActivity">
-
         </activity>
 
         <service
@@ -68,6 +62,14 @@
 
 
 
+        <activity android:name=".Activity.CreateRouteActivity">
+        </activity>
+        <activity android:name=".Activity.HomePage">
+        </activity>
+        <activity android:name=".Activity.InboxActivity">
+        </activity>
+        <activity android:name=".Activity.SettingsActivity">
+        </activity>
     </application>
 
 </manifest>

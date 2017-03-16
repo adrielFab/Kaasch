@@ -7,6 +7,7 @@ package DirectionModel;
 
 import android.os.AsyncTask;
 import com.example.mrides.Activity.CreateRouteActivity;
+import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,16 +19,42 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     private CreateRouteActivity createRouteActivity;
+    private ArrayList<User> usersOnMapCatalog = new ArrayList<>();
+
 
     public PopulateMap(CreateRouteActivity createRouteActivity){
         this.createRouteActivity = createRouteActivity;
     }
 
+    /**
+     * Accessor method for usersOnMapCatalog
+     * @return ArrayList<User> This returns a list of all the user to be shown on the map
+     */
+    public ArrayList<User> getUsersOnMapCatalog() {
+
+        return usersOnMapCatalog;
+    }
+
+    /**
+     * Mutator method for usersOnMapCatalog
+     * @param usersOnMapCatalog
+     */
+    public void setUsersOnMapCatalog(ArrayList<User> usersOnMapCatalog) {
+
+        this.usersOnMapCatalog = usersOnMapCatalog;
+    }
+
+    /**
+     * Method that establishes a connection with the web server, sends a GET request
+     * and retrieves the corresponding data
+     * @param voids
+     * @return String This returns the response of the request
+     */
     @Override
     protected String doInBackground(Void... voids) {
 
@@ -67,12 +94,20 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     }
 
+    /**
+     * This method is executed before doInBackground
+     */
     @Override
     protected void onPreExecute() {
 
         super.onPreExecute();
     }
 
+    /**
+     * This method is executed after doInBackground. If the result is not a successful
+     * JSON string, the method will display an error message.
+     * @param result
+     */
     @Override
     protected void onPostExecute(String result) {
 
@@ -86,25 +121,46 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     }
 
+    /**
+     * This method parses the jsonData and stores the information of the users
+     * on the map and adds each user to the usersOnMapCatalog
+     * @param result
+     * @throws JSONException
+     */
     private void parseUserandMarker(String result) throws JSONException {
 
         if (result == null)
             return;
-        HashMap<String, LatLng> hashUsers = new HashMap<>();
+
         JSONArray jsonData = new JSONArray(result);
 
         for(int i = 0; i < jsonData.length(); i ++){
 
+            User user = new User();
+            Route route = new Route();
+
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
-            String name = jsonObject.getString("firstName");
+            int id = jsonObject.getInt("id");
+            String firstName = jsonObject.getString("firstName");
+            String lastName = jsonObject.getString("lastName");
+            String email = jsonObject.getString("email");
+
+            user.setId(id);
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setEmail(email);
+
             String[] latlong =  jsonObject.getString("start").split(",");
             double latitude = Double.parseDouble(latlong[0]);
             double longitude = Double.parseDouble(latlong[1]);
             LatLng location = new LatLng(latitude, longitude);
 
-            hashUsers.put(name, location);
+            route.setStartLocation(location);
+            user.addRoute(route);
+
+            usersOnMapCatalog.add(user);
         }
 
-        this.createRouteActivity.populateGoogleMap(hashUsers);
+        this.createRouteActivity.populateGoogleMap();
     }
 }

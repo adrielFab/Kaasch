@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_preference_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:weightSum="10"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="35dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -58,42 +59,11 @@
             android:focusable="false"/>
         <Button
             android:layout_weight="3"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Select"
             android:id="@+id/btn_date"/>
     </LinearLayout>
-
-
-        <!--<TextView-->
-            <!--android:layout_weight="3"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="@string/Frequency"-->
-            <!--android:textStyle="bold"-->
-            <!--android:gravity="center_vertical"-->
-            <!--style="@style/regularSizeText"/>-->
-        <!--<RadioGroup-->
-            <!--android:layout_weight="7"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:checkedButton="@+id/Frequency_repeated">-->
-            <!--<RadioButton-->
-                <!--android:id="@+id/Frequency_once"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/Once"-->
-                <!--style="@style/regularSizeText"/>-->
-            <!--<RadioButton-->
-                <!--android:id="@+id/Frequency_repeated"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/Repeated"-->
-                <!--style="@style/regularSizeText"/>-->
-        <!--</RadioGroup>-->
 
     <ImageView
         android:layout_width="match_parent"
@@ -101,6 +71,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:src="@mipmap/line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -144,18 +115,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <!--<ImageView-->
-            <!--android:layout_weight="2"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="35sp"-->
-            <!--android:src="@mipmap/car"/>-->
-        <!--<TextView-->
-            <!--android:layout_weight="3"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/Rider_type"-->
-            <!--android:textStyle="bold"-->
-            <!--style="@style/regularSizeText"/>-->
         <RadioGroup
             android:gravity="center"
             android:layout_width="match_parent"
@@ -178,9 +137,75 @@
                 android:textSize="16dp"/>
         </RadioGroup>
     </LinearLayout>
-    <Button
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Next"
-        android:onClick="goToPreferencesTwo"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/textViewPref"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="9">
+
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/smoke"
+            android:id="@+id/img_smoke"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"
+            android:layout_weight="3"/>
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/boy"
+            android:id="@+id/img_boy"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"
+            android:layout_weight="3"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@mipmap/girl"
+            android:id="@+id/img_girl"
+            android:background="#45e239"
+            android:adjustViewBounds="false"
+            android:clickable="true"
+            android:layout_width="@dimen/preference_icon_width"
+            android:layout_weight="3"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Next"
+            android:onClick="goToCreateRoute"/>
+
+    </LinearLayout>
 </LinearLayout>

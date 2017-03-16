@@ -5,9 +5,7 @@
 */
 package com.example.mrides.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 
 
 import com.example.mrides.R;
-import com.example.mrides.SignInRequestHandler;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.auth.api.Auth;
@@ -39,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    //private FirebaseAuth.AuthStateListener mAuthListener;
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
+    private GoogleSignInAccount googleSignInAccount;
     private User user;
 
     /**
@@ -122,12 +119,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-
         if (result.isSuccess()) {
 
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            firebaseAuthWithGoogle(acct);
+             googleSignInAccount = result.getSignInAccount();
+            firebaseAuthWithGoogle(googleSignInAccount);
         } else {
 
             System.out.println("Failed");
@@ -158,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-                        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+                        Intent intent = new Intent(MainActivity.this, HomePage.class);
                         startActivity(intent);
 
                         if (!task.isSuccessful()) {
@@ -202,9 +198,9 @@ public class MainActivity extends AppCompatActivity implements
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
 
-        if (firebaseuser != null) {
+        if (firebaseuser != null && googleSignInAccount!= null) {
             // User is signed in
-            user = new User(firebaseuser);
+            user = new User(firebaseuser,googleSignInAccount);
             requestHandler.setUser(user);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
