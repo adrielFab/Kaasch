@@ -21,9 +21,18 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.mrides.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends AppCompatActivity implements View.OnClickListener,
+        NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
+        GoogleApiClient.OnConnectionFailedListener{
 
     private Typeface tf1;
     private TextView textViewMatch, textViewUnmatch;
@@ -34,6 +43,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
     private FloatingActionButton floatingActionButton;
+    private GoogleApiClient mGoogleApiClient;
 
     /**
      * Method that creates the activity
@@ -63,6 +73,14 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this , (GoogleApiClient.OnConnectionFailedListener) this )
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         createMatchedRoutes();
         createUnmatchedRoutes();
@@ -163,9 +181,23 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
                 startActivity(intentSettings);
                 break;
             case R.id.nav_logout:
-                //perform logout
+                FirebaseAuth.getInstance().signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onResult(@NonNull Status status) {
+
+        Intent intent = new Intent(HomePage.this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        
     }
 }
