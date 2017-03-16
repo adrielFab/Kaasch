@@ -14,15 +14,6 @@
               android:weightSum="1"
               android:background="@color/backgroundColor">
 
-    <ImageView
-        android:layout_centerHorizontal="true"
-        android:layout_width="318dp"
-        android:layout_height="256dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/sample_profile_image"
-        android:id="@+id/imageView"
-        />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -38,7 +29,7 @@
             android:textColor="#ffffff"/>
 
         <TextView
-            android:id="@+id/emailAddress"
+            android:id="@+id/textViewEmail"
             android:text="sampleEmail@gmail.com"
             style="@style/regularSizeText"
             android:layout_width="match_parent"
@@ -48,17 +39,25 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_width="251dp"
+        android:layout_height="152dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/sample_profile_image"
+        android:id="@+id/imageViewProfile"
+        android:layout_weight="0.02"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
+        android:orientation="horizontal">
 
         <TextView
             android:text="Rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4"
+            android:id="@+id/textViewRating"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#ffffff"
@@ -68,10 +67,34 @@
             android:text="3.5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
+            android:id="@+id/textViewRatingValue"
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="18sp"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:text="Invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonInvite"
+            android:layout_weight="1"
+            android:textColor="@color/backgroundColor"/>
+
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCancel"
+            android:layout_weight="1"
+            android:textColor="@color/backgroundColor"/>
+    </LinearLayout>
+
 </LinearLayout>

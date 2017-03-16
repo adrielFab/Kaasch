@@ -51,4 +51,9 @@
     <string name="close">Close</string>
     <string name="matched_routes">Matched Routes</string>
     <string name="unmatched_routes">Unmatched Routes</string>
+    <string name="male">Male</string>
+    <string name="settings">Settings</string>
+    <string name="female">Female</string>
+    <string name="smoking">Smoking</string>
+    <string name="non_smoking">No Smoking</string>
 </resources>

@@ -9,6 +9,7 @@ package com.example.mrides.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,6 +33,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private FloatingActionButton floatingActionButton;
 
     /**
      * Method that creates the activity
@@ -59,6 +61,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
         textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
         textViewUnmatch.setTypeface(tf1);
 
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(this);
+
         createMatchedRoutes();
         createUnmatchedRoutes();
 
@@ -85,6 +90,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onClick(View view) {
 
+        switch(view.getId()) {
+            case R.id.fab:
+                Intent intentCreate = new Intent(this, PreferencePageActivity.class);
+                startActivity(intentCreate);
+                break;
+        }
     }
 
     /**
@@ -141,11 +152,18 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_account:
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                //Go to account
                 break;
             case R.id.nav_inbox:
-                //perform the notification checking (inbox)
+                Intent intentInbox = new Intent(getApplicationContext(), InboxActivity.class);
+                startActivity(intentInbox);
+                break;
+            case R.id.nav_settings:
+                Intent intentSettings = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.nav_logout:
+                //perform logout
                 break;
         }
         return true;
