@@ -9,10 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mrides.Notification.InboxAdapter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 
-public class InboxActivity extends AppCompatActivity {
+public class InboxActivity extends AppCompatActivity implements ActivityObserver{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -32,8 +33,13 @@ public class InboxActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+
+    }
+
+    @Override
+    public void responseReceived(String response) {
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new InboxAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
 }

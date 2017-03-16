@@ -10,14 +10,16 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.Activity.MainActivity;
 import com.example.mrides.R;
+import com.example.mrides.controller.Subject;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 
-public class MatchingMessagingService extends FirebaseMessagingService {
+public class MatchingMessagingService extends FirebaseMessagingService implements Subject{
 
     /**
      * The message received from Firebase Cloud Messaging. Allows for users to send
@@ -61,4 +63,18 @@ public class MatchingMessagingService extends FirebaseMessagingService {
     }
 
 
+    @Override
+    public void attach(ActivityObserver observerToAdd) {
+
+    }
+
+    @Override
+    public void detach(ActivityObserver observerToRemove) {
+
+    }
+
+    @Override
+    public void Notify(String response) {
+
+    }
 }
