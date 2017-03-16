@@ -43,8 +43,6 @@
             android:name=".Activity.PreferencesTwoActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Activity.TempMainActivity">
-        </activity>
         <activity android:name=".Activity.CreateRouteActivity">
         </activity>
         <activity android:name=".Activity.HomePage">

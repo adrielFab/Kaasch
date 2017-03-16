@@ -193,11 +193,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
 
         Intent intent = new Intent(HomePage.this, MainActivity.class);
         startActivity(intent);
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        
+
     }
 }
