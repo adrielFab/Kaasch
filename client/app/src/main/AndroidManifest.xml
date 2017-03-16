@@ -21,6 +21,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.PreferencePageActivity"
+            android:theme="@style/AppTheme2"
             android:screenOrientation="portrait"/>
 
         <meta-data
