@@ -59,4 +59,7 @@
     <string name="female">Female</string>
     <string name="smoking">Smoking</string>
     <string name="non_smoking">No Smoking</string>
+
+    <!--Not translated-->
+    <string name="invited_to_route">You Have Been Invited To A Route</string>
 </resources>
