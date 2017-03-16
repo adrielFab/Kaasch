@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements
     public void responseReceived(String response) {
 
         requestHandler.detach(this);
-        Intent intent = new Intent(MainActivity.this, TempMainActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomePage.class);
         startActivity(intent);
     }
 

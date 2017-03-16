@@ -33,6 +33,11 @@
             android:name=".Activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.PreferencesTwoActivity"
@@ -43,11 +48,6 @@
         <activity android:name=".Activity.CreateRouteActivity">
         </activity>
         <activity android:name=".Activity.HomePage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".Activity.InboxActivity">
         </activity>
