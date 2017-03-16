@@ -65,9 +65,9 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * Method moves to the next page (CreateRouteActivity)
      * @param view
      */
-    public void goToPreferencesTwo(View view) {
+    public void goToCreateRoute(View view) {
 
-        Intent intent = new Intent(PreferencePageActivity.this, PreferencesTwoActivity.class);
+        Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
         startActivity(intent);
     }
 
