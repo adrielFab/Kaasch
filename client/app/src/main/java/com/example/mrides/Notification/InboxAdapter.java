@@ -48,7 +48,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)
-                + " " + responseBody.get("loggedInUserEmail"));
+                + " " + responseBody.get("loggedInUserDisplayName"));
         holder.itemMessage.setOnClickListener(this);
         holder.profilePciture.setOnClickListener(this);
     }
@@ -80,7 +80,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     }
 
     private void createDiolgue() {
-        Dialog dialog = new Dialog(inboxContext);
+        dialog = new Dialog(inboxContext);
         dialog.setTitle(inboxContext.getString(R.string.invited_to_route));
         dialog.setContentView(R.layout.userprofile_dialog_layout);
         dialog.show();
@@ -96,7 +96,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         //       .execute();
         imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
-        Button buttonInvite = (Button) dialog.findViewById(R.id.ok);
+        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+        //TODO button id needs to be changed. diologue is also used in createrouteActivity
+        buttonInvite.setText(R.string.ok);
         buttonInvite.setOnClickListener(this);
 
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);

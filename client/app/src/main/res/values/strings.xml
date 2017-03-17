@@ -60,5 +60,5 @@
     <string name="non_smoking">No Smoking</string>
 
     <!--Not translated-->
-    <string name="invited_to_route">You Have Been Invited To A Route</string>
+    <string name="invited_to_route">You Have Been Invited By:</string> <!--right after this sentence is the name-->
 </resources>
