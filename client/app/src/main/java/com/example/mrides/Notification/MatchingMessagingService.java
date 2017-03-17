@@ -23,9 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MatchingMessagingService extends FirebaseMessagingService implements Subject{
+public class MatchingMessagingService extends FirebaseMessagingService{
 
-    private ArrayList<ActivityObserver> observers = new ArrayList<>();
     /**
      * The message received from Firebase Cloud Messaging. Allows for users to send
      * notifications to each other devices.
@@ -68,33 +67,4 @@ public class MatchingMessagingService extends FirebaseMessagingService implement
         notificationManager.notify(0,notificationBuilder.build());
     }
 
-
-
-    @Override
-    public void attach(ActivityObserver observerToAdd) {
-
-        if(observers.contains(observerToAdd)){
-            return;
-        }
-        observers.add(observerToAdd);
-    }
-
-    @Override
-    public void detach(ActivityObserver observerToRemove) {
-        observers.remove(observerToRemove);
-    }
-
-    @Override
-    public void Notify(String resonse) {
-
-    }
-
-    @Override
-    public void Notify(Map<String, String> response) {
-
-        for(ActivityObserver e : observers){
-
-            e.responseReceived(response);
-        }
-    }
 }

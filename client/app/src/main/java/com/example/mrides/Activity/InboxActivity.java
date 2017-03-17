@@ -20,7 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
-public class InboxActivity extends AppCompatActivity implements ActivityObserver{
+public class InboxActivity extends AppCompatActivity{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -49,13 +49,4 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     }
 
-    @Override
-    public void responseReceived(String response) {
-
-    }
-
-    @Override
-    public void responseReceived(Map<String, String> response) {
-        ((InboxAdapter) mAdapter).setViewComponents(response);
-    }
 }

@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/inbox_profile_pic"
         android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:src="@mipmap/boy"/>
