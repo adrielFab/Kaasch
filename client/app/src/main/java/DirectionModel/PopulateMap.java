@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PopulateMap extends AsyncTask<Void, Void, String>{
 
@@ -90,6 +91,8 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
         try{
 
+
+            System.out.println("Result is null");
             parseUserandMarker(result);
         } catch (JSONException e){
 
@@ -100,11 +103,43 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
 
     private void parseUserandMarker(String result) throws JSONException {
 
-        if (result == null)
+        if (result == null){
             return;
+        }
 
         HashMap<User, LatLng> hashUsers = new HashMap<>();
         JSONArray jsonData = new JSONArray(result);
+
+
+        List<Route> routes = new ArrayList<Route>();
+
+        JSONObject jsonDataRoute = new JSONObject(result);
+        JSONArray jsonRoutes = jsonDataRoute.getJSONArray("routes");
+
+        for (int i = 0; i < jsonRoutes.length(); i++) {
+            JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
+            Route route = new Route();
+
+            JSONObject overview_polylineJson = jsonRoute.getJSONObject("overview_polyline");
+            JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
+            JSONObject jsonLeg = jsonLegs.getJSONObject(0);
+            JSONObject jsonDistance = jsonLeg.getJSONObject("distance");
+            JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
+            JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
+            JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
+
+            route.setDistance(new Distance(jsonDistance.getString("text"), jsonDistance.getInt("value")));
+            route.setDuration(new Duration(jsonDuration.getString("text"), jsonDuration.getInt("value")));
+            route.setEndAddress(jsonLeg.getString("end_address"));
+            route.setStartAddress(jsonLeg.getString("start_address"));
+            route.setStartLocation(new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng")));
+            route.setEndLocation(new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng")));
+            route.setPoints(decodePoly(overview_polylineJson.getString("points")));
+
+            System.out.println("Points are: "+decodePoly(overview_polylineJson.getString("points")));
+            routes.add(route);
+        }
+
 
         for(int i = 0; i < jsonData.length(); i ++){
 
@@ -128,11 +163,56 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             LatLng location = new LatLng(latitude, longitude);
 
             route.setStartLocation(location);
+            JSONObject overview_polylineJson = jsonObject.getJSONObject("overview_polyline");
+
+            route.setPoints(decodePoly(overview_polylineJson.getString("points")));
             user.addRoute(route);
 
             usersOnMapCatalog.add(user);
         }
 
         this.createRouteActivity.populateGoogleMap();
+    }
+
+    /**
+     * Method to decode polyline points
+     * Courtesy : http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+     * */
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+
+            int b, shift = 0, result = 0;
+            do {
+
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
     }
 }

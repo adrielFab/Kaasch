@@ -74,6 +74,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
+    private ArrayList <User> userOnMapCatalog = new ArrayList<>();
 
 
     @Override
@@ -206,7 +207,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     public void populateGoogleMap() {
 
-        ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+        userOnMapCatalog = populateMap.getUsersOnMapCatalog();
         final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
 
         /* Creating a custom icon (passenger) */
@@ -351,64 +352,92 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         RouteDeserializer deserializer = new RouteDeserializer();
         ArrayList<Route> route = new ArrayList<>();
         try {
-
             route = (ArrayList<Route>) deserializer.parseJSON(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        ArrayList<Route> databaseRoute = new ArrayList<>();
+        for (int i = 0; i < userOnMapCatalog.size(); i++){
+            for (int j = 0; j < userOnMapCatalog.get(i).getRoutes().size(); j++){
+                databaseRoute.add(userOnMapCatalog.get(i).getRoutes().get(j));
+            }
+        }
 
-//        List <LatLng> currentUser = route.get(0).getPoints();
-        List <LatLng> currentUser = new ArrayList<LatLng>();;
+        System.out.println("User's route: "+route.get(0).getPoints());
+        System.out.println("Database route: "+databaseRoute.get(0).getPoints());
 
-        // H2S 2K5 to McDonald
-        currentUser.add(new LatLng(45.53598, -73.60092));
-        currentUser.add(new LatLng(45.5353,-73.59939));
-        currentUser.add(new LatLng(45.535,-73.59966));
-        currentUser.add(new LatLng(45.5347,-73.59994));
-        currentUser.add(new LatLng(45.53612,-73.60307));
-        currentUser.add(new LatLng(45.53619,-73.60324));
+////        List <LatLng> currentUser = route.get(0).getPoints();
+//        List <LatLng> currentUser = new ArrayList<LatLng>();;
+//
+//        // McDonald
+////        currentUser.add(new LatLng(45.53598, -73.60092));
+////        currentUser.add(new LatLng(45.5353,-73.59939));
+////        currentUser.add(new LatLng(45.535,-73.59966));
+////        currentUser.add(new LatLng(45.5347,-73.59994));
+////        currentUser.add(new LatLng(45.53612,-73.60307));
+////        currentUser.add(new LatLng(45.53619,-73.60324));
+//        //
+//        currentUser.add(new LatLng(45.602800,-73.562105));
+//        currentUser.add(new LatLng(45.591882,-73.580316));
 
-        matchRoute(route, currentUser);
+        // route --> input = two points
+        // a list of routes with starting and ending pts
+        matchRoute(databaseRoute, route);
         successObtainDirection(route);
     }
 
-    public void matchRoute(ArrayList<Route> route, List <LatLng> currentUser){
+    public void matchRoute(ArrayList<Route> route, ArrayList<Route> currentUser){
 
-        // For each route
-        for (int i = 0; i < route.size(); i++){
-            // If not current user...
+        for (int i = 0; i<route.size(); i++){
+            for (int j = 0; j<route.get(i).getPoints().size(); j++){
+                if(distance(route.get(i).getRoutePointsLatitudeAt(j),
+                        route.get(i).getRoutePointsLongtitudeAt(j),
+                        currentUser.get(i).getRoutePointsLatitudeAt(j),
+                        currentUser.get(i).getRoutePointsLongtitudeAt(j))
+                        <=0.0124274){
 
-            for(int j = 0; j < route.get(i).getPoints().size(); j++){
-
-                System.out.println("Checking new route with data "+route.get(i).getPoints());
-                for (int k = 0; k < currentUser.size(); k++){
-
-                    // If the distance between two coordinates is less or equal to 20 meters,
-                    // they are considered to be on the same path.
-                    if(distance(route.get(i).getRoutePointsLatitudeAt(j),
-                            route.get(i).getRoutePointsLongtitudeAt(j),
-                            currentUser.get(j).latitude,
-                            currentUser.get(j).longitude)
-                            <=0.0124274){
-
-                        System.out.println("Distance if statement passed: checkEqual now");
-                        checkEqual(currentUser, j, route.get(i).getPoints(), j);
-                        // if the distance is more than 20 meters, check next point.
-
-                    }
-
+                    System.out.println("Distance if statement passed: checkEqual now");
+                    checkEqual(currentUser, j, route.get(i).getPoints(), j);
+                    // if the distance is more than 20 meters, check next point.
                 }
-
             }
-
         }
+
+//        // For each route
+//        for (int i = 0; i < route.size(); i++){
+//            // If not current user...
+//
+//            for(int j = 0; j < route.get(i).getPoints().size(); j++){
+//
+//                System.out.println("Checking new route with data "+route.get(i).getPoints());
+//                for (int k = 0; k < currentUser.size(); k++){
+//
+//                    // If the distance between two coordinates is less or equal to 20 meters,
+//                    // they are considered to be on the same path.
+//                    if(distance(route.get(i).getRoutePointsLatitudeAt(j),
+//                            route.get(i).getRoutePointsLongtitudeAt(j),
+//                            currentUser.get(j).latitude,
+//                            currentUser.get(j).longitude)
+//                            <=0.0124274){
+//
+//                        System.out.println("Distance if statement passed: checkEqual now");
+//                        checkEqual(currentUser, j, route.get(i).getPoints(), j);
+//                        // if the distance is more than 20 meters, check next point.
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
     }
 
-    private void checkEqual (List <LatLng> currentUser, int position1, List <LatLng> route, int position2){
+    private boolean checkEqual (List <LatLng> currentUser, int position1, List <LatLng> route, int position2){
 
         int maxLength;
-        String result=null;
+        boolean result=false;
         if (currentUser.size()>route.size()){
             maxLength = currentUser.size();
         } else{
@@ -427,11 +456,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     currentUser.get(position1+i).latitude,
                     currentUser.get(position1+i).longitude)
                     >0.0124274){
-                result = "false";
+                result = false;
                 break;
             }
-            result = "true";
+            System.out.print("It has been matched...");
+            result = true;
         }
+        return result;
     }
 
     /** calculates the distance between two locations in MILES */
