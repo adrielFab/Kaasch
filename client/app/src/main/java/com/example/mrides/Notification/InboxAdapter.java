@@ -98,7 +98,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
         //TODO button id needs to be changed. diologue is also used in createrouteActivity
-        buttonInvite.setText(R.string.ok);
+        buttonInvite.setText(R.string.accept);
         buttonInvite.setOnClickListener(this);
 
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
