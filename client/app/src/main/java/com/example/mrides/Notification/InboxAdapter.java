@@ -1,20 +1,25 @@
 package com.example.mrides.Notification;
 
 
+import android.app.Dialog;
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
 
 import java.util.Map;
 
-public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
+public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> implements
+        View.OnClickListener{
 
     private Map<String,String> responseBody;
     private Context inboxContext;
@@ -50,6 +55,40 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return 1;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.item_title:
+                createDiolgue();
+        }
+            
+        Dialog dialog = new Dialog(inboxContext);
+        dialog.setTitle(inboxContext.getString(R.string.invited_to_route));
+        dialog.setContentView(R.layout.userprofile_dialog_layout);
+        dialog.show();
+
+        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+        textViewFullName.setText(responseBody.get("loggedInUserFirstName"));
+
+        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+        textViewEmail.setText(responseBody.get("loggedInUserEmail"));
+
+        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+        //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
+         //       .execute();
+        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+        Button buttonInvite = (Button) dialog.findViewById(R.id.ok);
+
+        buttonInvite.setOnClickListener(this);
+
+        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(this);
+    }
+
+    private void createDiolgue() {
     }
 
     /**
