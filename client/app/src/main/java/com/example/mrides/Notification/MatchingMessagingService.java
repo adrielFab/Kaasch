@@ -54,6 +54,7 @@ public class MatchingMessagingService extends FirebaseMessagingService implement
         v.vibrate(500);
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
+        Notify(remoteMessage.getData());
         Intent intent = new Intent(this, InboxActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
@@ -65,7 +66,6 @@ public class MatchingMessagingService extends FirebaseMessagingService implement
         notificationBuilder.setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build());
-        Notify(remoteMessage.getData());
     }
 
 

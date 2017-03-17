@@ -4,6 +4,7 @@ package com.example.mrides.Notification;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,28 +24,25 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     }
 
     public void setViewComponents(Map<String,String> body){
-        this.responseBody = responseBody;
+        this.responseBody = body;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_inbox_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.activity_inbox_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(view);
         return vh;
     }
 
+    //TODO this method only adds 1 item to the inbox. That item is the notification message
+    // Therefore the position variable is not used. In the future we need to implement a
+    // script to get all the inbox messages
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemMessage.setText(dataList.get(i));
-        letter = String.valueOf(dataList.get(i).charAt(0));
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRound(letter, generator.getRandomColor());
-        gmailVH.letter.setImageDrawable(drawable);
-        itemMessage.setText(inviteMessage+ " " + responseBody.get("loggedInUserEmail"));
-
+        holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)
+                + " " + responseBody.get("loggedInUserEmail"));
     }
 
     //number of elements which need to be shown for now 1 however as the inbox grows
@@ -63,11 +61,12 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView itemMessage;
-        ImageView profile;
-        public ViewHolder(TextView v) {
+        ImageView profilePciture;
+        View v;
+        public ViewHolder(View v) {
             super(v);
-            profile = inboxContext.ge
-                    itemMessage = v;
+            profilePciture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
+            itemMessage = (TextView) itemView.findViewById(R.id.item_title);
         }
     }
 }
