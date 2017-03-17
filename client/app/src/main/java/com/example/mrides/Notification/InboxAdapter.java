@@ -1,6 +1,7 @@
 package com.example.mrides.Notification;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import java.util.Map;
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
     private Map<String,String> responseBody;
+    private static String inviteMessage;
 
-    public InboxActivity(Map<String,String> responseBody){
+    public InboxAdapter(Map<String,String> responseBody, String inviteMessage){
         this.responseBody = responseBody;
+        this.inviteMessage = inviteMessage;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         public ViewHolder(TextView v) {
             super(v);
             mTextView = v;
-            mTextView.setText(getString(R.string.invited_to_route));
+            mTextView.setText();
         }
     }
 }

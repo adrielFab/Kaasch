@@ -45,7 +45,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     @Override
     public void responseReceived(Map<String, String> response) {
-        mAdapter = new InboxAdapter(response);
+        mAdapter = new InboxAdapter(response,getString(R.string.invited_to_route));
         mRecyclerView.setAdapter(mAdapter);
     }
 }
