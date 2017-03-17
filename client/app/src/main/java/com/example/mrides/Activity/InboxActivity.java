@@ -16,6 +16,7 @@ import com.example.mrides.Notification.MatchingMessagingService;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.controller.Subject;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
@@ -24,8 +25,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MatchingMessagingService matchingservice;
-
+    private RemoteMessage notification;
     private RequestHandler requestHandler = new RequestHandler();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -43,8 +43,10 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new InboxAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        matchingservice = bindService();
-        matchingservice.attach(this);
+        notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
+        if(notification!=null)
+        ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
+
     }
 
     @Override
