@@ -15,10 +15,10 @@
         android:hint="Enter start address" />
 
     <EditText
+        android:id="@+id/editTextDestination"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter destination address"
-        android:id="@+id/editTextDestination" />
+        android:hint="Enter destination address" />
 
     <LinearLayout
         android:layout_width="match_parent"
