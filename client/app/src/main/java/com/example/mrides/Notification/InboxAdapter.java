@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mrides.Activity.InboxActivity;
@@ -15,11 +16,14 @@ import java.util.Map;
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
     private Map<String,String> responseBody;
-    private static String inviteMessage;
+    private Context inboxContext;
 
-    public InboxAdapter(Map<String,String> responseBody, String inviteMessage){
+    public InboxAdapter(Context inboxContext){
+        this.inboxContext = inboxContext;
+    }
+
+    public void setViewComponents(Map<String,String> body){
         this.responseBody = responseBody;
-        this.inviteMessage = inviteMessage;
     }
 
     @Override
@@ -34,12 +38,20 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.itemMessage.setText(dataList.get(i));
+        letter = String.valueOf(dataList.get(i).charAt(0));
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(letter, generator.getRandomColor());
+        gmailVH.letter.setImageDrawable(drawable);
+        itemMessage.setText(inviteMessage+ " " + responseBody.get("loggedInUserEmail"));
 
     }
 
+    //number of elements which need to be shown for now 1 however as the inbox grows
+    //more the item list needs to be representative of the number of inbox values
     @Override
     public int getItemCount() {
-        return 0;
+        return 1;
     }
 
     /**
@@ -50,11 +62,12 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        TextView itemMessage;
+        ImageView profile;
         public ViewHolder(TextView v) {
             super(v);
-            mTextView = v;
-            mTextView.setText();
+            profile = inboxContext.ge
+                    itemMessage = v;
         }
     }
 }

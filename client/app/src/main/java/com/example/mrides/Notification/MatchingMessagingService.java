@@ -26,7 +26,6 @@ import java.util.Map;
 public class MatchingMessagingService extends FirebaseMessagingService implements Subject{
 
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
-    private Map<String,String> notificationBody = new HashMap<>();
     /**
      * The message received from Firebase Cloud Messaging. Allows for users to send
      * notifications to each other devices.
@@ -86,7 +85,12 @@ public class MatchingMessagingService extends FirebaseMessagingService implement
     }
 
     @Override
-    public void Notify() {
+    public void Notify(String resonse) {
+
+    }
+
+    @Override
+    public void Notify(Map<String, String> response) {
 
         for(ActivityObserver e : observers){
 
