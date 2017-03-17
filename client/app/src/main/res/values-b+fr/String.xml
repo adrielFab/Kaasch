@@ -44,4 +44,13 @@
     <string name="wifi_not_found">Internet non connecté</string>
     <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
+    <string name="open">Ouvre</string>
+    <string name="close">Ferme</string>
+    <string name="matched_routes">Routes Accompagnés</string>
+    <string name="unmatched_routes">Routes Non-accompangés</string>
+    <string name="male">Homme</string>
+    <string name="settings">Paramètres</string>
+    <string name="female">Femme</string>
+    <string name="smoking">Fumeur</string>
+    <string name="non_smoking">Non-fumeur</string>
 </resources>
