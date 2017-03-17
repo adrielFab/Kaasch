@@ -65,13 +65,11 @@ public class RequestHandler implements Subject{
                 }) {
             @Override
             protected Map<String, String> getParams() {
-                
                 return parameters;
             }
             @Override
             public String getBodyContentType() {
-                //System.out.
-                return contentType;
+                return "application/x-www-form-urlencoded; charset=UTF-8";
             }
 
         };

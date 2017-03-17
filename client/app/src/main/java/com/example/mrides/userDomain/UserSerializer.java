@@ -1,6 +1,7 @@
 package com.example.mrides.userDomain;
 
 
+
 import java.util.HashMap;
 import java.util.Map;
 
