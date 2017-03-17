@@ -53,4 +53,11 @@
     <string name="female">Femme</string>
     <string name="smoking">Fumeur</string>
     <string name="non_smoking">Non-fumeur</string>
+    <string name="my_account">Mon profile</string>
+    <string name="inbox">Boîte de réception</string>
+    <string name="enter_start_address">Entrez l\'addresse de départ</string>
+    <string name="find_path">Trouve route</string>
+    <string name="enter_destination_address">Entrez l\'address du destination</string>
+    <string name="cancel">Annuler</string>
+    <string name="invite">Invitez</string>
 </resources>

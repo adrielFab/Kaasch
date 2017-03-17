@@ -9,7 +9,7 @@
     tools:context="com.example.mrides.Activity.CreateRouteActivity">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextStart"
         android:hint="@string/enter_start_address" />
