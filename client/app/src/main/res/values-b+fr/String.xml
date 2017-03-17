@@ -41,7 +41,23 @@
     <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="direction_url_api">https://maps.googleapis.com/maps/api/directions/json?</string>
     <string name="google_maps_api_key">AIzaSyDBjGOW7Yv5t-RwJI-Dhl86rZnZcQCd93c</string>
-    <string name="wifi_not_found">Internet non connecté</string>
+    <string name="wifi_not_found">Connexion réseau sans fil connecté</string>
     <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
+    <string name="open">Ouvrir</string>
+    <string name="close">Fermer</string>
+    <string name="matched_routes">Itinéraires Trouvées</string>
+    <string name="unmatched_routes">Itinéraires en Recherche</string>
+    <string name="male">Homme</string>
+    <string name="settings">Paramètres</string>
+    <string name="female">Femme</string>
+    <string name="smoking">Fumeur</string>
+    <string name="non_smoking">Non-fumeur</string>
+    <string name="my_account">Mon profil</string>
+    <string name="inbox">Boîte de réception</string>
+    <string name="enter_start_address">Entrez l\'addresse de départ</string>
+    <string name="find_path">Trouver route</string>
+    <string name="enter_destination_address">Entrez l\'address de la destination</string>
+    <string name="cancel">Annuler</string>
+    <string name="invite">Inviter</string>
 </resources>
