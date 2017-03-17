@@ -144,6 +144,8 @@ public class RequestHandler implements Subject{
 
     @Override
     public void Notify(Map<String, String> response) {
-        
+        for (ActivityObserver e : observers) {
+            e.responseReceived(response);
+        }
     }
 }

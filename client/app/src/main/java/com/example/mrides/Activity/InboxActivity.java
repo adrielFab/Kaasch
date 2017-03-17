@@ -13,6 +13,8 @@ import com.example.mrides.Notification.InboxAdapter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 
+import java.util.Map;
+
 public class InboxActivity extends AppCompatActivity implements ActivityObserver{
 
     private RecyclerView mRecyclerView;
@@ -38,8 +40,12 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     @Override
     public void responseReceived(String response) {
-        // specify an adapter (see also next example)
-        mAdapter = new InboxAdapter(myDataset);
+
+    }
+
+    @Override
+    public void responseReceived(Map<String, String> response) {
+        mAdapter = new InboxAdapter(response);
         mRecyclerView.setAdapter(mAdapter);
     }
 }

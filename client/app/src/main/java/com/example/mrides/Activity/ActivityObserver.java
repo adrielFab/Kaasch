@@ -1,6 +1,8 @@
 package com.example.mrides.Activity;
 
 
+import java.util.Map;
+
 public interface ActivityObserver {
 
     /**
@@ -11,4 +13,6 @@ public interface ActivityObserver {
      * @param response A string response formated in a json string returned from the request handler
      */
     public void responseReceived(String response);
+    public void responseReceived(Map<String,String> response);
+
 }

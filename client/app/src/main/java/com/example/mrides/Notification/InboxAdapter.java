@@ -6,10 +6,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
+
+import java.util.Map;
 
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
+    private Map<String,String> responseBody;
+
+    public InboxActivity(Map<String,String> responseBody){
+        this.responseBody = responseBody;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,6 +51,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         public ViewHolder(TextView v) {
             super(v);
             mTextView = v;
+            mTextView.setText(getString(R.string.invited_to_route));
         }
     }
 }
