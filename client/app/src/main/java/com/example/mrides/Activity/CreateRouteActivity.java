@@ -367,7 +367,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         jsonBody.putAll(logedInUserJsonBody);
         jsonBody.putAll(passengerJSonBody);
         requestHandler.httpPostStringRequest(getString(R.string.web_server_ip)  +
-                        "/invitePassenger.php",jsonBody,"application/json" ,this);
+                        "/invitePassenger.php",jsonBody,
+                "application/x-www-form-urlencoded; charset=UTF-8" ,this);
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }
 }
