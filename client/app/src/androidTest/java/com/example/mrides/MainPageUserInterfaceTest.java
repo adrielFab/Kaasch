@@ -14,6 +14,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
@@ -23,11 +24,10 @@ public class MainPageUserInterfaceTest {
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void searchGetStartedButton(){
+    public void testGetStartedButton(){
 
-        // Verifies if get started is displayed and is clickable
-        onView(withText("Get Started")).check(matches(isDisplayed()));
-        onView(withText("Get Started")).perform(click());
+        // Clicks get started button to verify if it goes to the following page
+        onView(withId(R.id.getStartedButton)).perform(click());
 
     }
 

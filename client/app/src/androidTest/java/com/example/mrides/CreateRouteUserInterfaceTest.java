@@ -33,30 +33,42 @@ public class CreateRouteUserInterfaceTest {
     @Test
     public void testValidInputs(){
 
+        // Inputs two valid address and clicks button for output
         onView(withId(R.id.editTextStart)).perform(typeText("H3S 1V2"));
         onView(withId(R.id.editTextDestination)).perform(typeText("Bell Centre"));
         onView(withId(R.id.buttonFindPath)).perform(click());
         Espresso.closeSoftKeyboard();
     }
     @Test
-    public void testStartInputInvalid(){
+    public void testStartInputEmpty(){
 
+        // Inputs empty address for destination and valid address for start then clicks button for output
         onView(withId(R.id.editTextStart)).perform(typeText(""));
         onView(withId(R.id.editTextDestination)).perform(typeText("Bell Centre"));
         onView(withId(R.id.buttonFindPath)).perform(click());
     }
     @Test
-    public void testDestinationInputInvalid(){
+    public void testDestinationInputEmpty(){
 
+        // Inputs empty address for start and a valid address for destination then clicks button for output
         onView(withId(R.id.editTextStart)).perform(typeText("H3S 1V2"));
+        onView(withId(R.id.editTextDestination)).perform(typeText(""));
+        onView(withId(R.id.buttonFindPath)).perform(click());
+    }
+    @Test
+    public void testEmptyInputs(){
+
+        // Inputs two empty address and clicks button for output
+        onView(withId(R.id.editTextStart)).perform(typeText(""));
         onView(withId(R.id.editTextDestination)).perform(typeText(""));
         onView(withId(R.id.buttonFindPath)).perform(click());
     }
     @Test
     public void testInvalidInputs(){
 
-        onView(withId(R.id.editTextStart)).perform(typeText(""));
-        onView(withId(R.id.editTextDestination)).perform(typeText(""));
+        // Input two invalid address and click buttons for output
+        onView(withId(R.id.editTextStart)).perform(typeText("4v5f"));
+        onView(withId(R.id.editTextDestination)).perform(typeText("5fe3"));
         onView(withId(R.id.buttonFindPath)).perform(click());
     }
 
