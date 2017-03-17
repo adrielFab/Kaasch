@@ -56,4 +56,11 @@
     <string name="female">Female</string>
     <string name="smoking">Smoking</string>
     <string name="non_smoking">No Smoking</string>
+    <string name="my_account">My Account</string>
+    <string name="inbox">Inbox</string>
+    <string name="enter_start_address">Enter start address</string>
+    <string name="find_path">Find path</string>
+    <string name="enter_destination_address">Enter destination address</string>
+    <string name="cancel">Cancel</string>
+    <string name="invite">Invite</string>
 </resources>
