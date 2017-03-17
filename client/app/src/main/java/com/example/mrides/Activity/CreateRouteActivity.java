@@ -318,10 +318,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
-    @Override
-    public void responseReceived(Map<String, String> response) {
-
-    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
