@@ -70,6 +70,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private PopulateMap populateMap = new PopulateMap(this);
 
 
+    /**
+     * Method that requests the user to capture their current location
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -87,6 +93,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * Method that is called to load the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -110,6 +120,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     }
 
+    /**
+     * Method that handles user inputs and executes the creation of path after successful evaluation
+     */
     public void createPath(){
 
         String start = mEditTextStart.getText().toString();
@@ -142,6 +155,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
 
+    /**
+     * Method that loads the googleMap
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
@@ -198,6 +215,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         populateMap.execute();
     }
 
+    /**
+     * This methods adds all the passenger on the google map. Each passenger is a google marker
+     * and their position is the start address of the route
+     */
     public void populateGoogleMap() {
 
         ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
@@ -265,7 +286,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
 
-
+    /**
+     * This method displays a progress dialog to let the user know that the route is being retrieved
+     */
     public void startObtainDirection() {
 
         if(!requestHandler.isInternetConnected(this)){
@@ -299,6 +322,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * This methods creates the route from the input start address and the input end address
+     * @param routes
+     */
     public void successObtainDirection(List<Route> routes) {
 
         mProgressDialog.dismiss();
