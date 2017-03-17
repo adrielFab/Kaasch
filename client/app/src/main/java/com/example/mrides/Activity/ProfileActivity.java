@@ -28,8 +28,4 @@ public class ProfileActivity extends AppCompatActivity implements ActivityObserv
         //requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),);
     }
 
-    @Override
-    public void responseReceived(Map<String, String> response) {
-
-    }
 }

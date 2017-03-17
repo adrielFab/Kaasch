@@ -168,11 +168,6 @@ public class MainActivity extends AppCompatActivity implements
         requestHandler.detach(this);
     }
 
-    @Override
-    public void responseReceived(Map<String, String> response) {
-
-    }
-
     /**
      * Method called when the application can't connect to Google sign in API
      *
