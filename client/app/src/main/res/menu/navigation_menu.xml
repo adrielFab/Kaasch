@@ -3,18 +3,22 @@
 
     <item android:id="@+id/nav_account"
         android:title="@string/my_account"
+          android:icon="@mipmap/ic_account_box_black_24dp"
         />
 
     <item android:id="@+id/nav_inbox"
           android:title="@string/inbox"
+          android:icon="@mipmap/ic_sms_black_24dp"
         />
 
     <item android:id="@+id/nav_settings"
         android:title="@string/settings"
+          android:icon="@mipmap/ic_settings_black_24dp"
         />
 
     <item android:id="@+id/nav_logout"
         android:title="@string/Logout"
+          android:icon="@mipmap/ic_exit_to_app_black_24dp"
         />
 
 
