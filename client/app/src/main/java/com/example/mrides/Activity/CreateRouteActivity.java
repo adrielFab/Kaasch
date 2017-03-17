@@ -319,6 +319,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
+    public void responseReceived(Map<String, String> response) {
+
+    }
+
+    @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
         dialog = new Dialog(CreateRouteActivity.this);

@@ -7,6 +7,8 @@ import android.view.View;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 
+import java.util.Map;
+
 public class ProfileActivity extends AppCompatActivity implements ActivityObserver{
 
     private RequestHandler requestHandler = new RequestHandler();
@@ -24,5 +26,10 @@ public class ProfileActivity extends AppCompatActivity implements ActivityObserv
     public void responseReceived(String response) {
         requestHandler.detach(this);
         //requestHandler.httpPostStringRequest(getString(R.string.web_server_ip),);
+    }
+
+    @Override
+    public void responseReceived(Map<String, String> response) {
+
     }
 }

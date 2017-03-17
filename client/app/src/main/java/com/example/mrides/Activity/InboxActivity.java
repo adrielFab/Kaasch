@@ -34,7 +34,8 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        mAdapter = new InboxAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 
@@ -45,7 +46,6 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     @Override
     public void responseReceived(Map<String, String> response) {
-        mAdapter = new InboxAdapter(response,getString(R.string.invited_to_route));
-        mRecyclerView.setAdapter(mAdapter);
+        ((InboxAdapter) mAdapter).setViewComponents(response);
     }
 }

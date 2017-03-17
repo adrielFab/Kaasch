@@ -32,6 +32,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
         OnCompleteListener<AuthResult>{
@@ -164,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements
     public void responseReceived(String response) {
 
         requestHandler.detach(this);
+    }
+
+    @Override
+    public void responseReceived(Map<String, String> response) {
+
     }
 
     /**
