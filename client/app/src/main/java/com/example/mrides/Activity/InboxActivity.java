@@ -28,8 +28,14 @@ public class InboxActivity extends AppCompatActivity{
     private RemoteMessage notification;
     private RequestHandler requestHandler = new RequestHandler();
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
+    /**
+     * When the inbox is created the inbox gets a list of past notifications, inorder
+     * to populate the inbox. Additionally when a notification is recieved and the user
+     * selects the notification, the inbox will add an additional notification to the inbox.
+     *
+     * @param savedInstanceState
+     */
+    @Override //TODO a script is needed to retrieve past notifications that have not been accepted yet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
@@ -43,9 +49,10 @@ public class InboxActivity extends AppCompatActivity{
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new InboxAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
-        if(notification!=null)
-        ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
+        if(getIntent().getParcelableExtra("NOTIFICATION")!=null) {
+            notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
+            ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
+        }
 
     }
 

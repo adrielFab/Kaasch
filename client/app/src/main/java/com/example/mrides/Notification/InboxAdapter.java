@@ -18,6 +18,12 @@ import com.example.mrides.R;
 
 import java.util.Map;
 
+/**
+ * The adapter is the link between the data model we want to show and the UI.
+ * This class tells the UI how to show past notifications which have not been declined or accepted
+ * yet.
+ *
+ */
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> implements
         View.OnClickListener{
 
@@ -33,6 +39,14 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         this.responseBody = body;
     }
 
+    /**
+     * This method is called whenever a new instance of ViewHolder is created.
+     * @param parent
+     * @param viewType
+     * @return Returns the view component. In this case it is a list item (contains textview and
+     * profile picture)
+     */
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -45,6 +59,13 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //TODO this method only adds 1 item to the inbox. That item is the notification message
     // Therefore the position variable is not used. In the future we need to implement a
     // script to get all the inbox messages
+
+    /**
+     * This method is called when the data needs to be bound to the view. In this case the
+     * data are past notifications which have not yet been declined or accepted.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)
@@ -53,13 +74,23 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         holder.profilePciture.setOnClickListener(this);
     }
 
-    //number of elements which need to be shown for now 1 however as the inbox grows
-    //more the item list needs to be representative of the number of inbox values
+
+
+    /**
+     * Returns the count of items to be added to the inbox.
+     * @return
+     */
+    //TODO number of elements which need to be shown for now 1 however as the inbox grows
+    //TODO more the item list needs to be representative of the number of inbox values
     @Override
     public int getItemCount() {
         return 1;
     }
 
+    /**
+     * Either an inbox element, accept button or cancel button can be selected.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -75,10 +106,13 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         }
     }
 
+    //TODO a get post request needs to be sent to the server to inform the driver that the passenger
+    //has accepted the ride
     private void informDriverOfInvite() {
 
     }
 
+    //TODO we need to create a user profile page. Right now a diologue box is shown.
     private void createDiolgue() {
         dialog = new Dialog(inboxContext);
         dialog.setTitle(inboxContext.getString(R.string.invited_to_route));

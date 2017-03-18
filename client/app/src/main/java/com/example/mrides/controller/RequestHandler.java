@@ -21,10 +21,14 @@ import com.example.mrides.RequestQueueSingleton;
 import com.example.mrides.userDomain.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
-import DirectionModel.IPersistanceObject;
+/**
+ * This class is designed to handle requests on behalf of activites and other services.
+ * This class uses volley to perform GET and POST requests.
+ * This class is the subject and the Observers are the Activities. When a response is recieved the
+ * request handler will notifiy the activites with the response.
+ */
 
 public class RequestHandler implements Subject{
 
@@ -41,6 +45,15 @@ public class RequestHandler implements Subject{
         return user;
     }
 
+    /**
+     * Method used to initiate a post request. A StringRequest is used to initiate a post request.
+     * A StringRequest is used by volley to initiate HTTP requests, however the response will be returned
+     * as a string. The string will have to be converted
+     * @param url The url to connect to
+     * @param parameters The body of the post request. Key value paires are part of the Map
+     * @param contentType The content type of the request. Ex: application/json, application/x-www-urlencoded
+     * @param context The context of the activity initiating the request
+     */
     public void httpPostStringRequest(String url, final Map<String,String> parameters,
                                       final String contentType, Context context){
 
@@ -76,6 +89,11 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
+    /**
+     * The GET request method responsible for initiating get requests on behalf of the activites.
+     * @param url Url to connect to
+     * @param context The context initiating the get request
+     */
     public void httpGetStringRequest(String url, Context context){
 
         if(!isInternetConnected(context)){
@@ -99,6 +117,12 @@ public class RequestHandler implements Subject{
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
+    /**
+     * This method checks to see if the internet is connected. If the internet is not connected then
+     * a message is shown that the internet is not connected.
+     * @param context
+     * @return
+     */
     public boolean isInternetConnected(Context context){
 
         ConnectivityManager cm =
@@ -117,6 +141,10 @@ public class RequestHandler implements Subject{
         return isConnected;
     }
 
+    /**
+     * @see com.example.mrides.controller.RequestHandler#attach(ActivityObserver)
+     *
+     */
     @Override
     public void attach(ActivityObserver observerToAdd) {
 
@@ -126,11 +154,17 @@ public class RequestHandler implements Subject{
         observers.add(observerToAdd);
     }
 
+    /**
+     * @see com.example.mrides.controller.RequestHandler#detach(ActivityObserver)
+     */
     @Override
     public void detach(ActivityObserver observerToRemove) {
         observers.remove(observerToRemove);
     }
 
+    /**
+     * @see com.example.mrides.controller.RequestHandler#Notify(String)
+     */
     @Override
     public void Notify(String response) {
 

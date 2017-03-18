@@ -4,12 +4,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 
 
-
+/**
+ * This class helps distingues between logged in users, passengers and drivers.
+ */
 public class Passenger extends User {
-
-    public Passenger(String email, String displayName, String deviceId) {
-        super(email, displayName, deviceId);
-    }
 
     public Passenger(FirebaseUser acct, GoogleSignInAccount googleSignInAccount) {
         super(acct, googleSignInAccount);
