@@ -393,22 +393,28 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             for (Route route : passengerRoutes) {
                 LatLng pickUp = route.getStartLocation();
+                LatLng drop = route.getEndLocation();
                 int passengerRouteId = route.getId();
                 boolean pickUpBool = false;
+                boolean goToEnd = false;
                 int i = 0;
 
                 while (i < routeOfUser.size() && pickUpBool == false) {
                     LatLng pointInPoly = routeOfUser.get(i);
 //                    System.out.println("Distance " + (distance(pointInPoly.latitude, pointInPoly.longitude
-//                    , pickUp.latitude, pickUp.longitude) <= 0.1) + "Route " + passengerRouteId);
-                    if (distance(
-                            pickUp.latitude, pickUp.longitude,
-                            pointInPoly.latitude, pointInPoly.longitude) <= 0.1) {
+//                    , drop.latitude, drop.longitude) <= 0.1) + "Route " + passengerRouteId);
+                    if (validateDistance(pickUp, pointInPoly) && goToEnd == false) {
+                        goToEnd = true;
+                        i++;
+                    }
+
+                    if (validateDistance(drop, pointInPoly) && goToEnd == true) {
                         for ( int key : matchedMarkers.keySet()) {
                             if(key == passengerRouteId) {
                                 Marker marker = matchedMarkers.get(key);
                                 marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                                 pickUpBool = true;
+                                break;
                             }
                         }
                     }
@@ -439,6 +445,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         double dist = earthRadius * c;
 
         return dist; // output distance, in MILES
+    }
+
+    public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) {
+        if (distance( passengerLocation.latitude, passengerLocation.longitude,
+                userLocation.latitude, userLocation.longitude) <= 0.1) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }
