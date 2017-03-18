@@ -145,7 +145,7 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             String lastName = jsonObject.getString("lastName");
             String email = jsonObject.getString("email");
 
-            user.setId(id);
+            route.setId(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);

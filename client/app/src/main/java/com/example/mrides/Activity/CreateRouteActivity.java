@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SyncStatusObserver;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -68,6 +69,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
+    private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
+    private ArrayList <User> userOnMapCatalog = new ArrayList<>();
+    private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
 
 
     /**
@@ -217,19 +221,20 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     /**
      * This methods adds all the passenger on the google map. Each passenger is a google marker
-     * and their position is the start address of the route
+     * and their position is the start address of the route. When clicking on a passenger,
+     * their information(profile) will appear as a dialog
      */
     public void populateGoogleMap() {
 
-        ArrayList <User> userOnMapCatalog = populateMap.getUsersOnMapCatalog();
-        final HashMap <Marker, User> googleMarkerHash = new HashMap<>();
+         userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+
 
         /* Creating a custom icon (passenger) */
-        int height = 100;
-        int width = 100;
-        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
-        Bitmap b=bitmapdraw.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+//        int height = 100;
+//        int width = 100;
+//        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
+//        Bitmap b=bitmapdraw.getBitmap();
+//        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         for(User user : userOnMapCatalog) {
             ArrayList<Route> userRoutes = user.getRoutes();
@@ -237,11 +242,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 LatLng location = route.getStartLocation();
 
                 Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                        .title(user.getFirstName() + " " + user.getLastName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        .title(user.getFirstName() + " " + user.getLastName() + route.getId())
                         .position(location));
 
+                matchedMarkers.put(route.getId(), marker);
                 googleMarkerHash.put(marker, user);
+
             }
         }
 
@@ -340,7 +347,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
 
             startMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     .title(route.getStartAddress())
                     .position(route.getStartLocation())));
 
@@ -358,6 +365,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 polylineOptions.add(route.getPoints().get(i));
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
+
+
+            matchRoute(route.getPoints());
         }
     }
 
@@ -374,6 +384,61 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             e.printStackTrace();
         }
         successObtainDirection(route);
+    }
+
+    public void matchRoute(List<LatLng> routeOfUser) {
+
+        for (User user : userOnMapCatalog) {
+            ArrayList<Route> passengerRoutes = user.getRoutes();
+
+            for (Route route : passengerRoutes) {
+                LatLng pickUp = route.getStartLocation();
+                int passengerRouteId = route.getId();
+                boolean pickUpBool = false;
+                int i = 0;
+
+                while (i < routeOfUser.size() && pickUpBool == false) {
+                    LatLng pointInPoly = routeOfUser.get(i);
+//                    System.out.println("Distance " + (distance(pointInPoly.latitude, pointInPoly.longitude
+//                    , pickUp.latitude, pickUp.longitude) <= 0.1) + "Route " + passengerRouteId);
+                    if (distance(
+                            pickUp.latitude, pickUp.longitude,
+                            pointInPoly.latitude, pointInPoly.longitude) <= 0.1) {
+                        for ( int key : matchedMarkers.keySet()) {
+                            if(key == passengerRouteId) {
+                                Marker marker = matchedMarkers.get(key);
+                                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                                pickUpBool = true;
+                            }
+                        }
+                    }
+                    i++;
+                }
+
+            }
+
+        }
+    }
+
+    /** calculates the distance between two locations in MILES */
+    private double distance(double lat1, double lng1, double lat2, double lng2) {
+
+        double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
+
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        double dist = earthRadius * c;
+
+        return dist; // output distance, in MILES
     }
 
 }
