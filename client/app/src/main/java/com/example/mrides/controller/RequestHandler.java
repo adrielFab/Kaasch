@@ -170,7 +170,7 @@ public class RequestHandler implements Subject{
 
         for(ActivityObserver e : observers){
 
-            e.responseReceived(response);
+            e.Update(response);
         }
     }
 }

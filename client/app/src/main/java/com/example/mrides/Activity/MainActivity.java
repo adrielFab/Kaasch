@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param response A string response formated in a json string returned from the request handler
      */
     @Override
-    public void responseReceived(String response) {
+    public void Update(String response) {
 
         requestHandler.detach(this);
     }
