@@ -34,7 +34,6 @@ public class RequestQueueSingleton {
 
             mInstance = new RequestQueueSingleton(context);
         }
-        mCtx = context;
         return mInstance;
     }
 

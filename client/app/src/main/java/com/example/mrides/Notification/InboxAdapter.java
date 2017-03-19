@@ -12,9 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
+import com.example.mrides.controller.RequestHandler;
 
 import java.util.Map;
 
@@ -25,11 +27,12 @@ import java.util.Map;
  *
  */
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> implements
-        View.OnClickListener{
+        View.OnClickListener, ActivityObserver{
 
     private Map<String,String> responseBody;
     private Context inboxContext;
     private Dialog dialog;
+    private RequestHandler requestHandler = new RequestHandler();
 
     public InboxAdapter(Context inboxContext){
         this.inboxContext = inboxContext;
@@ -109,7 +112,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //TODO a get post request needs to be sent to the server to inform the driver that the passenger
     //has accepted the ride
     private void informDriverOfInvite() {
-
+        requestHandler.attach((ActivityObserver) inboxContext);
+        requestHandler.httpPostStringRequest(inboxContext.getString(R.string.web_server_ip)+
+                "add_passemger_to_route.php",
+                responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
     }
 
     //TODO we need to create a user profile page. Right now a diologue box is shown.
@@ -137,6 +143,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void Update(String response) {
+
     }
 
     /**
