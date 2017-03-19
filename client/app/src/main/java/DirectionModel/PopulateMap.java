@@ -145,17 +145,23 @@ public class PopulateMap extends AsyncTask<Void, Void, String>{
             String lastName = jsonObject.getString("lastName");
             String email = jsonObject.getString("email");
 
-            user.setId(id);
+            route.setId(id);
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
 
-            String[] latlong =  jsonObject.getString("start").split(",");
-            double latitude = Double.parseDouble(latlong[0]);
-            double longitude = Double.parseDouble(latlong[1]);
-            LatLng location = new LatLng(latitude, longitude);
+            String[] latlongStart =  jsonObject.getString("start").split(",");
+            double latitudeS = Double.parseDouble(latlongStart[0]);
+            double longitudeS = Double.parseDouble(latlongStart[1]);
+            LatLng locationS = new LatLng(latitudeS, longitudeS);
 
-            route.setStartLocation(location);
+            String[] latlongEnd =  jsonObject.getString("end").split(",");
+            double latitudeE = Double.parseDouble(latlongEnd[0]);
+            double longitudeE = Double.parseDouble(latlongEnd[1]);
+            LatLng locationE = new LatLng(latitudeE, longitudeE);
+
+            route.setStartLocation(locationS);
+            route.setEndLocation(locationE);
             user.addRoute(route);
 
             usersOnMapCatalog.add(user);
