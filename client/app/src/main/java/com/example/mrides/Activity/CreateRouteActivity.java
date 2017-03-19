@@ -457,4 +457,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    public void setUserOnMapCatalog (ArrayList <User> userOnMapCatalog){
+        this.userOnMapCatalog = userOnMapCatalog;
+    }
+
+    public ArrayList <User> getUserOnMapCatalog (){
+        return this.userOnMapCatalog;
+    }
+
 }

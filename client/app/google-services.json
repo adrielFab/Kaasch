@@ -1,63 +1,33 @@
 {
   "project_info": {
-    "project_number": "1088243710681",
-    "firebase_url": "https://mrides-159422.firebaseio.com",
-    "project_id": "mrides-159422",
-    "storage_bucket": "mrides-159422.appspot.com"
+    "project_number": "440989006236",
+    "project_id": "android-play-api"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1088243710681:android:2348025d5d1e1367",
+        "mobilesdk_app_id": "1:440989006236:android:2348025d5d1e1367",
         "android_client_info": {
           "package_name": "com.example.mrides"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1088243710681-fpo71r0gdgq4at85piiqi7g7q04v0e05.apps.googleusercontent.com",
+          "client_id": "440989006236-883ee67gittblt6ktkt30bhmvlndvr8o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.mrides",
-            "certificate_hash": "b4f365920950921f3b281dd70a59f7a0832f55d1"
+            "certificate_hash": "07c330738008ebb39186d674b3e98dd975785619"
           }
         },
         {
-          "client_id": "1088243710681-raf81u4a1h0acuvgqb7kq3jerlu65sqr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mrides",
-            "certificate_hash": "a0738a05000dc1307079c103ee307321b8c95a73"
-          }
-        },
-        {
-          "client_id": "1088243710681-okih6bhdkfqifph6n4c84809639smr1m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mrides",
-            "certificate_hash": "712777236549778c7491354ce0cff0644c2b7ec9"
-          }
-        },
-        {
-          "client_id": "1088243710681-ji9ihgs7u30dddl1aiifqa8usnd6ojaa.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "1088243710681-v6rie9t656bfomkt3n2lj1icij8l7nvg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.mrides",
-            "certificate_hash": "1b50e1ad43cbf3aa7652378ee114e2e4dcb04158"
-          }
-        },
-        {
-          "client_id": "1088243710681-d75jc2egu2if79t29mgpgk51tpbdvn63.apps.googleusercontent.com",
+          "client_id": "440989006236-fp1p7vhm5cevg8q422gtnqrpjf8usp8c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDBDxzzud49EIxmWAIXasVCHy3fTcirfMY"
+          "current_key": "AIzaSyBA7mAED8RVsLrYHMQRuLHuRnteGjwP8cA"
         }
       ],
       "services": {
@@ -65,16 +35,11 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1088243710681-ji9ihgs7u30dddl1aiifqa8usnd6ojaa.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2
+          "status": 1
         }
       }
     }
