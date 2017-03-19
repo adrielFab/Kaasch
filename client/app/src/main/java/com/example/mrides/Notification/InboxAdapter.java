@@ -147,7 +147,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
     @Override
     public void Update(String response) {
-
+        requestHandler.detach(this);
     }
 
     /**
