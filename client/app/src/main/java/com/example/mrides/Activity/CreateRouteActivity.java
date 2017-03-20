@@ -51,6 +51,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import DirectionModel.Matcher;
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
@@ -72,6 +74,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
+    private Matcher matcher = new Matcher();
 
 
     /**
@@ -228,7 +231,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
          userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
-
         /* Creating a custom icon (passenger) */
 //        int height = 100;
 //        int width = 100;
@@ -366,7 +368,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-
             matchRoute(route.getPoints());
         }
     }
@@ -399,16 +400,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 boolean goToEnd = false;
                 int i = 0;
 
-                while (i < routeOfUser.size() && pickUpBool == false) {
+                while (i < routeOfUser.size() && !pickUpBool) {
                     LatLng pointInPoly = routeOfUser.get(i);
 //                    System.out.println("Distance " + (distance(pointInPoly.latitude, pointInPoly.longitude
 //                    , drop.latitude, drop.longitude) <= 0.1) + "Route " + passengerRouteId);
-                    if (validateDistance(pickUp, pointInPoly) && goToEnd == false) {
+                    if (matcher.validateDistance(pickUp, pointInPoly) && !goToEnd) {
                         goToEnd = true;
                         i++;
                     }
 
-                    if (validateDistance(drop, pointInPoly) && goToEnd == true) {
+                    if (matcher.validateDistance(drop, pointInPoly) && goToEnd) {
                         for ( int key : matchedMarkers.keySet()) {
                             if(key == passengerRouteId) {
                                 Marker marker = matchedMarkers.get(key);
@@ -423,37 +424,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             }
 
-        }
-    }
-
-    /** calculates the distance between two locations in MILES */
-    private double distance(double lat1, double lng1, double lat2, double lng2) {
-
-        double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
-
-        double dLat = Math.toRadians(lat2-lat1);
-        double dLng = Math.toRadians(lng2-lng1);
-
-        double sindLat = Math.sin(dLat / 2);
-        double sindLng = Math.sin(dLng / 2);
-
-        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
-                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-        double dist = earthRadius * c;
-
-        return dist; // output distance, in MILES
-    }
-
-    public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) {
-        if (distance( passengerLocation.latitude, passengerLocation.longitude,
-                userLocation.latitude, userLocation.longitude) <= 0.1) {
-            return true;
-        }
-        else {
-            return false;
         }
     }
 
