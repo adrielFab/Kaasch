@@ -231,13 +231,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
          userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
-        /* Creating a custom icon (passenger) */
-//        int height = 100;
-//        int width = 100;
-//        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.passenger_icon);
-//        Bitmap b=bitmapdraw.getBitmap();
-//        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
         for(User user : userOnMapCatalog) {
             ArrayList<Route> userRoutes = user.getRoutes();
             for(Route route : userRoutes) {
@@ -372,6 +365,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * This method receives a response for the creation of the route and sends
+     * the request to the handler
+     * @param response A string response formatted in a json string returned from the request handler
+     */
     @Override
     public void responseReceived(String response) {
 
@@ -387,6 +385,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
+    /**
+     * Matches route of driver and passengers
+     * @param routeOfUser
+     */
     public void matchRoute(List<LatLng> routeOfUser) {
 
         for (User user : userOnMapCatalog) {
@@ -402,8 +404,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 while (i < routeOfUser.size() && !pickUpBool) {
                     LatLng pointInPoly = routeOfUser.get(i);
-//                    System.out.println("Distance " + (distance(pointInPoly.latitude, pointInPoly.longitude
-//                    , drop.latitude, drop.longitude) <= 0.1) + "Route " + passengerRouteId);
                     if (matcher.validateDistance(pickUp, pointInPoly) && !goToEnd) {
                         goToEnd = true;
                         i++;
@@ -427,9 +427,18 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * A mutator method for UserOnMapCatalog
+     * @param userOnMapCatalog
+     */
     public void setUserOnMapCatalog (ArrayList <User> userOnMapCatalog){
         this.userOnMapCatalog = userOnMapCatalog;
     }
+
+    /**
+     * An accessor method for UserOnMapCatalog
+     * @return userOnMapCatalog
+     */
 
     public ArrayList <User> getUserOnMapCatalog (){
         return this.userOnMapCatalog;

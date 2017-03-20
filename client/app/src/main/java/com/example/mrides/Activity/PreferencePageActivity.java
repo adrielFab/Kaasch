@@ -35,6 +35,10 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
     private int [] preferenceChoice = {1, 1, 1};
 
+    /**
+     * Method that is called to load the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -137,6 +141,13 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
     }
 
+    /**
+     * Method that creates an animation for the preference images. If the user
+     * wants to add a constraint to an preference, the user will click the image
+     * and it will turn red. Reverting it back turns the image to green
+     * @param img
+     * @param index
+     */
     public void changeButtonPreference(ImageView img, int index) {
         if(preferenceChoice[index] == 1) {
             img.setBackgroundColor(Color.RED);
