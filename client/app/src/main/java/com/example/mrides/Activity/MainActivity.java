@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * When activity is created the APIs are requested through GoogleApiClient
      *
-     * @param savedInstanceState The bundle is required for all Activites to pass to the
-     *                           parrent class
+     * @param savedInstanceState The bundle is required for all activities to pass to the
+     *                           parent class
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * Response returned by the requestHandler
      *
-     * @param response A string response formated in a json string returned from the request handler
+     * @param response A string response formatted in a json string returned from the request handler
      */
     @Override
     public void responseReceived(String response) {

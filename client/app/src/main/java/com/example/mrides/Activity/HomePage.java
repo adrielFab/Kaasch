@@ -84,7 +84,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     }
 
     /**
-     *
+     * Switches pages from homepage to preferences page
      * @param view
      */
     @Override

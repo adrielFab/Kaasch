@@ -371,6 +371,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * This method receives a response for the creation of the route and sends
+     * the request to the handler
+     * @param response A string response formatted in a json string returned from the request handler
+     */
     @Override
     public void responseReceived(String response) {
 
@@ -386,6 +391,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
+    /**
+     * Matches route of driver and passengers
+     * @param routeOfUser
+     */
     public void matchRoute(List<LatLng> routeOfUser) {
 
         for (User user : userOnMapCatalog) {
@@ -447,6 +456,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         return dist; // output distance, in MILES
     }
 
+    /**
+     * This method validates the distance between two points, point of a polyline and start and end address
+     * of the passenger. This algorithm indicates that if the distance between two points
+     * satisfy the condition, then this passenger point is part of the polyline
+     * @param passengerLocation
+     * @param userLocation
+     * @return boolean
+     */
     public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) {
         if (distance( passengerLocation.latitude, passengerLocation.longitude,
                 userLocation.latitude, userLocation.longitude) <= 0.1) {
@@ -457,9 +474,18 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * A mutator method for UserOnMapCatalog
+     * @param userOnMapCatalog
+     */
     public void setUserOnMapCatalog (ArrayList <User> userOnMapCatalog){
         this.userOnMapCatalog = userOnMapCatalog;
     }
+
+    /**
+     * An accessor method for UserOnMapCatalog
+     * @return userOnMapCatalog
+     */
 
     public ArrayList <User> getUserOnMapCatalog (){
         return this.userOnMapCatalog;
