@@ -54,7 +54,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Rating"
+            android:text="@string/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewRating"
@@ -81,7 +81,7 @@
         android:layout_marginTop="30dp">
 
         <Button
-            android:text="Invite"
+            android:text="@string/invite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonInvite"
@@ -90,7 +90,7 @@
             android:onClick="sendInvite" />
 
         <Button
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonCancel"
