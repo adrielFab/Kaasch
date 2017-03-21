@@ -73,7 +73,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)
-                + " " + responseBody.get("loggedInUserDisplayName"));
+                + " " + responseBody.get("passengerEmail"));
         holder.itemMessage.setOnClickListener(this);
         holder.profilePciture.setOnClickListener(this);
     }
@@ -132,10 +132,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         dialog.show();
 
         TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(responseBody.get("loggedInUserFirstName"));
+        textViewFullName.setText(responseBody.get("driverFirstName"));
 
         TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(responseBody.get("loggedInUserEmail"));
+        textViewEmail.setText(responseBody.get("driverEmail"));
 
         ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
         //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))

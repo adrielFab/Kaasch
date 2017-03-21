@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mrides.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -181,6 +183,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
                 startActivity(intentSettings);
                 break;
             case R.id.nav_logout:
+                Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
                 break;

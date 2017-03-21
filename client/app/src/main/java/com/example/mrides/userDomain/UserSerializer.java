@@ -10,6 +10,7 @@ import java.util.Map;
 public class UserSerializer {
 
     public static Map<String, String> getParameters(User user){
+        System.out.println("Display Name: " + user.getDisplayName());
         Map<String, String> map = new HashMap<>();
         map.put("loggedInUserEmail", user.getEmail());
         map.put("loggedInUserLastName", user.getLastName());

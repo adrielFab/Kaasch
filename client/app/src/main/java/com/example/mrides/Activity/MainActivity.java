@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
             System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
         } else {
-            Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
             System.out.println("onAuthStateChanged:signed_out");
         }
     }
