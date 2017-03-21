@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.User;
+import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,15 +32,19 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements
-        GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener{
+        GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
+        OnCompleteListener<AuthResult>{
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
-    private GoogleSignInAccount googleSignInAccount;
     private User user;
+    private FirebaseUser firebaseuser;
+    private GoogleSignInAccount googleuser;
 
     /**
      * When activity is created the APIs are requested through GoogleApiClient
@@ -122,8 +127,8 @@ public class MainActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
 
             // Signed in successfully, show authenticated UI.
-             googleSignInAccount = result.getSignInAccount();
-            firebaseAuthWithGoogle(googleSignInAccount);
+            GoogleSignInAccount acct = result.getSignInAccount();
+            firebaseAuthWithGoogle(acct);
         } else {
 
             System.out.println("Failed");
@@ -145,26 +150,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        googleuser = acct;
+        AuthCredential credential = GoogleAuthProvider.getCredential(googleuser.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-                        Intent intent = new Intent(MainActivity.this, HomePage.class);
-                        startActivity(intent);
-
-                        if (!task.isSuccessful()) {
-
-                            System.out.println( task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                .addOnCompleteListener(this,this);
     }
 
 
@@ -174,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param response A string response formatted in a json string returned from the request handler
      */
     @Override
-    public void responseReceived(String response) {
+    public void Update(String response) {
 
         requestHandler.detach(this);
     }
@@ -196,18 +185,35 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
+        firebaseuser = firebaseAuth.getCurrentUser();
 
-        if (firebaseuser != null && googleSignInAccount!= null) {
+        if (firebaseuser != null && googleuser!= null) {
             // User is signed in
-            user = new User(firebaseuser,googleSignInAccount);
+            user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
+            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)+"/register_user.php",
+                    UserSerializer.getParameters(user), "application/x-www-form-urlencoded; charset=UTF-8",
+                    this);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
             System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
         } else {
 
             System.out.println("onAuthStateChanged:signed_out");
+        }
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<AuthResult> task) {
+        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
+        Intent intent = new Intent(MainActivity.this, HomePage.class);
+        startActivity(intent);
+
+        if (!task.isSuccessful()) {
+
+            System.out.println( task.getException());
+            Toast.makeText(MainActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

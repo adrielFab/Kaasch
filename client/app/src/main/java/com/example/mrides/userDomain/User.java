@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 import DirectionModel.Route;
 
+
 public class User {
+
 
     private int id;
     private String firstName;
@@ -31,14 +33,11 @@ public class User {
 
     }
 
-    public User(String email, String displayName, String deviceId){
-
-        this.email = email;
-        this.displayName = displayName;
-        this.deviceId = deviceId;
-    }
-
-
+    /**
+     * This constructor initializes the relevant information of a user.
+     * @param acct The firebase account associated to the user. Each account will have a firebase account
+     * @param googleSignInAccount The signin method performed by the user. In this case it was done through google
+     */
     public User(FirebaseUser acct, GoogleSignInAccount googleSignInAccount){
 
         email = acct.getEmail();

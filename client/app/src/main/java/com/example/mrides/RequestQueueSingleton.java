@@ -12,7 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 /**
- *  singleton class used to prevent multiple instances of
+ *  Singleton class used to prevent multiple instances of
  *  RequestQueue in the application
  */
 
@@ -34,7 +34,6 @@ public class RequestQueueSingleton {
 
             mInstance = new RequestQueueSingleton(context);
         }
-        mCtx = context;
         return mInstance;
     }
 
