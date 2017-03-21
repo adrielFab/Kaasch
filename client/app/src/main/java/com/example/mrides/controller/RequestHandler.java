@@ -6,6 +6,7 @@
 package com.example.mrides.controller;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,6 +35,7 @@ public class RequestHandler implements Subject{
 
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
     private static User user;
+    private ProgressDialog mProgressDialog;
 
     public void setUser(User user){
 
@@ -60,6 +62,7 @@ public class RequestHandler implements Subject{
         if(!isInternetConnected(context)){
             return;
         }
+        pleaseWait(context);
         StringRequest stringRequest = new StringRequest
                 (Request.Method.POST, url,
                         new Response.Listener<String>() {
@@ -82,7 +85,7 @@ public class RequestHandler implements Subject{
             }
             @Override
             public String getBodyContentType() {
-                return "application/x-www-form-urlencoded; charset=UTF-8";
+                return contentType;
             }
 
         };
@@ -99,7 +102,7 @@ public class RequestHandler implements Subject{
         if(!isInternetConnected(context)){
             return;
         }
-
+        pleaseWait(context);
         StringRequest stringRequest = new StringRequest
                 (url, new Response.Listener<String>() {
                             @Override
@@ -141,6 +144,10 @@ public class RequestHandler implements Subject{
         return isConnected;
     }
 
+    private void pleaseWait(Context context){
+        mProgressDialog = ProgressDialog.show(context, "Please wait.",
+                "Finding direction...", true);
+    }
     /**
      * @see com.example.mrides.controller.RequestHandler#attach(ActivityObserver)
      *
@@ -167,7 +174,7 @@ public class RequestHandler implements Subject{
      */
     @Override
     public void Notify(String response) {
-
+        mProgressDialog.dismiss();
         for(ActivityObserver e : observers){
 
             e.Update(response);
