@@ -5,6 +5,8 @@
 */
 package com.example.mrides.Activity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements
     private User user;
     private FirebaseUser firebaseuser;
     private GoogleSignInAccount googleuser;
+    private ProgressDialog mProgressDialog;
+
 
     /**
      * When activity is created the APIs are requested through GoogleApiClient
@@ -97,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements
     public void googleSignIn(View view) {
 
         if (requestHandler.isInternetConnected(this)){
-
+            pleaseWait(this);
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
@@ -198,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
             System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
         } else {
-
+            Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
             System.out.println("onAuthStateChanged:signed_out");
         }
     }
@@ -206,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
+        mProgressDialog.dismiss();
         Intent intent = new Intent(MainActivity.this, HomePage.class);
         startActivity(intent);
 
@@ -216,4 +221,10 @@ public class MainActivity extends AppCompatActivity implements
                     Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void pleaseWait(Context context){
+        mProgressDialog = ProgressDialog.show(context, "Please wait.",
+                "Processing Data", true);
+    }
+
 }
