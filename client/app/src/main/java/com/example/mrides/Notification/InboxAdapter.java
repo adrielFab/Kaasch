@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.CreateRouteActivity;
@@ -100,7 +101,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             case R.id.item_title:
                 createDiolgue();
                 break;
-            case R.id.ok:
+            case R.id.accept:
                 informDriverOfInvite();
                 break;
             case R.id.buttonCancel:
@@ -112,10 +113,15 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //TODO a get post request needs to be sent to the server to inform the driver that the passenger
     //has accepted the ride
     private void informDriverOfInvite() {
-        requestHandler.attach((ActivityObserver) inboxContext);
-        requestHandler.httpPostStringRequest(inboxContext.getString(R.string.web_server_ip)+
-                "add_passemger_to_route.php",
+        requestHandler.attach(this);
+        System.out.println("Notification.: "+ responseBody.get("driverEmail"));
+        System.out.println("Notification.: "+ responseBody.get("passengerEmail"));
+        requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
+                "/add_passenger_to_route.php",
                 responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
+        Toast.makeText(inboxContext, inboxContext.getString(R.string.invite_accepted),
+                Toast.LENGTH_SHORT).show();
+        dialog.hide();
     }
 
     //TODO we need to create a user profile page. Right now a diologue box is shown.
@@ -138,6 +144,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
         //TODO button id needs to be changed. diologue is also used in createrouteActivity
+        buttonInvite.setId(R.id.accept);
         buttonInvite.setText(R.string.accept);
         buttonInvite.setOnClickListener(this);
 
