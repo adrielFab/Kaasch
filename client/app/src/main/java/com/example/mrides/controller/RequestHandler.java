@@ -146,7 +146,7 @@ public class RequestHandler implements Subject{
 
     private void pleaseWait(Context context){
         mProgressDialog = ProgressDialog.show(context, "Please wait.",
-                "Finding direction...", true);
+                "Processing Data", true);
     }
     /**
      * @see com.example.mrides.controller.RequestHandler#attach(ActivityObserver)
