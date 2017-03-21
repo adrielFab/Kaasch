@@ -72,8 +72,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)
-                + " " + responseBody.get("passengerEmail"));
+        holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route));
         holder.itemMessage.setOnClickListener(this);
         holder.profilePciture.setOnClickListener(this);
     }
