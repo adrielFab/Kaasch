@@ -57,6 +57,7 @@
     <string name="female">Female</string>
     <string name="smoking">Smoking</string>
     <string name="non_smoking">No Smoking</string>
+    <string name="ok">Ok</string>
 
     <!--Not translated-->
     <string name="invited_to_route">Route Invitation</string> <!--right after this sentence is the name-->
