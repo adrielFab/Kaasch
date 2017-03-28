@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="colorPrimary">#F1564D</color>
+    <color name="colorPrimary">#f05148</color>
     <color name="colorPrimaryDark">#c4453e</color>
     <color name="orangeAccent">#F1564D</color>
     <color name="greyAccent">#7B7A7A</color>
 
     <!-- For profile page -->
-    <color name="backgroundColor">#EF5350</color>
+    <color name="backgroundColor">#ef5350</color>
 
 </resources>

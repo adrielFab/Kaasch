@@ -64,7 +64,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.navvy);
+        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
