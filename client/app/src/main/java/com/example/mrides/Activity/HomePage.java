@@ -9,7 +9,6 @@ package com.example.mrides.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,7 +31,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener,
+
+public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener{
 
@@ -44,7 +44,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-    private FloatingActionButton floatingActionButton;
     private GoogleApiClient mGoogleApiClient;
 
     /**
@@ -64,17 +63,12 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
-        navigationView.setNavigationItemSelectedListener(this);
-
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
         textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
         textViewUnmatch.setTypeface(tf1);
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
@@ -91,6 +85,15 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     }
 
     /**
+     * Method moves to the first preference page (PreferencePageActivity)
+     * @param view
+     */
+    public void goToPreferencePage(View view) {
+        Intent intent = new Intent(HomePage.this, PreferencePageActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Opens the navigation drawer to view the navigation list
      * @param item
      * @return boolean
@@ -101,21 +104,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Switches pages from homepage to preferences page
-     * @param view
-     */
-    @Override
-    public void onClick(View view) {
-
-        switch(view.getId()) {
-            case R.id.fab:
-                Intent intentCreate = new Intent(this, PreferencePageActivity.class);
-                startActivity(intentCreate);
-                break;
-        }
     }
 
     /**
