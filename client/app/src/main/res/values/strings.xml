@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
     All English string are contained here. All strings added here must also be added
     in res/values-b+fr/String.xml with the identical string name and a value translated to french
  -->
@@ -40,12 +39,14 @@
     <string name="Logout">Logout"</string>
     <string name="introText">To start taking advantage of the wonderful features offered to you by mRides, you must first log in using a gmail account</string>
     <string name="server_client_id">346814516997-7ia3jkkg2arc7lukroqrccmoqh676c8a.apps.googleusercontent.com</string>
+    <string name="web_server_ip">192.175.117.171</string>
+    <string name="web_server_port">80</string>
+    <string name="invie_sent">Invite Sent</string>
     <string name="url">http://successdrivingschool.ca</string>
     <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="direction_url_api">https://maps.googleapis.com/maps/api/directions/json?</string>
     <string name="google_maps_api_key">AIzaSyDBjGOW7Yv5t-RwJI-Dhl86rZnZcQCd93c</string>
     <string name="wifi_not_found">Internet not connected</string>
-    <string name="ok">Ok</string>
     <string name="title_activity_temp_main">TempMainActivity</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -56,6 +57,11 @@
     <string name="female">Female</string>
     <string name="smoking">Smoking</string>
     <string name="non_smoking">No Smoking</string>
+    <string name="ok">Ok</string>
+
+    <!--Not translated-->
+    <string name="invited_to_route">Route Invitation</string> <!--right after this sentence is the name-->
+    <string name="accept">Accept Invite</string>
     <string name="my_account">My Account</string>
     <string name="inbox">Inbox</string>
     <string name="enter_start_address">Enter start address</string>
@@ -63,4 +69,12 @@
     <string name="enter_destination_address">Enter destination address</string>
     <string name="cancel">Cancel</string>
     <string name="invite">Invite</string>
+    <string name="invite_accepted">Invitation Accepted</string>
+    <string name="loggedOut">Signed Out</string>
+    
+    <string-array name="planets">
+        <item> Mercury</item>
+        <item> Venus</item>
+        <item> Earth</item>
+    </string-array>
 </resources>

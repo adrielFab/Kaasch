@@ -19,10 +19,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mrides.R;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+public class HomePage extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
+        GoogleApiClient.OnConnectionFailedListener{
+
 
     private Typeface tf1;
     private TextView textViewMatch, textViewUnmatch;
@@ -32,6 +45,7 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private GoogleApiClient mGoogleApiClient;
 
     /**
      * Method that creates the activity
@@ -56,6 +70,14 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
         textViewUnmatch.setTypeface(tf1);
 
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this , (GoogleApiClient.OnConnectionFailedListener) this )
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         createMatchedRoutes();
         createUnmatchedRoutes();
@@ -85,7 +107,6 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     /**
      * Displays the matched routes of the user
@@ -152,9 +173,23 @@ public class HomePage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intentSettings);
                 break;
             case R.id.nav_logout:
-                //perform logout
+                Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onResult(@NonNull Status status) {
+
+        Intent intent = new Intent(HomePage.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
