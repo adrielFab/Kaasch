@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mrides">
+          package="com.example.mrides">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <receiver android:name=".WifiReceiver">
         <intent-filter>
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            <action android:name="android.net.wifi.STATE_CHANGE" />
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            <action android:name="android.net.wifi.STATE_CHANGE"/>
         </intent-filter>
     </receiver>
 
@@ -24,38 +24,46 @@
         <activity
             android:name=".Activity.PreferencePageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"/>
 
-        <activity android:name=".Activity.ProfileActivity" />
+        <activity android:name=".Activity.ProfileActivity"/>
         <activity
             android:name=".Activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
-        <activity android:name=".InboxListItem"></activity>
-        <activity android:name=".Activity.CreateRouteActivity"></activity>
-        <activity android:name=".Activity.HomePage"></activity>
-        <activity android:name=".Activity.InboxActivity"></activity>
-        <activity android:name=".Activity.SettingsActivity"></activity>
+        <activity android:name=".InboxListItem"/>
+        <activity android:name=".Activity.CreateRouteActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
+        <activity android:name=".Activity.HomePage"/>
+        <activity android:name=".Activity.InboxActivity"/>
+        <activity android:name=".Activity.SettingsActivity"/>
 
         <service android:name=".Notification.MatchingMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
         <service android:name=".Notification.RegistrationTokenInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity android:name=".Activity.CreateRouteDriverActivity">
+        </activity>
+        <activity android:name=".Activity.CreateRoutePassengerActivity">
+        </activity>
     </application>
 
 </manifest>

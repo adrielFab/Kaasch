@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -62,6 +63,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
     private Button mButtonFindPath;
+    private Button buttonSaveChanges;
     private EditText mEditTextStart;
     private EditText mEditTextDestination;
     private GoogleMap mGoogleMap;
@@ -118,9 +120,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
         mEditTextStart = (EditText) findViewById(R.id.editTextStart);
         mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+        buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -387,6 +391,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.buttonCancel:
                 dialog.cancel();
                 break;
+            case R.id.buttonSaveChanges:
+                saveChanges();
+                break;
+            default:
+                break;
         }
     }
 
@@ -501,6 +510,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     public ArrayList <User> getUserOnMapCatalog (){
         return this.userOnMapCatalog;
+    }
+
+    /**
+     * Brings user back to homepage
+     */
+    private void saveChanges() {
+        Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
+        startActivity(intent);
     }
 
 }
