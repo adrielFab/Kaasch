@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <receiver android:name=".WifiReceiver">
         <intent-filter>
@@ -21,8 +23,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.PreferencePageActivity"
-            android:theme="@style/AppTheme2"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -33,39 +41,29 @@
             android:name=".Activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Activity.PreferencesTwoActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Activity.TempMainActivity">
-        </activity>
 
-        <service
-            android:name=".Notification.MatchingMessagingService">
+        </activity>
+        <activity android:name=".InboxListItem"/>
+        <activity android:name=".Activity.CreateRouteActivity">
+        </activity>
+        <activity android:name=".Activity.HomePage"/>
+        <activity android:name=".Activity.InboxActivity"/>
+        <activity android:name=".Activity.SettingsActivity"/>
+
+        <service android:name=".Notification.MatchingMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
-        <service
-            android:name=".Notification.RegistrationTokenInstanceIdService">
+        <service android:name=".Notification.RegistrationTokenInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
 
-        <activity android:name=".Activity.CreateRouteActivity">
+        <activity android:name=".Activity.CreateRouteDriverActivity">
         </activity>
-        <activity android:name=".Activity.HomePage">
-        </activity>
-        <activity android:name=".Activity.InboxActivity">
-        </activity>
-        <activity android:name=".Activity.SettingsActivity">
+        <activity android:name=".Activity.CreateRoutePassengerActivity">
         </activity>
     </application>
 

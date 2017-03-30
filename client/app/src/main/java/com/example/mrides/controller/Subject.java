@@ -2,9 +2,6 @@ package com.example.mrides.controller;
 
 import com.example.mrides.Activity.ActivityObserver;
 
-import java.util.ArrayList;
-
-import DirectionModel.IPersistanceObject;
 
 public interface Subject {
 

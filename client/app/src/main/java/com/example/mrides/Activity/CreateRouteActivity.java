@@ -9,6 +9,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,8 +30,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
+import com.example.mrides.userDomain.UserSerializer;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,15 +53,17 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import DirectionModel.Matcher;
+import java.util.Map;
 import DirectionModel.PopulateMap;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
-public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback, ActivityObserver {
+public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
+        ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
     private Button mButtonFindPath;
+    private Button buttonSaveChanges;
     private EditText mEditTextStart;
     private EditText mEditTextDestination;
     private GoogleMap mGoogleMap;
@@ -72,6 +76,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
+    private User selectedPassenger;
+    private User loggedInUser = RequestHandler.getUser();
+    private Dialog dialog;
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
     private Matcher matcher = new Matcher();
@@ -114,9 +121,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
         mEditTextStart = (EditText) findViewById(R.id.editTextStart);
         mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+        buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -246,45 +255,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             }
         }
-
-        //This dialog can use a design pattern!
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-               User user = googleMarkerHash.get(marker);
-
-                final Dialog dialog = new Dialog(CreateRouteActivity.this);
-                dialog.setTitle(marker.getTitle());
-                dialog.setContentView(R.layout.userprofile_dialog_layout);
-                dialog.show();
-
-                TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-                textViewFullName.setText(marker.getTitle());
-
-                TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-                textViewEmail.setText(user.getEmail());
-
-                ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-                imageViewProfile.setImageResource(R.drawable.sample_profile_image);
-
-                Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
-                buttonInvite.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(CreateRouteActivity.this, "Invite Sent", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.cancel();
-                    }
-                });
-                return false;
-            }
-        });
+        mGoogleMap.setOnMarkerClickListener(this);
     }
 
 
@@ -371,7 +342,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * @param response A string response formatted in a json string returned from the request handler
      */
     @Override
-    public void responseReceived(String response) {
+    public void Update(String response) {
 
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
@@ -383,6 +354,64 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             e.printStackTrace();
         }
         successObtainDirection(route);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        selectedPassenger = googleMarkerHash.get(marker);
+        dialog = new Dialog(CreateRouteActivity.this);
+        dialog.setTitle(marker.getTitle());
+        dialog.setContentView(R.layout.userprofile_dialog_layout);
+        dialog.show();
+
+        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+        textViewFullName.setText(marker.getTitle());
+
+        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+        textViewEmail.setText(selectedPassenger.getEmail());
+
+        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+
+        buttonInvite.setOnClickListener(this);
+
+        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(this);
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonInvite:
+                invitePassenger();
+                break;
+            case R.id.buttonCancel:
+                dialog.cancel();
+                break;
+            case R.id.buttonSaveChanges:
+                saveChanges();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void invitePassenger(){
+
+        requestHandler.attach(this);
+        //combine map so that it contains driver information and passenger information
+        Map<String,String> loggedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
+        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
+        Map<String,String> jsonBody = new HashMap<>();
+        jsonBody.putAll(loggedInUserJsonBody);
+        jsonBody.putAll(passengerJSonBody);
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/invitePassenger.php",jsonBody,
+                "application/x-www-form-urlencoded; charset=UTF-8" ,this);
+        Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -404,7 +433,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 while (i < routeOfUser.size() && !pickUpBool) {
                     LatLng pointInPoly = routeOfUser.get(i);
+                  
                     if (matcher.validateDistance(pickUp, pointInPoly) && !goToEnd) {
+                      
+                    if (validateDistance(pickUp, pointInPoly) && goToEnd == false) {
                         goToEnd = true;
                         i++;
                     }
@@ -443,5 +475,30 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public ArrayList <User> getUserOnMapCatalog (){
         return this.userOnMapCatalog;
     }
+
+    /**
+     * Brings user back to homepage
+     */
+    public void saveChanges() {
+        Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
+        startActivity(intent);
+    }
+
+    public PopulateMap getPopulateMap() {
+        return populateMap;
+    }
+
+    public void setPopulateMap(PopulateMap populateMap) {
+        this.populateMap = populateMap;
+    }
+
+    public GoogleMap getGoogleMap() {
+        return mGoogleMap;
+    }
+
+    public void setGoogleMap(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+    }
+
 
 }
