@@ -515,9 +515,26 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     /**
      * Brings user back to homepage
      */
-    private void saveChanges() {
+    public void saveChanges() {
         Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
         startActivity(intent);
     }
+
+    public PopulateMap getPopulateMap() {
+        return populateMap;
+    }
+
+    public void setPopulateMap(PopulateMap populateMap) {
+        this.populateMap = populateMap;
+    }
+
+    public GoogleMap getGoogleMap() {
+        return mGoogleMap;
+    }
+
+    public void setGoogleMap(GoogleMap googleMap) {
+        mGoogleMap = googleMap;
+    }
+
 
 }

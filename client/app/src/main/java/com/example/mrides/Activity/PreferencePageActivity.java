@@ -90,6 +90,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             startActivity(intent);
         }
 
+
     }
 
     /**
