@@ -1,13 +1,15 @@
 package com.example.mrides;
 
-
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.assertion.ViewAssertions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.rule.ActivityTestRule;
+import android.test.ActivityInstrumentationTestCase2;
 
 
 import com.example.mrides.Activity.CreateRouteActivity;
+import com.example.mrides.R;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,7 +27,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
 @RunWith(AndroidJUnit4.class)
-public class CreateRouteUserInterfaceTest {
+public class CreateRouteUserInterfaceTest extends ActivityInstrumentationTestCase2<CreateRouteActivity> {
+
+    public CreateRouteUserInterfaceTest()
+    {
+        super(CreateRouteActivity.class);
+    }
 
     @Rule
     public ActivityTestRule<CreateRouteActivity> mActivityRule = new ActivityTestRule<>(CreateRouteActivity.class);
@@ -34,7 +41,7 @@ public class CreateRouteUserInterfaceTest {
     public void testValidInputs(){
 
         // Inputs two valid address and clicks button for output
-        onView(withId(R.id.editTextStart)).perform(typeText("H3S 1V2"));
+        onView(ViewMatchers.withId(R.id.editTextStart)).perform(typeText("H3S 1V2"));
         onView(withId(R.id.editTextDestination)).perform(typeText("Bell Centre"));
         onView(withId(R.id.buttonFindPath)).perform(click());
         Espresso.closeSoftKeyboard();
