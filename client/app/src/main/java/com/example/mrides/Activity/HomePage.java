@@ -9,7 +9,6 @@ package com.example.mrides.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 import com.example.mrides.R;
 
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class HomePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Typeface tf1;
     private TextView textViewMatch, textViewUnmatch;
@@ -33,7 +32,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-    private FloatingActionButton floatingActionButton;
 
     /**
      * Method that creates the activity
@@ -52,22 +50,27 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.navvy);
-        navigationView.setNavigationItemSelectedListener(this);
-
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
         textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
         textViewUnmatch.setTypeface(tf1);
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(this);
 
         createMatchedRoutes();
         createUnmatchedRoutes();
 
 
+    }
+
+    /**
+     * Method moves to the first preference page (PreferencePageActivity)
+     * @param view
+     */
+    public void goToPreferencePage(View view) {
+
+        Intent intent = new Intent(HomePage.this, PreferencePageActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -83,20 +86,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener,
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     *
-     * @param view
-     */
-    @Override
-    public void onClick(View view) {
-
-        switch(view.getId()) {
-            case R.id.fab:
-                Intent intentCreate = new Intent(this, PreferencePageActivity.class);
-                startActivity(intentCreate);
-                break;
-        }
-    }
 
     /**
      * Displays the matched routes of the user
