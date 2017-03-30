@@ -71,7 +71,8 @@
     <string name="invite">Invite</string>
     <string name="invite_accepted">Invitation Accepted</string>
     <string name="loggedOut">Signed Out</string>
-    
+    <string name="save_changes">Save Changes</string>
+
     <string-array name="planets">
         <item> Mercury</item>
         <item> Venus</item>

@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     private Button btnDatePicker, btnTimePicker;
     private ImageView btnSmokePref, btnMalePref, btnFemalePref;
     private EditText txtDate, txtTime;
+    private RadioGroup radioTypeGroup;
+    private RadioButton radioTypeButton;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -44,6 +48,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference_page);
+
+        radioTypeGroup = (RadioGroup) findViewById(R.id.radioGroupType);
 
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
@@ -71,8 +77,20 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      */
     public void goToCreateRoute(View view) {
 
-        Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
-        startActivity(intent);
+        int selectedId = radioTypeGroup.getCheckedRadioButtonId();
+        radioTypeButton = (RadioButton) findViewById(selectedId);
+
+        String choice = radioTypeButton.getText().toString();
+
+        if(choice.equals("Driver")) {
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteDriverActivity.class);
+            startActivity(intent);
+        } else if (choice.equals("Passenger")) {
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRoutePassengerActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     /**
