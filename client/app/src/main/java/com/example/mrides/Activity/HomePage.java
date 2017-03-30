@@ -175,6 +175,8 @@ public class HomePage extends AppCompatActivity implements
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
                 break;
+            default:
+                break;
         }
         return true;
     }
