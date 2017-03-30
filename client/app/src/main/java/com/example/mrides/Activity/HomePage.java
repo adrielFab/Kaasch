@@ -36,7 +36,6 @@ public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener{
 
-
     private Typeface tf1;
     private TextView textViewMatch, textViewUnmatch;
     private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
@@ -90,7 +89,6 @@ public class HomePage extends AppCompatActivity implements
      * @param view
      */
     public void goToPreferencePage(View view) {
-
         Intent intent = new Intent(HomePage.this, PreferencePageActivity.class);
         startActivity(intent);
     }
