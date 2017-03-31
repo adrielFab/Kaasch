@@ -139,7 +139,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
     public void createPath(){
-
         String start = mEditTextStart.getText().toString();
         String destination = mEditTextDestination.getText().toString();
         if(start.isEmpty()) {

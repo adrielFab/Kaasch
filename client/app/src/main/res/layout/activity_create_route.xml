@@ -8,17 +8,52 @@
     android:orientation="vertical"
     tools:context="com.example.mrides.Activity.CreateRouteActivity">
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextStart"
-        android:hint="@string/enter_start_address" />
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-    <EditText
-        android:id="@+id/editTextDestination"
+        <Button
+            android:id="@+id/buttonStartLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_start"
+            android:layout_weight="0.5"/>
+
+        <Button
+            android:id="@+id/buttonEndLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_end"
+            android:layout_weight="0.5"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_destination_address" />
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewStartLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Montreal, QC, Canada"
+            android:layout_weight="0.5"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/textViewEndLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toronto, Ont, Canada"
+            android:layout_weight="0.5"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

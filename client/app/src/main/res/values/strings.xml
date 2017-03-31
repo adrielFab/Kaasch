@@ -72,6 +72,8 @@
     <string name="invite_accepted">Invitation Accepted</string>
     <string name="loggedOut">Signed Out</string>
     <string name="save_changes">Save Changes</string>
+    <string name="enter_start">Enter Start</string>
+    <string name="enter_end">Enter End</string>
 
     <string-array name="planets">
         <item> Mercury</item>
