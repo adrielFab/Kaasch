@@ -10,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.util.Calendar;
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnDatePicker, btnTimePicker;
+    private ImageView btnSmokePref, btnMalePref, btnFemalePref;
     private EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private int [] preferenceChoice = {1, 1, 1};
@@ -50,6 +52,14 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
+
+        btnSmokePref = (ImageView) findViewById(R.id.img_smoke);
+        btnMalePref = (ImageView) findViewById(R.id.img_boy);
+        btnFemalePref = (ImageView) findViewById(R.id.img_girl);
+
+        btnMalePref.setOnClickListener(this);
+        btnSmokePref.setOnClickListener(this);
+        btnFemalePref.setOnClickListener(this);
     }
 
     /**
@@ -107,6 +117,36 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
                 break;
+
+            case R.id.img_smoke:
+                changeButtonPreference(btnSmokePref, 0, R.drawable.smoking_not_accepted, R.drawable.smoking_accepted);
+                break;
+
+            case R.id.img_boy:
+                changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+                break;
+
+            case R.id.img_girl:
+                changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+                break;
         }
+    }
+
+    /**
+     * Method that creates an animation for the preference images. If the user
+     * wants to add a constraint to an preference, the user will click the image
+     * and it will turn red. Reverting it back turns the image to green
+     * @param img
+     * @param index
+     */
+    public void changeButtonPreference(ImageView img, int index, int img1, int img2) {
+        if(preferenceChoice[index] == 1) {
+            img.setImageResource(img1);
+            preferenceChoice[index] = 0;
+        } else {
+            img.setImageResource(img2);
+            preferenceChoice[index] = 1;
+        }
+
     }
 }
