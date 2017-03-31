@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,9 @@ import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -91,6 +94,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
     private boolean startOrEnd;
+    private String start;
+    private String destination;
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
 
@@ -136,8 +141,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
-        mEditTextStart = (EditText) findViewById(R.id.editTextStart);
-        mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
 
         buttonStartLocation.setOnClickListener(this);
         buttonEndLocation.setOnClickListener(this);
@@ -156,15 +159,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
     public void createPath(){
-        String start = mEditTextStart.getText().toString();
-        String destination = mEditTextDestination.getText().toString();
         if(start.isEmpty()) {
-
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
         }
         if (destination.isEmpty()) {
-
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -410,6 +409,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.buttonSaveChanges:
                 saveChanges();
                 break;
+            case R.id.buttonStartLocation:
+                startOrEnd = false;
+                showSearchLocationDialog();
+                break;
+            case R.id.buttonEndLocation:
+                startOrEnd = true;
+                showSearchLocationDialog();
             default:
                 break;
         }
@@ -571,5 +577,25 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             // TODO: Handle the error.
         }
     }
-    
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                String apple = "red";
+                if (startOrEnd) {
+                    apple = "blue";
+                }
+                Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("Check", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
+
 }
