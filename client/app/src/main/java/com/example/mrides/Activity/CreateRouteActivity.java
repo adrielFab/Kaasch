@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -62,6 +63,10 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
+    private Button buttonStartLocation;
+    private Button buttonEndLocation;
+    private TextView textViewStartLocation;
+    private TextView textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
     private EditText mEditTextStart;
@@ -81,6 +86,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private Dialog dialog;
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
+    private boolean startOrEnd;
+    final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
 
     /**
@@ -112,7 +119,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
 
@@ -120,10 +126,17 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        buttonStartLocation = (Button) findViewById(R.id.buttonStartLocation);
+        buttonEndLocation = (Button) findViewById(R.id.buttonEndLocation);
+        textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
+        textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
         mEditTextStart = (EditText) findViewById(R.id.editTextStart);
         mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+
+        buttonStartLocation.setOnClickListener(this);
+        buttonEndLocation.setOnClickListener(this);
         buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
