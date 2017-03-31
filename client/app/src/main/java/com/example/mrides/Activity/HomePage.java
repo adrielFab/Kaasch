@@ -37,7 +37,8 @@ public class HomePage extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
 
     private Typeface tf1;
-    private TextView textViewMatch, textViewUnmatch;
+    private TextView textViewMatch;
+    private TextView textViewUnmatch;
     private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
     private String [] unmatchedRoutes = {"Party", "Trip to CN", "Engineering workshop", "another one"};
 

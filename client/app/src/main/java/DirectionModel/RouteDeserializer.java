@@ -71,11 +71,14 @@ public class RouteDeserializer {
 
         List<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();
-        int lat = 0, lng = 0;
+        int lat = 0;
+        int lng = 0;
 
         while (index < len) {
 
-            int b, shift = 0, result = 0;
+            int b;
+            int shift = 0;
+            int result = 0;
             do {
 
                 b = encoded.charAt(index++) - 63;
