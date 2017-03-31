@@ -67,7 +67,7 @@ public class RouteDeserializer {
      * @return List<LatLng> This returns a list of latitude and longitude coordinates that the new polyline
      * will pass through to form the route
      */
-    public List<LatLng> decodePoly(String encoded) {
+    private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();
         int index = 0, len = encoded.length();

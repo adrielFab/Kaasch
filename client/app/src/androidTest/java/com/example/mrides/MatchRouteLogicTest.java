@@ -4,6 +4,8 @@ package com.example.mrides;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.MainActivity;
@@ -17,64 +19,39 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import DirectionModel.Matcher;
 import DirectionModel.Route;
 
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class MatchRouteTestSuite {
+
+@RunWith(AndroidJUnit4.class)
+public class MatchRouteLogicTest {
+
+
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
     public void testValideDistance(){
-        Matcher matcher = new Matcher();
+        CreateRouteActivity routeActivity = new CreateRouteActivity();
         LatLng start1 = new LatLng(45.498672,-73.631370);
         LatLng start2 = new LatLng(45.498619,-73.631310);
 
         LatLng end1 = new LatLng(45.495211,-73.637070);
         LatLng end2 = new LatLng(45.495219,-73.637065);
 
-        assertEquals(matcher.validateDistance(start1, start2),
-                matcher.validateDistance(end1, end2));
-    }
-
-    @Test
-    // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testInvalideDistance(){
-        Matcher matcher = new Matcher();
-        LatLng start1 = new LatLng(45.498672,-73.631370);
-        LatLng start2 = new LatLng(45.498619,-73.631310);
-
-        LatLng end1 = new LatLng(45.495211,-73.1);
-        LatLng end2 = new LatLng(45.99,-73.637065);
-
-        assertNotEquals(matcher.validateDistance(start1, start2),
-                matcher.validateDistance(end1, end2));
-    }
-
-    @Test
-    // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testInvalideDistanceInput(){
-        Matcher matcher = new Matcher();
-        LatLng start1 = new LatLng(45498672,-73631370);
-        LatLng start2 = new LatLng(45498619,-73631310);
-
-        LatLng end1 = new LatLng(45.485211,-73.1);
-        LatLng end2 = new LatLng(45.495219,-73.637065);
-
-        assertNotEquals(matcher.validateDistance(start1, start2),
-                matcher.validateDistance(end1, end2));
-        assertNotEquals(matcher.validateDistance(start1, start1),
-                matcher.validateDistance(end1, end2));
+        assertEquals(routeActivity.validateDistance(start1, start2),
+                routeActivity.validateDistance(end1, end2));
     }
 
     @Test
     // Test the side effect of matchRoute() method on ArrayList <User> userOnMapCatalog
     public void testMatchRoute(){
-        Matcher matcher = new Matcher();
+        CreateRouteActivity routeActivity = new CreateRouteActivity();
         ArrayList <User> userOnMapCatalog = new ArrayList<>();
         List <LatLng> routeOfUser = new ArrayList <LatLng>();
 
@@ -92,14 +69,12 @@ public class MatchRouteTestSuite {
         route.setStartLocation(start1);
         route.setEndLocation(end1);
         userOnMapCatalog.add(e);
-        matcher.setUserOnMapCatalog(userOnMapCatalog);
+        routeActivity.setUserOnMapCatalog(userOnMapCatalog);
 
-        int userSize = matcher.getUserOnMapCatalog().size();
-        matcher.matchRoute(routeOfUser);
+        int userSize = routeActivity.getUserOnMapCatalog().size();
+        routeActivity.matchRoute(routeOfUser);
 
-        assertEquals(matcher.getUserOnMapCatalog().size(),userSize);
-        assertEquals(route.getStartLocation(),start1);
-        assertEquals(route.getEndLocation(),end1);
+        assertEquals(routeActivity.getUserOnMapCatalog().size(),userSize);
     }
 
     @Test
