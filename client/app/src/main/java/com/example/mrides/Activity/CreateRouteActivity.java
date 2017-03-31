@@ -582,9 +582,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                String apple = "red";
-                if (startOrEnd) {
-                    apple = "blue";
+                String apple = "";
+                if (!startOrEnd) {
+                    apple = "start";
+                    start = place.getName().toString();
+                } else {
+                    apple = "end";
+                    destination = place.getName().toString();
                 }
                 Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
