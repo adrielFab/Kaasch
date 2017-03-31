@@ -227,7 +227,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
 
-        populateMap.execute();
+        populateMap.requestUsers(this);
     }
 
     /**
