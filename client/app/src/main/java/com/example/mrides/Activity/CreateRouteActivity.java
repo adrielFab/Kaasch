@@ -35,6 +35,10 @@ import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -548,5 +552,24 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mGoogleMap = googleMap;
     }
 
+    /**
+     * Method that shows the search bar where the user will enter the location
+     */
+    public void showSearchLocationDialog() {
+        try {
+            AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS).setTypeFilter(AutocompleteFilter.TYPE_FILTER_GEOCODE)
+                    .build();
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(typeFilter)
+                            .build(CreateRouteActivity.this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
 
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+    
 }
