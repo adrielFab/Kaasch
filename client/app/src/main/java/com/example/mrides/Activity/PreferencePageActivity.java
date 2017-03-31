@@ -9,8 +9,6 @@ package com.example.mrides.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.mrides.R;
 
@@ -38,14 +35,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     private EditText txtTime;
     private RadioGroup radioTypeGroup;
     private RadioButton radioTypeButton;
-
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mHour;
     private int mMinute;
-
-    private int [] preferenceChoice = {1, 1, 1};
+    private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
      * Method that is called to load the activity
@@ -62,8 +57,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
 
-        txtDate=(EditText)findViewById(R.id.in_date);
-        txtTime=(EditText)findViewById(R.id.in_time);
+        txtDate = (EditText) findViewById(R.id.in_date);
+        txtTime = (EditText) findViewById(R.id.in_time);
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
@@ -75,8 +70,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         btnMalePref.setOnClickListener(this);
         btnSmokePref.setOnClickListener(this);
         btnFemalePref.setOnClickListener(this);
-
-
     }
 
     /**
@@ -84,7 +77,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param view
      */
     public void goToCreateRoute(View view) {
-
         int selectedId = radioTypeGroup.getCheckedRadioButtonId();
         radioTypeButton = (RadioButton) findViewById(selectedId);
 
@@ -97,8 +89,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             Intent intent = new Intent(PreferencePageActivity.this, CreateRoutePassengerActivity.class);
             startActivity(intent);
         }
-
-
     }
 
     /**
@@ -107,7 +97,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      */
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btn_date:
                 // Get Current Date
@@ -115,8 +104,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
 
@@ -152,22 +139,19 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.img_smoke:
-                changeButtonPreference(btnSmokePref, 0);
+                changeButtonPreference(btnSmokePref, 0, R.drawable.smoking_not_accepted, R.drawable.smoking_accepted);
                 break;
 
             case R.id.img_boy:
-                changeButtonPreference(btnMalePref, 1);
+                toggleBoyGirl(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
                 break;
 
             case R.id.img_girl:
-                changeButtonPreference(btnFemalePref, 2);
+                toggleBoyGirl(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
                 break;
-
             default:
                 break;
-
         }
-
     }
 
     /**
@@ -177,14 +161,29 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param img
      * @param index
      */
-    public void changeButtonPreference(ImageView img, int index) {
-        if(preferenceChoice[index] == 1) {
-            img.setBackgroundColor(Color.RED);
-            preferenceChoice[index] = 0;
+    private void changeButtonPreference(ImageView img, int index, int img1, int img2) {
+        if(isPreferenceChoiceSelected[index] == true) {
+            img.setImageResource(img1);
+            isPreferenceChoiceSelected[index] = false;
         } else {
-            img.setBackgroundColor(Color.GREEN);
-            preferenceChoice[index] = 1;
+            img.setImageResource(img2);
+            isPreferenceChoiceSelected[index] = true;
         }
+    }
 
+    private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2){
+        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false){
+            //reject men accept females
+            changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+            changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+        }
+        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false){
+            //reject females accept males
+            changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+            changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+        }
+        else{
+            changeButtonPreference(img, selectedPreferenceIndex, img1, img2);
+        }
     }
 }

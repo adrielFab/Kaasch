@@ -67,6 +67,10 @@
         <item name="android:textSize">35dp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="medium_white">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
