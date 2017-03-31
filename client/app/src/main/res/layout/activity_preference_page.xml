@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:textStyle="bold"
-            android:text="Departure Date:"
+            android:text="@string/Departure_date"
             style="@style/regularSizeText"/>
         <EditText
             android:layout_width="0dp"
@@ -61,7 +61,9 @@
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/change_button"
             android:text="@string/Select"
+            style="@style/medium_white"
             android:id="@+id/btn_date"/>
     </LinearLayout>
 
@@ -102,6 +104,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Select"
+            android:background="@drawable/change_button"
+            style="@style/medium_white"
             android:id="@+id/btn_time"/>
     </LinearLayout>
 
@@ -111,6 +115,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:src="@mipmap/line"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,16 +130,19 @@
                 android:id="@+id/Driver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="20dip"
                 android:text="@string/Driver"
-                style="@style/regularSizeText"
-                android:textSize="16dp"/>
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                style="@style/regularSizeText"/>
             <RadioButton
                 android:id="@+id/Passenger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
                 android:text="@string/Passenger"
-                style="@style/regularSizeText"
-                android:textSize="16dp"/>
+                android:textStyle="bold"
+                style="@style/regularSizeText"/>
         </RadioGroup>
     </LinearLayout>
 
@@ -151,7 +159,8 @@
         android:text="@string/preferences"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:textColor="@android:color/black"
+        style="@style/regularSizeText"
+        android:textStyle="bold"
         android:id="@+id/textViewPref"/>
 
     <LinearLayout
@@ -159,39 +168,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="9">
-
-
         <ImageView
             android:layout_height="@dimen/preference_icon_height"
-            android:src="@mipmap/smoke"
+            android:src="@drawable/smoking_accepted"
             android:id="@+id/img_smoke"
-            android:background="#45e239"
-            android:adjustViewBounds="false"
             android:clickable="true"
-            android:layout_width="@dimen/preference_icon_width"
-            android:layout_weight="3"/>
-
+            android:layout_width="0dip"
+            android:layout_weight="3" />
         <ImageView
             android:layout_height="@dimen/preference_icon_height"
-            android:src="@mipmap/boy"
+            android:src="@drawable/men_accepted"
             android:id="@+id/img_boy"
-            android:background="#45e239"
-            android:adjustViewBounds="false"
             android:clickable="true"
-            android:layout_width="@dimen/preference_icon_width"
             android:layout_weight="3"
-            android:layout_marginLeft="10dp"/>
-
+            android:layout_width="0dip" />
         <ImageView
             android:layout_height="@dimen/preference_icon_height"
-            android:src="@mipmap/girl"
+            android:src="@drawable/women_accepted"
             android:id="@+id/img_girl"
-            android:background="#45e239"
-            android:adjustViewBounds="false"
             android:clickable="true"
-            android:layout_width="@dimen/preference_icon_width"
-            android:layout_weight="3"
-            android:layout_marginLeft="10dp"/>
+            android:layout_width="0dip"
+            android:layout_weight="3" />
     </LinearLayout>
 
     <LinearLayout
@@ -206,6 +203,8 @@
             android:layout_height="wrap_content"
             android:text="@string/Next"
             android:onClick="goToCreateRoute"
+            android:background="@drawable/change_button"
+            style="@style/medium_white"
             android:id="@+id/buttonGoToCreate"/>
 
 

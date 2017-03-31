@@ -28,11 +28,8 @@ import java.util.Calendar;
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnDatePicker, btnTimePicker;
-    private ImageView btnSmokePref, btnMalePref, btnFemalePref;
     private EditText txtDate, txtTime;
-
     private int mYear, mMonth, mDay, mHour, mMinute;
-
     private int [] preferenceChoice = {1, 1, 1};
 
     /**
@@ -45,24 +42,14 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference_page);
 
-        btnDatePicker=(Button)findViewById(R.id.btn_date);
-        btnTimePicker=(Button)findViewById(R.id.btn_time);
+        btnDatePicker = (Button) findViewById(R.id.btn_date);
+        btnTimePicker = (Button) findViewById(R.id.btn_time);
 
-        txtDate=(EditText)findViewById(R.id.in_date);
-        txtTime=(EditText)findViewById(R.id.in_time);
+        txtDate = (EditText) findViewById(R.id.in_date);
+        txtTime = (EditText) findViewById(R.id.in_time);
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
-
-        btnSmokePref = (ImageView) findViewById(R.id.img_smoke);
-        btnMalePref = (ImageView) findViewById(R.id.img_boy);
-        btnFemalePref = (ImageView) findViewById(R.id.img_girl);
-
-        btnMalePref.setOnClickListener(this);
-        btnSmokePref.setOnClickListener(this);
-        btnFemalePref.setOnClickListener(this);
-
-
     }
 
     /**
@@ -70,7 +57,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param view
      */
     public void goToCreateRoute(View view) {
-
         Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
         startActivity(intent);
     }
@@ -81,7 +67,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      */
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btn_date:
                 // Get Current Date
@@ -89,8 +74,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                         new DatePickerDialog.OnDateSetListener() {
 
@@ -124,38 +107,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
                 break;
-
-            case R.id.img_smoke:
-                changeButtonPreference(btnSmokePref, 0);
-                break;
-
-            case R.id.img_boy:
-                changeButtonPreference(btnMalePref, 1);
-                break;
-
-            case R.id.img_girl:
-                changeButtonPreference(btnFemalePref, 2);
-                break;
-
         }
-
-    }
-
-    /**
-     * Method that creates an animation for the preference images. If the user
-     * wants to add a constraint to an preference, the user will click the image
-     * and it will turn red. Reverting it back turns the image to green
-     * @param img
-     * @param index
-     */
-    public void changeButtonPreference(ImageView img, int index) {
-        if(preferenceChoice[index] == 1) {
-            img.setBackgroundColor(Color.RED);
-            preferenceChoice[index] = 0;
-        } else {
-            img.setBackgroundColor(Color.GREEN);
-            preferenceChoice[index] = 1;
-        }
-
     }
 }
