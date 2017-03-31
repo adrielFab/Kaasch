@@ -41,7 +41,6 @@
             android:id="@+id/textViewStartLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Montreal, QC, Canada"
             android:layout_weight="0.5"
             android:textAlignment="center"/>
 
@@ -49,7 +48,6 @@
             android:id="@+id/textViewEndLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toronto, Ont, Canada"
             android:layout_weight="0.5"
             android:textAlignment="center"/>
 

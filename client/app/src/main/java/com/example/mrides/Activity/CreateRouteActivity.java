@@ -135,6 +135,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        start = "";
+        destination = "";
         buttonStartLocation = (Button) findViewById(R.id.buttonStartLocation);
         buttonEndLocation = (Button) findViewById(R.id.buttonEndLocation);
         textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
@@ -167,6 +169,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String url = "";
         try {
 
@@ -174,14 +177,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             String urlDestination = URLEncoder.encode(destination, "utf-8");
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
 
             e.printStackTrace();
         }
         startObtainDirection();
         requestHandler.attach(this);
-        requestHandler.httpGetStringRequest(url,this);
+        requestHandler.httpGetStringRequest(url, this);
+
     }
 
 
@@ -564,7 +567,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void showSearchLocationDialog() {
         try {
             AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS).setTypeFilter(AutocompleteFilter.TYPE_FILTER_GEOCODE)
+                    .setCountry("CA")
                     .build();
             Intent intent =
                     new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(typeFilter)
@@ -586,9 +589,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 if (!startOrEnd) {
                     apple = "start";
                     start = place.getName().toString();
+                    textViewStartLocation.setText(start);
                 } else {
                     apple = "end";
                     destination = place.getName().toString();
+                    textViewEndLocation.setText(destination);
                 }
                 Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
