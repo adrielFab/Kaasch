@@ -26,12 +26,20 @@ import java.util.Calendar;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnDatePicker, btnTimePicker;
-    private ImageView btnSmokePref, btnMalePref, btnFemalePref;
-    private EditText txtDate, txtTime;
+    private Button btnDatePicker;
+    private Button btnTimePicker;
+    private ImageView btnSmokePref;
+    private ImageView btnMalePref;
+    private ImageView btnFemalePref;
+    private EditText txtDate;
+    private EditText txtTime;
     private RadioGroup radioTypeGroup;
     private RadioButton radioTypeButton;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMinute;
     private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
@@ -140,6 +148,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
             case R.id.img_girl:
                 toggleBoyGirl(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+                break;
+            default:
                 break;
         }
     }
