@@ -163,6 +163,9 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 changeButtonPreference(btnFemalePref, 2);
                 break;
 
+            default:
+                break;
+
         }
 
     }
