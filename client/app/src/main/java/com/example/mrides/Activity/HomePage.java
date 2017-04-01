@@ -37,7 +37,8 @@ public class HomePage extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
 
     private Typeface tf1;
-    private TextView textViewMatch, textViewUnmatch;
+    private TextView textViewMatch;
+    private TextView textViewUnmatch;
     private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
     private String [] unmatchedRoutes = {"Party", "Trip to CN", "Engineering workshop", "another one"};
 
@@ -174,6 +175,8 @@ public class HomePage extends AppCompatActivity implements
                 Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
+                break;
+            default:
                 break;
         }
         return true;

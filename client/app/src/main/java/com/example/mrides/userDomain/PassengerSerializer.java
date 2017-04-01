@@ -25,7 +25,7 @@ public class PassengerSerializer {
         map.put("passengerFirstName",user.getFirstName());
         map.put("passengerDisplayName", "Adriel");
         //map.put("passengerDeviceId", user.getDeviceId());
-        map.put("passengerDeviceId", "f4TBeBH3M7Q:APA91bHhiq-4egX6AOFbd-3tdL3d2OguCkbzevAAtWzshBTtIdLNzS0pQTOO408H3wx8oN0fZBdLa14jSGWQ4K_TajGeRfqZsd6c-_CrhPOovDqQL3NoeJ113vX2TpqKKLJaNpEZ9Gsi");
+        map.put("passengerDeviceId", "cd7BHqjfyRQ:APA91bEcL3FkXSwWCSjkZ6lzGeDq-p9ivArhkVgPaOoEDfsKfkRGR8j0xPQ2o3OMf3Sv-KDTc3F_v-TXYz4uMquiqF88TK-Tnf8KNUbNcQnW8szhdN_RcUtybZb25Ma_B9D2oqEuVWvw");
        // map.put("passengerProfileUrl", user.getPhotoUrl());
         map.put("passengerProfileUrl", "photoUrl");
         return map;

@@ -14,7 +14,7 @@
     <string name="Frequency">Frequency :</string>
     <string name="Once">Once</string>
     <string name="Repeated">Repeated</string>
-    <string name="Arrival_time">Arrival Time:</string>
+    <string name="Arrival_time">Departure Time:</string>
     <string name="Departure_time">Departure Time:</string>
     <string name="Driver">Driver</string>
     <string name="Passenger">Passenger</string>
