@@ -70,14 +70,10 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
-    private Button buttonStartLocation;
-    private Button buttonEndLocation;
     private TextView textViewStartLocation;
     private TextView textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
-    private EditText mEditTextStart;
-    private EditText mEditTextDestination;
     private GoogleMap mGoogleMap;
     private ProgressDialog mProgressDialog;
     private List<Marker> startMarkers = new ArrayList<>();
@@ -137,15 +133,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         start = "";
         destination = "";
-        buttonStartLocation = (Button) findViewById(R.id.buttonStartLocation);
-        buttonEndLocation = (Button) findViewById(R.id.buttonEndLocation);
+
         textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
         textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
 
-        buttonStartLocation.setOnClickListener(this);
-        buttonEndLocation.setOnClickListener(this);
+        textViewStartLocation.setOnClickListener(this);
+        textViewEndLocation.setOnClickListener(this);
         buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
@@ -412,11 +407,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.buttonSaveChanges:
                 saveChanges();
                 break;
-            case R.id.buttonStartLocation:
+            case R.id.textViewStartLocation:
                 startOrEnd = false;
                 showSearchLocationDialog();
                 break;
-            case R.id.buttonEndLocation:
+            case R.id.textViewEndLocation:
                 startOrEnd = true;
                 showSearchLocationDialog();
             default:
