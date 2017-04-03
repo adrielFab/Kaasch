@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -36,6 +37,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         View.OnClickListener, ActivityObserver{
 
     private Map<String,String> responseBody;
+    private Map<String,String> invitations = new HashMap<>();
     private Context inboxContext;
     private Dialog dialog;
     private RequestHandler requestHandler = new RequestHandler();
@@ -172,6 +174,10 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         try {
             JSONObject inboxResponse = new JSONObject(response);
             JSONArray invites = inboxResponse.getJSONArray("invites");
+            for(int index =0;index<invites.length();index++){
+                JSONObject invite = invites.getJSONObject(index);
+
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
