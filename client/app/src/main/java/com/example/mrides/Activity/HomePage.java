@@ -102,7 +102,7 @@ public class HomePage extends AppCompatActivity implements
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScroll);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.setMargins(0,10,0,10);
+        ll.setMargins(0,15,0,15);
         Button button1 = createRouteButton("drive", true, 0);
         Button button2 = createRouteButton("weekend stuff", false, 1);
         Button button3 = createRouteButton("work", true, 1);
