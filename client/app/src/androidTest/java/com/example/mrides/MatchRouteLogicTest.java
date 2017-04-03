@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MatchRouteLogicTest {
+public class MatchRouteLogicTest { 
 
 
     @Rule
@@ -36,7 +36,7 @@ public class MatchRouteLogicTest {
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testValideDistance(){
+    public void testValideDistance(){ 
         Matcher matcher = new Matcher();
         LatLng start1 = new LatLng(45.498672,-73.631370);
         LatLng start2 = new LatLng(45.498619,-73.631310);
@@ -50,7 +50,7 @@ public class MatchRouteLogicTest {
 
     @Test
     // Test the side effect of matchRoute() method on ArrayList <User> userOnMapCatalog
-    public void testMatchRoute(){
+    public void testMatchRoute(){ 
         Matcher matcher = new Matcher();
         ArrayList <User> userOnMapCatalog = new ArrayList<>();
         List <LatLng> routeOfUser = new ArrayList <LatLng>();
@@ -79,7 +79,7 @@ public class MatchRouteLogicTest {
 
     @Test
     // Test the creation of progress bar on CreateRouteActivity
-    public void testShouldCreateProgressBar(){
+    public void testShouldCreateProgressBar(){ 
         Context routeActivity = new CreateRouteActivity();
         TestOnCancelListener cancelListener = new TestOnCancelListener();
         ProgressDialog progressDialog = ProgressDialog.show(routeActivity, "Title", "Message", true, true, cancelListener);
@@ -88,11 +88,11 @@ public class MatchRouteLogicTest {
         assertThat(cancelListener.onCancelDialogInterface, is((DialogInterface) progressDialog));
     }
 
-    private static class TestOnCancelListener implements DialogInterface.OnCancelListener {
+    private static class TestOnCancelListener implements DialogInterface.OnCancelListener { 
         public DialogInterface onCancelDialogInterface;
 
         @Override
-        public void onCancel(DialogInterface dialogInterface) {
+        public void onCancel(DialogInterface dialogInterface) { 
             onCancelDialogInterface = dialogInterface;
 
         }
