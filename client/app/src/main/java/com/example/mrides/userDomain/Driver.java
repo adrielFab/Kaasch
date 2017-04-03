@@ -8,4 +8,5 @@ public class Driver extends User {
 
     public Driver(FirebaseUser acct, GoogleSignInAccount googleSignInAccount) {
         super(acct, googleSignInAccount);
-    }}
+    }
+}
