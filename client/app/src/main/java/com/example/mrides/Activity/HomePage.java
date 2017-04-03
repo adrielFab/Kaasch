@@ -11,7 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -111,7 +111,9 @@ public class HomePage extends AppCompatActivity implements
         linearLayout.addView(button1, ll);
         linearLayout.addView(button2, ll);
         linearLayout.addView(button3, ll);
-
+        for(int i = 0; i<10 ; i++){
+            linearLayout.addView(createRouteButton("work", true, 2), ll);
+        }
     }
 
     /**
@@ -122,9 +124,8 @@ public class HomePage extends AppCompatActivity implements
      * @return Button
      */
     public Button createRouteButton(String name, Boolean isDriver, int status){
-        Drawable routeDisplay = getResources().getDrawable(R.drawable.route_display_button);
         Button button = new Button(this);
-        button.setBackground(routeDisplay);
+        button.setBackground(getRouteDrawable(status));
         button.setText(name);
         button = setImage(button, isDriver);
         return button;
@@ -161,9 +162,29 @@ public class HomePage extends AppCompatActivity implements
         return button;
     }
 
-
-
-
+    /**
+     * Returns appropriate drawable for the route
+     * @param status
+     * @return drawable
+     */
+    private Drawable getRouteDrawable(int status){
+        Drawable drawable;
+        switch(status){
+            case 0:
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                break;
+            case 1:
+                drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
+                break;
+            case 2:
+                drawable = getResources().getDrawable(R.drawable.pending_route_button);
+                break;
+            default:
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                break;
+        }
+        return drawable;
+    }
 
     /**
      * Method with a switch case that performs the corresponding intent depending on the
