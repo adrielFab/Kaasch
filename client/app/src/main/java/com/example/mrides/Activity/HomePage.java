@@ -41,6 +41,7 @@ public class HomePage extends AppCompatActivity implements
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
+    private NavigationView navigationView;
 
     /**
      * Method that creates the activity
@@ -58,6 +59,9 @@ public class HomePage extends AppCompatActivity implements
         toggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
 
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
@@ -184,9 +188,6 @@ public class HomePage extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_account:
-                //Go to account
-                break;
             case R.id.nav_inbox:
                 Intent intentInbox = new Intent(getApplicationContext(), InboxActivity.class);
                 startActivity(intentInbox);
