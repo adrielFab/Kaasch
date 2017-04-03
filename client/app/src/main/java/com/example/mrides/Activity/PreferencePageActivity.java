@@ -9,9 +9,6 @@ package com.example.mrides.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.mrides.R;
 
@@ -30,13 +26,21 @@ import java.util.Calendar;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnDatePicker, btnTimePicker;
-    private ImageView btnSmokePref, btnMalePref, btnFemalePref;
-    private EditText txtDate, txtTime;
+    private Button btnDatePicker;
+    private Button btnTimePicker;
+    private ImageView btnSmokePref;
+    private ImageView btnMalePref;
+    private ImageView btnFemalePref;
+    private EditText txtDate;
+    private EditText txtTime;
     private RadioGroup radioTypeGroup;
     private RadioButton radioTypeButton;
-    private int mYear, mMonth, mDay, mHour, mMinute;
-    private int [] preferenceChoice = {1, 1, 1};
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMinute;
+    private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
      * Method that is called to load the activity
@@ -139,11 +143,13 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 break;
 
             case R.id.img_boy:
-                changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+                toggleBoyGirl(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
                 break;
 
             case R.id.img_girl:
-                changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+                toggleBoyGirl(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+                break;
+            default:
                 break;
         }
     }
@@ -155,14 +161,29 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param img
      * @param index
      */
-    public void changeButtonPreference(ImageView img, int index, int img1, int img2) {
-        if(preferenceChoice[index] == 1) {
+    private void changeButtonPreference(ImageView img, int index, int img1, int img2) {
+        if(isPreferenceChoiceSelected[index] == true) {
             img.setImageResource(img1);
-            preferenceChoice[index] = 0;
+            isPreferenceChoiceSelected[index] = false;
         } else {
             img.setImageResource(img2);
-            preferenceChoice[index] = 1;
+            isPreferenceChoiceSelected[index] = true;
         }
+    }
 
+    private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2){
+        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false){
+            //reject men accept females
+            changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+            changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+        }
+        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false){
+            //reject females accept males
+            changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
+            changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
+        }
+        else{
+            changeButtonPreference(img, selectedPreferenceIndex, img1, img2);
+        }
     }
 }

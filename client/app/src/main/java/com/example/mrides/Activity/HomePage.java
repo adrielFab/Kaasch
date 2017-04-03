@@ -38,7 +38,6 @@ public class HomePage extends AppCompatActivity implements
 
     private Typeface tf1;
     private TextView textViewMatch;
-    private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
@@ -200,6 +199,8 @@ public class HomePage extends AppCompatActivity implements
                 Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);
+                break;
+            default:
                 break;
         }
         return true;
