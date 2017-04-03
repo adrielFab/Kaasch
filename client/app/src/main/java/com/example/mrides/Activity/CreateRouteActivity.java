@@ -21,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,6 +81,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private Dialog dialog;
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
+    private String in_date;
+    private String in_time;
 
 
     /**
@@ -114,6 +117,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
+
+        //Get the bundle
+        Bundle bundle = getIntent().getExtras();
+        //Extract the data…
+        in_date = bundle.getString("in_date");
+        in_time = bundle.getString("in_time");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

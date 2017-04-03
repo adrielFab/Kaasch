@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -84,6 +85,18 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         if(choice.equals("Driver")) {
             Intent intent = new Intent(PreferencePageActivity.this, CreateRouteDriverActivity.class);
+            TextView tv_in_date = (TextView) findViewById(R.id.in_date);
+            TextView tv_in_time = (TextView) findViewById(R.id.in_time);
+
+            String in_date=tv_in_date.getText().toString();
+            String in_time=tv_in_time.getText().toString();
+            //Create the bundle
+            Bundle bundle = new Bundle();
+            bundle.putString("in_date", in_date);
+            bundle.putString("in_time", in_date);
+            //Add the bundle to the intent
+            intent.putExtras(bundle);
+
             startActivity(intent);
         } else if (choice.equals("Passenger")) {
             Intent intent = new Intent(PreferencePageActivity.this, CreateRoutePassengerActivity.class);
