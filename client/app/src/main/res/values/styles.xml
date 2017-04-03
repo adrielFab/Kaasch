@@ -71,6 +71,9 @@
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+    <style name="left_gravity">
+        <item name="android:gravity">center_vertical|left</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

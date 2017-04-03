@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -24,7 +23,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.mrides.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -105,15 +103,13 @@ public class HomePage extends AppCompatActivity implements
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScroll);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.setMargins(0,10,0,10);
         Button button1 = createRouteButton("drive", true, 0);
-        Button button2 = createRouteButton("school", false, 1);
-        Button button3 = createRouteButton("work", true, 2);
+        Button button2 = createRouteButton("weekend stuff", false, 1);
+        Button button3 = createRouteButton("work", true, 1);
         linearLayout.addView(button1, ll);
         linearLayout.addView(button2, ll);
         linearLayout.addView(button3, ll);
-        for(int i = 0; i<10 ; i++){
-            linearLayout.addView(createRouteButton("work", true, 2), ll);
-        }
     }
 
     /**
@@ -127,7 +123,9 @@ public class HomePage extends AppCompatActivity implements
         Button button = new Button(this);
         button.setBackground(getRouteDrawable(status));
         button.setText(name);
+        button.setTextSize(15);
         button = setImage(button, isDriver);
+        button.setTypeface(null, Typeface.BOLD);
         return button;
     }
 
@@ -138,7 +136,7 @@ public class HomePage extends AppCompatActivity implements
      */
     private Drawable resize(Drawable image) {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 110, 110, false);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 210, 130, false);
         return new BitmapDrawable(getResources(), bitmapResized);
     }
 
@@ -169,20 +167,12 @@ public class HomePage extends AppCompatActivity implements
      */
     private Drawable getRouteDrawable(int status){
         Drawable drawable;
-        switch(status){
-            case 0:
+            if(status == 0) {
                 drawable = getResources().getDrawable(R.drawable.matched_route_button);
-                break;
-            case 1:
+            }
+            else {
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
-                break;
-            case 2:
-                drawable = getResources().getDrawable(R.drawable.pending_route_button);
-                break;
-            default:
-                drawable = getResources().getDrawable(R.drawable.matched_route_button);
-                break;
-        }
+            }
         return drawable;
     }
 
