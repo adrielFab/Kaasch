@@ -242,7 +242,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 mGoogleMap.clear();
 
-                mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .position(myLocation)
+                        .title("My Location"));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
             }
         }
@@ -379,26 +381,31 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
-        dialog = new Dialog(CreateRouteActivity.this);
-        dialog.setTitle(marker.getTitle());
-        dialog.setContentView(R.layout.userprofile_dialog_layout);
-        dialog.show();
 
-        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(marker.getTitle());
+        if (selectedPassenger != null) {
+            dialog = new Dialog(CreateRouteActivity.this);
+            dialog.setTitle(marker.getTitle());
+            dialog.setContentView(R.layout.userprofile_dialog_layout);
+            dialog.show();
 
-        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(selectedPassenger.getEmail());
+            TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+            textViewFullName.setText(marker.getTitle());
 
-        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+            TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+            textViewEmail.setText(selectedPassenger.getEmail());
 
-        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+            ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+            imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
-        buttonInvite.setOnClickListener(this);
+            Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
 
-        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(this);
+            buttonInvite.setOnClickListener(this);
+
+            Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+            buttonCancel.setOnClickListener(this);
+
+        }
+
         return false;
     }
 
