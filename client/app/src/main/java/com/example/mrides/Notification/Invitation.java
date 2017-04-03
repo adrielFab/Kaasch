@@ -15,4 +15,20 @@ public class Invitation {
         this.driverProfilePicRul = driverProfilePicRul;
         this.driverDisplayName = driverDisplayName;
     }
+
+    public String getDriverEmail() {
+        return driverEmail;
+    }
+
+    public String getDriverReview() {
+        return driverReview;
+    }
+
+    public String getDriverProfilePicRul() {
+        return driverProfilePicRul;
+    }
+
+    public String getDriverDisplayName() {
+        return driverDisplayName;
+    }
 }

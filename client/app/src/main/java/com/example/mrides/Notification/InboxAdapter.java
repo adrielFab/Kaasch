@@ -24,7 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,8 +39,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         View.OnClickListener, ActivityObserver{
 
     private Map<String,String> responseBody;
-    private Map<String,String> invitations = new HashMap<>();
-    private Context inboxContext;
+    private List<Invitation> invitations = new ArrayList<>();
+    protected static Context inboxContext;
     private Dialog dialog;
     private RequestHandler requestHandler = new RequestHandler();
 
@@ -79,7 +81,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemMessage.setText(inboxContext.getString(R.string.invited_to_route));
+        holder.setInvitation(invitations.get(position));
         holder.itemMessage.setOnClickListener(this);
         holder.profilePciture.setOnClickListener(this);
     }
@@ -94,7 +96,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //TODO more the item list needs to be representative of the number of inbox values
     @Override
     public int getItemCount() {
-        return 1;
+        return invitations.size();
     }
 
     /**
@@ -175,8 +177,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             JSONObject inboxResponse = new JSONObject(response);
             JSONArray invites = inboxResponse.getJSONArray("invites");
             for(int index =0;index<invites.length();index++){
-                JSONObject invite = invites.getJSONObject(index);
-
+                JSONObject inviteJson = invites.getJSONObject(index);
+                Invitation invite = new Invitation(inviteJson.getString("driverEmail"),
+                        inviteJson.getString("review"),inviteJson.getString("driverUrlPic"),
+                        inviteJson.getString("displayName"));
+                invitations.add(invite);
             }
 
         } catch (JSONException e) {
@@ -200,6 +205,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             super(v);
             profilePciture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
             itemMessage = (TextView) itemView.findViewById(R.id.item_title);
+        }
+
+        public void setInvitation(Invitation invitation) {
+            this.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)+
+                    invitation.getDriverDisplayName());
         }
     }
 }

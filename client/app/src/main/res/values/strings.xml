@@ -60,7 +60,7 @@
     <string name="ok">Ok</string>
 
     <!--Not translated-->
-    <string name="invited_to_route">Route Invitation</string> <!--right after this sentence is the name-->
+    <string name="invited_to_route">Route Invitation From:</string> <!--right after this sentence is the name-->
     <string name="accept">Accept Invite</string>
     <string name="my_account">My Account</string>
     <string name="inbox">Inbox</string>
