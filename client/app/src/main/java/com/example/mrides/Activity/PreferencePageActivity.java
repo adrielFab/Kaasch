@@ -22,7 +22,11 @@ import android.widget.TimePicker;
 
 import com.example.mrides.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import static android.support.v7.appcompat.R.id.time;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -70,6 +74,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         btnMalePref.setOnClickListener(this);
         btnSmokePref.setOnClickListener(this);
         btnFemalePref.setOnClickListener(this);
+        setDateTime();
     }
 
     /**
@@ -111,7 +116,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
 
-                                txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year%100);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -171,7 +176,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2){
+    private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2) {
         if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false){
             //reject men accept females
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
@@ -185,5 +190,17 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         else{
             changeButtonPreference(img, selectedPreferenceIndex, img1, img2);
         }
+    }
+    private void setDateTime() {
+        //set current date
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR) %100;
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        txtDate.setText(mDay + "-" + mMonth + "-" + mYear);
+        //set current time + 10mins
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMin = c.get(Calendar.MINUTE) + 10;
+        txtTime.setText(mHour + ":" + mMin);
     }
 }
