@@ -34,7 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener {
 
     private Typeface tf1;
     private TextView textViewMatch;
@@ -118,7 +118,7 @@ public class HomePage extends AppCompatActivity implements
      * @param status
      * @return Button
      */
-    public Button createRouteButton(String name, Boolean isDriver, int status){
+    public Button createRouteButton(String name, Boolean isDriver, int status) {
         Button button = new Button(this);
         button.setBackground(getRouteDrawable(status));
         button.setText(name);
@@ -145,13 +145,13 @@ public class HomePage extends AppCompatActivity implements
      * @param isDriver
      * @return Button
      */
-    private Button setImage(Button button, boolean isDriver){
-        if(isDriver){
+    private Button setImage(Button button, boolean isDriver) {
+        if(isDriver) {
             Drawable driverImg = getResources().getDrawable(R.drawable.wheel);
             driverImg = resize(driverImg);
             button.setCompoundDrawablesWithIntrinsicBounds(driverImg, null, null, null);
         }
-        else{
+        else {
             Drawable passengerImg = getResources().getDrawable(R.drawable.seat);
             passengerImg = resize(passengerImg);
             button.setCompoundDrawablesWithIntrinsicBounds(passengerImg, null, null, null);
@@ -164,12 +164,12 @@ public class HomePage extends AppCompatActivity implements
      * @param status
      * @return drawable
      */
-    private Drawable getRouteDrawable(int status){
+    private Drawable getRouteDrawable(int status) {
         Drawable drawable;
-            if(status == 0) {
+            if(status == 0) {   //status 0: matched route
                 drawable = getResources().getDrawable(R.drawable.matched_route_button);
             }
-            else {
+            else {  //else: unmatched route
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
             }
         return drawable;
