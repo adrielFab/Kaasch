@@ -18,6 +18,11 @@ import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -123,6 +128,13 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         dialog.hide();
     }
 
+    private void getInboxData(Map<String,String> userInfo){
+        requestHandler.attach(this);
+        requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
+                        "/getUserInboxList.php",
+                userInfo,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
+    }
+
     //TODO we need to create a user profile page. Right now a diologue box is shown.
     private void createDiolgue() {
         dialog = new Dialog(inboxContext);
@@ -154,6 +166,17 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void Update(String response) {
         requestHandler.detach(this);
+    }
+
+    private void handlepopulateInboxResponse(String response){
+        try {
+            JSONObject inboxResponse = new JSONObject(response);
+            JSONArray invites = inboxResponse.getJSONArray("invites");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

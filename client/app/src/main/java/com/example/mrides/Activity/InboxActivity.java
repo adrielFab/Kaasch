@@ -53,7 +53,5 @@ public class InboxActivity extends AppCompatActivity {
             notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
             ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
         }
-
     }
-
 }
