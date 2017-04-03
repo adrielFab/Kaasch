@@ -29,8 +29,13 @@ public class User {
     private FirebaseUser acct;
     private ArrayList<Route> routes = new ArrayList<>();
 
-    public User(){
-
+    public User(String firstName, String lastName, String email, String photoUrl, String displayName, String deviceId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.photoUrl = photoUrl;
+        this.displayName = displayName;
+        this.deviceId = deviceId;
     }
 
     /**
