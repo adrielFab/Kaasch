@@ -11,7 +11,7 @@ $loggedInUserProfileUrl = $_POST["loggedInUserProfileUrl"];
 
 
 $url = 'https://fcm.googleapis.com/fcm/send';
-$notification=  array('body' => " $loggedInUserDisplayName has selected you for their route!",
+$notification=  array('body' => " $loggedInUserEmail has selected you for their route!",
                       'title' => "mRides");
 $jsonNotification = json_encode($notification);
 $data= array('driverEmail' => $loggedInUserEmail, 'driverDisplayName' =>$loggedInUserDisplayName,
@@ -41,8 +41,11 @@ $response = curl_exec($ch);
 echo $response;
 curl_close($ch);
 
-//create db notification entry
-$sql = "INSERT INTO notifications (user_id, content, source) VALUES ('(SELECT id FROM Users WHERE device_key = '".$passengerDeviceId."')','".$loggedInUserDisplayName." has selected you for their route!','".$loggedInUserEmail."')";
-$result = mysqli_query($con, $sql);
+//add passenger to route association as pending
+$sql = "INSERT INTO Routes_Users_Association (route_id, user_id) 
+		VALUES (
+			(SELECT route_id FROM (SELECT * FROM Routes_Users_Association) AS copy WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$driver_email."')),
+			(SELECT id FROM Users WHERE email LIKE '".$passenger_email."')
+			)";
 
 ?>
