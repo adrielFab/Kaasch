@@ -7,7 +7,11 @@
 package com.example.mrides.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -30,20 +34,15 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-
-
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener{
 
     private Typeface tf1;
-    private TextView textViewMatch, textViewUnmatch;
+    private TextView textViewMatch;
     private String [] matchedRoutes = {"Habs game", "Work at Ericsson", "mountain trip"};
-    private String [] unmatchedRoutes = {"Party", "Trip to CN", "Engineering workshop", "another one"};
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
-    private NavigationView navigationView;
     private GoogleApiClient mGoogleApiClient;
 
     /**
@@ -66,9 +65,6 @@ public class HomePage extends AppCompatActivity implements
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
-        textViewUnmatch = (TextView) findViewById(R.id.textViewUnmatch);
-        textViewUnmatch.setTypeface(tf1);
-
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
@@ -78,10 +74,7 @@ public class HomePage extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        createMatchedRoutes();
-        createUnmatchedRoutes();
-
-
+        createRoutes();
     }
 
     /**
@@ -99,7 +92,6 @@ public class HomePage extends AppCompatActivity implements
      * @return boolean
      */
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -109,46 +101,69 @@ public class HomePage extends AppCompatActivity implements
     /**
      * Displays the matched routes of the user
      */
-    public void createMatchedRoutes() {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollMatch);
-
-        for (int i = 0; i < matchedRoutes.length; i++) {
-            Button route = new Button(this);
-            LinearLayout.LayoutParams params = styleButton(route);
-            route.setText(matchedRoutes[i]);
-            linearLayout.addView(route, params);
-
-        }
-    }
-
-    /**
-     * Displays the unmatched routes of the user
-     */
-    public void createUnmatchedRoutes() {
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScrollUnmatch);
-
-        for (int i = 0; i < unmatchedRoutes.length; i++) {
-            Button route = new Button(this);
-            LinearLayout.LayoutParams params = styleButton(route);
-            route.setText(unmatchedRoutes[i]);
-            linearLayout.addView(route, params);
-
-        }
-    }
-
-    /**
-     * Styles each route to be displayed on the Homepage Activity
-     * @param button
-     * @return params
-     */
-    public LinearLayout.LayoutParams styleButton(Button button) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+    public void createRoutes() {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScroll);
+        LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 30, 0, 0);
-        button.setLayoutParams(params);
-        button.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-        return params;
+        Button button1 = createRouteButton("drive", true, 0);
+        Button button2 = createRouteButton("school", false, 1);
+        Button button3 = createRouteButton("work", true, 2);
+        linearLayout.addView(button1, ll);
+        linearLayout.addView(button2, ll);
+        linearLayout.addView(button3, ll);
+
     }
+
+    /**
+     * Creates and returns a button displaying route name, type and status
+     * @param name
+     * @param isDriver
+     * @param status
+     * @return Button
+     */
+    public Button createRouteButton(String name, Boolean isDriver, int status){
+        Drawable routeDisplay = getResources().getDrawable(R.drawable.route_display_button);
+        Button button = new Button(this);
+        button.setBackground(routeDisplay);
+        button.setText(name);
+        button = setImage(button, isDriver);
+        return button;
+    }
+
+    /**
+     * Resizes given drawable
+     * @param image
+     * @return Drawable
+     */
+    private Drawable resize(Drawable image) {
+        Bitmap b = ((BitmapDrawable)image).getBitmap();
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 110, 110, false);
+        return new BitmapDrawable(getResources(), bitmapResized);
+    }
+
+    /**
+     * Sets appropriate image on the left side of the button
+     * @param button
+     * @param isDriver
+     * @return Button
+     */
+    private Button setImage(Button button, boolean isDriver){
+        if(isDriver){
+            Drawable driverImg = getResources().getDrawable(R.drawable.wheel);
+            driverImg = resize(driverImg);
+            button.setCompoundDrawablesWithIntrinsicBounds(driverImg, null, null, null);
+        }
+        else{
+            Drawable passengerImg = getResources().getDrawable(R.drawable.seat);
+            passengerImg = resize(passengerImg);
+            button.setCompoundDrawablesWithIntrinsicBounds(passengerImg, null, null, null);
+        }
+        return button;
+    }
+
+
+
+
 
     /**
      * Method with a switch case that performs the corresponding intent depending on the
@@ -181,7 +196,6 @@ public class HomePage extends AppCompatActivity implements
 
     @Override
     public void onResult(@NonNull Status status) {
-
         Intent intent = new Intent(HomePage.this, MainActivity.class);
         startActivity(intent);
     }
