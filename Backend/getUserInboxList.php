@@ -7,8 +7,8 @@ $passenger_email=$_POST["passengerEmail"];
 $sql = "INSERT INTO Routes_Users_Association (route_id, user_id) 
 		VALUES (
 			(SELECT route_id FROM (SELECT * FROM Routes_Users_Association) AS copy WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$driver_email."')),
-			(SELECT id FROM Users WHERE email LIKE '".$passenger_email."')
-			)";
+			(SELECT id FROM Users WHERE email LIKE '".$passenger_email."'))";
+$sql = "SELECT route_id FROM Routes_Users_Association WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$passenger_email."')"
 
 $result = mysqli_query($con, $sql);
 
