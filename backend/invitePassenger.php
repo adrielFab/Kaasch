@@ -33,6 +33,14 @@ $options = array(
         'content' => http_build_query($notification)
     )
 );
+
+//add passenger to route association as pending
+$sql = "INSERT INTO Routes_Users_Association (route_id, user_id,userType,user_confirm_route) 
+		VALUES (
+			(SELECT route_id FROM (SELECT * FROM Routes_Users_Association) AS copy WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$driver_email."')),
+			(SELECT id FROM Users WHERE email LIKE '".$passenger_email."'),0,0)";
+$result = mysqli_query($con, $sql);
+
 $ch=curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($jsonString));
@@ -41,12 +49,5 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
 $response = curl_exec($ch);
 echo $response;
 curl_close($ch);
-
-//add passenger to route association as pending
-$sql = "INSERT INTO Routes_Users_Association (route_id, user_id,userType) 
-		VALUES (
-			(SELECT route_id FROM (SELECT * FROM Routes_Users_Association) AS copy WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$driver_email."')),
-			(SELECT id FROM Users WHERE email LIKE '".$passenger_email.","1"')
-			)";
 
 ?>
