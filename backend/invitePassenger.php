@@ -43,10 +43,10 @@ echo $response;
 curl_close($ch);
 
 //add passenger to route association as pending
-$sql = "INSERT INTO Routes_Users_Association (route_id, user_id) 
+$sql = "INSERT INTO Routes_Users_Association (route_id, user_id,userType) 
 		VALUES (
 			(SELECT route_id FROM (SELECT * FROM Routes_Users_Association) AS copy WHERE user_id LIKE (SELECT id FROM Users WHERE email like '".$driver_email."')),
-			(SELECT id FROM Users WHERE email LIKE '".$passenger_email."')
+			(SELECT id FROM Users WHERE email LIKE '".$passenger_email.","1"')
 			)";
 
 ?>

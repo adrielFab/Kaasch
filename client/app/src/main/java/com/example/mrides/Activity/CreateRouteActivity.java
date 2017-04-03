@@ -30,6 +30,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mrides.userDomain.Driver;
+import com.example.mrides.userDomain.DriverJSONMap;
 import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
@@ -403,10 +406,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
-        Map<String,String> loggedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
+        Driver driver = (Driver) loggedInUser;
+        Map<String,String> driverJsonBody = DriverJSONMap.getParameters(driver);
         Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
         Map<String,String> jsonBody = new HashMap<>();
-        jsonBody.putAll(loggedInUserJsonBody);
+        jsonBody.putAll(driverJsonBody);
         jsonBody.putAll(passengerJSonBody);
         requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
                         "/invitePassenger.php",jsonBody,
