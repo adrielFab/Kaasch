@@ -83,10 +83,10 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         String choice = radioTypeButton.getText().toString();
 
         if(choice.equals("Driver")) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteDriverActivity.class);
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             startActivity(intent);
         } else if (choice.equals("Passenger")) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRoutePassengerActivity.class);
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             startActivity(intent);
         }
     }

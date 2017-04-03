@@ -83,28 +83,28 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
 
 
-    /**
-     * Method that requests the user to capture their current location
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                //requestLocationUpdates demands an explicit permission check
-                if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                }
-            }
-        }
-    }
+//    /**
+//     * Method that requests the user to capture their current location
+//     * @param requestCode
+//     * @param permissions
+//     * @param grantResults
+//     */
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == 1) {
+//
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                //requestLocationUpdates demands an explicit permission check
+//                if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Method that is called to load the activity
@@ -219,7 +219,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                LatLng myLocation;
+
+                if(lastKnownLocation != null) {
+                    myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                } else {
+                    myLocation = new LatLng(45.4958567,-73.5743482);
+                }
+
                 mGoogleMap.clear();
 
                 mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
