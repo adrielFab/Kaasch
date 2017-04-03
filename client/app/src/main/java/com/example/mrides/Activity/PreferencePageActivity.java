@@ -19,9 +19,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
-
 import com.example.mrides.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -176,6 +174,13 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         }
     }
 
+    /**
+     *  If a gender prefence is being set to off while the other is already set to off, it will be set to on
+     * @param img
+     * @param selectedPreferenceIndex
+     * @param img1
+     * @param img2
+     */
     private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2) {
         if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false){
             //reject men accept females
@@ -191,6 +196,10 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             changeButtonPreference(img, selectedPreferenceIndex, img1, img2);
         }
     }
+
+    /**
+     * Sets the default date and time to current date and current time + 10mins
+     */
     private void setDateTime() {
         //set current date
         Calendar c = Calendar.getInstance();
