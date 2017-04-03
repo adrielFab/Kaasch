@@ -18,6 +18,7 @@ import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.PassengerSerializer;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -44,8 +45,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     private Dialog dialog;
     private RequestHandler requestHandler = new RequestHandler();
 
-    public InboxAdapter(Context inboxContext){
+    public InboxAdapter(Context inboxContext,List<Invitation> invitations){
         this.inboxContext = inboxContext;
+        this.invitations = invitations;
     }
 
     public void setViewComponents(Map<String,String> body){
@@ -110,7 +112,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
                 createDiolgue();
                 break;
             case R.id.accept:
-                informDriverOfInvite();
+                changePassengerStatusToConfirmed();
                 break;
             case R.id.buttonCancel:
                 dialog.cancel();
@@ -118,9 +120,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         }
     }
 
-    //TODO a get post request needs to be sent to the server to inform the driver that the passenger
+    //TODO passenger status needs to now be set to confirmed in association table (bit = 1)
     //has accepted the ride
-    private void informDriverOfInvite() {
+    private void changePassengerStatusToConfirmed() {
         requestHandler.attach(this);
         System.out.println("Notification.: "+ responseBody.get("driverEmail"));
         System.out.println("Notification.: "+ responseBody.get("passengerEmail"));
@@ -130,13 +132,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         Toast.makeText(inboxContext, inboxContext.getString(R.string.invite_accepted),
                 Toast.LENGTH_SHORT).show();
         dialog.hide();
-    }
-
-    private void getInboxData(Map<String,String> userInfo){
-        requestHandler.attach(this);
-        requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
-                        "/getUserInboxList.php",
-                userInfo,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
     }
 
     //TODO we need to create a user profile page. Right now a diologue box is shown.
@@ -170,24 +165,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void Update(String response) {
         requestHandler.detach(this);
-    }
-
-    private void handlepopulateInboxResponse(String response){
-        try {
-            JSONObject inboxResponse = new JSONObject(response);
-            JSONArray invites = inboxResponse.getJSONArray("invites");
-            for(int index =0;index<invites.length();index++){
-                JSONObject inviteJson = invites.getJSONObject(index);
-                Invitation invite = new Invitation(inviteJson.getString("driverEmail"),
-                        inviteJson.getString("review"),inviteJson.getString("driverUrlPic"),
-                        inviteJson.getString("displayName"));
-                invitations.add(invite);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
     /**
