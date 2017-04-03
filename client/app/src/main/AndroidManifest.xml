@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_api_key"/>
 
         <activity android:name=".Activity.ProfileActivity"/>
         <activity
@@ -43,8 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InboxListItem"/>
-        <activity android:name=".Activity.CreateRouteActivity">
-        </activity>
+        <activity android:name=".Activity.CreateRouteActivity"/>
         <activity android:name=".Activity.HomePage"/>
         <activity android:name=".Activity.InboxActivity"/>
         <activity android:name=".Activity.SettingsActivity"/>
