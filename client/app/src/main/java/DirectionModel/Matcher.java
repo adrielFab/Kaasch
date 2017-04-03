@@ -1,11 +1,14 @@
 package DirectionModel;
 
+import android.util.Log;
+
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,12 +16,12 @@ import DirectionModel.Route;
 
 public class Matcher {
 
-
+    private Route route = new Route();
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
 
-    public Matcher(){
-
+    public Matcher(Route route){
+        this.route = route;
     }
 
     public void setMatchedMarkers(HashMap<Integer, Marker> matchedMarkers){
@@ -89,33 +92,41 @@ public class Matcher {
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
                 int passengerRouteId = route.getId();
+                Date date = route.getDate();
+                int dateMatched = 0;
+//                int dateMatched = date.compareTo(this.route.getDate());
                 boolean pickUpBool = false;
                 boolean goToEnd = false;
                 int i = 0;
 
-                while (i < routeOfUser.size() && !pickUpBool) {
-                    LatLng pointInPoly = routeOfUser.get(i);
-                    if (this.validateDistance(pickUp, pointInPoly) && !goToEnd) {
-                        goToEnd = true;
-                        i++;
-                    }
-
-                    if (this.validateDistance(drop, pointInPoly) && goToEnd) {
-                        for ( int key : matchedMarkers.keySet()) {
-                            if(key == passengerRouteId) {
-                                Marker marker = matchedMarkers.get(key);
-                                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                                pickUpBool = true;
-                                break;
-                            }
-                        }
-                    }
-                    i++;
-                }
-
+                // the value of pickUpBool and goToEnd are modified in matchDistance method
+                matchDistance(i, passengerRouteId, dateMatched, routeOfUser,  pickUpBool, goToEnd, pickUp, drop);
             }
-
         }
     }
+
+    private void matchDistance(int i, int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
+                               boolean pickUpBool, boolean goToEnd, LatLng pickUp, LatLng drop){
+        while (i < routeOfUser.size() && !pickUpBool) {
+            LatLng pointInPoly = routeOfUser.get(i);
+            if (this.validateDistance(pickUp, pointInPoly) && !goToEnd && dateMatched==0) {
+                goToEnd = true;
+                i++;
+            }
+
+            if (this.validateDistance(drop, pointInPoly) && goToEnd && dateMatched==0) {
+                for ( int key : matchedMarkers.keySet()) {
+                    if(key == passengerRouteId) {
+                        Marker marker = matchedMarkers.get(key);
+                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                        pickUpBool = true;
+                        break;
+                    }
+                }
+            }
+            i++;
+        }
+    }
+
 
 }

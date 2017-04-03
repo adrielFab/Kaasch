@@ -87,13 +87,16 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             Intent intent = new Intent(PreferencePageActivity.this, CreateRouteDriverActivity.class);
             TextView tv_in_date = (TextView) findViewById(R.id.in_date);
             TextView tv_in_time = (TextView) findViewById(R.id.in_time);
+            TextView tv_title = (TextView) findViewById(R.id.in_title);
 
-            String in_date=tv_in_date.getText().toString();
-            String in_time=tv_in_time.getText().toString();
+            String in_date = tv_in_date.getText().toString();
+            String in_time = tv_in_time.getText().toString();
+            String title = tv_title.getText().toString();
             //Create the bundle
             Bundle bundle = new Bundle();
+            bundle.putString("title", title);
             bundle.putString("in_date", in_date);
-            bundle.putString("in_time", in_date);
+            bundle.putString("in_time", in_time);
             //Add the bundle to the intent
             intent.putExtras(bundle);
 

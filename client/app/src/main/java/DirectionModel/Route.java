@@ -15,8 +15,7 @@ public class Route {
 
     private int id;
     private String title;
-    private Date in_date;
-    private Time in_time;
+    private Date date; // Date variable include date and time
     private Distance distance;
     private Duration duration;
     private String endAddress;
@@ -47,28 +46,11 @@ public class Route {
     }
 
     /**
-     * Mutator method for time
-     */
-    public void setTime(Time in_time) {
-
-        this.in_time = in_time;
-    }
-
-    /**
      * Accessor method for date
      */
     public void setDate(Date in_date) {
 
-        this.in_date = in_date;
-    }
-
-    /**
-     * Accessor method for time
-     * @return Time This returns the time
-     */
-    public Date getTime() {
-
-        return in_time;
+        this.date = in_date;
     }
 
     /**
@@ -77,7 +59,7 @@ public class Route {
      */
     public Date getDate() {
 
-        return in_date;
+        return this.date;
     }
 
     /**

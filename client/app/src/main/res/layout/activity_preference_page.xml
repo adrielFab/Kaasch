@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_name"
             android:maxLines="1"
-            android:maxLength="20"/>
+            android:maxLength="20"
+            android:id="@+id/in_title" />
     </LinearLayout>
 
     <LinearLayout
