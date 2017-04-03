@@ -1,5 +1,6 @@
-package com.example.mrides.userDomain;
+package DirectionModel;
 
+import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;

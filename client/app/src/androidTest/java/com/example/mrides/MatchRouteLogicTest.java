@@ -9,7 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.MainActivity;
-import com.example.mrides.userDomain.Matcher;
+import DirectionModel.Matcher;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,7 +23,6 @@ import java.util.List;
 import DirectionModel.Route;
 
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
