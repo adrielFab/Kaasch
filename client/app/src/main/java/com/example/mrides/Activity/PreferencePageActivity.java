@@ -72,6 +72,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         btnMalePref.setOnClickListener(this);
         btnSmokePref.setOnClickListener(this);
         btnFemalePref.setOnClickListener(this);
+
         setDateTime();
     }
 
@@ -126,7 +127,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 final Calendar ct = Calendar.getInstance();
                 mHour = ct.get(Calendar.HOUR_OF_DAY);
                 mMinute = ct.get(Calendar.MINUTE);
-
                 // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                         new TimePickerDialog.OnTimeSetListener() {
@@ -182,17 +182,17 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param img2
      */
     private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2) {
-        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false){
+        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false) {
             //reject men accept females
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
         }
-        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false){
+        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false) {
             //reject females accept males
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
         }
-        else{
+        else {
             changeButtonPreference(img, selectedPreferenceIndex, img1, img2);
         }
     }
