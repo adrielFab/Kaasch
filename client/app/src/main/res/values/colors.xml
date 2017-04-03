@@ -5,6 +5,13 @@
     <color name="colorPrimaryDark">#c4453e</color>
     <color name="orangeAccent">#F1564D</color>
     <color name="greyAccent">#7B7A7A</color>
+    <color name="green">#00ff00</color>
+    <color name="red">#ff0000</color>
+    <color name="orange">#f77e1d</color>
+    <color name="light_orange">#fab075</color>
+    <color name="light_green">#bdffbd</color>
+    <color name="dark_orange">#fa8b33</color>
+    <color name="dark_green">#00b300</color>
 
     <!-- For profile page -->
     <color name="backgroundColor">#ef5350</color>

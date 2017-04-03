@@ -46,8 +46,7 @@
     <string name="title_activity_temp_main">TempMainActivity</string>
     <string name="open">Ouvrir</string>
     <string name="close">Fermer</string>
-    <string name="matched_routes">Itinéraires Trouvées</string>
-    <string name="unmatched_routes">Itinéraires en Recherche</string>
+    <string name="matched_routes">Itinéraires Actifs</string>
     <string name="male">Homme</string>
     <string name="settings">Paramètres</string>
     <string name="female">Femme</string>
