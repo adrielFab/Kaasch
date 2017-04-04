@@ -68,6 +68,12 @@ public class HomePage extends AppCompatActivity implements
         navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
+        TextView textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
+        textViewEmailNav.setText("sadas");
+        textViewNameNav.setText("sadas");
+
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
