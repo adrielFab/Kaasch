@@ -69,7 +69,8 @@ public class RouteDeserializer {
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();
-        int index = 0, len = encoded.length();
+        int index = 0;
+        int len = encoded.length();
         int lat = 0;
         int lng = 0;
 
