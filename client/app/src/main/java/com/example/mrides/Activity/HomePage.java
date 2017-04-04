@@ -6,6 +6,7 @@
 */
 package com.example.mrides.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -21,8 +22,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mrides.CustomList;
 import com.example.mrides.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,7 +38,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private Typeface tf1;
     private TextView textViewMatch;
@@ -42,6 +46,7 @@ public class HomePage extends AppCompatActivity implements
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
     private NavigationView navigationView;
+    private Dialog dialog;
 
     /**
      * Method that creates the activity
@@ -110,6 +115,7 @@ public class HomePage extends AppCompatActivity implements
         Button button1 = createRouteButton("drive", true, 0);
         Button button2 = createRouteButton("weekend stuff", false, 1);
         Button button3 = createRouteButton("work", true, 1);
+        button1.setOnClickListener(this);
         linearLayout.addView(button1, ll);
         linearLayout.addView(button2, ll);
         linearLayout.addView(button3, ll);
@@ -216,5 +222,11 @@ public class HomePage extends AppCompatActivity implements
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(HomePage.this, RouteActivity.class);
+        startActivity(intent);
     }
 }
