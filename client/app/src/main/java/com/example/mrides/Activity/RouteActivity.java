@@ -13,9 +13,9 @@ import com.example.mrides.R;
 public class RouteActivity extends AppCompatActivity {
 
     ListView listView;
-    String [] names = {"Adriel Fabella", "Ioan Cioca"};
-    String [] desc = {"The best", "The worst"};
-    Integer [] imageid = {R.drawable.photo, R.drawable.photo};
+    String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
+    String [] desc = {"The best", "The worst", "Ehh", "Shwing"};
+    Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,5 @@ public class RouteActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"You Clicked "+names[i],Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

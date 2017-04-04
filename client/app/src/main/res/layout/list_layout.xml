@@ -14,23 +14,50 @@
         android:layout_column="0"
         app:srcCompat="@drawable/photo"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_columnWeight="1"
-        android:id="@+id/textViewName"
         android:layout_row="0"
-        android:layout_column="1" />
+        android:layout_column="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adriel Fabella"
+            android:layout_columnWeight="1"
+            android:id="@+id/textViewName"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_columnWeight="1"
-        android:id="@+id/textViewDesc"
-        android:layout_row="1"
-        android:layout_column="1" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="0"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="New Text"-->
+        <!--android:layout_columnWeight="1"-->
+        <!--android:id="@+id/textViewDesc"-->
+        <!--android:layout_row="1"-->
+        <!--android:layout_column="1" />-->
+
 
 </GridLayout>
