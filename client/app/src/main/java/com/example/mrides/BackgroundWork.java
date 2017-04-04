@@ -25,8 +25,9 @@ import java.util.Objects;
 
 public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
-    Context context;
-    AlertDialog mAlertDialog;
+    private Context context;
+    private AlertDialog mAlertDialog;
+    private String CHARSET = "UTF-8";
 
     public BackgroundWork(Context context){
 
@@ -54,13 +55,13 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, CHARSET));
             String post_data =
-                    URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsPet", "UTF-8")+"="+URLEncoder.encode(wantsPet, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsSmoking", "UTF-8")+"="+URLEncoder.encode(wantsSmoking, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsMale", "UTF-8")+"="+URLEncoder.encode(wantsMale, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsFemale", "UTF-8")+"="+URLEncoder.encode(wantsFemale, "UTF-8");
+                    URLEncoder.encode("email", CHARSET)+"="+URLEncoder.encode(email, CHARSET)+"&"
+                    +URLEncoder.encode("wantsPet", CHARSET)+"="+URLEncoder.encode(wantsPet, CHARSET)+"&"
+                    +URLEncoder.encode("wantsSmoking", CHARSET)+"="+URLEncoder.encode(wantsSmoking, CHARSET)+"&"
+                    +URLEncoder.encode("wantsMale", CHARSET)+"="+URLEncoder.encode(wantsMale, CHARSET)+"&"
+                    +URLEncoder.encode("wantsFemale", CHARSET)+"="+URLEncoder.encode(wantsFemale, CHARSET);
             bufferedWriter.write(post_data);
             bufferedWriter.flush();
             bufferedWriter.close();
