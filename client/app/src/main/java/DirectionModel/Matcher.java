@@ -99,6 +99,9 @@ public class Matcher {
         }
     }
 
+     /**
+     * Match routes on valid distance and user preferences
+     */
     private void matchDistance(int i, int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
                                boolean pickUpBool, boolean goToEnd, LatLng pickUp, LatLng drop) {
         while (i < routeOfUser.size() && !pickUpBool) {
