@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.mrides.CustomList;
 import com.example.mrides.R;
 
-public class RouteActivity extends AppCompatActivity implements View.OnClickListener{
+public class RouteActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView listView;
     private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
@@ -55,25 +55,26 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
     public void promptUserCancellation() {
         new AlertDialog.Builder(this)
-                .setTitle("Delete route")
-                .setMessage("Are you sure you want to delete this route?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        backToHome();
-                        Toast.makeText(RouteActivity.this, "Route deleted", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+            .setTitle(R.string.delete_route)
+            .setMessage(R.string.prompt_message)
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    backToHome();
+                    Toast.makeText(RouteActivity.this, R.string.delete_confirm, Toast.LENGTH_SHORT).show();
+                }
+            })
+            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            })
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .show();
     }
 
     public void backToHome() {
         Intent intent = new Intent(RouteActivity.this, HomePage.class);
         startActivity(intent);
     }
+
 }

@@ -76,6 +76,9 @@
     <string name="click_to_enter_start_address">Click to enter start address</string>
     <string name="click_to_enter_destination_address">Click to enter destination address</string>
     <string name="submit_rating">Submit Rating</string>
+    <string name="delete_route">Delete route</string>
+    <string name="prompt_message">Are you sure you want to delete this route?</string>
+    <string name="delete_confirm">Route deleted</string>
 
     <string-array name="planets">
         <item> Mercury</item>
