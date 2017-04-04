@@ -70,8 +70,8 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
-    private TextView textViewStartLocation;
-    private TextView textViewEndLocation;
+    private EditText textViewStartLocation;
+    private EditText textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
     private GoogleMap mGoogleMap;
@@ -134,8 +134,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         start = "";
         destination = "";
 
-        textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
-        textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
+        textViewStartLocation = (EditText) findViewById(R.id.textViewStartLocation);
+        textViewEndLocation = (EditText) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
 
@@ -149,7 +149,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 createPath();
             }
         });
-
+        textViewEndLocation.setFocusable(false);
+        textViewStartLocation.setFocusable(false);
     }
 
     /**

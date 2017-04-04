@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/change_button"
             android:text="@string/Select"
-            style="@style/medium_white"
+            style="@style/small_white"
             android:id="@+id/btn_date"/>
     </LinearLayout>
 
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:text="@string/Select"
             android:background="@drawable/change_button"
-            style="@style/medium_white"
+            style="@style/small_white"
             android:id="@+id/btn_time"/>
     </LinearLayout>
 
@@ -205,7 +205,7 @@
             android:text="@string/Next"
             android:onClick="goToCreateRoute"
             android:background="@drawable/change_button"
-            style="@style/medium_white"
+            style="@style/small_white"
             android:id="@+id/buttonGoToCreate"/>
 
 
