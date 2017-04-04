@@ -67,7 +67,7 @@ public class RequestHandler implements Subject{
 
                     @Override
                     public void onResponse(String response) {
-
+                        Notify(response);
                     }
                 }, new Response.ErrorListener() {
 

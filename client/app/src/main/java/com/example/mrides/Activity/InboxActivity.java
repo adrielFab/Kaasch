@@ -57,8 +57,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         getInboxData(); //TODO call this method to get the list of inbox data
-        mAdapter = new InboxAdapter(this,invitations);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     private void getInboxData(){
@@ -71,14 +70,10 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     @Override
     public void Update(String response) {
-        System.out.println(response);
+        System.out.println("Inbox list.:"+ response);
         handlepopulateInboxResponse(response);
         mAdapter = new InboxAdapter(this,invitations);
         mRecyclerView.setAdapter(mAdapter);
-        if(getIntent().getParcelableExtra("NOTIFICATION")!=null) {
-            notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
-            ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
-        }
     }
 
     private void handlepopulateInboxResponse(String response){
