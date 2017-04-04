@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import DirectionModel.Matcher;
+
 import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
@@ -57,7 +58,11 @@ import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +72,7 @@ import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
-        ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
+        ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
     private TextView textViewStartLocation;
     private TextView textViewEndLocation;
@@ -82,49 +87,60 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
-    private HashMap <Marker, User> googleMarkerHash = new HashMap<>();
+    private HashMap<Marker, User> googleMarkerHash = new HashMap<>();
     private User selectedPassenger;
     private User loggedInUser = RequestHandler.getUser();
     private Dialog dialog;
-    private ArrayList <User> userOnMapCatalog = new ArrayList<>();
-    private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
+    private ArrayList<User> userOnMapCatalog = new ArrayList<>();
+    private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
     private boolean startOrEnd;
     private String start;
     private String destination;
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private String in_date;
+    private String in_time;
+    private String in_title;
 
+    /**
+     * Method that requests the user to capture their current location
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-//    /**
-//     * Method that requests the user to capture their current location
-//     * @param requestCode
-//     * @param permissions
-//     * @param grantResults
-//     */
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//
-//        if (requestCode == 1) {
-//
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                //requestLocationUpdates demands an explicit permission check
-//                if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//
-//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//                }
-//            }
-//        }
-//    }
+        if (requestCode == 1) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                //requestLocationUpdates demands an explicit permission check
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                }
+            }
+        }
+    }
 
     /**
      * Method that is called to load the activity
+     *
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
+
+        //Get the bundle
+        Bundle bundle = getIntent().getExtras();
+        //Extract the data…
+        in_date = bundle.getString("in_date");
+        in_time = bundle.getString("in_time");
+        in_title = bundle.getString("in_title");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -141,7 +157,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         textViewStartLocation.setOnClickListener(this);
         textViewEndLocation.setOnClickListener(this);
         buttonSaveChanges.setOnClickListener(this);
-        mButtonFindPath.setOnClickListener(new View.OnClickListener(){
+        mButtonFindPath.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -178,12 +194,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         startObtainDirection();
         requestHandler.attach(this);
         requestHandler.httpGetStringRequest(url, this);
-
     }
 
 
     /**
      * Method that loads the googleMap
+     *
      * @param googleMap
      */
     @Override
@@ -216,13 +232,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         };
 
-        if(Build.VERSION.SDK_INT < 23) {
+        if (Build.VERSION.SDK_INT < 23) {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
-        } else{
+        } else {
 
-            if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             } else {
@@ -258,11 +274,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     public void populateGoogleMap() {
 
-         userOnMapCatalog = populateMap.getUsersOnMapCatalog();
+        userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
-        for(User user : userOnMapCatalog) {
+        for (User user : userOnMapCatalog) {
             ArrayList<Route> userRoutes = user.getRoutes();
-            for(Route route : userRoutes) {
+            for (Route route : userRoutes) {
                 LatLng location = route.getStartLocation();
 
                 Marker marker = mGoogleMap.addMarker(new MarkerOptions()
@@ -284,7 +300,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     public void startObtainDirection() {
 
-        if(!requestHandler.isInternetConnected(this)){
+        if (!requestHandler.isInternetConnected(this)) {
             return;
         }
         mProgressDialog = ProgressDialog.show(this, "Please wait.",
@@ -308,7 +324,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         if (polylinePaths != null) {
 
-            for (Polyline polyline:polylinePaths ) {
+            for (Polyline polyline : polylinePaths) {
 
                 polyline.remove();
             }
@@ -317,52 +333,62 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     /**
      * This methods creates the route from the input start address and the input end address
-     * @param routes
+     *
+     * @param route
      */
-    public void successObtainDirection(List<Route> routes) {
+    public void successObtainDirection(Route route) {
 
         mProgressDialog.dismiss();
         polylinePaths = new ArrayList<>();
         startMarkers = new ArrayList<>();
         destinationMarkers = new ArrayList<>();
 
-        for (Route route : routes) {
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
+        ((TextView) findViewById(R.id.textDuration)).setText(route.getDuration().getText());
+        ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
 
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
-            ((TextView) findViewById(R.id.textDuration)).setText(route.getDuration().getText());
-            ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
+        startMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .title(route.getStartAddress())
+                .position(route.getStartLocation())));
 
-            startMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .title(route.getStartAddress())
-                    .position(route.getStartLocation())));
+        destinationMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .title(route.getEndAddress())
+                .position(route.getEndLocation())));
 
-            destinationMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .title(route.getEndAddress())
-                    .position(route.getEndLocation())));
+        PolylineOptions polylineOptions = new PolylineOptions(). //Route
+                geodesic(true).
+                color(Color.CYAN).
+                width(10);
 
-            PolylineOptions polylineOptions = new PolylineOptions(). //Route
-                    geodesic(true).
-                    color(Color.CYAN).
-                    width(10);
+        for (int i = 0; i < route.getPoints().size(); i++)
+            polylineOptions.add(route.getPoints().get(i));
 
-            for (int i = 0; i < route.getPoints().size(); i++)
-                polylineOptions.add(route.getPoints().get(i));
+        polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-            polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
-
-            Matcher matcher = new Matcher ();
-            matcher.setMatchedMarkers(this.matchedMarkers);
-            matcher.setUserMapCatalog(this.userOnMapCatalog);
-
-            matcher.matchRoute(route.getPoints());
+        DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
+        Date date = null;
+        String strDate = this.in_date + " " + this.in_time;
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+        route.setDate(date);
+
+        Matcher matcher = new Matcher(route);
+        matcher.setMatchedMarkers(this.matchedMarkers);
+        matcher.setUserMapCatalog(this.userOnMapCatalog);
+
+        matcher.matchRoute(route.getPoints());
     }
 
     /**
      * This method receives a response for the creation of the route and sends
      * the request to the handler
+     *
      * @param response A string response formatted in a json string returned from the request handler
      */
     @Override
@@ -370,10 +396,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
-        ArrayList<Route> route = new ArrayList<>();
+        Route route = new Route();
         try {
 
-            route = (ArrayList<Route>) deserializer.parseJSON(response);
+            route = (Route) deserializer.parseJSON(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -413,7 +439,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.buttonInvite:
                 invitePassenger();
                 break;
@@ -436,18 +462,18 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-    private void invitePassenger(){
+    private void invitePassenger() {
 
         requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
-        Map<String,String> loggedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
-        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
-        Map<String,String> jsonBody = new HashMap<>();
+        Map<String, String> loggedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
+        Map<String, String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
+        Map<String, String> jsonBody = new HashMap<>();
         jsonBody.putAll(loggedInUserJsonBody);
         jsonBody.putAll(passengerJSonBody);
-        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
-                        "/invitePassenger.php",jsonBody,
-                "application/x-www-form-urlencoded; charset=UTF-8" ,this);
+        requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
+                        "/invitePassenger.php", jsonBody,
+                "application/x-www-form-urlencoded; charset=UTF-8", this);
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
     }
 
