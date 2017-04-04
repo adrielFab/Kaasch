@@ -28,6 +28,10 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         this.inboxContext = inboxContext;
     }
 
+    /**
+     * Either an inbox element, accept button or cancel button can be selected.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -43,6 +47,9 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         }
     }
 
+    /**
+     * This method creates the user profile diologue
+     */
     private void createDiolgue() {
         dialog = new Dialog(inboxContext);
         dialog.setTitle(inboxContext.getString(R.string.invited_to_route));
@@ -70,12 +77,16 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         buttonCancel.setOnClickListener(this);
     }
 
-    //TODO passenger status needs to now be set to confirmed in association table (bit = 1)
-    //has accepted the ride
+    /**
+     * This method is called when the user confirms a route invitation from the diologue
+     */
     private void changePassengerStatusToConfirmed() {
         requestHandler.attach(this);
         Map<String, String> responseBody = new HashMap<>();
         String passengerWhoConfrimedEmail = RequestHandler.getUser().getEmail();
+        String driverEmail = invitation.getDriverEmail();
+        responseBody.put("driverEmail", driverEmail);
+        responseBody.put("passengerEmail", passengerWhoConfrimedEmail);
         requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
                         "/add_passenger_to_route.php",
                 responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);

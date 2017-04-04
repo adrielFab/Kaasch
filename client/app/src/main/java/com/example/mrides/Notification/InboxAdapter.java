@@ -37,19 +37,15 @@ import java.util.Map;
  * yet.
  *
  */
-public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> implements
-        View.OnClickListener, ActivityObserver{
+public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
     private List<Invitation> invitations = new ArrayList<>();
     protected static Context inboxContext;
-    private Dialog dialog;
-    private RequestHandler requestHandler = new RequestHandler();
 
     public InboxAdapter(Context inboxContext,List<Invitation> invitations){
         this.inboxContext = inboxContext;
         this.invitations = invitations;
     }
-
 
     /**
      * This method is called whenever a new instance of ViewHolder is created.
@@ -81,9 +77,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setInvitation(invitations.get(position));
-        holder.itemMessage.setOnClickListener(new UserProfileListener(invitations.get(position),
-                inboxContext));
-        holder.profilePciture.setOnClickListener(this);
+        UserProfileListener listener = new UserProfileListener(invitations.get(position),inboxContext);
+        holder.itemMessage.setOnClickListener(listener);
+        holder.profilePciture.setOnClickListener(listener);
     }
 
 
@@ -99,46 +95,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         return invitations.size();
     }
 
-    /**
-     * Either an inbox element, accept button or cancel button can be selected.
-     * @param v
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.item_title:
-                //createDiolgue();
-                break;
-            case R.id.accept:
-                changePassengerStatusToConfirmed();
-                break;
-            case R.id.buttonCancel:
-                dialog.cancel();
-                break;
-        }
-    }
-
-    //TODO passenger status needs to now be set to confirmed in association table (bit = 1)
-    //has accepted the ride
-    private void changePassengerStatusToConfirmed() {
-        requestHandler.attach(this);
-        Map<String, String> responseBody = new HashMap<>();
-        String passengerWhoConfrimedEmail = RequestHandler.getUser().getEmail();
-        requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
-                "/add_passenger_to_route.php",
-                responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
-        Toast.makeText(inboxContext, inboxContext.getString(R.string.invite_accepted),
-                Toast.LENGTH_SHORT).show();
-        dialog.hide();
-    }
-
-    //TODO we need to create a user profile page. Right now a diologue box is shown.
 
 
-    @Override
-    public void Update(String response) {
-        requestHandler.detach(this);
-    }
 
     /**
      * Provide a reference to the views for each data item
