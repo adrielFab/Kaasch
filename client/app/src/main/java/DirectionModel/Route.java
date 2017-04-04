@@ -7,11 +7,15 @@ package DirectionModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 public class Route {
 
     private int id;
+    private String title;
+    private Date date; // Date variable include date and time
     private Distance distance;
     private Duration duration;
     private String endAddress;
@@ -22,6 +26,40 @@ public class Route {
 
     public Route () {
 
+    }
+
+    /**
+     * Mutator method for title
+     */
+    public void setTitle(String title) {
+
+        this.title = title;
+    }
+
+    /**
+     * Accessor method for title
+     * @return String This returns the title
+     */
+    public String getTitle() {
+
+        return this.title;
+    }
+
+    /**
+     * Accessor method for date
+     */
+    public void setDate(Date in_date) {
+
+        this.date = in_date;
+    }
+
+    /**
+     * Accessor method for date
+     * @return Date This returns the date
+     */
+    public Date getDate() {
+
+        return this.date;
     }
 
     /**

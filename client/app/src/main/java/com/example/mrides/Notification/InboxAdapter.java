@@ -106,6 +106,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             case R.id.buttonCancel:
                 dialog.cancel();
                 break;
+            default:
+                break;
         }
     }
 
