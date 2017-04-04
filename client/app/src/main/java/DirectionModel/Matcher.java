@@ -51,8 +51,7 @@ public class Matcher {
         double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
                 * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        double dist = earthRadius * c;
-        return dist; // output distance, in MILES
+        return (earthRadius * c); // output distance, in MILES
     }
 
     /**
