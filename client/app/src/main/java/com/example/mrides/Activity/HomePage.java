@@ -22,8 +22,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mrides.CustomList;
 import com.example.mrides.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -223,8 +226,7 @@ public class HomePage extends AppCompatActivity implements
 
     @Override
     public void onClick(View view) {
-        dialog = new Dialog(HomePage.this);
-        dialog.setContentView(R.layout.route_dialog_layout);
-        dialog.show();
+        Intent intent = new Intent(HomePage.this, RouteActivity.class);
+        startActivity(intent);
     }
 }

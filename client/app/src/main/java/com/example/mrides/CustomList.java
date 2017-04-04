@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomList extends ArrayAdapter<String> {
+public class CustomList extends ArrayAdapter {
 
     private String[] names;
     private String[] desc;
@@ -22,13 +22,12 @@ public class CustomList extends ArrayAdapter<String> {
         this.names = names;
         this.desc = desc;
         this.imageid = imageid;
-
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
+        View listViewItem = inflater.inflate(R.layout.list_layout, null);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewDesc = (TextView) listViewItem.findViewById(R.id.textViewDesc);
         ImageView image = (ImageView) listViewItem.findViewById(R.id.imageView);
@@ -36,6 +35,6 @@ public class CustomList extends ArrayAdapter<String> {
         textViewName.setText(names[position]);
         textViewDesc.setText(desc[position]);
         image.setImageResource(imageid[position]);
-        return  listViewItem;
+        return listViewItem;
     }
 }
