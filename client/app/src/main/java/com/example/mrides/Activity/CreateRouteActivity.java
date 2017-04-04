@@ -369,9 +369,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
         Date date = null;
-        String str_date = this.in_date + " " + this.in_time;
+        String strDate = this.in_date + " " + this.in_time;
         try {
-            date = sdf.parse(str_date);
+            date = sdf.parse(strDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
