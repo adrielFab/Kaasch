@@ -14,16 +14,14 @@ import android.widget.TextView;
 public class CustomList extends ArrayAdapter {
 
     private String[] names;
-    private String[] desc;
     private Integer[] imageid;
     private Activity context;
     private RatingBar ratingBar;
 
-    public CustomList(Activity context, String[] names, String[] desc, Integer[] imageid) {
+    public CustomList(Activity context, String[] names, Integer[] imageid) {
         super(context, R.layout.list_layout, names);
         this.context = context;
         this.names = names;
-        this.desc = desc;
         this.imageid = imageid;
     }
 

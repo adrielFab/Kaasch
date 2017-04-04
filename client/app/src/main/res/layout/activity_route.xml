@@ -79,10 +79,12 @@
     </LinearLayout>
 
     <Button
-        android:text="Button"
+        android:text="@string/submit_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"/>
+        android:id="@+id/ratingButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 
     <ImageView
         app:srcCompat="@mipmap/trash"
