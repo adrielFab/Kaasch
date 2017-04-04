@@ -49,6 +49,10 @@ public class HomePage extends AppCompatActivity implements
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
     private NavigationView navigationView;
+    private View headerView;
+    private ImageView imageView;
+    private TextView textViewNameNav;
+    private TextView textViewEmailNav;
 
     /**
      * Method that creates the activity
@@ -76,10 +80,10 @@ public class HomePage extends AppCompatActivity implements
         String email = RequestHandler.getUser().getEmail();
         String photoUrl = RequestHandler.getUser().getPhotoUrl();
 
-        View headerView = navigationView.getHeaderView(0);
-        ImageView imageView = (ImageView)headerView.findViewById(R.id.profile_image);
-        TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
-        TextView textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
+        headerView = navigationView.getHeaderView(0);
+        imageView = (ImageView)headerView.findViewById(R.id.profile_image);
+        textViewNameNav = (TextView)headerView.findViewById(R.id.username);
+        textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
 
         ImageConverter.convertImage(photoUrl, imageView);
         textViewEmailNav.setText(email);
