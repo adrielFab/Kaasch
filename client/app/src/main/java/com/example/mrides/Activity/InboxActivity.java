@@ -65,12 +65,13 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         requestHandler.attach(this);
         Map<String,String> userInfo = PassengerSerializer.getParameters(RequestHandler.getUser());
         requestHandler.httpPostStringRequest("http://"+this.getString(R.string.web_server_ip)+
-                        "/getUserInboxList.php",userInfo,
+                        "/getNotifications.php",userInfo,
                 "application/x-www-form-urlencoded; charset=UTF-8", this);
     }
 
     @Override
     public void Update(String response) {
+        System.out.println(response);
         handlepopulateInboxResponse(response);
         mAdapter = new InboxAdapter(this,invitations);
         mRecyclerView.setAdapter(mAdapter);
