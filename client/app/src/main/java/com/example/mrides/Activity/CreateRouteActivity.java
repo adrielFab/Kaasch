@@ -36,6 +36,12 @@ import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,6 +54,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -67,10 +74,10 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
+    private TextView textViewStartLocation;
+    private TextView textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
-    private EditText mEditTextStart;
-    private EditText mEditTextDestination;
     private GoogleMap mGoogleMap;
     private ProgressDialog mProgressDialog;
     private List<Marker> startMarkers = new ArrayList<>();
@@ -86,6 +93,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private Dialog dialog;
     private ArrayList<User> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
+    private boolean startOrEnd;
+    private String start;
+    private String destination;
+    final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String in_date;
     private String in_time;
     private String in_title;
@@ -121,7 +132,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
 
@@ -136,10 +146,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        start = "";
+        destination = "";
+
+        textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
+        textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
-        mEditTextStart = (EditText) findViewById(R.id.editTextStart);
-        mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+
+        textViewStartLocation.setOnClickListener(this);
+        textViewEndLocation.setOnClickListener(this);
         buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener() {
 
@@ -154,20 +170,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     /**
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
-    public void createPath() {
-
-        String start = mEditTextStart.getText().toString();
-        String destination = mEditTextDestination.getText().toString();
-        if (start.isEmpty()) {
-
+    public void createPath(){
+        if(start.isEmpty()) {
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
         }
         if (destination.isEmpty()) {
-
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String url = "";
         try {
 
@@ -235,10 +247,19 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                LatLng myLocation;
+
+                if(lastKnownLocation != null) {
+                    myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                } else {
+                    myLocation = new LatLng(45.4958567,-73.5743482);
+                }
+
                 mGoogleMap.clear();
 
-                mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .position(myLocation)
+                        .title("My Location"));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
             }
         }
@@ -388,26 +409,31 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
-        dialog = new Dialog(CreateRouteActivity.this);
-        dialog.setTitle(marker.getTitle());
-        dialog.setContentView(R.layout.userprofile_dialog_layout);
-        dialog.show();
 
-        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(marker.getTitle());
+        if (selectedPassenger != null) {
+            dialog = new Dialog(CreateRouteActivity.this);
+            dialog.setTitle(marker.getTitle());
+            dialog.setContentView(R.layout.userprofile_dialog_layout);
+            dialog.show();
 
-        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(selectedPassenger.getEmail());
+            TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+            textViewFullName.setText(marker.getTitle());
 
-        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+            TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+            textViewEmail.setText(selectedPassenger.getEmail());
 
-        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+            ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+            imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
-        buttonInvite.setOnClickListener(this);
+            Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
 
-        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(this);
+            buttonInvite.setOnClickListener(this);
+
+            Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+            buttonCancel.setOnClickListener(this);
+
+        }
+
         return false;
     }
 
@@ -423,6 +449,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.buttonSaveChanges:
                 saveChanges();
                 break;
+            case R.id.textViewStartLocation:
+                startOrEnd = false;
+                showSearchLocationDialog();
+                break;
+            case R.id.textViewEndLocation:
+                startOrEnd = true;
+                showSearchLocationDialog();
             default:
                 break;
         }
@@ -467,5 +500,50 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mGoogleMap = googleMap;
     }
 
+    /**
+     * Method that shows the search bar where the user will enter the location
+     */
+    public void showSearchLocationDialog() {
+        try {
+            AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                    .setCountry("CA")
+                    .build();
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(typeFilter)
+                            .build(CreateRouteActivity.this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                String apple = "";
+                if (!startOrEnd) {
+                    apple = "start";
+                    start = place.getName().toString();
+                    textViewStartLocation.setText(start);
+                } else {
+                    apple = "end";
+                    destination = place.getName().toString();
+                    textViewEndLocation.setText(destination);
+                }
+                Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("Check", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
 
 }

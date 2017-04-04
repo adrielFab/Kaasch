@@ -8,17 +8,25 @@
     android:orientation="vertical"
     tools:context="com.example.mrides.Activity.CreateRouteActivity">
 
-    <EditText
+    <TextView
+        android:id="@+id/textViewStartLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextStart"
-        android:hint="@string/enter_start_address" />
+        android:layout_weight="0.5"
+        android:textAlignment="center"
+        android:text="@string/click_to_enter_start_address"
+        android:background="@drawable/back"/>
 
-    <EditText
-        android:id="@+id/editTextDestination"
+
+    <TextView
+        android:id="@+id/textViewEndLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_destination_address" />
+        android:layout_weight="0.5"
+        android:textAlignment="center"
+        android:text="@string/click_to_enter_destination_address"
+        android:background="@drawable/back"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"

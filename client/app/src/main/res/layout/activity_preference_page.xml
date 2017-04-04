@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/in_date"
-            android:text="@string/Sample_date"
+            android:text=""
             android:layout_weight="3"
             android:focusable="false"/>
         <Button
@@ -97,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/in_time"
-            android:text="@string/Sample_time"
+            android:text=""
             android:layout_weight="3"
             android:focusable="false"/>
         <Button

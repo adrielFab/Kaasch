@@ -6,63 +6,45 @@
     android:id="@+id/activity_home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     android:weightSum ="10"
     tools:context="com.example.mrides.Activity.HomePage"
     android:fitsSystemWindows="true">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_weight="9">
 
         <TextView
-            android:text="@string/matched_routes"
+            android:text="@string/active_routes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textViewMatch"
             android:layout_gravity="center_vertical"
             android:textSize="17sp"
             android:textAlignment="center"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="24dp"
+            android:paddingBottom="10dp"/>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="160dp">
+            android:layout_height="match_parent"
+            android:paddingBottom="68dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/layoutScrollMatch"/>
-        </ScrollView>
-
-        <TextView
-            android:text="@string/unmatched_routes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewUnmatch"
-            android:layout_gravity="center_vertical"
-            android:textSize="17sp"
-            android:textAlignment="center"
-            android:layout_marginTop="24dp"/>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="160dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/layoutScrollUnmatch"/>
+                android:id="@+id/layoutScroll"/>
         </ScrollView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -94,6 +76,4 @@
         app:headerLayout="@layout/navigation_header">
 
     </android.support.design.widget.NavigationView>
-
-
 </android.support.v4.widget.DrawerLayout>
