@@ -21,13 +21,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.CustomList;
+import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
+import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -46,7 +49,6 @@ public class HomePage extends AppCompatActivity implements
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
     private NavigationView navigationView;
-    private Dialog dialog;
 
     /**
      * Method that creates the activity
@@ -68,11 +70,20 @@ public class HomePage extends AppCompatActivity implements
         navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
+        String firstName = RequestHandler.getUser().getFirstName();
+        String lastName = RequestHandler.getUser().getLastName();
+        String username = firstName + " " + lastName;
+        String email = RequestHandler.getUser().getEmail();
+        String photoUrl = RequestHandler.getUser().getPhotoUrl();
+
         View headerView = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)headerView.findViewById(R.id.profile_image);
         TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
         TextView textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
-        textViewEmailNav.setText("sadas");
-        textViewNameNav.setText("sadas");
+
+        ImageConverter.convertImage(photoUrl, imageView);
+        textViewEmailNav.setText(email);
+        textViewNameNav.setText(username);
 
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
