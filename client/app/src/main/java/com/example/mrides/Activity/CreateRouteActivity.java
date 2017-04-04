@@ -10,11 +10,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SyncStatusObserver;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,11 +31,18 @@ import android.widget.Toast;
 
 import com.example.mrides.userDomain.Driver;
 import com.example.mrides.userDomain.DriverJSONMap;
+import DirectionModel.Matcher;
 import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -50,6 +55,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -65,10 +71,10 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener{
 
+    private TextView textViewStartLocation;
+    private TextView textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
-    private EditText mEditTextStart;
-    private EditText mEditTextDestination;
     private GoogleMap mGoogleMap;
     private ProgressDialog mProgressDialog;
     private List<Marker> startMarkers = new ArrayList<>();
@@ -84,30 +90,34 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private Dialog dialog;
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap <Integer, Marker> matchedMarkers = new HashMap<>();
+    private boolean startOrEnd;
+    private String start;
+    private String destination;
+    final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
 
-    /**
-     * Method that requests the user to capture their current location
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                //requestLocationUpdates demands an explicit permission check
-                if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                }
-            }
-        }
-    }
+//    /**
+//     * Method that requests the user to capture their current location
+//     * @param requestCode
+//     * @param permissions
+//     * @param grantResults
+//     */
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        if (requestCode == 1) {
+//
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                //requestLocationUpdates demands an explicit permission check
+//                if(ContextCompat.checkSelfPermission(this,  Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//
+//                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Method that is called to load the activity
@@ -115,7 +125,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_route);
 
@@ -123,10 +132,16 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        start = "";
+        destination = "";
+
+        textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
+        textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
-        mEditTextStart = (EditText) findViewById(R.id.editTextStart);
-        mEditTextDestination = (EditText) findViewById(R.id.editTextDestination);
+
+        textViewStartLocation.setOnClickListener(this);
+        textViewEndLocation.setOnClickListener(this);
         buttonSaveChanges.setOnClickListener(this);
         mButtonFindPath.setOnClickListener(new View.OnClickListener(){
 
@@ -142,19 +157,15 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
     public void createPath(){
-
-        String start = mEditTextStart.getText().toString();
-        String destination = mEditTextDestination.getText().toString();
         if(start.isEmpty()) {
-
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
         }
         if (destination.isEmpty()) {
-
             Toast.makeText(this, "Please enter the destination", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String url = "";
         try {
 
@@ -162,14 +173,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             String urlDestination = URLEncoder.encode(destination, "utf-8");
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
 
             e.printStackTrace();
         }
         startObtainDirection();
         requestHandler.attach(this);
-        requestHandler.httpGetStringRequest(url,this);
+        requestHandler.httpGetStringRequest(url, this);
+
     }
 
 
@@ -222,10 +233,19 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                LatLng myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                LatLng myLocation;
+
+                if(lastKnownLocation != null) {
+                    myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                } else {
+                    myLocation = new LatLng(45.4958567,-73.5743482);
+                }
+
                 mGoogleMap.clear();
 
-                mGoogleMap.addMarker(new MarkerOptions().position(myLocation).title("My Location"));
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .position(myLocation)
+                        .title("My Location"));
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
             }
         }
@@ -334,8 +354,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
+            Matcher matcher = new Matcher ();
+            matcher.setMatchedMarkers(this.matchedMarkers);
+            matcher.setUserMapCatalog(this.userOnMapCatalog);
 
-            matchRoute(route.getPoints());
+            matcher.matchRoute(route.getPoints());
         }
     }
 
@@ -362,26 +385,31 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
-        dialog = new Dialog(CreateRouteActivity.this);
-        dialog.setTitle(marker.getTitle());
-        dialog.setContentView(R.layout.userprofile_dialog_layout);
-        dialog.show();
 
-        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(marker.getTitle());
+        if (selectedPassenger != null) {
+            dialog = new Dialog(CreateRouteActivity.this);
+            dialog.setTitle(marker.getTitle());
+            dialog.setContentView(R.layout.userprofile_dialog_layout);
+            dialog.show();
 
-        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(selectedPassenger.getEmail());
+            TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
+            textViewFullName.setText(marker.getTitle());
 
-        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+            TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
+            textViewEmail.setText(selectedPassenger.getEmail());
 
-        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
+            ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
+            imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
-        buttonInvite.setOnClickListener(this);
+            Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
 
-        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(this);
+            buttonInvite.setOnClickListener(this);
+
+            Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
+            buttonCancel.setOnClickListener(this);
+
+        }
+
         return false;
     }
 
@@ -397,6 +425,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.buttonSaveChanges:
                 saveChanges();
                 break;
+            case R.id.textViewStartLocation:
+                startOrEnd = false;
+                showSearchLocationDialog();
+                break;
+            case R.id.textViewEndLocation:
+                startOrEnd = true;
+                showSearchLocationDialog();
             default:
                 break;
         }
@@ -415,104 +450,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                         "/invitePassenger.php",jsonBody,
                 "application/x-www-form-urlencoded; charset=UTF-8" ,this);
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invie_sent), Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Matches route of driver and passengers
-     * @param routeOfUser
-     */
-    public void matchRoute(List<LatLng> routeOfUser) {
-
-        for (User user : userOnMapCatalog) {
-            ArrayList<Route> passengerRoutes = user.getRoutes();
-
-            for (Route route : passengerRoutes) {
-                LatLng pickUp = route.getStartLocation();
-                LatLng drop = route.getEndLocation();
-                int passengerRouteId = route.getId();
-                boolean pickUpBool = false;
-                boolean goToEnd = false;
-                int i = 0;
-
-                while (i < routeOfUser.size() && pickUpBool == false) {
-                    LatLng pointInPoly = routeOfUser.get(i);
-                    if (validateDistance(pickUp, pointInPoly) && goToEnd == false) {
-                        goToEnd = true;
-                        i++;
-                    }
-
-                    if (validateDistance(drop, pointInPoly) && goToEnd == true) {
-                        for ( int key : matchedMarkers.keySet()) {
-                            if(key == passengerRouteId) {
-                                Marker marker = matchedMarkers.get(key);
-                                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                                pickUpBool = true;
-                                break;
-                            }
-                        }
-                    }
-                    i++;
-                }
-
-            }
-
-        }
-    }
-
-    /** calculates the distance between two locations in MILES */
-    private double distance(double lat1, double lng1, double lat2, double lng2) {
-
-        double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
-
-        double dLat = Math.toRadians(lat2-lat1);
-        double dLng = Math.toRadians(lng2-lng1);
-
-        double sindLat = Math.sin(dLat / 2);
-        double sindLng = Math.sin(dLng / 2);
-
-        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
-                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-        double dist = earthRadius * c;
-
-        return dist; // output distance, in MILES
-    }
-
-    /**
-     * This method validates the distance between two points, point of a polyline and start and end address
-     * of the passenger. This algorithm indicates that if the distance between two points
-     * satisfy the condition, then this passenger point is part of the polyline
-     * @param passengerLocation
-     * @param userLocation
-     * @return boolean
-     */
-    public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) {
-        if (distance( passengerLocation.latitude, passengerLocation.longitude,
-                userLocation.latitude, userLocation.longitude) <= 0.1) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    /**
-     * A mutator method for UserOnMapCatalog
-     * @param userOnMapCatalog
-     */
-    public void setUserOnMapCatalog (ArrayList <User> userOnMapCatalog){
-        this.userOnMapCatalog = userOnMapCatalog;
-    }
-
-    /**
-     * An accessor method for UserOnMapCatalog
-     * @return userOnMapCatalog
-     */
-
-    public ArrayList <User> getUserOnMapCatalog (){
-        return this.userOnMapCatalog;
     }
 
     /**
@@ -539,5 +476,50 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         mGoogleMap = googleMap;
     }
 
+    /**
+     * Method that shows the search bar where the user will enter the location
+     */
+    public void showSearchLocationDialog() {
+        try {
+            AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                    .setCountry("CA")
+                    .build();
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).setFilter(typeFilter)
+                            .build(CreateRouteActivity.this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                String apple = "";
+                if (!startOrEnd) {
+                    apple = "start";
+                    start = place.getName().toString();
+                    textViewStartLocation.setText(start);
+                } else {
+                    apple = "end";
+                    destination = place.getName().toString();
+                    textViewEndLocation.setText(destination);
+                }
+                Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("Check", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
 
 }

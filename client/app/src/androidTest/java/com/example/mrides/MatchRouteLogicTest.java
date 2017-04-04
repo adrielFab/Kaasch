@@ -9,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.MainActivity;
+import DirectionModel.Matcher;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -22,13 +23,12 @@ import java.util.List;
 import DirectionModel.Route;
 
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MatchRouteLogicTest {
+public class MatchRouteLogicTest { 
 
 
     @Rule
@@ -36,22 +36,22 @@ public class MatchRouteLogicTest {
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testValideDistance(){
-        CreateRouteActivity routeActivity = new CreateRouteActivity();
+    public void testValideDistance(){ 
+        Matcher matcher = new Matcher();
         LatLng start1 = new LatLng(45.498672,-73.631370);
         LatLng start2 = new LatLng(45.498619,-73.631310);
 
         LatLng end1 = new LatLng(45.495211,-73.637070);
         LatLng end2 = new LatLng(45.495219,-73.637065);
 
-        assertEquals(routeActivity.validateDistance(start1, start2),
-                routeActivity.validateDistance(end1, end2));
+        assertEquals(matcher.validateDistance(start1, start2),
+                matcher.validateDistance(end1, end2));
     }
 
     @Test
     // Test the side effect of matchRoute() method on ArrayList <User> userOnMapCatalog
-    public void testMatchRoute(){
-        CreateRouteActivity routeActivity = new CreateRouteActivity();
+    public void testMatchRoute(){ 
+        Matcher matcher = new Matcher();
         ArrayList <User> userOnMapCatalog = new ArrayList<>();
         List <LatLng> routeOfUser = new ArrayList <LatLng>();
 
@@ -69,17 +69,17 @@ public class MatchRouteLogicTest {
         route.setStartLocation(start1);
         route.setEndLocation(end1);
         userOnMapCatalog.add(e);
-        routeActivity.setUserOnMapCatalog(userOnMapCatalog);
+        matcher.setUserMapCatalog(userOnMapCatalog);
 
-        int userSize = routeActivity.getUserOnMapCatalog().size();
-        routeActivity.matchRoute(routeOfUser);
+        int userSize = matcher.getUserMapCatalog().size();
+        matcher.matchRoute(routeOfUser);
 
-        assertEquals(routeActivity.getUserOnMapCatalog().size(),userSize);
+        assertEquals(matcher.getUserMapCatalog().size(),userSize);
     }
 
     @Test
     // Test the creation of progress bar on CreateRouteActivity
-    public void testShouldCreateProgressBar(){
+    public void testShouldCreateProgressBar(){ 
         Context routeActivity = new CreateRouteActivity();
         TestOnCancelListener cancelListener = new TestOnCancelListener();
         ProgressDialog progressDialog = ProgressDialog.show(routeActivity, "Title", "Message", true, true, cancelListener);
@@ -88,11 +88,11 @@ public class MatchRouteLogicTest {
         assertThat(cancelListener.onCancelDialogInterface, is((DialogInterface) progressDialog));
     }
 
-    private static class TestOnCancelListener implements DialogInterface.OnCancelListener {
+    private static class TestOnCancelListener implements DialogInterface.OnCancelListener { 
         public DialogInterface onCancelDialogInterface;
 
         @Override
-        public void onCancel(DialogInterface dialogInterface) {
+        public void onCancel(DialogInterface dialogInterface) { 
             onCancelDialogInterface = dialogInterface;
 
         }
