@@ -111,7 +111,7 @@ public class Matcher {
                 i++;
             }
 
-            if (this.validateDistance(drop, pointInPoly) && goToEnd && dateMatched==0) {
+            if (this.validateDistance(drop, pointInPoly) && goToEnd) {
                 for ( int key : matchedMarkers.keySet()) {
                     if(key == passengerRouteId) {
                         Marker marker = matchedMarkers.get(key);
