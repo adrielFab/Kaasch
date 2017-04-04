@@ -37,8 +37,8 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
     @Override
     protected String doInBackground(boolean[]... params) {
 
-        String save_url = "http://successdrivingschool.ca/new_test_android.php";
-        //String save_url = "https://httpbin.org/post";
+        String saveUrl = "http://successdrivingschool.ca/new_test_android.php";
+        //String saveUrl = "https://httpbin.org/post";
 
         boolean [] array1 = params[0];
         String wantsPet = String.valueOf(array1[0]);
@@ -49,20 +49,20 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
         try {
 
-            URL url = new URL(save_url);
+            URL url = new URL(saveUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, CHARSET));
-            String post_data =
+            String postData =
                     URLEncoder.encode("email", CHARSET)+"="+URLEncoder.encode(email, CHARSET)+"&"
                     +URLEncoder.encode("wantsPet", CHARSET)+"="+URLEncoder.encode(wantsPet, CHARSET)+"&"
                     +URLEncoder.encode("wantsSmoking", CHARSET)+"="+URLEncoder.encode(wantsSmoking, CHARSET)+"&"
                     +URLEncoder.encode("wantsMale", CHARSET)+"="+URLEncoder.encode(wantsMale, CHARSET)+"&"
                     +URLEncoder.encode("wantsFemale", CHARSET)+"="+URLEncoder.encode(wantsFemale, CHARSET);
-            bufferedWriter.write(post_data);
+            bufferedWriter.write(postData);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
