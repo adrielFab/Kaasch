@@ -27,11 +27,12 @@ public class RegistrationTokenInstanceIdService extends FirebaseInstanceIdServic
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         System.out.println("Refreshed token: " + refreshedToken);
         User user = RequestHandler.getUser();
-        handler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
-                        "/updateDeviceId.php", UserSerializer.getParameters(user),
-                "application/x-www-form-urlencoded; charset=UTF-8" ,this);
-        if(RequestHandler.getUser()!=null)
+        if(RequestHandler.getUser()!=null) {
             RequestHandler.getUser().setDeviceId(refreshedToken);
+            handler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
+                            "/updateDeviceId.php", UserSerializer.getParameters(user),
+                    "application/x-www-form-urlencoded; charset=UTF-8", this);
+        }
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.

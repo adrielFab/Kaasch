@@ -19,6 +19,7 @@ import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.User;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -39,7 +40,6 @@ import java.util.Map;
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> implements
         View.OnClickListener, ActivityObserver{
 
-    private Map<String,String> responseBody;
     private List<Invitation> invitations = new ArrayList<>();
     protected static Context inboxContext;
     private Dialog dialog;
@@ -50,9 +50,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         this.invitations = invitations;
     }
 
-    public void setViewComponents(Map<String,String> body){
-        this.responseBody = body;
-    }
 
     /**
      * This method is called whenever a new instance of ViewHolder is created.
@@ -67,7 +64,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.activity_inbox_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(view);
+        ViewHolder vh = new ViewHolder(view,invitations.get(viewType));
         return vh;
     }
 
@@ -84,7 +81,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setInvitation(invitations.get(position));
-        holder.itemMessage.setOnClickListener(this);
+        holder.itemMessage.setOnClickListener(new UserProfileListener(invitations.get(position),
+                inboxContext));
         holder.profilePciture.setOnClickListener(this);
     }
 
@@ -109,7 +107,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.item_title:
-                createDiolgue();
+                //createDiolgue();
                 break;
             case R.id.accept:
                 changePassengerStatusToConfirmed();
@@ -124,8 +122,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     //has accepted the ride
     private void changePassengerStatusToConfirmed() {
         requestHandler.attach(this);
-        System.out.println("Notification.: "+ responseBody.get("driverEmail"));
-        System.out.println("Notification.: "+ responseBody.get("passengerEmail"));
+        Map<String, String> responseBody = new HashMap<>();
+        String passengerWhoConfrimedEmail = RequestHandler.getUser().getEmail();
         requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
                 "/add_passenger_to_route.php",
                 responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
@@ -135,32 +133,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
     }
 
     //TODO we need to create a user profile page. Right now a diologue box is shown.
-    private void createDiolgue() {
-        dialog = new Dialog(inboxContext);
-        dialog.setTitle(inboxContext.getString(R.string.invited_to_route));
-        dialog.setContentView(R.layout.userprofile_dialog_layout);
-        dialog.show();
 
-        TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(responseBody.get("driverFirstName"));
-
-        TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(responseBody.get("driverEmail"));
-
-        ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-        //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
-        //       .execute();
-        imageViewProfile.setImageResource(R.drawable.sample_profile_image);
-
-        Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
-        //TODO button id needs to be changed. diologue is also used in createrouteActivity
-        buttonInvite.setId(R.id.accept);
-        buttonInvite.setText(R.string.accept);
-        buttonInvite.setOnClickListener(this);
-
-        Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
-        buttonCancel.setOnClickListener(this);
-    }
 
     @Override
     public void Update(String response) {
@@ -173,20 +146,23 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
      * you provide access to all the views for a data item in a view holder
      */
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         // each data item is just a string in this case
         TextView itemMessage;
         ImageView profilePciture;
         View v;
-        public ViewHolder(View v) {
+        public ViewHolder(View v, Invitation invitation) {
             super(v);
+            //v.setOnClickListener(this);
             profilePciture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
             itemMessage = (TextView) itemView.findViewById(R.id.item_title);
+            //this.invitation = invitation;
         }
 
         public void setInvitation(Invitation invitation) {
             this.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)+
                     invitation.getFirstName());
         }
+
     }
 }
