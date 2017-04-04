@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:id="@+id/linearLayoutValues">
+
+        <TextView
+            android:text="12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDistanceValue"
+            android:layout_weight="0.33"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:text="20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDurationValue"
+            android:layout_weight="0.50"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:text="99.99"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewPriceValue"
+            android:layout_weight="0.13"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_below="@+id/linearLayoutValues">
+
+        <TextView
+            android:text="Distance (km)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDistance"
+            android:layout_weight="0.33"
+            android:gravity="center"/>
+
+        <TextView
+            android:text="Duration (min)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDuration"
+            android:layout_weight="0.33"
+            android:gravity="center"/>
+
+        <TextView
+            android:text="Price ($CAN)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewPrice"
+            android:layout_weight="0.33"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <ImageView
+        app:srcCompat="@mipmap/trash"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/imageTrash"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:maxHeight="42dp"
+        android:maxWidth="42dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"/>
+
+</LinearLayout>
