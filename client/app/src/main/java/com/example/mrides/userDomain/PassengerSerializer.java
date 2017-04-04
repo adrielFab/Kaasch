@@ -19,14 +19,19 @@ public class PassengerSerializer {
      */
     //TODO the paramter needs to be changed to a passenger in the future. For now user works
     public static Map<String, String> getParameters(User user){
+        /*System.out.println("Display Name: " + user.getDisplayName());
+        System.out.println(user.getLastName());
+        System.out.println("Display Name: " + user.getDisplayName());
+        System.out.println("Display Name: " + user.getLastName());
+        System.out.println("Display Name: " + user.getFirstName());
+        System.out.println("Display Name: " + user.getEmail());
+        System.out.println(user.getDeviceId());
+        System.out.println(user.getPhotoUrl());*/
         Map<String, String> map = new HashMap<>();
-        map.put("passengerEmail", user.getEmail());
+        map.put("passengerEmail", "adriel.fab@gmail.com");
         map.put("passengerLastName", user.getLastName());
         map.put("passengerFirstName",user.getFirstName());
-        map.put("passengerDisplayName", "Adriel");
-        //map.put("passengerDeviceId", user.getDeviceId());
-        map.put("passengerDeviceId", "cd7BHqjfyRQ:APA91bEcL3FkXSwWCSjkZ6lzGeDq-p9ivArhkVgPaOoEDfsKfkRGR8j0xPQ2o3OMf3Sv-KDTc3F_v-TXYz4uMquiqF88TK-Tnf8KNUbNcQnW8szhdN_RcUtybZb25Ma_B9D2oqEuVWvw");
-       // map.put("passengerProfileUrl", user.getPhotoUrl());
+        map.put("passengerDeviceId", "dZqG2lST6uo:APA91bF1f5ZkYW5xTNCawaEzXbgEeWe6eB74F6rFyJGRsWfTTxJX6C2Nxv54b1eS5QK6suhwYxX8GkL-W9C3z7HlbYZYZSFqtm8NMsygvDVsYaosUx2BBoU5ZB2pU9UV3aji_qej-my5");
         map.put("passengerProfileUrl", "photoUrl");
         return map;
     }

@@ -186,7 +186,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
 
         public void setInvitation(Invitation invitation) {
             this.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)+
-                    invitation.getDriverDisplayName());
+                    invitation.getFirstName());
         }
     }
 }

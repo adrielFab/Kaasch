@@ -346,7 +346,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void Update(String response) {
-
+        System.out.println(response);
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
         ArrayList<Route> route = new ArrayList<>();
@@ -406,8 +406,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
-        Driver driver = (Driver) loggedInUser;
-        Map<String,String> driverJsonBody = DriverJSONMap.getParameters(driver);
+        Map<String,String> driverJsonBody = UserSerializer.getParameters(loggedInUser);
         Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
         Map<String,String> jsonBody = new HashMap<>();
         jsonBody.putAll(driverJsonBody);

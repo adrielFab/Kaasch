@@ -172,6 +172,7 @@ public class HomePage extends AppCompatActivity implements
                 startActivity(intentSettings);
                 break;
             case R.id.nav_logout:
+                System.out.println("INSIDE");
                 Toast.makeText(this, R.string.loggedOut , Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(this);

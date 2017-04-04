@@ -23,7 +23,6 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String displayName;
     private String photoUrl;
     private String deviceId;
     private FirebaseUser acct;
@@ -33,12 +32,11 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String email, String photoUrl, String displayName, String deviceId) {
+    public User(String firstName, String lastName, String email, String photoUrl, String deviceId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.photoUrl = photoUrl;
-        this.displayName = displayName;
         this.deviceId = deviceId;
     }
 
@@ -50,7 +48,6 @@ public class User {
     public User(FirebaseUser acct, GoogleSignInAccount googleSignInAccount){
 
         email = acct.getEmail();
-        displayName = acct.getDisplayName();
         this.deviceId = FirebaseInstanceId.getInstance().getToken();
         this.photoUrl = acct.getPhotoUrl().getPath();
         firstName = googleSignInAccount.getGivenName();
@@ -65,16 +62,6 @@ public class User {
     public void setEmail(String email) {
 
         this.email = email;
-    }
-
-    public String getDisplayName() {
-
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-
-        this.displayName = displayName;
     }
 
     public void setAcct(FirebaseUser acct) {

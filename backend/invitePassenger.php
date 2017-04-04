@@ -1,6 +1,6 @@
 <?php
 
-$driverEmail = $_POST["driverEmail"]
+$driverEmail = $_POST["driverEmail"];
 $passengerEmail = $_POST["passengerEmail"];
 $passengerDeviceId = $_POST["passengerDeviceId"];
 $loggedInUserEmail = $_POST["loggedInUserEmail"];

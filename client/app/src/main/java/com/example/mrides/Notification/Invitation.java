@@ -6,14 +6,16 @@ public class Invitation {
     private String driverEmail;
     private String driverReview;
     private String driverProfilePicRul;
-    private String driverDisplayName;
+    private String firstName;
+    private String lastName;
 
     public Invitation(String driverEmail, String driverReview, String driverProfilePicRul,
-                      String driverDisplayName) {
+                      String firstName, String lastName) {
         this.driverEmail = driverEmail;
         this.driverReview = driverReview;
         this.driverProfilePicRul = driverProfilePicRul;
-        this.driverDisplayName = driverDisplayName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getDriverEmail() {
@@ -28,7 +30,11 @@ public class Invitation {
         return driverProfilePicRul;
     }
 
-    public String getDriverDisplayName() {
-        return driverDisplayName;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

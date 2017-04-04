@@ -56,7 +56,9 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //getInboxData(); TODO call this method to get the list of inbox data
+        getInboxData(); //TODO call this method to get the list of inbox data
+        mAdapter = new InboxAdapter(this,invitations);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void getInboxData(){
@@ -80,19 +82,16 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     private void handlepopulateInboxResponse(String response){
         try {
-            JSONObject inboxResponse = new JSONObject(response);
-            JSONArray invites = inboxResponse.getJSONArray("invites");
+            JSONArray invites = new JSONArray(response);
             for(int index =0;index<invites.length();index++){
                 JSONObject inviteJson = invites.getJSONObject(index);
-                Invitation invite = new Invitation(inviteJson.getString("driverEmail"),
-                        inviteJson.getString("review"),inviteJson.getString("driverUrlPic"),
-                        inviteJson.getString("displayName"));
+                Invitation invite = new Invitation(inviteJson.getString("email"),
+                        inviteJson.getString("rating"),inviteJson.getString("profile_picture"),
+                        inviteJson.getString("first_name"),inviteJson.getString("last_name"));
                 invitations.add(invite);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 }
