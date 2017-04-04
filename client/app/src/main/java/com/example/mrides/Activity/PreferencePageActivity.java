@@ -21,11 +21,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import com.example.mrides.R;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
-import static android.support.v7.appcompat.R.id.time;
+import java.util.Calendar;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -90,18 +87,18 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         if("Driver".equals(choice)) {
             Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
-            TextView tv_in_date = (TextView) findViewById(R.id.in_date);
-            TextView tv_in_time = (TextView) findViewById(R.id.in_time);
-            TextView tv_title = (TextView) findViewById(R.id.in_title);
+            TextView tvDate = (TextView) findViewById(R.id.in_date);
+            TextView tvTime = (TextView) findViewById(R.id.in_time);
+            TextView tvTitle = (TextView) findViewById(R.id.in_title);
 
-            String in_date = tv_in_date.getText().toString();
-            String in_time = tv_in_time.getText().toString();
-            String title = tv_title.getText().toString();
+            String inDate = tvDate.getText().toString();
+            String inTime = tvTime.getText().toString();
+            String title = tvTitle.getText().toString();
             //Create the bundle
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
-            bundle.putString("in_date", in_date);
-            bundle.putString("in_time", in_time);
+            bundle.putString("in_date", inDate);
+            bundle.putString("in_time", inTime);
             //Add the bundle to the intent
             intent.putExtras(bundle);
             startActivity(intent);
