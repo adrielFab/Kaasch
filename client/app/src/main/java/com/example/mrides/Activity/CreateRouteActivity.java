@@ -456,6 +456,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             case R.id.textViewEndLocation:
                 startOrEnd = true;
                 showSearchLocationDialog();
+                break;
             default:
                 break;
         }
