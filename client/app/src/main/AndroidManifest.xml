@@ -63,6 +63,9 @@
         </activity>
         <activity android:name=".Activity.CreateRoutePassengerActivity">
         </activity>
+        <activity android:name=".Activity.RouteActivity"
+            android:theme="@style/AppTheme2">
+        </activity>
     </application>
 
 </manifest>

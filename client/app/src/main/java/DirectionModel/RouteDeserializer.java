@@ -15,28 +15,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class RouteDeserializer {
 
     /**
      * This method takes the jsonData provided by the google maps api. Then, it stores all the needed values
      * which characterize a route, according to the Route.java model
+     *
      * @param res
-     * @return List<Route>
+     * @return Route
      * @throws JSONException
      */
-    public List<Route> parseJSON(String res) throws JSONException {
+    public Route parseJSON(String res) throws JSONException {
 
-        List<Route> routes = new ArrayList<Route>();
+        Route route = new Route();
         if (res == null)
-            return routes;
-
+            return route;
 
         JSONObject jsonData = new JSONObject(res);
         JSONArray jsonRoutes = jsonData.getJSONArray("routes");
         for (int i = 0; i < jsonRoutes.length(); i++) {
             JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
-            Route route = new Route();
+            route = new Route();
 
             JSONObject overview_polylineJson = jsonRoute.getJSONObject("overview_polyline");
             JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
@@ -54,15 +53,15 @@ public class RouteDeserializer {
             route.setEndLocation(new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng")));
             route.setPoints(decodePoly(overview_polylineJson.getString("points")));
 
-            routes.add(route);
         }
-        return routes;
+        return route;
     }
 
     /**
      * This is a method that takes the polyline provided by google maps api, and returns a list of points
      * which can be interconnected to form the route
      * Courtesy : http://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+     *
      * @param encoded
      * @return List<LatLng> This returns a list of latitude and longitude coordinates that the new polyline
      * will pass through to form the route
@@ -70,7 +69,8 @@ public class RouteDeserializer {
     private List<LatLng> decodePoly(String encoded) {
 
         List<LatLng> poly = new ArrayList<LatLng>();
-        int index = 0, len = encoded.length();
+        int index = 0;
+        int len = encoded.length();
         int lat = 0;
         int lng = 0;
 

@@ -1,35 +1,16 @@
 package com.example.mrides.Notification;
 
 
-import android.app.Dialog;
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.mrides.Activity.ActivityObserver;
-import com.example.mrides.Activity.CreateRouteActivity;
-import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.R;
-import com.example.mrides.controller.RequestHandler;
-import com.example.mrides.userDomain.PassengerSerializer;
-import com.example.mrides.userDomain.User;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The adapter is the link between the data model we want to show and the UI.

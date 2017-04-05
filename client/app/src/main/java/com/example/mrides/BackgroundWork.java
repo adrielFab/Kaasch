@@ -25,8 +25,9 @@ import java.util.Objects;
 
 public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
-    Context context;
-    AlertDialog mAlertDialog;
+    private Context context;
+    private AlertDialog mAlertDialog;
+    private String CHARSET = "UTF-8";
 
     public BackgroundWork(Context context){
 
@@ -36,8 +37,8 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
     @Override
     protected String doInBackground(boolean[]... params) {
 
-        String save_url = "http://successdrivingschool.ca/new_test_android.php";
-        //String save_url = "https://httpbin.org/post";
+        String saveUrl = "http://successdrivingschool.ca/new_test_android.php";
+        //String saveUrl = "https://httpbin.org/post";
 
         boolean [] array1 = params[0];
         String wantsPet = String.valueOf(array1[0]);
@@ -48,20 +49,20 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
         try {
 
-            URL url = new URL(save_url);
+            URL url = new URL(saveUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            String post_data =
-                    URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsPet", "UTF-8")+"="+URLEncoder.encode(wantsPet, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsSmoking", "UTF-8")+"="+URLEncoder.encode(wantsSmoking, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsMale", "UTF-8")+"="+URLEncoder.encode(wantsMale, "UTF-8")+"&"
-                    +URLEncoder.encode("wantsFemale", "UTF-8")+"="+URLEncoder.encode(wantsFemale, "UTF-8");
-            bufferedWriter.write(post_data);
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, CHARSET));
+            String postData =
+                    URLEncoder.encode("email", CHARSET)+"="+URLEncoder.encode(email, CHARSET)+"&"
+                    +URLEncoder.encode("wantsPet", CHARSET)+"="+URLEncoder.encode(wantsPet, CHARSET)+"&"
+                    +URLEncoder.encode("wantsSmoking", CHARSET)+"="+URLEncoder.encode(wantsSmoking, CHARSET)+"&"
+                    +URLEncoder.encode("wantsMale", CHARSET)+"="+URLEncoder.encode(wantsMale, CHARSET)+"&"
+                    +URLEncoder.encode("wantsFemale", CHARSET)+"="+URLEncoder.encode(wantsFemale, CHARSET);
+            bufferedWriter.write(postData);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();

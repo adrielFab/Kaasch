@@ -67,7 +67,7 @@ public class User {
 
         email = acct.getEmail();
         this.deviceId = FirebaseInstanceId.getInstance().getToken();
-        this.photoUrl = acct.getPhotoUrl().getPath();
+        this.photoUrl = acct.getPhotoUrl().toString();
         firstName = googleSignInAccount.getGivenName();
         lastName = googleSignInAccount.getFamilyName();
     }
