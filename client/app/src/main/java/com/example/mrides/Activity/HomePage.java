@@ -9,6 +9,7 @@ package com.example.mrides.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -38,6 +39,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
@@ -79,13 +85,15 @@ public class HomePage extends AppCompatActivity implements
         String username = firstName + " " + lastName;
         String email = RequestHandler.getUser().getEmail();
         String photoUrl = RequestHandler.getUser().getPhotoUrl();
-
+        System.out.println(photoUrl);
         headerView = navigationView.getHeaderView(0);
         imageView = (ImageView)headerView.findViewById(R.id.profile_image);
         textViewNameNav = (TextView)headerView.findViewById(R.id.username);
         textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
 
-        ImageConverter.convertImage(photoUrl, imageView);
+        ImageConverter imageConverter = new ImageConverter(imageView);
+        imageConverter.execute(photoUrl);
+
         textViewEmailNav.setText(email);
         textViewNameNav.setText(username);
 

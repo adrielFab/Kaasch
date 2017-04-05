@@ -2,24 +2,35 @@ package com.example.mrides;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
+import java.io.InputStream;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-public class ImageConverter {
+public class ImageConverter extends AsyncTask<String, Void, Bitmap>{
 
-    public static void convertImage(String photoUrl, ImageView imageView) {
-        imageView.setImageResource(R.drawable.photo);
+    ImageView imageView;
+
+    public ImageConverter(ImageView bmImage) {
+        this.imageView = bmImage;
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... urls) {
+        String urldisplay = urls[0];
+        Bitmap bitmap = null;
         try {
-            URL url = new URL(photoUrl);
-            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            imageView.setImageBitmap(bmp);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            InputStream in = new java.net.URL(urldisplay).openStream();
+            bitmap = BitmapFactory.decodeStream(in);
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
+        return bitmap;
+    }
+
+    protected void onPostExecute(Bitmap result) {
+        imageView.setImageBitmap(result);
     }
 }
