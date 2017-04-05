@@ -89,7 +89,7 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         responseBody.put("passengerEmail", passengerWhoConfrimedEmail);
         requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+
                         "/add_passenger_to_route.php",
-                responseBody,"application/x-www-form-urlencoded; charset=UTF-8", inboxContext);
+                responseBody,RequestHandler.URLENCODED, inboxContext);
         Toast.makeText(inboxContext, inboxContext.getString(R.string.invite_accepted),
                 Toast.LENGTH_SHORT).show();
         dialog.hide();

@@ -60,26 +60,25 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     }
 
-    private void getInboxData(){
+    private void getInboxData() {
         requestHandler.attach(this);
         Map<String,String> userInfo = PassengerSerializer.getParameters(RequestHandler.getUser());
         requestHandler.httpPostStringRequest("http://"+this.getString(R.string.web_server_ip)+
                         "/getNotifications.php",userInfo,
-                "application/x-www-form-urlencoded; charset=UTF-8", this);
+                RequestHandler.URLENCODED, this);
     }
 
     @Override
     public void Update(String response) {
-        System.out.println("Inbox list.:"+ response);
         handlepopulateInboxResponse(response);
         mAdapter = new InboxAdapter(this,invitations);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void handlepopulateInboxResponse(String response){
+    private void handlepopulateInboxResponse(String response) {
         try {
             JSONArray invites = new JSONArray(response);
-            for(int index =0;index<invites.length();index++){
+            for(int index =0;index<invites.length();index++) {
                 JSONObject inviteJson = invites.getJSONObject(index);
                 Invitation invite = new Invitation(inviteJson.getString("email"),
                         inviteJson.getString("rating"),inviteJson.getString("profile_picture"),

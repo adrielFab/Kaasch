@@ -42,7 +42,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     private List<Invitation> invitations = new ArrayList<>();
     protected static Context inboxContext;
 
-    public InboxAdapter(Context inboxContext,List<Invitation> invitations){
+    public InboxAdapter(Context inboxContext,List<Invitation> invitations) {
         this.inboxContext = inboxContext;
         this.invitations = invitations;
     }
@@ -104,7 +104,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
      * you provide access to all the views for a data item in a view holder
      */
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView itemMessage;
         ImageView profilePciture;

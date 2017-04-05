@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class DriverJSONMap {
 
-    public static Map<String, String> getParameters(User driver){
+    public static Map<String, String> getParameters(User driver) {
         Map<String, String> map = new HashMap<>();
         map.put("driverEmail", driver.getEmail());
         map.put("driverLastName", driver.getLastName());

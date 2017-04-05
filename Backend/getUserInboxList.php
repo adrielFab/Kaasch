@@ -14,17 +14,19 @@ $sql = "SELECT route_id FROM Routes_Users_Association WHERE user_id LIKE (SELECT
 $result = mysqli_query($con, $sql);
 
 $routeIds = array();
-while($row = mysql_fetch_array($result))
-{
+
+while ($row = mysql_fetch_array($result)) {
     #querry to get all driver ids from routes. 
     $sql= "SELECT user_id FROM Routes_Users_Association WHERE route"
-
 }
-if(!$result){
+
+if (!$result) {
 	echo $sql;
 	echo mysqli_error($con);
 	echo "Failed to add passenger to route.";
-}else{
+} 
+else {
 	echo "success";
 }
+
 ?>

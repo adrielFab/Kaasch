@@ -17,7 +17,8 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  * https://firebase.google.com/docs/cloud-messaging/android/first-message
  */
 
-public class RegistrationTokenInstanceIdService extends FirebaseInstanceIdService implements ActivityObserver{
+public class RegistrationTokenInstanceIdService extends FirebaseInstanceIdService implements
+        ActivityObserver {
 
     private RequestHandler handler = new RequestHandler();
 
@@ -31,7 +32,7 @@ public class RegistrationTokenInstanceIdService extends FirebaseInstanceIdServic
             RequestHandler.getUser().setDeviceId(refreshedToken);
             handler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/updateDeviceId.php", UserSerializer.getParameters(user),
-                    "application/x-www-form-urlencoded; charset=UTF-8", this);
+                    RequestHandler.URLENCODED, this);
         }
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the

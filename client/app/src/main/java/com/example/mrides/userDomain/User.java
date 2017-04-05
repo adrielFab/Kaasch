@@ -18,7 +18,25 @@ import DirectionModel.Route;
 
 public class User {
 
+    public enum ParameterKeys{
 
+        EMAIL("loggedInUserEmail"),
+        LASTNAME("loggedInUserLastName"),
+        FIRSTNAME("loggedInUserFirstName"),
+        DEVICEID("loggedInUserDeviceId"),
+        PROFILEURL("loggedInUserProfileUrl");
+
+        private String key;
+
+        private ParameterKeys(String key){
+            this.key = key;
+        }
+
+        public String toString(){
+            return this.key;
+        }
+
+    }
     private int id;
     private String firstName;
     private String lastName;

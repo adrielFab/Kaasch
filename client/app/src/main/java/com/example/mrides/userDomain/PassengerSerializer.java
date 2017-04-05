@@ -18,15 +18,7 @@ public class PassengerSerializer {
      *
      */
     //TODO the paramter needs to be changed to a passenger in the future. For now user works
-    public static Map<String, String> getParameters(User user){
-        /*System.out.println("Display Name: " + user.getDisplayName());
-        System.out.println(user.getLastName());
-        System.out.println("Display Name: " + user.getDisplayName());
-        System.out.println("Display Name: " + user.getLastName());
-        System.out.println("Display Name: " + user.getFirstName());
-        System.out.println("Display Name: " + user.getEmail());
-        System.out.println(user.getDeviceId());
-        System.out.println(user.getPhotoUrl());*/
+    public static Map<String, String> getParameters(User user) {
         Map<String, String> map = new HashMap<>();
         map.put("passengerEmail", "adriel.fab@gmail.com");
         map.put("passengerLastName", user.getLastName());
