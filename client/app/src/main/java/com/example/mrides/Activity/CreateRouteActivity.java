@@ -100,6 +100,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private String in_date;
     private String in_time;
     private String in_title;
+    private String role;
 
     /**
      * Method that requests the user to capture their current location
@@ -165,6 +166,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         });
         textViewEndLocation.setFocusable(false);
         textViewStartLocation.setFocusable(false);
+
+        role = getIntent().getExtras().getString("role");
+        Log.i("ROLE", role);
     }
 
     /**
@@ -291,7 +295,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             }
         }
-        mGoogleMap.setOnMarkerClickListener(this);
+
+        if (role.equals("driver")) {
+            mGoogleMap.setOnMarkerClickListener(this);
+        }
     }
 
 

@@ -87,6 +87,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         if("Driver".equals(choice)) {
             Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
+            intent.putExtra("role", "driver");
             TextView tvDate = (TextView) findViewById(R.id.in_date);
             TextView tvTime = (TextView) findViewById(R.id.in_time);
             TextView tvTitle = (TextView) findViewById(R.id.in_title);
@@ -104,6 +105,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             startActivity(intent);
         } else if ("Passenger".equals(choice)) {
             Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
+            intent.putExtra("role", "passenger");
             startActivity(intent);
         }
     }
