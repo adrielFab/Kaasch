@@ -25,7 +25,7 @@ public class RegistrationTokenInstanceIdService extends FirebaseInstanceIdServic
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        System.out.println("Refreshed token: " + refreshedToken);
+        System.out.println("Refreshed token changed: " + refreshedToken);
         User user = RequestHandler.getUser();
         if(RequestHandler.getUser()!=null) {
             RequestHandler.getUser().setDeviceId(refreshedToken);
