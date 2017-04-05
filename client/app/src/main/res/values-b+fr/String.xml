@@ -6,44 +6,23 @@
 
 <resources>
     <string name="app_name">mRides</string>
-    <string name="Sign_In">Connexion</string>
-    <string name="title_activity_preference_page">page_préférences</string>
     <string name="route_name">Nom D’Itinéraire :"</string>
-    <string name="action_settings">Paramètres</string>
     <string name="hint_name">ex: Travaille</string>
-    <string name="Frequency">Fréquence :</string>
-    <string name="Once">Une Fois</string>
-    <string name="Repeated">Répété</string>
     <string name="Arrival_time">Heure D’Arrivée:</string>
     <string name="Driver">Pilote</string>
     <string name="Passenger">Passenger</string>
     <string name="Next">suivant</string>
-    <string name="Sample_time">20:00</string>
     <string name="Select">changez</string>
     <string name="Departure_date">Date De Depart:</string>
-    <string name="Sample_date">1-5-2017</string>
-    <string name="Select_preferences">sélectionnez Préférences</string>
-    <string name="mind_men">J\'accepte les hommes</string>
-    <string name="mind_women">J\'accepte les femmes</string>
-    <string name="mind_smoking">J\'accepte les fumeurs</string>
-    <string name="mind_pets">J\'accepte les animaux</string>
-    <string name="createRoute">Créer Route</string>
     <string name="preferences">Préférences</string>
-    <string name="email">Courriel:</string>
     <string name="rating">Évaluation</string>
-    <string name="title_activity_create_route">CreateRouteActivity</string>
     <string name="GetStarted">Commencer"</string>
-    <string name="GmailSignIn">Connexion Avec GMAIL</string>
-    <string name="welcome">Bienvenue à mRides</string>
     <string name="Logout">Déconnexion À supprimer"</string>
     <string name="server_client_id">1088243710681-v6rie9t656bfomkt3n2lj1icij8l7nvg.apps.googleusercontent.com</string>
-    <string name="url">http://successdrivingschool.ca</string>
-    <string name="googleVerificationURL">https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=</string>
     <string name="direction_url_api">https://maps.googleapis.com/maps/api/directions/json?</string>
     <string name="google_maps_api_key">AIzaSyDBjGOW7Yv5t-RwJI-Dhl86rZnZcQCd93c</string>
     <string name="wifi_not_found">Connexion réseau sans fil connecté</string>
     <string name="ok">Ok</string>
-    <string name="title_activity_temp_main">TempMainActivity</string>
     <string name="open">Ouvrir</string>
     <string name="close">Fermer</string>
     <string name="male">Homme</string>
@@ -51,11 +30,8 @@
     <string name="female">Femme</string>
     <string name="smoking">Fumeur</string>
     <string name="non_smoking">Non-fumeur</string>
-    <string name="my_account">Mon profil</string>
     <string name="inbox">Boîte de réception</string>
-    <string name="enter_start_address">Entrez l\'addresse de départ</string>
     <string name="find_path">Trouver route</string>
-    <string name="enter_destination_address">Entrez l\'address de la destination</string>
     <string name="cancel">Annuler</string>
     <string name="invite">Inviter</string>
 </resources>
