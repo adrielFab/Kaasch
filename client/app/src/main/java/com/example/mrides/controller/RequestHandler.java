@@ -35,6 +35,7 @@ public class RequestHandler implements Subject{
 
     private ArrayList<ActivityObserver> observers = new ArrayList<>();
     private static User user;
+    public static final String URLENCODED = "application/x-www-form-urlencoded; charset=UTF-8";
 
     public void setUser(User user){
 
@@ -67,7 +68,7 @@ public class RequestHandler implements Subject{
 
                     @Override
                     public void onResponse(String response) {
-
+                        Notify(response);
                     }
                 }, new Response.ErrorListener() {
 

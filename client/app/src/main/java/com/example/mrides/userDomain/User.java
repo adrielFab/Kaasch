@@ -18,12 +18,29 @@ import DirectionModel.Route;
 
 public class User {
 
+    public enum ParameterKeys{
 
+        EMAIL("loggedInUserEmail"),
+        LASTNAME("loggedInUserLastName"),
+        FIRSTNAME("loggedInUserFirstName"),
+        DEVICEID("loggedInUserDeviceId"),
+        PROFILEURL("loggedInUserProfileUrl");
+
+        private String key;
+
+        private ParameterKeys(String key){
+            this.key = key;
+        }
+
+        public String toString(){
+            return this.key;
+        }
+
+    }
     private int id;
     private String firstName;
     private String lastName;
     private String email;
-    private String displayName;
     private String photoUrl;
     private String deviceId;
     private FirebaseUser acct;
@@ -31,6 +48,14 @@ public class User {
 
     public User(){
 
+    }
+
+    public User(String firstName, String lastName, String email, String photoUrl, String deviceId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.photoUrl = photoUrl;
+        this.deviceId = deviceId;
     }
 
     /**
@@ -41,7 +66,6 @@ public class User {
     public User(FirebaseUser acct, GoogleSignInAccount googleSignInAccount){
 
         email = acct.getEmail();
-        displayName = acct.getDisplayName();
         this.deviceId = FirebaseInstanceId.getInstance().getToken();
         this.photoUrl = acct.getPhotoUrl().toString();
         firstName = googleSignInAccount.getGivenName();
@@ -56,16 +80,6 @@ public class User {
     public void setEmail(String email) {
 
         this.email = email;
-    }
-
-    public String getDisplayName() {
-
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-
-        this.displayName = displayName;
     }
 
     public void setAcct(FirebaseUser acct) {

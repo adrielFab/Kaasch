@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.userDomain.Driver;
+import com.example.mrides.userDomain.DriverJSONMap;
 import DirectionModel.Matcher;
 
 import com.example.mrides.userDomain.PassengerSerializer;
@@ -400,7 +402,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void Update(String response) {
-
+        System.out.println(response);
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
         Route route = new Route();
@@ -473,14 +475,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
-        Map<String, String> loggedInUserJsonBody = UserSerializer.getParameters(loggedInUser);
-        Map<String, String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
-        Map<String, String> jsonBody = new HashMap<>();
-        jsonBody.putAll(loggedInUserJsonBody);
+        Map<String,String> driverJsonBody = UserSerializer.getParameters(loggedInUser);
+        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
+        Map<String,String> jsonBody = new HashMap<>();
+        jsonBody.putAll(driverJsonBody);
         jsonBody.putAll(passengerJSonBody);
-        requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
-                        "/invitePassenger.php", jsonBody,
-                "application/x-www-form-urlencoded; charset=UTF-8", this);
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/invitePassenger.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
         Toast.makeText(CreateRouteActivity.this, getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
     }
 

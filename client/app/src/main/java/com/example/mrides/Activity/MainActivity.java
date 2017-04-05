@@ -170,6 +170,13 @@ public class MainActivity extends AppCompatActivity implements
     public void Update(String response) {
 
         requestHandler.detach(this);
+        System.out.println("Response: "+ response);
+        if(response.contains("User")) {
+            requestHandler.attach(this);
+            requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
+                            "/updateDeviceId.php", UserSerializer.getParameters(user),
+                    RequestHandler.URLENCODED, this);
+        }
     }
 
     /**
@@ -195,8 +202,9 @@ public class MainActivity extends AppCompatActivity implements
             // User is signed in
             user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
+            requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)+"/register_user.php",
-                    UserSerializer.getParameters(user), "application/x-www-form-urlencoded; charset=UTF-8",
+                    UserSerializer.getParameters(user), RequestHandler.URLENCODED,
                     this);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());

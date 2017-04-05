@@ -12,21 +12,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mrides.Notification.InboxAdapter;
+import com.example.mrides.Notification.Invitation;
 import com.example.mrides.Notification.MatchingMessagingService;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.controller.Subject;
+import com.example.mrides.userDomain.PassengerSerializer;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class InboxActivity extends AppCompatActivity {
+public class InboxActivity extends AppCompatActivity implements ActivityObserver{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RemoteMessage notification;
     private RequestHandler requestHandler = new RequestHandler();
+    private List<Invitation> invitations = new ArrayList<>();
 
     /**
      * When the inbox is created the inbox gets a list of past notifications, inorder
@@ -47,13 +56,37 @@ public class InboxActivity extends AppCompatActivity {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new InboxAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
-        if(getIntent().getParcelableExtra("NOTIFICATION")!=null) {
-            notification = (RemoteMessage) (getIntent().getParcelableExtra("NOTIFICATION"));
-            ((InboxAdapter) mAdapter).setViewComponents(notification.getData());
-        }
+        getInboxData(); //TODO call this method to get the list of inbox data
 
     }
 
+    private void getInboxData() {
+        requestHandler.attach(this);
+        Map<String,String> userInfo = PassengerSerializer.getParameters(RequestHandler.getUser());
+        requestHandler.httpPostStringRequest("http://"+this.getString(R.string.web_server_ip)+
+                        "/getNotifications.php",userInfo,
+                RequestHandler.URLENCODED, this);
+    }
+
+    @Override
+    public void Update(String response) {
+        handlepopulateInboxResponse(response);
+        mAdapter = new InboxAdapter(this,invitations);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void handlepopulateInboxResponse(String response) {
+        try {
+            JSONArray invites = new JSONArray(response);
+            for(int index =0;index<invites.length();index++) {
+                JSONObject inviteJson = invites.getJSONObject(index);
+                Invitation invite = new Invitation(inviteJson.getString("email"),
+                        inviteJson.getString("rating"),inviteJson.getString("profile_picture"),
+                        inviteJson.getString("first_name"),inviteJson.getString("last_name"));
+                invitations.add(invite);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
