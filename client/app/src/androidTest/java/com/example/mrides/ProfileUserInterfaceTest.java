@@ -4,7 +4,6 @@ package com.example.mrides;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-
 import com.example.mrides.Activity.ProfileActivity;
 
 import org.junit.Rule;

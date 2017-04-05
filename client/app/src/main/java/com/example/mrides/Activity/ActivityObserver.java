@@ -1,8 +1,6 @@
 package com.example.mrides.Activity;
 
 
-import java.util.Map;
-
 @FunctionalInterface
 public interface ActivityObserver {
 

@@ -1,22 +1,14 @@
 package com.example.mrides.Activity;
 
-import android.app.Dialog;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.mrides.Notification.InboxAdapter;
 import com.example.mrides.Notification.Invitation;
-import com.example.mrides.Notification.MatchingMessagingService;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
-import com.example.mrides.controller.Subject;
 import com.example.mrides.userDomain.PassengerSerializer;
 import com.google.firebase.messaging.RemoteMessage;
 

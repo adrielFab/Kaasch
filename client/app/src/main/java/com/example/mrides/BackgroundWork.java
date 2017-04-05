@@ -20,8 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Objects;
 
 public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 

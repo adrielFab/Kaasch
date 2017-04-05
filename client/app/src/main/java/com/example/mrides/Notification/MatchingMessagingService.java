@@ -7,20 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
-import com.example.mrides.Activity.ActivityObserver;
-import com.example.mrides.Activity.InboxActivity;
 import com.example.mrides.Activity.MainActivity;
 import com.example.mrides.R;
-import com.example.mrides.controller.Subject;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class MatchingMessagingService extends FirebaseMessagingService{

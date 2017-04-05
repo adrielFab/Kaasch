@@ -1,7 +1,5 @@
 package DirectionModel;
 
-import android.util.Log;
-
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -11,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import DirectionModel.Route;
 
 public class Matcher {
 

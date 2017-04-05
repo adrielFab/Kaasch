@@ -1,13 +1,9 @@
 package com.example.mrides.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.mrides.R;
-import com.example.mrides.controller.RequestHandler;
-
-import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity{
 

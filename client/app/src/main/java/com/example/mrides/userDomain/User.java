@@ -9,8 +9,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import org.parceler.Parcel;
-
 import java.util.ArrayList;
 
 import DirectionModel.Route;
