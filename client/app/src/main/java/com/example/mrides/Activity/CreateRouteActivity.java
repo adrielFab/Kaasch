@@ -74,8 +74,8 @@ import DirectionModel.RouteDeserializer;
 public class CreateRouteActivity extends FragmentActivity implements OnMapReadyCallback,
         ActivityObserver, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
-    private TextView textViewStartLocation;
-    private TextView textViewEndLocation;
+    private EditText textViewStartLocation;
+    private EditText textViewEndLocation;
     private Button mButtonFindPath;
     private Button buttonSaveChanges;
     private GoogleMap mGoogleMap;
@@ -111,12 +111,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == 1) {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                //requestLocationUpdates demands an explicit permission check
+                
+                    //requestLocationUpdates demands an explicit permission check
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
@@ -149,8 +148,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         start = "";
         destination = "";
 
-        textViewStartLocation = (TextView) findViewById(R.id.textViewStartLocation);
-        textViewEndLocation = (TextView) findViewById(R.id.textViewEndLocation);
+        textViewStartLocation = (EditText) findViewById(R.id.textViewStartLocation);
+        textViewEndLocation = (EditText) findViewById(R.id.textViewEndLocation);
         buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
         mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
 
@@ -164,7 +163,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 createPath();
             }
         });
-
+        textViewEndLocation.setFocusable(false);
+        textViewStartLocation.setFocusable(false);
     }
 
     /**

@@ -5,32 +5,32 @@
     android:id="@+id/activity_create_route"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="10"
     android:orientation="vertical"
     tools:context="com.example.mrides.Activity.CreateRouteActivity">
 
-    <TextView
+    <EditText
         android:id="@+id/textViewStartLocation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
         android:textAlignment="center"
         android:text="@string/click_to_enter_start_address"
-        android:background="@drawable/back"/>
+        android:backgroundTint="@color/orangeAccent"/>
 
-
-    <TextView
+    <EditText
         android:id="@+id/textViewEndLocation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
         android:textAlignment="center"
         android:text="@string/click_to_enter_destination_address"
-        android:background="@drawable/back"/>
-
+        android:backgroundTint="@color/orangeAccent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
         android:orientation="horizontal"
         >
 
@@ -38,7 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/find_path"
-            android:id="@+id/buttonFindPath" />
+            android:background="@drawable/change_button"
+            style="@style/small_white"
+            android:id="@+id/buttonFindPath"/>
         <ImageView
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
@@ -72,12 +74,16 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="390dp" />
+        android:layout_height="0dip"
+        android:layout_weight="6.4" />
 
     <Button
         android:text="@string/save_changes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@drawable/squared_orange_button"
+        style="@style/medium_white"
         android:id="@+id/buttonSaveChanges"/>
 
 </LinearLayout>
