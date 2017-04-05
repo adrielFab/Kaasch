@@ -9,6 +9,7 @@ package com.example.mrides.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,13 +22,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.CustomList;
+import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
+import com.example.mrides.controller.RequestHandler;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -35,6 +39,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
@@ -46,7 +55,10 @@ public class HomePage extends AppCompatActivity implements
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
     private NavigationView navigationView;
-    private Dialog dialog;
+    private View headerView;
+    private ImageView imageView;
+    private TextView textViewNameNav;
+    private TextView textViewEmailNav;
 
     /**
      * Method that creates the activity
@@ -67,6 +79,23 @@ public class HomePage extends AppCompatActivity implements
 
         navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
+
+        String firstName = RequestHandler.getUser().getFirstName();
+        String lastName = RequestHandler.getUser().getLastName();
+        String username = firstName + " " + lastName;
+        String email = RequestHandler.getUser().getEmail();
+        String photoUrl = RequestHandler.getUser().getPhotoUrl();
+        System.out.println(photoUrl);
+        headerView = navigationView.getHeaderView(0);
+        imageView = (ImageView)headerView.findViewById(R.id.profile_image);
+        textViewNameNav = (TextView)headerView.findViewById(R.id.username);
+        textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
+
+        ImageConverter imageConverter = new ImageConverter(imageView);
+        imageConverter.execute(photoUrl);
+
+        textViewEmailNav.setText(email);
+        textViewNameNav.setText(username);
 
         tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
         textViewMatch = (TextView) findViewById(R.id.textViewMatch);
