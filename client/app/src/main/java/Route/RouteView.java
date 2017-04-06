@@ -30,8 +30,9 @@ public class RouteView implements ActivityObserver{
         Map<String, String> jsonbody = new HashMap<>();
         Map<String, String> userInfo = UserSerializer.getParameters(RequestHandler.getUser());
         requestHandler.httpPostStringRequest("http://"+context.getString(R.string.web_server_ip)  +
-                        "/getPassengersOnRoute.php",jsonbody ,
+                "/getPassengersOnRoute.php",jsonbody,
                 RequestHandler.URLENCODED ,context);
+
     }
 
     @Override
