@@ -189,7 +189,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         startObtainDirection();
         requestHandler.attach(this);
@@ -373,7 +373,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
 
         route.setDate(date);
@@ -401,7 +401,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             route = (Route) deserializer.parseJSON(response);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         successObtainDirection(route);
     }
