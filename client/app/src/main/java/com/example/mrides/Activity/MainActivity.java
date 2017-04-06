@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onComplete(@NonNull Task<AuthResult> task) {
         System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
         mProgressDialog.dismiss();
-        Intent intent = new Intent(MainActivity.this, FirstTimeActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomePage.class);
         startActivity(intent);
 
         if (!task.isSuccessful()) {
