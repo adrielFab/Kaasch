@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.login.GenderView;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.auth.api.Auth;
@@ -176,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/updateDeviceId.php", UserSerializer.getParameters(user),
                     RequestHandler.URLENCODED, this);
+            GenderView firstTimeLggedIn = new GenderView();
+            firstTimeLggedIn.checkFirstTimeLogin(this,mProgressDialog);
         }
     }
 
@@ -216,13 +219,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
-        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-        mProgressDialog.dismiss();
-        Intent intent = new Intent(MainActivity.this, HomePage.class);
-        startActivity(intent);
+
 
         if (!task.isSuccessful()) {
-
             System.out.println( task.getException());
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();
