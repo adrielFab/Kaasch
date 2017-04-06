@@ -36,12 +36,18 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
+
+    private ArrayList <String> routes = new ArrayList<>();
+    private HashMap<String, Button> hashRouteButton = new HashMap<>();
 
     /**
      * Method that creates the activity
@@ -52,7 +58,14 @@ public class HomePage extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        routes.add("ski trip");
+        routes.add("weekend stuff");
+        routes.add("work");
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
+
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(toggle);
@@ -117,20 +130,20 @@ public class HomePage extends AppCompatActivity implements
     }
 
     /**
-     * Displays the matched routes of the user
+     * Displays the active routes of the user
      */
     public void createRoutes() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScroll);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
-        Button button1 = createRouteButton("drive", true, 0);
-        Button button2 = createRouteButton("weekend stuff", false, 1);
-        Button button3 = createRouteButton("work", true, 1);
-        button1.setOnClickListener(this);
-        linearLayout.addView(button1, ll);
-        linearLayout.addView(button2, ll);
-        linearLayout.addView(button3, ll);
+
+        for (int i = 0; i < routes.size(); i++) {
+            Button button = createRouteButton(routes.get(i), true, i % 2);
+            hashRouteButton.put(routes.get(i), button);
+            button.setOnClickListener(this);
+            linearLayout.addView(button, ll);
+        }
     }
 
     /**
@@ -225,6 +238,10 @@ public class HomePage extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     *
+     * @param status
+     */
     @Override
     public void onResult(@NonNull Status status) {
         Intent intent = new Intent(HomePage.this, MainActivity.class);
@@ -236,9 +253,21 @@ public class HomePage extends AppCompatActivity implements
 
     }
 
+    /**
+     * This onClick handles all the clicks incoming from the route buttons
+     * @param view
+     */
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(HomePage.this, RouteActivity.class);
-        startActivity(intent);
+
+        for (HashMap.Entry<String, Button> entry : hashRouteButton.entrySet()) {
+            if (entry.getValue() == view) {
+                Intent intent = new Intent(HomePage.this, RouteActivity.class);
+                intent.putExtra("nameOfRoute", entry.getKey());
+                startActivity(intent);
+            }
+        }
+
     }
+
 }
