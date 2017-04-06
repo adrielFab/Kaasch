@@ -34,6 +34,8 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private ImageView imageView;
     private CustomList customList;
     private JSONArray ratingsJSON = new JSONArray();
+    private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
+    private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,15 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         Log.i("ROUTE", route);
 
         button = (Button) findViewById(R.id.ratingButton);
+        Button button = (Button) findViewById(R.id.ratingButton);
         button.setOnClickListener(this);
 
-        imageView = (ImageView) findViewById(R.id.imageTrash);
+        ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
 
         customList = new CustomList(this, names, imageid);
 
-        listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);
 
     }
