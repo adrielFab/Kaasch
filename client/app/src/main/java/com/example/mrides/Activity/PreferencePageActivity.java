@@ -219,12 +219,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     private void setDateTime() {
         //set current date
         Calendar c = Calendar.getInstance();
-        int mYear = c.get(Calendar.YEAR) %100;
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+         mYear = c.get(Calendar.YEAR) %100;
+         mMonth = c.get(Calendar.MONTH);
+         mDay = c.get(Calendar.DAY_OF_MONTH);
         txtDate.setText(mDay + "-" + mMonth + "-" + mYear);
         //set current time + 10mins
-        int mHour = c.get(Calendar.HOUR_OF_DAY);
+         mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMin = c.get(Calendar.MINUTE) + 10;
         txtTime.setText(mHour + ":" + mMin);
     }
