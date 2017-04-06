@@ -59,8 +59,6 @@ public class HomePage extends AppCompatActivity implements
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
     private ArrayList<Route> routeList = new ArrayList<>();
-
-    private ArrayList <String> routes = new ArrayList<>();
     private HashMap<String, Button> hashRouteButton = new HashMap<>();
 
     /**
@@ -71,10 +69,6 @@ public class HomePage extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-        routes.add("ski trip");
-        routes.add("weekend stuff");
-        routes.add("work");
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
 
@@ -118,7 +112,6 @@ public class HomePage extends AppCompatActivity implements
                 .build();
 
         retrieveRoutes();
-        createRoutes();
     }
 
     /**
@@ -151,12 +144,25 @@ public class HomePage extends AppCompatActivity implements
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
 
-        for (int i = 0; i < routes.size(); i++) {
-            Button button = createRouteButton(routes.get(i), true, i % 2);
-            hashRouteButton.put(routes.get(i), button);
-            button.setOnClickListener(this);
-            linearLayout.addView(button, ll);
-        }
+        if (routeList.size() > 0) {
+            for (int i = 0; i < routeList.size(); i++) {
+                int status = 1;
+                boolean type = false;
+
+                if (routeList.get(i).getRouteStatus().equals("PENDING")) {
+                    status = 0;
+                }
+
+                if (routeList.get(i).getUserType().equals("DRIVER")) {
+                    type = true;
+                }
+
+                Button button = createRouteButton(routeList.get(i).getTitle(), type, status);
+                hashRouteButton.put(routeList.get(i).getTitle(), button);
+                button.setOnClickListener(this);
+                linearLayout.addView(button, ll);
+            }
+        } 
 
     }
 
@@ -283,7 +289,7 @@ public class HomePage extends AppCompatActivity implements
         }
 
     }
-    
+
     public void retrieveRoutes() {
         RequestHandler requestHandler =  new RequestHandler();
         requestHandler.attach(this);
@@ -297,6 +303,8 @@ public class HomePage extends AppCompatActivity implements
 
     @Override
     public void Update(String response) {
+
+        Log.i("BOMB", response);
 
         if (response == null) {
             return;
@@ -318,11 +326,13 @@ public class HomePage extends AppCompatActivity implements
                 route.setRouteStatus(route_status);
 
                 routeList.add(route);
-                Log.i("LENGTH", Integer.toString(routeList.size()));
+
             }
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
 
+        System.out.println("WHOOOOOOOOOOOOOOOOOOOOo" + routeList);
+        createRoutes();
     }
 }
