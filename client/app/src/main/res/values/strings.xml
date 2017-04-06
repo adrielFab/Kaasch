@@ -51,5 +51,10 @@
     <string name="delete_confirm">Route deleted</string>
     <string name="welcome_to_mrides">Welcome to mRides</string>
     <string name="welcome_description">mRides is a carpooling application which will allow you to share rides with other users. No need to take the bus or drive alone. Find someone to carpool with. Save the environment and your pocket!</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
+    <string name="smoker">Smoker</string>
+    <string name="non_smoker">Non-Smoker</string>
+    <string name="i_am_ready">I AM READY</string>
 
 </resources>
