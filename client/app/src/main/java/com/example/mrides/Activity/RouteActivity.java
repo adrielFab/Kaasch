@@ -17,6 +17,8 @@ import com.example.mrides.R;
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView listView;
+
+    //Get all the information of the route
     private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
     private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
     private Button button;
@@ -47,7 +49,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 promptUserCancellation();
                 break;
             default:
-                backToHome();
+                submitRating();
                 Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
                 break;
         }
@@ -60,7 +62,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             .setMessage(R.string.prompt_message)
             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    backToHome();
+                    deleteRoute();
                     Toast.makeText(RouteActivity.this, R.string.delete_confirm, Toast.LENGTH_SHORT).show();
                 }
             })
@@ -73,7 +75,12 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             .show();
     }
 
-    public void backToHome() {
+    public void submitRating() {
+        Intent intent = new Intent(RouteActivity.this, HomePage.class);
+        startActivity(intent);
+    }
+
+    public void deleteRoute() {
         Intent intent = new Intent(RouteActivity.this, HomePage.class);
         startActivity(intent);
     }

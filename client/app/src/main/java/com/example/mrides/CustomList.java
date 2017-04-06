@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class CustomList extends ArrayAdapter {
 
     private String[] names;
     private Integer[] imageid;
     private Activity context;
     private RatingBar ratingBar;
+    private HashMap<String, Float> ratingOfUser = new HashMap<>();
 
     public CustomList(Activity context, String[] names, Integer[] imageid) {
         super(context, R.layout.list_layout, names);
@@ -25,7 +28,7 @@ public class CustomList extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout, null);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
@@ -38,8 +41,9 @@ public class CustomList extends ArrayAdapter {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                Log.i("Rating", "the rating is " + String.valueOf(v));
+            public void onRatingChanged(RatingBar ratingBar, float value, boolean b) {
+                ratingOfUser.put(names[position], value);
+                System.out.println(value + " " + names[position] );
             }
         });
 
