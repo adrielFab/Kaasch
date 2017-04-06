@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.mrides.CustomList;
 import com.example.mrides.R;
 
+import java.util.HashMap;
+
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView listView;
@@ -23,6 +25,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
     private Button button;
     private ImageView imageView;
+    private CustomList customList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
 
-        CustomList customList = new CustomList(this, names, imageid);
+        customList = new CustomList(this, names, imageid);
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);
@@ -76,13 +79,23 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void submitRating() {
-        Intent intent = new Intent(RouteActivity.this, HomePage.class);
-        startActivity(intent);
+
+        HashMap ratingsOfUser = customList.getRatings();
+
+        if ( ratingsOfUser.size() == names.length) {
+            Intent intent = new Intent(RouteActivity.this, HomePage.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void deleteRoute() {
         Intent intent = new Intent(RouteActivity.this, HomePage.class);
         startActivity(intent);
     }
+
 
 }

@@ -50,4 +50,8 @@ public class CustomList extends ArrayAdapter {
         return listViewItem;
     }
 
+    public HashMap getRatings() {
+        return this.ratingOfUser;
+    }
+
 }
