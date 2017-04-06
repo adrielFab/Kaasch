@@ -25,7 +25,7 @@ import java.util.Map;
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView listView;
-
+    private String route;
     //Get all the information of the route
     private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
     private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
@@ -38,6 +38,9 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
+
+        route = getIntent().getExtras().getString("nameOfRoute");
+        Log.i("ROUTE", route);
 
         button = (Button) findViewById(R.id.ratingButton);
         button.setOnClickListener(this);
