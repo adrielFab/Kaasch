@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
     private User user;
-    private FirebaseUser firebaseuser;
     private GoogleSignInAccount googleuser;
     private ProgressDialog mProgressDialog;
 
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        firebaseuser = firebaseAuth.getCurrentUser();
+        FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
 
         if (firebaseuser != null && googleuser!= null) {
             // User is signed in

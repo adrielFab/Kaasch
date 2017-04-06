@@ -23,8 +23,6 @@ import java.util.Map;
 public class InboxActivity extends AppCompatActivity implements ActivityObserver{
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RemoteMessage notification;
     private RequestHandler requestHandler = new RequestHandler();
     private List<Invitation> invitations = new ArrayList<>();
@@ -46,7 +44,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         getInboxData(); //TODO call this method to get the list of inbox data
 
@@ -63,7 +61,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
     @Override
     public void Update(String response) {
         handlepopulateInboxResponse(response);
-        mAdapter = new InboxAdapter(this,invitations);
+        RecyclerView.Adapter mAdapter = new InboxAdapter(this,invitations);
         mRecyclerView.setAdapter(mAdapter);
     }
 

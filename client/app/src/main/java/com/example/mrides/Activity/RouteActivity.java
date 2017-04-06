@@ -16,26 +16,23 @@ import com.example.mrides.R;
 
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ListView listView;
     private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
     private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
-    private Button button;
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
 
-        button = (Button) findViewById(R.id.ratingButton);
+        Button button = (Button) findViewById(R.id.ratingButton);
         button.setOnClickListener(this);
 
-        imageView = (ImageView) findViewById(R.id.imageTrash);
+        ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
 
         CustomList customList = new CustomList(this, names, imageid);
 
-        listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);
 
     }

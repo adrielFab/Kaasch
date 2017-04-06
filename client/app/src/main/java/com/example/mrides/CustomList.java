@@ -15,7 +15,6 @@ public class CustomList extends ArrayAdapter {
     private String[] names;
     private Integer[] imageid;
     private Activity context;
-    private RatingBar ratingBar;
 
     public CustomList(Activity context, String[] names, Integer[] imageid) {
         super(context, R.layout.list_layout, names);
@@ -29,7 +28,7 @@ public class CustomList extends ArrayAdapter {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout, null);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        ratingBar = (RatingBar) listViewItem.findViewById(R.id.ratingBar);
+        RatingBar ratingBar = (RatingBar) listViewItem.findViewById(R.id.ratingBar);
         ImageView image = (ImageView) listViewItem.findViewById(R.id.imageView);
 
         textViewName.setText(names[position]);

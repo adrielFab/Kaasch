@@ -27,20 +27,16 @@ import java.util.Calendar;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnDatePicker;
-    private Button btnTimePicker;
     private ImageView btnSmokePref;
     private ImageView btnMalePref;
     private ImageView btnFemalePref;
     private EditText txtDate;
     private EditText txtTime;
     private RadioGroup radioTypeGroup;
-    private RadioButton radioTypeButton;
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mHour;
-    private int mMinute;
     private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
@@ -55,8 +51,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         radioTypeGroup = (RadioGroup) findViewById(R.id.radioGroupType);
 
-        btnDatePicker=(Button)findViewById(R.id.btn_date);
-        btnTimePicker=(Button)findViewById(R.id.btn_time);
+        Button btnDatePicker=(Button)findViewById(R.id.btn_date);
+        Button btnTimePicker=(Button)findViewById(R.id.btn_time);
 
         txtDate = (EditText) findViewById(R.id.in_date);
         txtTime = (EditText) findViewById(R.id.in_time);
@@ -81,7 +77,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      */
     public void goToCreateRoute(View view) {
         int selectedId = radioTypeGroup.getCheckedRadioButtonId();
-        radioTypeButton = (RadioButton) findViewById(selectedId);
+        RadioButton radioTypeButton = (RadioButton) findViewById(selectedId);
 
         String choice = radioTypeButton.getText().toString();
 
@@ -142,7 +138,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 // Get Current Time
                 final Calendar ct = Calendar.getInstance();
                 mHour = ct.get(Calendar.HOUR_OF_DAY);
-                mMinute = ct.get(Calendar.MINUTE);
+                int mMinute = ct.get(Calendar.MINUTE);
                 // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                         new TimePickerDialog.OnTimeSetListener() {

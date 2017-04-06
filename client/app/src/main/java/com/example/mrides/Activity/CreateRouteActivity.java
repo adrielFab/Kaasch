@@ -74,8 +74,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     private EditText textViewStartLocation;
     private EditText textViewEndLocation;
-    private Button mButtonFindPath;
-    private Button buttonSaveChanges;
     private GoogleMap mGoogleMap;
     private ProgressDialog mProgressDialog;
     private List<Marker> startMarkers = new ArrayList<>();
@@ -149,8 +147,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         textViewStartLocation = (EditText) findViewById(R.id.textViewStartLocation);
         textViewEndLocation = (EditText) findViewById(R.id.textViewEndLocation);
-        buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
-        mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
+        Button buttonSaveChanges = (Button) findViewById(R.id.buttonSaveChanges);
+        Button mButtonFindPath = (Button) findViewById(R.id.buttonFindPath);
 
         textViewStartLocation.setOnClickListener(this);
         textViewEndLocation.setOnClickListener(this);
