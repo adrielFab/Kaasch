@@ -7,7 +7,6 @@ package DirectionModel;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 

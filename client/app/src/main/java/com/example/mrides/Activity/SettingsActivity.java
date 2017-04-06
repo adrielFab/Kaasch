@@ -1,7 +1,7 @@
 package com.example.mrides.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.mrides.R;
 

@@ -8,12 +8,11 @@ package com.example.mrides.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
@@ -35,8 +34,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
         OnCompleteListener<AuthResult>{
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
     private User user;
-    private FirebaseUser firebaseuser;
     private GoogleSignInAccount googleuser;
     private ProgressDialog mProgressDialog;
 
@@ -199,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-        firebaseuser = firebaseAuth.getCurrentUser();
+        FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
 
         if (firebaseuser != null && googleuser!= null) {
             // User is signed in

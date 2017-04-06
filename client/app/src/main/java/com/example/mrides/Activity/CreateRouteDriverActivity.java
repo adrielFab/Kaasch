@@ -3,8 +3,6 @@ package com.example.mrides.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.mrides.R;
-
 public class CreateRouteDriverActivity extends CreateRouteActivity {
 
     @Override

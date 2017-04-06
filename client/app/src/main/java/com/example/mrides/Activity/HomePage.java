@@ -6,29 +6,25 @@
 */
 package com.example.mrides.Activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mrides.CustomList;
 import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
@@ -40,25 +36,12 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
-    private Typeface tf1;
-    private TextView textViewMatch;
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
-    private NavigationView navigationView;
-    private View headerView;
-    private ImageView imageView;
-    private TextView textViewNameNav;
-    private TextView textViewEmailNav;
 
     /**
      * Method that creates the activity
@@ -69,7 +52,7 @@ public class HomePage extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(toggle);
@@ -77,7 +60,7 @@ public class HomePage extends AppCompatActivity implements
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
         String firstName = RequestHandler.getUser().getFirstName();
@@ -86,10 +69,10 @@ public class HomePage extends AppCompatActivity implements
         String email = RequestHandler.getUser().getEmail();
         String photoUrl = RequestHandler.getUser().getPhotoUrl();
         System.out.println(photoUrl);
-        headerView = navigationView.getHeaderView(0);
-        imageView = (ImageView)headerView.findViewById(R.id.profile_image);
-        textViewNameNav = (TextView)headerView.findViewById(R.id.username);
-        textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)headerView.findViewById(R.id.profile_image);
+        TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
+        TextView textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
 
         ImageConverter imageConverter = new ImageConverter(imageView);
         imageConverter.execute(photoUrl);
@@ -97,8 +80,8 @@ public class HomePage extends AppCompatActivity implements
         textViewEmailNav.setText(email);
         textViewNameNav.setText(username);
 
-        tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
-        textViewMatch = (TextView) findViewById(R.id.textViewMatch);
+        Typeface tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
+        TextView textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

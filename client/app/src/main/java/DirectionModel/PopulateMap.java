@@ -6,14 +6,17 @@
 package DirectionModel;
 
 import android.content.Context;
+
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class PopulateMap implements ActivityObserver{
