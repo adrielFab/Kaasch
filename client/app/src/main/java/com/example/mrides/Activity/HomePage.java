@@ -53,6 +53,7 @@ public class HomePage extends AppCompatActivity implements
     private ImageView imageView;
     private TextView textViewNameNav;
     private TextView textViewEmailNav;
+
     private ArrayList <String> routes = new ArrayList<>();
     private HashMap<String, Button> hashRouteButton = new HashMap<>();
 
@@ -148,13 +149,6 @@ public class HomePage extends AppCompatActivity implements
             button.setOnClickListener(this);
             linearLayout.addView(button, ll);
         }
-//        Button button1 = createRouteButton("drive", true, 0);
-//        Button button2 = createRouteButton("weekend stuff", false, 1);
-//        Button button3 = createRouteButton("work", true, 1);
-//        button1.setOnClickListener(this);
-//        linearLayout.addView(button1, ll);
-//        linearLayout.addView(button2, ll);
-//        linearLayout.addView(button3, ll);
     }
 
     /**
@@ -249,6 +243,10 @@ public class HomePage extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     *
+     * @param status
+     */
     @Override
     public void onResult(@NonNull Status status) {
         Intent intent = new Intent(HomePage.this, MainActivity.class);
@@ -260,6 +258,10 @@ public class HomePage extends AppCompatActivity implements
 
     }
 
+    /**
+     * This onClick handles all the clicks incoming from the route buttons
+     * @param view
+     */
     @Override
     public void onClick(View view) {
 
@@ -272,4 +274,5 @@ public class HomePage extends AppCompatActivity implements
         }
 
     }
+
 }

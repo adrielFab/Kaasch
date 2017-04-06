@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,9 +108,10 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
         if ( ratingsOfUser.size() == names.length) {
             jsonConversion(ratingsOfUser);
+            deleteRoute();
             Intent intent = new Intent(RouteActivity.this, HomePage.class);
             startActivity(intent);
-            Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RouteActivity.this, "Ratings have been submitted" + route, Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
