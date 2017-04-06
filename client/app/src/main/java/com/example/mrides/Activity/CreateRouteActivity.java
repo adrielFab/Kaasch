@@ -294,7 +294,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
         }
 
-        if (role.equals("driver")) {
+        if ("driver".equals(role)) {
             mGoogleMap.setOnMarkerClickListener(this);
         }
     }
