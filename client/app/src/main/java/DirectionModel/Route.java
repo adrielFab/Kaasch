@@ -22,7 +22,7 @@ public class Route {
     private String startAddress;
     private LatLng startLocation;
     private List<LatLng> points;
-    private String routeType;
+    private String userType;
     private String routeStatus;
 
     public Route () {
@@ -212,16 +212,16 @@ public class Route {
      * Getter method for the route type
      * @return
      */
-    public String getRouteType() {
-        return routeType;
+    public String getUserType() {
+        return userType;
     }
 
     /**
      * Mutator method for the route type
-     * @param routeType
+     * @param userType
      */
-    public void setRouteType(String routeType) {
-        this.routeType = routeType;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     /**

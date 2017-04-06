@@ -42,9 +42,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import DirectionModel.Route;
 
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
@@ -52,6 +56,7 @@ public class HomePage extends AppCompatActivity implements
 
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
+    private ArrayList<Route> routeList = new ArrayList<>();
 
     /**
      * Method that creates the activity
@@ -135,6 +140,7 @@ public class HomePage extends AppCompatActivity implements
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
+
         Button button1 = createRouteButton("drive", true, 0);
         Button button2 = createRouteButton("weekend stuff", false, 1);
         Button button3 = createRouteButton("work", true, 1);
@@ -271,15 +277,26 @@ public class HomePage extends AppCompatActivity implements
             return;
         }
 
-        JSONArray jsonArray = null;
         try {
-             jsonArray = new JSONArray(response);
+            JSONArray jsonArray = new JSONArray(response);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Route route = new Route();
+
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                String user_type = jsonObject.getString("user_type");
+                String title = jsonObject.getString("route_name");
+                String route_status = jsonObject.getString("route_status");
+
+                route.setUserType(user_type);
+                route.setTitle(title);
+                route.setRouteStatus(route_status);
+
+                routeList.add(route);
+                Log.i("LENGTH", Integer.toString(routeList.size()));
+            }
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
-        }
-
-        for (int i = 0; i < jsonArray.length(); i++ ) {
-
         }
 
     }
