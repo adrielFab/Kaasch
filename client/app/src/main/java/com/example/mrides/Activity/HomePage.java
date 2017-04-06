@@ -40,16 +40,8 @@ public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
-    private Typeface tf1;
-    private TextView textViewMatch;
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
-    private NavigationView navigationView;
-    private View headerView;
-    private ImageView imageView;
-    private TextView textViewNameNav;
-    private TextView textViewEmailNav;
 
     /**
      * Method that creates the activity
@@ -60,7 +52,7 @@ public class HomePage extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(toggle);
@@ -68,7 +60,7 @@ public class HomePage extends AppCompatActivity implements
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_drawer);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
         String firstName = RequestHandler.getUser().getFirstName();
@@ -77,10 +69,10 @@ public class HomePage extends AppCompatActivity implements
         String email = RequestHandler.getUser().getEmail();
         String photoUrl = RequestHandler.getUser().getPhotoUrl();
         System.out.println(photoUrl);
-        headerView = navigationView.getHeaderView(0);
-        imageView = (ImageView)headerView.findViewById(R.id.profile_image);
-        textViewNameNav = (TextView)headerView.findViewById(R.id.username);
-        textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)headerView.findViewById(R.id.profile_image);
+        TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
+        TextView textViewEmailNav = (TextView)headerView.findViewById(R.id.email);
 
         ImageConverter imageConverter = new ImageConverter(imageView);
         imageConverter.execute(photoUrl);
@@ -88,8 +80,8 @@ public class HomePage extends AppCompatActivity implements
         textViewEmailNav.setText(email);
         textViewNameNav.setText(username);
 
-        tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
-        textViewMatch = (TextView) findViewById(R.id.textViewMatch);
+        Typeface tf1 = Typeface.createFromAsset(getAssets(), "Ubuntu-L.ttf");
+        TextView textViewMatch = (TextView) findViewById(R.id.textViewMatch);
         textViewMatch.setTypeface(tf1);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
