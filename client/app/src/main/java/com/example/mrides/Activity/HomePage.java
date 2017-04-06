@@ -17,6 +17,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,9 @@ import android.widget.Toast;
 import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.User;
+import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -36,9 +40,15 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
-        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ActivityObserver {
 
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
@@ -92,6 +102,7 @@ public class HomePage extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        retrieveRoutes();
         createRoutes();
     }
 
@@ -240,5 +251,36 @@ public class HomePage extends AppCompatActivity implements
     public void onClick(View view) {
         Intent intent = new Intent(HomePage.this, RouteActivity.class);
         startActivity(intent);
+    }
+
+    public void retrieveRoutes() {
+        RequestHandler requestHandler =  new RequestHandler();
+        requestHandler.attach(this);
+
+        Map<String,String> jsonBody = new HashMap<>();
+        jsonBody.put(User.ParameterKeys.EMAIL.toString(), RequestHandler.getUser().getEmail());
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/retreive_routes.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
+    }
+
+    @Override
+    public void Update(String response) {
+
+        if (response == null) {
+            return;
+        }
+
+        JSONArray jsonArray = null;
+        try {
+             jsonArray = new JSONArray(response);
+        } catch (JSONException e) {
+            Log.e("Error: ", e.toString());
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++ ) {
+
+        }
+
     }
 }

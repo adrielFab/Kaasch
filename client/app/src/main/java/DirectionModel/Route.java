@@ -22,6 +22,8 @@ public class Route {
     private String startAddress;
     private LatLng startLocation;
     private List<LatLng> points;
+    private String routeType;
+    private String routeStatus;
 
     public Route () {
 
@@ -204,6 +206,38 @@ public class Route {
     public void setPoints(List<LatLng> points) {
 
         this.points = points;
+    }
+
+    /**
+     * Getter method for the route type
+     * @return
+     */
+    public String getRouteType() {
+        return routeType;
+    }
+
+    /**
+     * Mutator method for the route type
+     * @param routeType
+     */
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    /**
+     * Getter method for the route status
+     * @return
+     */
+    public String getRouteStatus() {
+        return routeStatus;
+    }
+
+    /**
+     * Mutator method for the route status
+     * @param routeStatus
+     */
+    public void setRouteStatus(String routeStatus) {
+        this.routeStatus = routeStatus;
     }
 
 }
