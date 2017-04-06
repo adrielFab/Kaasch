@@ -32,6 +32,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private Button button;
     private ImageView imageView;
     private CustomList customList;
+    private JSONArray ratingsJSON = new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,6 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 break;
             default:
                 submitRating();
-                Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -106,6 +106,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             jsonConversion(ratingsOfUser);
             Intent intent = new Intent(RouteActivity.this, HomePage.class);
             startActivity(intent);
+            Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
@@ -126,13 +127,12 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      * by the web server
      */
     public void jsonConversion(HashMap<String, Float> hashMap) {
-        JSONArray jsonArray = new JSONArray();
 
         for (Map.Entry<String, Float> entry : hashMap.entrySet()) {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put(entry.getKey(), entry.getValue());
-                jsonArray.put(jsonObject);
+                ratingsJSON.put(jsonObject);
             } catch (JSONException e) {
                 Log.e("RouteActivity error: ", e.toString());
             }
