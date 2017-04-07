@@ -44,6 +44,8 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
             case R.id.buttonCancel:
                 dialog.cancel();
                 break;
+            default:
+                break;
         }
     }
 

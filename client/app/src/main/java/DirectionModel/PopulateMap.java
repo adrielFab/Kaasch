@@ -52,9 +52,9 @@ public class PopulateMap implements ActivityObserver{
      * @param context the context of the activty making the request
      */
     public void requestUsers(Context context) {
-        String retrieve_url = "http://successdrivingschool.ca/test2_android.php";
+        String retrieveUrl = "http://successdrivingschool.ca/test2_android.php";
         requestHandler.attach(this);
-        requestHandler.httpGetStringRequest(retrieve_url,context);
+        requestHandler.httpGetStringRequest(retrieveUrl,context);
     }
 
     /**

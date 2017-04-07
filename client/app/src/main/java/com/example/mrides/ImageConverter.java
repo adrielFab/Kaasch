@@ -32,6 +32,7 @@ public class ImageConverter extends AsyncTask<String, Void, Bitmap>{
     }
 
     protected void onPostExecute(Bitmap result) {
-        imageView.setImageBitmap(result);
+
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(result, 350, 350, false));
     }
 }
