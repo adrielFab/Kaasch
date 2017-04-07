@@ -46,7 +46,6 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_route);
 
         route = getIntent().getExtras().getString("nameOfRoute");
-        Log.i("FOOLS", route);
 
         Button button = (Button) findViewById(R.id.ratingButton);
         button.setOnClickListener(this);

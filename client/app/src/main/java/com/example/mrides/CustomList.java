@@ -22,7 +22,7 @@ public class CustomList extends ArrayAdapter {
     private Activity context;
     private HashMap<String, Float> ratingOfUser = new HashMap<>();
 
-    public CustomList(Activity context, ArrayList<String> names, ArrayList<String>photoURL) {
+    public CustomList(Activity context, ArrayList<String> names, ArrayList<String> photoURL) {
         super(context, R.layout.list_layout, names);
         this.context = context;
         this.names = names;
