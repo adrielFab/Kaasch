@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewDurationValue"
-            android:layout_weight="0.50"
+            android:layout_weight="0.37"
             android:gravity="center_horizontal"
             android:textSize="30dp"/>
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewPriceValue"
-            android:layout_weight="0.13"
+            android:layout_weight="0.29"
             android:gravity="center_horizontal"
             android:textSize="30dp"/>
     </LinearLayout>

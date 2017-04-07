@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.CustomList;
@@ -21,22 +22,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener, ActivityObserver {
 
-    private ListView listView;
     private String route;
-    //Get all the information of the route
-//    private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
-//    private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> photoURL = new ArrayList<>();
-
     private CustomList customList;
     private JSONArray ratingsJSON = new JSONArray();
+    private String distance;
+    private String duration;
+    private final double GAS_PRICE = 1.20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
         ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
+
 
         retrievePassengers();
 
@@ -160,6 +162,17 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 RequestHandler.URLENCODED ,this);
     }
 
+    /**
+     * The response received from the web server is a list of passengers and the metrics
+     *
+     * The format of the JSON response is that the LAST jsonObject contains the metrics
+     * This implies that the first JSONObjects in the array are passengers, and the last
+     * one which is (jsonArray.length - 1) will always be the metrics Object
+     *
+     * This format explains why the loop does not go through the last entry, and why
+     * the last entry retrieves different keys from the jsonArray
+     * @param response A string response formatted in a json string returned from the request handler
+     */
     @Override
     public void Update(String response) {
         if (response == null) {
@@ -169,7 +182,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         try {
             JSONArray jsonArray = new JSONArray(response);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length()-1; i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 String firstName = jsonObject.getString("first_name");
                 String lastName = jsonObject.getString("last_name");
@@ -178,15 +191,51 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
                 names.add(name);
                 photoURL.add(photoUrl);
-
             }
+
+            JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length()-1);
+            duration = jsonObject.getString("duration");
+            distance = jsonObject.getString("distance");
+            Log.i("VALUEE", duration.getClass().getName() + " and " + distance);
+
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
 
         populateTheList();
+        displayMetrics();
     }
 
+    /**
+     * Method that displays the metrics of the given route
+     * The metrics that are being displayed are duration (in minutes), distance (in km), and
+     * price (in canadian dollars)
+     *
+     * The price is calculated by the distance multiplied by the gas price
+     */
+    public void displayMetrics() {
+        TextView textViewDuration = (TextView) findViewById(R.id.textViewDurationValue);
+        TextView textViewDistance = (TextView) findViewById(R.id.textViewDistanceValue);
+        TextView textViewPrice = (TextView) findViewById(R.id.textViewPriceValue);
+
+        textViewDistance.setText(distance);
+        textViewDuration.setText(duration);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
+        double distanceValue = Double.parseDouble(distance);
+        double doublePrice = distanceValue*GAS_PRICE;
+        double roundOff = (double) Math.round(doublePrice * 100) / 100;
+        String totalPrice = Double.toString(roundOff);
+        textViewPrice.setText(totalPrice);
+    }
+
+    /**
+     * This method populates the list view by displaying the people who are a part of that route
+     * What will be shown for each user is their name and their profile picture, with the option
+     * to rate the user
+     */
     public void populateTheList() {
         customList = new CustomList(this, names, photoURL);
 
