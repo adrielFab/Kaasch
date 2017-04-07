@@ -164,6 +164,17 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 RequestHandler.URLENCODED ,this);
     }
 
+    /**
+     * The response received from the web server is a list of passengers and the metrics
+     *
+     * The format of the JSON response is that the LAST jsonObject contains the metrics
+     * This implies that the first JSONObjects in the array are passengers, and the last
+     * one which is (jsonArray.length - 1) will always be the metrics Object
+     *
+     * This format explains why the loop does not go through the last entry, and why
+     * the last entry retrieves different keys from the jsonArray
+     * @param response A string response formatted in a json string returned from the request handler
+     */
     @Override
     public void Update(String response) {
         if (response == null) {
@@ -197,6 +208,13 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         displayMetrics();
     }
 
+    /**
+     * Method that displays the metrics of the given route
+     * The metrics that are being displayed are duration (in minutes), distance (in km), and
+     * price (in canadian dollars)
+     *
+     * The price is calculated by the distance multiplied by the gas price
+     */
     public void displayMetrics() {
         TextView textViewDuration = (TextView) findViewById(R.id.textViewDurationValue);
         TextView textViewDistance = (TextView) findViewById(R.id.textViewDistanceValue);
@@ -215,6 +233,11 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         textViewPrice.setText(totalPrice);
     }
 
+    /**
+     * This method populates the list view by displaying the people who are a part of that route
+     * What will be shown for each user is their name and their profile picture, with the option
+     * to rate the user
+     */
     public void populateTheList() {
         customList = new CustomList(this, names, photoURL);
 
