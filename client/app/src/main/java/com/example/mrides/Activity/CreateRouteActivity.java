@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.Invitation.Invitation;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
@@ -95,8 +96,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     final static int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String in_date;
     private String in_time;
-    private String in_title;
     private String role;
+    private List<Invitation> invitations = new ArrayList<>();
 
     /**
      * Method that requests the user to capture their current location

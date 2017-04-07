@@ -9,4 +9,10 @@ public class Invitation {
     private User driver;
     private Passenger passenger;
 
+    public Invitation(String driverRouteName, User driver, Passenger passenger) {
+        this.driverRouteName = driverRouteName;
+        this.driver = driver;
+        this.passenger = passenger;
+    }
+
 }
