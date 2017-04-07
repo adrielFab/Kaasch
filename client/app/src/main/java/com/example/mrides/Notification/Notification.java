@@ -1,7 +1,7 @@
 package com.example.mrides.Notification;
 
 
-public class Invitation {
+public class Notification {
 
     private String driverEmail;
     private String driverReview;
@@ -9,8 +9,8 @@ public class Invitation {
     private String firstName;
     private String lastName;
 
-    public Invitation(String driverEmail, String driverReview, String driverProfilePicRul,
-                      String firstName, String lastName) {
+    public Notification(String driverEmail, String driverReview, String driverProfilePicRul,
+                        String firstName, String lastName) {
         this.driverEmail = driverEmail;
         this.driverReview = driverReview;
         this.driverProfilePicRul = driverProfilePicRul;

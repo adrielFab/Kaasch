@@ -18,13 +18,13 @@ import java.util.Map;
 
 public class UserProfileListener implements View.OnClickListener, ActivityObserver{
 
-    private Invitation invitation;
+    private Notification notification;
     private Dialog dialog;
     private Context inboxContext;
     private RequestHandler requestHandler = new RequestHandler();
 
-    public UserProfileListener(Invitation invitation, Context inboxContext) {
-        this.invitation = invitation;
+    public UserProfileListener(Notification notification, Context inboxContext) {
+        this.notification = notification;
         this.inboxContext = inboxContext;
     }
 
@@ -59,10 +59,10 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         dialog.show();
 
         TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
-        textViewFullName.setText(invitation.getFirstName());
+        textViewFullName.setText(notification.getFirstName());
 
         TextView textViewEmail = (TextView) dialog.findViewById(R.id.textViewEmail);
-        textViewEmail.setText(invitation.getDriverEmail());
+        textViewEmail.setText(notification.getDriverEmail());
 
         ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
         //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
@@ -86,7 +86,7 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         requestHandler.attach(this);
         Map<String, String> responseBody = new HashMap<>();
         String passengerWhoConfrimedEmail = RequestHandler.getUser().getEmail();
-        String driverEmail = invitation.getDriverEmail();
+        String driverEmail = notification.getDriverEmail();
         responseBody.put("driverEmail", driverEmail);
         responseBody.put("passengerEmail", passengerWhoConfrimedEmail);
         requestHandler.httpPostStringRequest("http://"+inboxContext.getString(R.string.web_server_ip)+

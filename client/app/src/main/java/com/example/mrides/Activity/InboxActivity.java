@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.mrides.Notification.InboxAdapter;
-import com.example.mrides.Notification.Invitation;
+import com.example.mrides.Notification.Notification;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
@@ -25,7 +25,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
     private RecyclerView mRecyclerView;
     private RemoteMessage notification;
     private RequestHandler requestHandler = new RequestHandler();
-    private List<Invitation> invitations = new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>();
 
     /**
      * When the inbox is created the inbox gets a list of past notifications, inorder
@@ -61,7 +61,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
     @Override
     public void Update(String response) {
         handlepopulateInboxResponse(response);
-        RecyclerView.Adapter mAdapter = new InboxAdapter(this,invitations);
+        RecyclerView.Adapter mAdapter = new InboxAdapter(this, notifications);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -70,10 +70,10 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
             JSONArray invites = new JSONArray(response);
             for(int index =0;index<invites.length();index++) {
                 JSONObject inviteJson = invites.getJSONObject(index);
-                Invitation invite = new Invitation(inviteJson.getString("email"),
+                Notification invite = new Notification(inviteJson.getString("email"),
                         inviteJson.getString("rating"),inviteJson.getString("profile_picture"),
                         inviteJson.getString("first_name"),inviteJson.getString("last_name"));
-                invitations.add(invite);
+                notifications.add(invite);
             }
         } catch (JSONException e) {
             e.printStackTrace();
