@@ -54,7 +54,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
 
-        customList = new CustomList(this, names, imageid);
+        customList = new CustomList(this, names, photoURL);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);
@@ -192,6 +192,5 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
-        createRoutes();
     }
 }

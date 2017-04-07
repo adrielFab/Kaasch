@@ -1,6 +1,8 @@
 package com.example.mrides;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +12,21 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CustomList extends ArrayAdapter {
 
-    private String[] names;
-    private Integer[] imageid;
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> photoURL = new ArrayList<>();
     private Activity context;
-    private RatingBar ratingBar;
     private HashMap<String, Float> ratingOfUser = new HashMap<>();
 
-    public CustomList(Activity context, String[] names, Integer[] imageid) {
+    public CustomList(Activity context, ArrayList<String> names, ArrayList<String>photoURL) {
         super(context, R.layout.list_layout, names);
         this.context = context;
         this.names = names;
-        this.imageid = imageid;
+        this.photoURL = photoURL;
     }
 
     @Override
@@ -36,7 +38,8 @@ public class CustomList extends ArrayAdapter {
         ImageView image = (ImageView) listViewItem.findViewById(R.id.imageView);
 
         textViewName.setText(names[position]);
-        image.setImageResource(imageid[position]);
+        ImageConverter imageConverter = new ImageConverter(image);
+        imageConverter.execute(photoURL[position]);
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
