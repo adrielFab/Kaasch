@@ -28,17 +28,14 @@ import java.util.Map;
 import DirectionModel.Route;
 
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener, ActivityObserver {
-
-    private ListView listView;
+    
     private String route;
-    //Get all the information of the route
-//    private String [] names = {"Adriel Fabella", "Ioan Cioca", "Harisson Andriamanantena", "An Ran Chen"};
-//    private Integer [] imageid = {R.drawable.photo, R.drawable.photo, R.drawable.photo, R.drawable.photo};
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> photoURL = new ArrayList<>();
-
     private CustomList customList;
     private JSONArray ratingsJSON = new JSONArray();
+    private String distance;
+    private String duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +168,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         try {
             JSONArray jsonArray = new JSONArray(response);
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length()-1; i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 String firstName = jsonObject.getString("first_name");
                 String lastName = jsonObject.getString("last_name");
@@ -180,8 +177,12 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
                 names.add(name);
                 photoURL.add(photoUrl);
-
             }
+
+            JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length()-1);
+            duration = jsonObject.getString("duration");
+            distance = jsonObject.getString("distance");
+
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
