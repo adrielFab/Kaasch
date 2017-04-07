@@ -17,6 +17,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,9 @@ import android.widget.Toast;
 import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.User;
+import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -36,12 +40,26 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import DirectionModel.Route;
+
+
+
 public class HomePage extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,ResultCallback<Status>,
-        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+        GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ActivityObserver {
 
     private ActionBarDrawerToggle toggle;
     private GoogleApiClient mGoogleApiClient;
+    private ArrayList<Route> routeList = new ArrayList<>();
+    private HashMap<String, Button> hashRouteButton = new HashMap<>();
 
     /**
      * Method that creates the activity
@@ -53,6 +71,7 @@ public class HomePage extends AppCompatActivity implements
         setContentView(R.layout.activity_home_page);
 
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.activity_home_page);
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
         drawerLayout.addDrawerListener(toggle);
@@ -92,7 +111,7 @@ public class HomePage extends AppCompatActivity implements
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        createRoutes();
+        retrieveRoutes();
     }
 
     /**
@@ -117,20 +136,34 @@ public class HomePage extends AppCompatActivity implements
     }
 
     /**
-     * Displays the matched routes of the user
+     * Displays the active routes of the user
      */
     public void createRoutes() {
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layoutScroll);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
-        Button button1 = createRouteButton("drive", true, 0);
-        Button button2 = createRouteButton("weekend stuff", false, 1);
-        Button button3 = createRouteButton("work", true, 1);
-        button1.setOnClickListener(this);
-        linearLayout.addView(button1, ll);
-        linearLayout.addView(button2, ll);
-        linearLayout.addView(button3, ll);
+
+        if (routeList.size() > 0) {
+            for (int i = 0; i < routeList.size(); i++) {
+                int status = 1;
+                boolean type = false;
+
+                if (routeList.get(i).getRouteStatus().equals("PENDING")) {
+                    status = 0;
+                }
+
+                if (routeList.get(i).getUserType().equals("DRIVER")) {
+                    type = true;
+                }
+
+                Button button = createRouteButton(routeList.get(i).getTitle(), type, status);
+                hashRouteButton.put(routeList.get(i).getTitle(), button);
+                button.setOnClickListener(this);
+                linearLayout.addView(button, ll);
+            }
+        } 
+
     }
 
     /**
@@ -225,6 +258,10 @@ public class HomePage extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     *
+     * @param status
+     */
     @Override
     public void onResult(@NonNull Status status) {
         Intent intent = new Intent(HomePage.this, MainActivity.class);
@@ -236,9 +273,66 @@ public class HomePage extends AppCompatActivity implements
 
     }
 
+    /**
+     * This onClick handles all the clicks incoming from the route buttons
+     * @param view
+     */
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(HomePage.this, RouteActivity.class);
-        startActivity(intent);
+
+        for (HashMap.Entry<String, Button> entry : hashRouteButton.entrySet()) {
+            if (entry.getValue() == view) {
+                Intent intent = new Intent(HomePage.this, RouteActivity.class);
+                intent.putExtra("nameOfRoute", entry.getKey());
+                startActivity(intent);
+            }
+        }
+
+    }
+
+    public void retrieveRoutes() {
+        RequestHandler requestHandler =  new RequestHandler();
+        requestHandler.attach(this);
+
+        Map<String,String> jsonBody = new HashMap<>();
+        jsonBody.put(User.ParameterKeys.EMAIL.toString(), RequestHandler.getUser().getEmail());
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/retreive_routes.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
+    }
+
+    @Override
+    public void Update(String response) {
+
+        Log.i("BOMB", response);
+
+        if (response == null) {
+            return;
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Route route = new Route();
+
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                String user_type = jsonObject.getString("user_type");
+                String title = jsonObject.getString("route_name");
+                String route_status = jsonObject.getString("route_status");
+
+                route.setUserType(user_type);
+                route.setTitle(title);
+                route.setRouteStatus(route_status);
+
+                routeList.add(route);
+
+            }
+        } catch (JSONException e) {
+            Log.e("Error: ", e.toString());
+        }
+
+        System.out.println("WHOOOOOOOOOOOOOOOOOOOOo" + routeList);
+        createRoutes();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.mrides.Activity;
 
 
+import org.json.JSONException;
+
 @FunctionalInterface
 public interface ActivityObserver {
 
