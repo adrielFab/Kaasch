@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.CustomList;
@@ -21,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +31,7 @@ import java.util.Map;
 import DirectionModel.Route;
 
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener, ActivityObserver {
-    
+
     private String route;
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> photoURL = new ArrayList<>();
@@ -36,6 +39,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private JSONArray ratingsJSON = new JSONArray();
     private String distance;
     private String duration;
+    private final double GAS_PRICE = 1.20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
         ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
+
 
         retrievePassengers();
 
@@ -182,12 +187,32 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length()-1);
             duration = jsonObject.getString("duration");
             distance = jsonObject.getString("distance");
+            Log.i("VALUEE", duration.getClass().getName() + " and " + distance);
 
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
 
         populateTheList();
+        displayMetrics();
+    }
+
+    public void displayMetrics() {
+        TextView textViewDuration = (TextView) findViewById(R.id.textViewDurationValue);
+        TextView textViewDistance = (TextView) findViewById(R.id.textViewDistanceValue);
+        TextView textViewPrice = (TextView) findViewById(R.id.textViewPriceValue);
+
+        textViewDistance.setText(distance);
+        textViewDuration.setText(duration);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
+        double distanceValue = Double.parseDouble(distance);
+        double doublePrice = distanceValue*GAS_PRICE;
+        double roundOff = (double) Math.round(doublePrice * 100) / 100;
+        String totalPrice = Double.toString(roundOff);
+        textViewPrice.setText(totalPrice);
     }
 
     public void populateTheList() {
