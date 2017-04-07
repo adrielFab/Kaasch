@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import DirectionModel.Route;
-
 public class RouteActivity extends AppCompatActivity implements View.OnClickListener, ActivityObserver {
 
     private ListView listView;

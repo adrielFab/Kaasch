@@ -1,9 +1,6 @@
 package com.example.mrides;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
