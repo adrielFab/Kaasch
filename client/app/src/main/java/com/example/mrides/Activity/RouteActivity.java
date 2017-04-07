@@ -35,7 +35,6 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private ArrayList<String> photoURL = new ArrayList<>();
     private ArrayList<String> emails = new ArrayList<>();
     private CustomList customList;
-    private JSONArray ratingsJSON = new JSONArray();
     private String distance;
     private String duration;
     private final double GAS_PRICE = 1.20;
