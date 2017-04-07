@@ -149,11 +149,11 @@ public class HomePage extends AppCompatActivity implements
                 int status = 1;
                 boolean type = false;
 
-                if (routeList.get(i).getRouteStatus().equals("PENDING")) {
+                if ("PENDING".equals(routeList.get(i).getRouteStatus())) {
                     status = 0;
                 }
 
-                if (routeList.get(i).getUserType().equals("DRIVER")) {
+                if ("DRIVER".equals(routeList.get(i).getUserType())) {
                     type = true;
                 }
 
