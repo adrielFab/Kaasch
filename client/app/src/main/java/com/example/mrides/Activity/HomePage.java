@@ -142,7 +142,7 @@ public class HomePage extends AppCompatActivity implements
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
 
-        if (routeList.size() > 0) {
+        if (!routeList.isEmpty()) {
             for (int i = 0; i < routeList.size(); i++) {
                 int status = 1;
                 boolean type = false;
