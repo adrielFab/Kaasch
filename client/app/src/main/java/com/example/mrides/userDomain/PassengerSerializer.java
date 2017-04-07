@@ -20,11 +20,15 @@ public class PassengerSerializer {
     //TODO the paramter needs to be changed to a passenger in the future. For now user works
     public static Map<String, String> getParameters(User user) {
         Map<String, String> map = new HashMap<>();
-        map.put("passengerEmail", "adriel.fab@gmail.com");
-        map.put("passengerLastName", user.getLastName());
-        map.put("passengerFirstName",user.getFirstName());
-        map.put("passengerDeviceId", "dZqG2lST6uo:APA91bF1f5ZkYW5xTNCawaEzXbgEeWe6eB74F6rFyJGRsWfTTxJX6C2Nxv54b1eS5QK6suhwYxX8GkL-W9C3z7HlbYZYZSFqtm8NMsygvDVsYaosUx2BBoU5ZB2pU9UV3aji_qej-my5");
-        map.put("passengerProfileUrl", "photoUrl");
+        map.put(Passenger.ParameterKeys.EMAIL.toString(), "adriel.fab@gmail.com");
+        map.put(Passenger.ParameterKeys.LASTNAME.toString(), user.getLastName());
+        map.put(Passenger.ParameterKeys.FIRSTNAME.toString(),user.getFirstName());
+        map.put(Passenger.ParameterKeys.DEVICEID.toString(), "dZqG2lST6uo:APA91bF1f5ZkYW5xTNCawaEzXbgEeWe6eB74F6rFyJGRsWfTTxJX6C2Nxv54b1eS5QK6suhwYxX8GkL-W9C3z7HlbYZYZSFqtm8NMsygvDVsYaosUx2BBoU5ZB2pU9UV3aji_qej-my5");
+        map.put(Passenger.ParameterKeys.PROFILEURL.toString(), "photoUrl");
+        if(user.getGender()!=null) { //when the user logs in for the first time the gender is not set
+            map.put(Passenger.ParameterKeys.GENDER.toString(), user.getGender());
+            map.put(Passenger.ParameterKeys.SMOKES.toString(), user.getSmokes());
+        }
         return map;
     }
 }
