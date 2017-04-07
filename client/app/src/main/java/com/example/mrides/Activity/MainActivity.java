@@ -164,14 +164,21 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void Update(String response) {
-
+        mProgressDialog.dismiss();
         requestHandler.detach(this);
-        System.out.println("Response: "+ response);
-        if(response.contains("User")) {
+        if(response.contains("True")) { // this is not the first time the user is logged in
+            Intent intent = new Intent(MainActivity.this, HomePage.class);
+            this.startActivity(intent);
+        }
+        else if(response.contains("False")) { // this is the first time the user is logged in
             requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
-                            "/updateDeviceId.php", UserSerializer.getParameters(user),
+                            "/updateDeviceId.php", UserSerializer.getParameters(RequestHandler.getUser()),
                     RequestHandler.URLENCODED, this);
+        }
+        else {
+            Intent intent = new Intent(MainActivity.this, FirstTimeActivity.class);
+            this.startActivity(intent);
         }
     }
 
@@ -198,10 +205,14 @@ public class MainActivity extends AppCompatActivity implements
             // User is signed in
             user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
-            requestHandler.attach(this);
+            /*requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)+"/register_user.php",
                     UserSerializer.getParameters(user), RequestHandler.URLENCODED,
-                    this);
+                    this);*/
+            requestHandler.attach(this);
+            requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
+                            "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),
+                    RequestHandler.URLENCODED, this);
             System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
             System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
             System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
@@ -212,13 +223,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
-        System.out.println("signInWithCredential:onComplete:" + task.isSuccessful());
-        mProgressDialog.dismiss();
-        Intent intent = new Intent(MainActivity.this, HomePage.class);
-        startActivity(intent);
 
         if (!task.isSuccessful()) {
-
             System.out.println( task.getException());
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();

@@ -22,7 +22,9 @@ public class User {
         LASTNAME("loggedInUserLastName"),
         FIRSTNAME("loggedInUserFirstName"),
         DEVICEID("loggedInUserDeviceId"),
-        PROFILEURL("loggedInUserProfileUrl");
+        PROFILEURL("loggedInUserProfileUrl"),
+        GENDER("loggedInUserGender"),
+        SMOKES("loggedInUserSmokes");
 
         private String key;
 
@@ -34,8 +36,8 @@ public class User {
         public String toString(){
             return this.key;
         }
-
     }
+
     private int id;
     private String firstName;
     private String lastName;
@@ -43,6 +45,8 @@ public class User {
     private String photoUrl;
     private String deviceId;
     private ArrayList<Route> routes = new ArrayList<>();
+    private String smokes;
+    private String gender;
 
     public User(){
 
@@ -125,12 +129,28 @@ public class User {
     }
 
     public String getPhotoUrl() {
-
         return photoUrl;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getSmokes() {
+        return smokes;
     }
 
     public void setFirstName(String firstName) {
 
         this.firstName = firstName;
     }
+
+    public void setSmokes(String smokes) {
+        this.smokes = smokes;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
 }
