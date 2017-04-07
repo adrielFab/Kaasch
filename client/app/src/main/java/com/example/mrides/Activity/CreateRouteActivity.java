@@ -182,7 +182,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         String url = "";
         try {
-
             String urlOrigin = URLEncoder.encode(start, "utf-8");
             String urlDestination = URLEncoder.encode(destination, "utf-8");
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
