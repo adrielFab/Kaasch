@@ -223,14 +223,14 @@ public class HomePage extends AppCompatActivity implements
             case 0:
                 drawable = getResources().getDrawable(R.drawable.matched_route_button);
                 break;
-            case 2:
+            case 1:
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
                 break;
-            case 1:
+            case 2:
                 drawable = getResources().getDrawable(R.drawable.pending_route_button);
                 break;
             default:
-                drawable = getResources().getDrawable(R.drawable.pending_route_button);
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
                 break;
         }
         return drawable;
