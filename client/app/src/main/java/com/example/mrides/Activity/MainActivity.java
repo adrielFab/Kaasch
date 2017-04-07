@@ -166,20 +166,17 @@ public class MainActivity extends AppCompatActivity implements
     public void Update(String response) {
         mProgressDialog.dismiss();
         requestHandler.detach(this);
-        System.out.println("Response: "+ response);
-        /*if(response.contains("User")) {
-            requestHandler.attach(this);
-            requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
-                            "/updateDeviceId.php", UserSerializer.getParameters(user),
-                    RequestHandler.URLENCODED, this);
-            LoginFirstTimeChecker firstTimeLggedIn = new LoginFirstTimeChecker(this);
-            firstTimeLggedIn.registerUser(mProgressDialog);
-        }*/
         if(response.contains("True")){ // this is not the first time the user is logged in
             Intent intent = new Intent(MainActivity.this, HomePage.class);
             this.startActivity(intent);
         }
-        else{ // this is the first time the user is logged in
+        else if(response.contains("False")){ // this is the first time the user is logged in
+            requestHandler.attach(this);
+            requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
+                            "/updateDeviceId.php", UserSerializer.getParameters(RequestHandler.getUser()),
+                    RequestHandler.URLENCODED, this);
+        }
+        else{
             Intent intent = new Intent(MainActivity.this, FirstTimeActivity.class);
             this.startActivity(intent);
         }

@@ -1,45 +1,53 @@
 package com.example.mrides.login;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.FirstTimeActivity;
 import com.example.mrides.Activity.HomePage;
-import com.example.mrides.Activity.MainActivity;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.UserSerializer;
 
 public class LoginFirstTime implements ActivityObserver{
 
-    private MainActivity mainActivity;
+    private FirstTimeActivity activity;
     private RequestHandler requestHandler = new RequestHandler();
+    private ProgressDialog mProgressDialog;
 
 
-    public LoginFirstTime(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
+    public LoginFirstTime(FirstTimeActivity activity){
+        this.activity = activity;
     }
     @Override
     public void Update(String response) {
         System.out.println("First Time user "+ response);
-        if(response.contains("True")){ // this is not the first time the user is logged in
-            Intent intent = new Intent(mainActivity, HomePage.class);
-            mainActivity.startActivity(intent);
-        }
-        else{ // this is the first time the user is logged in
-            Intent intent = new Intent(mainActivity, FirstTimeActivity.class);
-            mainActivity.startActivity(intent);
-        }
-    }
-
-    public void checkFirstTimeLogin(ProgressDialog mProgressDialog) {
+        requestHandler.detach(this);
         mProgressDialog.dismiss();
         requestHandler.attach(this);
-        requestHandler.httpPostStringRequest("http://" + mainActivity.getString(R.string.web_server_ip) +
-                        "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),
-                RequestHandler.URLENCODED, mainActivity);
+        if(response.contains("User")) {
+            requestHandler.httpPostStringRequest("http://" + activity.getString(R.string.web_server_ip) +
+                            "/updateDeviceId.php", UserSerializer.getParameters(RequestHandler.getUser()),
+                    RequestHandler.URLENCODED, activity);
+        }
+        else if(response.contains("Device key updated")){
+            Intent intent = new Intent(activity, HomePage.class);
+            activity.startActivity(intent);
+        }
+
+    }
+
+    public void registerUser() {
+        mProgressDialog = ProgressDialog.show(activity, "Please wait.",
+                "Processing Data", true);
+        requestHandler.attach(this);
+        requestHandler.httpPostStringRequest("http://" + activity.getString(R.string.web_server_ip) +
+                        "/register_user.php", UserSerializer.getParameters(RequestHandler.getUser()),
+                RequestHandler.URLENCODED, activity);
 
     }
 }
