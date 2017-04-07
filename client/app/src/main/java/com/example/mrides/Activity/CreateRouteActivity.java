@@ -466,6 +466,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+
+    private void addToInvitations(){
+        //Invitation
+    }
+
     private void invitePassenger() {
 
         requestHandler.attach(this);
