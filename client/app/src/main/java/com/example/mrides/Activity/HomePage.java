@@ -290,6 +290,9 @@ public class HomePage extends AppCompatActivity implements
 
     }
 
+    /**
+     * Method that retrieves all the routes of the user
+     */
     public void retrieveRoutes() {
         RequestHandler requestHandler =  new RequestHandler();
         requestHandler.attach(this);

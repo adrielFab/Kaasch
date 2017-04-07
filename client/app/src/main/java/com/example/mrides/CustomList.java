@@ -1,6 +1,8 @@
 package com.example.mrides;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,21 +12,21 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CustomList extends ArrayAdapter {
 
-    private String[] names;
-    private Integer[] imageid;
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> photoURL = new ArrayList<>();
     private Activity context;
-    private RatingBar ratingBar;
     private HashMap<String, Float> ratingOfUser = new HashMap<>();
 
-    public CustomList(Activity context, String[] names, Integer[] imageid) {
+    public CustomList(Activity context, ArrayList<String> names, ArrayList<String> photoURL) {
         super(context, R.layout.list_layout, names);
         this.context = context;
         this.names = names;
-        this.imageid = imageid;
+        this.photoURL = photoURL;
     }
 
     @Override
@@ -33,17 +35,18 @@ public class CustomList extends ArrayAdapter {
         View listViewItem = inflater.inflate(R.layout.list_layout, null);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         RatingBar ratingBar = (RatingBar) listViewItem.findViewById(R.id.ratingBar);
-        ImageView image = (ImageView) listViewItem.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView) listViewItem.findViewById(R.id.imageView);
 
-        textViewName.setText(names[position]);
-        image.setImageResource(imageid[position]);
+        textViewName.setText(names.get(position));
+        ImageConverter imageConverter = new ImageConverter(imageView);
+        imageConverter.execute(photoURL.get(position));
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float value, boolean b) {
-                ratingOfUser.put(names[position], value);
-                System.out.println(value + " " + names[position] );
+                ratingOfUser.put(names.get(position), value);
+                System.out.println(value + " " + names.get(position) );
             }
         });
 
