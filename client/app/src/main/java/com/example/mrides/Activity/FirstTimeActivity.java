@@ -1,6 +1,5 @@
 package com.example.mrides.Activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,15 +12,12 @@ import android.widget.TextView;
 
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.login.LoginFirstTime;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class FirstTimeActivity extends AppCompatActivity implements View.OnClickListener, ActivityObserver {
+public class FirstTimeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RadioGroup genderRadioGroup;
     private RadioGroup smokerRadioGroup;
-    private RequestHandler requestHandler = new RequestHandler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +38,6 @@ public class FirstTimeActivity extends AppCompatActivity implements View.OnClick
 
         Button firstTimeButton = (Button) findViewById(R.id.firsTimeButton);
         firstTimeButton.setOnClickListener(this);
-
     }
 
     /**
@@ -65,31 +60,17 @@ public class FirstTimeActivity extends AppCompatActivity implements View.OnClick
             smokerBit = "1";
         }
         sendData(smokerBit, gender);
-        Intent intent = new Intent(FirstTimeActivity.this, HomePage.class);
-        startActivity(intent);
-
-
-
     }
 
     /**
      * This method sends the data to the server
      */
     public void sendData(String smokerBit, String gender) {
-
-        Map<String,String> jsonBody = new HashMap<>();
-        jsonBody.put("email", RequestHandler.getUser().getEmail());
-        jsonBody.put("smokes", smokerBit);
-        jsonBody.put("gender", gender);
-        Log.i("USERR", gender + "badddd" + smokerBit);
-        requestHandler.attach(this);
-        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
-                        "/user_characteristics.php",jsonBody,
-                RequestHandler.URLENCODED ,this);
+        RequestHandler.getUser().setSmokes(smokerBit);
+        RequestHandler.getUser().setGender(gender);
+        Log.i("USER", gender + "badddd" + smokerBit);
+        LoginFirstTime firstTimeLggedIn = new LoginFirstTime(this);
+        firstTimeLggedIn.registerUser();
     }
 
-    @Override
-    public void Update(String response) {
-        Log.i("RESPONSE", response);
-    }
 }
