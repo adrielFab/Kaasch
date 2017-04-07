@@ -1,8 +1,8 @@
 <?php
 require "init.php";
 
-$user_email= "anosirrah365@gmail.com";//$_POST["loggedInUserEmail"];
-$routeName= "From Deez To Nutz";//$_POST["routeName"];
+$user_email= "anosirrah365@gmail.com";
+$routeName= "From Deez To Nutz";
 
 //get route id
 $sql = "SELECT route_id FROM Routes_Users_Association WHERE user_id  = (SELECT id FROM Users WHERE email = '".$user_email."')
@@ -11,12 +11,12 @@ $sql = "SELECT route_id FROM Routes_Users_Association WHERE user_id  = (SELECT i
 $result = mysqli_query($con,$sql);
 
 
-if(mysqli_num_rows($result) == 0){
+if(mysqli_num_rows($result) == 0) {
     echo "Route does not exist";
     die;
  }
 else if(mysqli_num_rows($result) ==1) { 
-    while($row = mysqli_fetch_assoc($result)){
+    while($row = mysqli_fetch_assoc($result)) {
         $routeId = $row['route_id'];
     }
 }
@@ -27,8 +27,8 @@ $sql = "SELECT id, email, rating, first_name, last_name, profile_picture FROM Us
                         WHERE id IN  (SELECT user_id FROM Routes_Users_Association WHERE route_id = '".$routeId."')";
 $result = mysqli_query($con, $sql);
 $data = array();
-while($row = mysqli_fetch_assoc($result)){
-    if($row["email"] != $user_email){
+while($row = mysqli_fetch_assoc($result)) {
+    if($row["email"] != $user_email) {
         $a = array(
             "email" => $row['email'],
             "rating" => $row['rating'],

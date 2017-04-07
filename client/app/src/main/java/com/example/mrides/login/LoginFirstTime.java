@@ -23,24 +23,14 @@ public class LoginFirstTime implements ActivityObserver{
     public LoginFirstTime(FirstTimeActivity activity){
         this.activity = activity;
     }
+
     @Override
     public void Update(String response) {
         System.out.println("First Time user "+ response);
         requestHandler.detach(this);
         mProgressDialog.dismiss();
-        //requestHandler.attach(this);
         Intent intent = new Intent(activity, HomePage.class);
         activity.startActivity(intent);
-        /*if(response.contains("User")) {
-            requestHandler.httpPostStringRequest("http://" + activity.getString(R.string.web_server_ip) +
-                            "/updateDeviceId.php", UserSerializer.getParameters(RequestHandler.getUser()),
-                    RequestHandler.URLENCODED, activity);
-        }
-        else if(response.contains("Device key updated")){
-            Intent intent = new Intent(activity, HomePage.class);
-            activity.startActivity(intent);
-        }*/
-
     }
 
     public void registerUser() {
