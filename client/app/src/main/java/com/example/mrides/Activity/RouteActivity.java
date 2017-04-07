@@ -54,10 +54,6 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
 
-        customList = new CustomList(this, names, photoURL);
-
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(customList);
         retrievePassengers();
 
     }
@@ -177,8 +173,6 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             JSONArray jsonArray = new JSONArray(response);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                Route route = new Route();
-
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 String firstName = jsonObject.getString("first_name");
                 String lastName = jsonObject.getString("last_name");
@@ -192,5 +186,14 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             Log.e("Error: ", e.toString());
         }
+
+        populateTheList();
+    }
+
+    public void populateTheList() {
+        customList = new CustomList(this, names, photoURL);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(customList);
     }
 }
