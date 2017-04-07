@@ -37,7 +37,7 @@ public class RouteDeserializer {
             JSONObject jsonRoute = jsonRoutes.getJSONObject(i);
             route = new Route();
 
-            JSONObject overview_polylineJson = jsonRoute.getJSONObject("overview_polyline");
+            JSONObject overviewPolylineJson = jsonRoute.getJSONObject("overview_polyline");
             JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
             JSONObject jsonLeg = jsonLegs.getJSONObject(0);
             JSONObject jsonDistance = jsonLeg.getJSONObject("distance");
@@ -51,7 +51,7 @@ public class RouteDeserializer {
             route.setStartAddress(jsonLeg.getString("start_address"));
             route.setStartLocation(new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng")));
             route.setEndLocation(new LatLng(jsonEndLocation.getDouble("lat"), jsonEndLocation.getDouble("lng")));
-            route.setPoints(decodePoly(overview_polylineJson.getString("points")));
+            route.setPoints(decodePoly(overviewPolylineJson.getString("points")));
 
         }
         return route;

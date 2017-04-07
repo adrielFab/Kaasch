@@ -318,13 +318,13 @@ public class HomePage extends AppCompatActivity implements
                 Route route = new Route();
 
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                String user_type = jsonObject.getString("user_type");
+                String userType = jsonObject.getString("user_type");
                 String title = jsonObject.getString("route_name");
-                String route_status = jsonObject.getString("route_status");
+                String routeStatus = jsonObject.getString("route_status");
 
-                route.setUserType(user_type);
+                route.setUserType(userType);
                 route.setTitle(title);
-                route.setRouteStatus(route_status);
+                route.setRouteStatus(routeStatus);
 
                 routeList.add(route);
 

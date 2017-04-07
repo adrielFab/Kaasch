@@ -49,9 +49,9 @@ public class Route {
     /**
      * Accessor method for date
      */
-    public void setDate(Date in_date) {
+    public void setDate(Date inDate) {
 
-        this.date = in_date;
+        this.date = inDate;
     }
 
     /**
