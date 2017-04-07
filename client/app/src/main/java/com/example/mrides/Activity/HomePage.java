@@ -219,12 +219,20 @@ public class HomePage extends AppCompatActivity implements
      */
     private Drawable getRouteDrawable(int status) {
         Drawable drawable;
-            if(status == 0) {   //status 0: matched route
+        switch(status){
+            case 0:
                 drawable = getResources().getDrawable(R.drawable.matched_route_button);
-            }
-            else {  //else: unmatched route
+                break;
+            case 1:
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
-            }
+                break;
+            case 2:
+                drawable = getResources().getDrawable(R.drawable.pending_route_button);
+                break;
+            default:
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                break;
+        }
         return drawable;
     }
 
