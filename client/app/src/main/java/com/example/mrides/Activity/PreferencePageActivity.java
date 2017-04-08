@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mrides.R;
 
@@ -81,29 +82,37 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
 
         String choice = radioTypeButton.getText().toString();
 
+        TextView tvDate = (TextView) findViewById(R.id.in_date);
+        TextView tvTime = (TextView) findViewById(R.id.in_time);
+        TextView tvTitle = (TextView) findViewById(R.id.in_title);
 
-        if("Driver".equals(choice)) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
-            intent.putExtra("role", "driver");
-            TextView tvDate = (TextView) findViewById(R.id.in_date);
-            TextView tvTime = (TextView) findViewById(R.id.in_time);
-            TextView tvTitle = (TextView) findViewById(R.id.in_title);
+        String inDate = tvDate.getText().toString();
+        String inTime = tvTime.getText().toString();
+        String title = tvTitle.getText().toString();
+        //Create the bundle
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("in_date", inDate);
+        bundle.putString("in_time", inTime);
 
-            String inDate = tvDate.getText().toString();
-            String inTime = tvTime.getText().toString();
-            String title = tvTitle.getText().toString();
-            //Create the bundle
-            Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-            bundle.putString("in_date", inDate);
-            bundle.putString("in_time", inTime);
-            //Add the bundle to the intent
-            intent.putExtras(bundle);
-            startActivity(intent);
-        } else if ("Passenger".equals(choice)) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
-            intent.putExtra("role", "passenger");
-            startActivity(intent);
+
+
+        if(title.isEmpty()) {
+            Toast.makeText(PreferencePageActivity.this, "PLEASE INPUT A ROUTE NAME", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if ("Driver".equals(choice)) {
+                Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
+                intent.putExtra("role", "driver");
+                //Add the bundle to the intent
+                intent.putExtras(bundle);
+                startActivity(intent);
+            } else if ("Passenger".equals(choice)) {
+                Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
+                intent.putExtra("role", "passenger");
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
         }
     }
 
