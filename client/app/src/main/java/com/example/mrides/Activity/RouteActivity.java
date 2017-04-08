@@ -121,6 +121,16 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      * Method that allows the user to delete the current route
      */
     public void deleteRoute() {
+        RequestHandler requestHandler =  new RequestHandler();
+        requestHandler.attach(this);
+
+        Map<String, String> jsonBody = new HashMap<>();
+        jsonBody.put("route_name", route);
+
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/delete_route.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
+
         Intent intent = new Intent(RouteActivity.this, HomePage.class);
         startActivity(intent);
     }
