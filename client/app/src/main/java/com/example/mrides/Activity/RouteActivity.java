@@ -152,7 +152,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         try {
             jsonObject.put("ratingsList", stringJSONArray);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("ErrorRoute: ", e.toString());
         }
 
         RequestHandler requestHandler =  new RequestHandler();
