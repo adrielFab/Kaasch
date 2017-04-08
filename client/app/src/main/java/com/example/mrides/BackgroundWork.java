@@ -26,7 +26,7 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
     private Context context;
     private AlertDialog mAlertDialog;
-    private String CHARSET = "UTF-8";
+    static final String CHARSET = "UTF-8";
 
     public BackgroundWork(Context context){
 
