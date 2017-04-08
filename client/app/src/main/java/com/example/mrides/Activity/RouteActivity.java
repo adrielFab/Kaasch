@@ -141,7 +141,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 jsonObject.put("email", email);
                 jsonObject.put("rating", rating);
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("RouteActivity", e.toString());
             }
 
             jsonArray.put(jsonObject);

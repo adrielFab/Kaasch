@@ -22,7 +22,9 @@ public class User {
         LASTNAME("loggedInUserLastName"),
         FIRSTNAME("loggedInUserFirstName"),
         DEVICEID("loggedInUserDeviceId"),
-        PROFILEURL("loggedInUserProfileUrl");
+        PROFILEURL("loggedInUserProfileUrl"),
+        GENDER("loggedInUserGender"),
+        SMOKES("loggedInUserSmokes");
 
         private String key;
 
@@ -34,16 +36,17 @@ public class User {
         public String toString(){
             return this.key;
         }
-
     }
+
     private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String photoUrl;
     private String deviceId;
-    private FirebaseUser acct;
     private ArrayList<Route> routes = new ArrayList<>();
+    private String smokes;
+    private String gender;
 
     public User(){
 
@@ -79,11 +82,6 @@ public class User {
     public void setEmail(String email) {
 
         this.email = email;
-    }
-
-    public void setAcct(FirebaseUser acct) {
-
-        this.acct = acct;
     }
 
     public String getLastName() {
@@ -130,14 +128,16 @@ public class User {
         return routes;
     }
 
-    public void setRoutes(ArrayList<Route> routes) {
-
-        this.routes = routes;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public String getPhotoUrl() {
+    public String getGender() {
+        return gender;
+    }
 
-        return photoUrl;
+    public String getSmokes() {
+        return smokes;
     }
 
     public void setFirstName(String firstName) {
@@ -145,8 +145,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-
-        this.photoUrl = photoUrl;
+    public void setSmokes(String smokes) {
+        this.smokes = smokes;
     }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
 }

@@ -26,7 +26,7 @@ public class ImageConverter extends AsyncTask<String, Void, Bitmap>{
             bitmap = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
-            e.printStackTrace();
+            Log.e("ImageConverter", e.getMessage());
         }
         return bitmap;
     }

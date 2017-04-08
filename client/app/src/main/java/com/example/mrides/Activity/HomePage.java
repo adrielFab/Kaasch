@@ -142,7 +142,7 @@ public class HomePage extends AppCompatActivity implements
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         ll.setMargins(0,15,0,15);
 
-        if (routeList.size() > 0) {
+        if (!routeList.isEmpty()) {
             for (int i = 0; i < routeList.size(); i++) {
                 int status = 1;
                 boolean type = false;
@@ -219,12 +219,20 @@ public class HomePage extends AppCompatActivity implements
      */
     private Drawable getRouteDrawable(int status) {
         Drawable drawable;
-            if(status == 0) {   //status 0: matched route
+        switch(status){
+            case 0:
                 drawable = getResources().getDrawable(R.drawable.matched_route_button);
-            }
-            else {  //else: unmatched route
+                break;
+            case 1:
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
-            }
+                break;
+            case 2:
+                drawable = getResources().getDrawable(R.drawable.pending_route_button);
+                break;
+            default:
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                break;
+        }
         return drawable;
     }
 

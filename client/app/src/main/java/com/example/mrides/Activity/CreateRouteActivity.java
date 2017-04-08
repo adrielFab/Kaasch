@@ -92,7 +92,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean startOrEnd;
     private String start;
     private String destination;
-    final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    final static int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String in_date;
     private String in_time;
     private String in_title;
@@ -188,7 +188,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         startObtainDirection();
         requestHandler.attach(this);
@@ -375,7 +375,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
 
         route.setDate(date);
@@ -403,7 +403,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             route = (Route) deserializer.parseJSON(response);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         successObtainDirection(route);
     }
@@ -485,22 +485,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void saveChanges() {
         Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
         startActivity(intent);
-    }
-
-    public PopulateMap getPopulateMap() {
-        return populateMap;
-    }
-
-    public void setPopulateMap(PopulateMap populateMap) {
-        this.populateMap = populateMap;
-    }
-
-    public GoogleMap getGoogleMap() {
-        return mGoogleMap;
-    }
-
-    public void setGoogleMap(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
     }
 
     /**
