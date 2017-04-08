@@ -484,23 +484,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-    private void invitePassenger() {
-
-        requestHandler.attach(this);
-        //combine map so that it contains driver information and passenger information
-        Map<String,String> driverJsonBody = UserSerializer.getParameters(loggedInUser);
-        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
-        for(User selected : invitedUsers){
-
-        }
-        Map<String,String> jsonBody = new HashMap<>();
-        jsonBody.putAll(driverJsonBody);
-        jsonBody.putAll(passengerJSonBody);
-        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
-                        "/invitePassenger.php",jsonBody,
-                RequestHandler.URLENCODED ,this);
-    }
-
     /**
      * Brings user back to homepage
      */
