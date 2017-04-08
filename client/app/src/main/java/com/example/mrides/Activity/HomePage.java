@@ -143,17 +143,8 @@ public class HomePage extends AppCompatActivity implements
 
         if (!routeList.isEmpty()) {
             for (int i = 0; i < routeList.size(); i++) {
-                int status = 1;
                 boolean type = false;
-
-                if ("PENDING".equals(routeList.get(i).getRouteStatus())) {
-                    status = 0;
-                }
-
-                if ("DRIVER".equals(routeList.get(i).getUserType())) {
-                    type = true;
-                }
-
+                String status =routeList.get(i).getRouteStatus();
                 Button button = createRouteButton(routeList.get(i).getTitle(), type, status);
                 hashRouteButton.put(routeList.get(i).getTitle(), button);
                 button.setOnClickListener(this);
@@ -170,7 +161,7 @@ public class HomePage extends AppCompatActivity implements
      * @param status
      * @return Button
      */
-    public Button createRouteButton(String name, Boolean isDriver, int status) {
+    public Button createRouteButton(String name, Boolean isDriver, String status) {
         Button button = new Button(this);
         button.setBackground(getRouteDrawable(status));
         button.setText(name);
@@ -216,17 +207,20 @@ public class HomePage extends AppCompatActivity implements
      * @param status
      * @return drawable
      */
-    private Drawable getRouteDrawable(int status) {
+    private Drawable getRouteDrawable(String status) {
         Drawable drawable;
         switch(status){
-            case 1:
+            case "CREATED":
                 drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
                 break;
-            case 2:
+            case "MATCHED":
+                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                break;
+            case "PENDING":
                 drawable = getResources().getDrawable(R.drawable.pending_route_button);
                 break;
             default:
-                drawable = getResources().getDrawable(R.drawable.matched_route_button);
+                drawable = getResources().getDrawable(R.drawable.unmatched_route_button);
                 break;
         }
         return drawable;
