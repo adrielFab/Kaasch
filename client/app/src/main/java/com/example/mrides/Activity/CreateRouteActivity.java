@@ -523,9 +523,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
 
         } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
+            Log.e("CreateRouteError: ", e.toString());
         } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
+            Log.e("CreateRouteError: ", e.toString());
         }
     }
 
