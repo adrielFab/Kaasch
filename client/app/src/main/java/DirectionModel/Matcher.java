@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Matcher {
 
-    private Route route = new Route();
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
 
-    public Matcher(Route route) {
-        this.route = route;
+    public Matcher() {
     }
 
     public void setMatchedMarkers(HashMap<Integer, Marker> matchedMarkers) {
@@ -106,7 +106,8 @@ public class Matcher {
             }
             // match the dropout points
             if (this.validateDistance(drop, pointInPoly) && goToEnd) {
-                for ( int key : matchedMarkers.keySet()) {
+                for (Map.Entry<Integer, Marker> entry : matchedMarkers.entrySet()) {
+                    int key = entry.getKey();
                     if(key == passengerRouteId) {
                         Marker marker = matchedMarkers.get(key);
                         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));

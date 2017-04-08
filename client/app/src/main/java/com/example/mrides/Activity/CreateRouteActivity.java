@@ -387,7 +387,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         route.setDate(date);
 
-        Matcher matcher = new Matcher(route);
+        Matcher matcher = new Matcher();
         matcher.setMatchedMarkers(this.matchedMarkers);
         matcher.setUserMapCatalog(this.userOnMapCatalog);
 

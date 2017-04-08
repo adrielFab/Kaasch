@@ -20,15 +20,13 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class MatchRouteTest {
 
-
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
     public void testValideDistance() {
-        Route route = new Route();
-        Matcher matcher = new Matcher(route);
+        Matcher matcher = new Matcher();
         LatLng start1 = new LatLng(45.498672,-73.631370);
         LatLng start2 = new LatLng(45.498619,-73.631310);
 
@@ -43,8 +41,7 @@ public class MatchRouteTest {
     // Test distance method can calculate the distance between two points defined by double
     // variables
     public void testDistance() {
-        Route route = new Route();
-        Matcher matcher = new Matcher(route);
+        Matcher matcher = new Matcher();
         double start1 = 45.498672;
         double start2 = -73.631310;
 
@@ -57,8 +54,7 @@ public class MatchRouteTest {
     @Test
     // Test the side effect of matchRoute() method on ArrayList <User> userOnMapCatalog
     public void testMatchRoute() {
-        Route route = new Route();
-        Matcher matcher = new Matcher(route);
+        Matcher matcher = new Matcher();
         ArrayList <User> userOnMapCatalog = new ArrayList<>();
         List <LatLng> routeOfUser = new ArrayList <LatLng>();
 
@@ -72,8 +68,6 @@ public class MatchRouteTest {
         routeOfUser.add(start2);
         routeOfUser.add(end2);
 
-        route.setStartLocation(start1);
-        route.setEndLocation(end1);
         userOnMapCatalog.add(e);
         matcher.setUserMapCatalog(userOnMapCatalog);
 
@@ -82,8 +76,4 @@ public class MatchRouteTest {
 
         assertEquals(matcher.getUserMapCatalog().size(),userSize);
     }
-
-
-
-
 }
