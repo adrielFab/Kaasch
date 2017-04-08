@@ -37,7 +37,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     private int mMonth;
     private int mDay;
     private int mHour;
-    private int mMinute;
     private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
@@ -81,16 +80,10 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         RadioButton radioTypeButton = (RadioButton) findViewById(selectedId);
 
         String choice = radioTypeButton.getText().toString();
-        String formatedDate ="";
-        formatedDate+=String.valueOf(mYear)+"-"+String.valueOf(mMonth)+"-"+String.valueOf(mDay)
-                +" "+String.valueOf(mHour)+":"+String.valueOf(mMinute)+":"+String.valueOf("00");
-        Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
-        intent.putExtra("time",formatedDate);
-        intent.putExtra("wantsSmoker",isPreferenceChoiceSelected[0]);
-        intent.putExtra("wantsBoy",isPreferenceChoiceSelected[1]);
-        intent.putExtra("wantsGirl",isPreferenceChoiceSelected[2]);
+
 
         if("Driver".equals(choice)) {
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             intent.putExtra("role", "driver");
             TextView tvDate = (TextView) findViewById(R.id.in_date);
             TextView tvTime = (TextView) findViewById(R.id.in_time);
@@ -108,6 +101,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
             intent.putExtras(bundle);
             startActivity(intent);
         } else if ("Passenger".equals(choice)) {
+            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             intent.putExtra("role", "passenger");
             startActivity(intent);
         }
@@ -132,10 +126,8 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                mYear = year;
-                                mMonth = monthOfYear;
-                                mDay = dayOfMonth;
-                                txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                                txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year%100);
 
                             }
                         }, mYear, mMonth, mDay);
@@ -146,7 +138,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 // Get Current Time
                 final Calendar ct = Calendar.getInstance();
                 mHour = ct.get(Calendar.HOUR_OF_DAY);
-                mMinute = ct.get(Calendar.MINUTE);
+                int mMinute = ct.get(Calendar.MINUTE);
                 // Launch Time Picker Dialog
                 TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                         new TimePickerDialog.OnTimeSetListener() {
@@ -154,8 +146,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                mHour = hourOfDay;
-                                mMinute = minute;
+
                                 txtTime.setText(hourOfDay + ":" + minute);
                             }
                         }, mHour, mMinute, false);

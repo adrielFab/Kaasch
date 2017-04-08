@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mrides.Invitation.Invitation;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
@@ -96,9 +95,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     final static int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String in_date;
     private String in_time;
+    private String in_title;
     private String role;
-    private List<Invitation> invitations = new ArrayList<>();
-
+    private boolean likesSmokes;
+    private boolean isLikesBoys;
+    private boolean isLikesGirls;
+    private Route route;
+    private List<User> invitedUsers = new ArrayList<>();
     /**
      * Method that requests the user to capture their current location
      *
@@ -138,7 +141,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         in_date = bundle.getString("in_date");
         in_time = bundle.getString("in_time");
         in_title = bundle.getString("in_title");
-
+        likesSmokes =  bundle.getBoolean("likesSomes");
+        isLikesBoys =  bundle.getBoolean("likesBoys");
+        isLikesGirls = bundle.getBoolean("likesGirls");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -338,9 +343,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     /**
      * This methods creates the route from the input start address and the input end address
      *
-     * @param route
      */
-    public void successObtainDirection(Route route) {
+    public void successObtainDirection() {
 
         mProgressDialog.dismiss();
         polylinePaths = new ArrayList<>();
@@ -400,14 +404,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         System.out.println(response);
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
-        Route route = new Route();
+        route = new Route();
         try {
-
             route = (Route) deserializer.parseJSON(response);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        successObtainDirection(route);
+        successObtainDirection();
     }
 
     @Override
@@ -445,7 +448,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonInvite:
-                invitePassenger();
+                addPassengerToInvitationList();
                 break;
             case R.id.buttonCancel:
                 dialog.cancel();
@@ -466,9 +469,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
-
-    private void addToInvitations(){
-        //Invitation
+    private void addPassengerToInvitationList(){
+        if(!invitedUsers.contains(selectedPassenger)){
+            invitedUsers.add(selectedPassenger);
+            Toast.makeText(CreateRouteActivity.this,
+                    getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void invitePassenger() {
@@ -477,21 +483,47 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         //combine map so that it contains driver information and passenger information
         Map<String,String> driverJsonBody = UserSerializer.getParameters(loggedInUser);
         Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
+        for(User selected : invitedUsers){
+
+        }
         Map<String,String> jsonBody = new HashMap<>();
         jsonBody.putAll(driverJsonBody);
         jsonBody.putAll(passengerJSonBody);
         requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
                         "/invitePassenger.php",jsonBody,
                 RequestHandler.URLENCODED ,this);
-        Toast.makeText(CreateRouteActivity.this, getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Brings user back to homepage
      */
     public void saveChanges() {
-        Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
-        startActivity(intent);
+        //Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
+        //startActivity(intent);
+        requestHandler.attach(this);
+        Map<String, String> jsonBody = new HashMap<>();
+        jsonBody.put("route_name",this.in_title);
+        jsonBody.put("start",route.getStartLocation().toString());
+        jsonBody.put("end",route.getEndLocation().toString());
+        jsonBody.put("duration",String.valueOf(route.getDuration().getValue()));
+        jsonBody.put("distance",String.valueOf(route.getDistance().getValue()));
+        jsonBody.put("time", route.getDate().toString());
+        jsonBody.put("smoking", String.valueOf(likesSmokes));
+        jsonBody.put("boy", String.valueOf(this.isLikesBoys));
+        jsonBody.put("girl",String.valueOf(this.isLikesGirls));
+        Map<String, String> passengerInfo = new HashMap<>();
+        passengerInfo = UserSerializer.getParameters(RequestHandler.getUser());
+        jsonBody.putAll(passengerInfo);
+        if(role.equals("driver")){
+            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                            "/create_route_driver.php",jsonBody,
+                    RequestHandler.URLENCODED ,this);
+        }
+        else{
+            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                            "/create_route_passenger.php",jsonBody,
+                    RequestHandler.URLENCODED ,this);
+        }
     }
 
     /**
