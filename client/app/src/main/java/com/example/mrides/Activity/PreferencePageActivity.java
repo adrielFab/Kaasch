@@ -90,7 +90,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         String title = tvTitle.getText().toString();
         //Create the bundle
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putString("in_title", title);
         bundle.putString("in_date", inDate);
         bundle.putString("in_time", inTime);
         bundle.putBoolean("likesSomes",isPreferenceChoiceSelected[0]);
