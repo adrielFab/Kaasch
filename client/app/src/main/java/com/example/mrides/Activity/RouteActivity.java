@@ -51,7 +51,8 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
 
         ImageView imageView = (ImageView) findViewById(R.id.imageTrash);
         imageView.setOnClickListener(this);
-
+        TextView title = (TextView) findViewById(R.id.routeTitle);
+        title.setText(route);
 
         retrievePassengers();
 
