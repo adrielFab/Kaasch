@@ -46,7 +46,6 @@ public class CustomList extends ArrayAdapter {
             public void onRatingChanged(RatingBar ratingBar, float value, boolean b) {
                 String valueString = Float.toString(value);
                 ratingOfUser.put(emails.get(position), valueString);
-                System.out.println(value + " BLESS " + emails.get(position) );
             }
         });
 

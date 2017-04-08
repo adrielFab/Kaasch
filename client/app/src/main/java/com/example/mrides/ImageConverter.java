@@ -25,7 +25,6 @@ public class ImageConverter extends AsyncTask<String, Void, Bitmap>{
             InputStream in = new java.net.URL(urldisplay).openStream();
             bitmap = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
-            Log.e("Error", e.getMessage());
             Log.e("ImageConverter", e.getMessage());
         }
         return bitmap;

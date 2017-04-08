@@ -24,7 +24,6 @@ public class LoginFirstTime implements ActivityObserver{
 
     @Override
     public void Update(String response) {
-        System.out.println("First Time user "+ response);
         requestHandler.detach(this);
         mProgressDialog.dismiss();
         Intent intent = new Intent(activity, HomePage.class);
