@@ -80,7 +80,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private LocationManager locationManager;
-    private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap<Marker, User> googleMarkerHash = new HashMap<>();
@@ -97,29 +96,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private String in_time;
     private String in_title;
     private String role;
-
-    /**
-     * Method that requests the user to capture their current location
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                
-                    //requestLocationUpdates demands an explicit permission check
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                }
-            }
-        }
-    }
 
     /**
      * Method that is called to load the activity
@@ -169,6 +145,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     /**
      * Method that handles user inputs and executes the creation of path after successful evaluation
+     * Create path uses the google maps url to get the route by appending the start and end
+     * addresses along with the google map api key
      */
     public void createPath(){
         if(start.isEmpty()) {
@@ -208,60 +186,29 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        locationListener = new LocationListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            @Override
-            public void onLocationChanged(Location location) {
-
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-
-        if (Build.VERSION.SDK_INT < 23) {
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            LatLng myLocation;
+
+            if(lastKnownLocation != null) {
+                myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
             } else {
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                LatLng myLocation;
-
-                if(lastKnownLocation != null) {
-                    myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                } else {
-                    myLocation = new LatLng(45.4958567,-73.5743482);
-                }
-
-                mGoogleMap.clear();
-
-                mGoogleMap.addMarker(new MarkerOptions()
-                        .position(myLocation)
-                        .title("My Location"));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
+                myLocation = new LatLng(45.4958567,-73.5743482);
             }
+
+            mGoogleMap.clear();
+
+            mGoogleMap.addMarker(new MarkerOptions()
+                    .position(myLocation)
+                    .title("My Location"));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         }
+
 
         populateMap.requestUsers(this);
     }
