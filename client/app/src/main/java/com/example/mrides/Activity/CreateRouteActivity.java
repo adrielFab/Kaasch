@@ -89,9 +89,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private String start;
     private String destination;
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private String in_date;
-    private String in_time;
-    private String in_title;
+    private String inDate;
+    private String inTime;
+    private String inTitle;
     private String role;
 
     /**
@@ -107,9 +107,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
         //Extract the data…
-        in_date = bundle.getString("in_date");
-        in_time = bundle.getString("in_time");
-        in_title = bundle.getString("in_title");
+        inDate = bundle.getString("in_date");
+        inTime = bundle.getString("in_time");
+        inTitle = bundle.getString("in_title");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -317,7 +317,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
         Date date = null;
-        String strDate = this.in_date + " " + this.in_time;
+        String strDate = this.inDate + " " + this.inTime;
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
