@@ -91,7 +91,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean startOrEnd;
     private String start;
     private String destination;
-    final static int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String in_date;
     private String in_time;
     private String in_title;
