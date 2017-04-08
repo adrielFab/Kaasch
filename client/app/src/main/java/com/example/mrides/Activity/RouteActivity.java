@@ -37,7 +37,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private CustomList customList;
     private String distance;
     private String duration;
-    private final double GAS_PRICE = 1.20;
+    private static final double GAS_PRICE = 1.20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
