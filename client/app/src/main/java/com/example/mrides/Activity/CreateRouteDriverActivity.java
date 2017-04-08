@@ -9,6 +9,5 @@ public class CreateRouteDriverActivity extends CreateRouteActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toast.makeText(CreateRouteDriverActivity.this, "You are a driver", Toast.LENGTH_SHORT).show();
-
     }
 }
