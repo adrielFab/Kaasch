@@ -26,7 +26,7 @@ public class MatchRouteTest {
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testValideDistance(){
+    public void testValideDistance() {
         Route route = new Route();
         Matcher matcher = new Matcher(route);
         LatLng start1 = new LatLng(45.498672,-73.631370);
@@ -42,7 +42,7 @@ public class MatchRouteTest {
     @Test
     // Test distance method can calculate the distance between two points defined by double
     // variables
-    public void testDistance(){
+    public void testDistance() {
         Route route = new Route();
         Matcher matcher = new Matcher(route);
         double start1 = 45.498672;
@@ -56,7 +56,7 @@ public class MatchRouteTest {
 
     @Test
     // Test the side effect of matchRoute() method on ArrayList <User> userOnMapCatalog
-    public void testMatchRoute(){
+    public void testMatchRoute() {
         Route route = new Route();
         Matcher matcher = new Matcher(route);
         ArrayList <User> userOnMapCatalog = new ArrayList<>();

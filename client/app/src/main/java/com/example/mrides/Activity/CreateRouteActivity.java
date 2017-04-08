@@ -101,7 +101,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean likesSmokes;
     private boolean isLikesBoys;
     private boolean isLikesGirls;
-    private boolean isMatchedAtLeastOnce = false;
     private Route route;
     private List<User> invitedUsers = new ArrayList<>();
     /**
@@ -166,9 +165,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             @Override
             public void onClick(View view) {
                 createPath();
-                if(isMatchedAtLeastOnce){
-
-                }
             }
         });
         textViewEndLocation.setFocusable(false);
@@ -181,7 +177,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     /**
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
-    public void createPath(){
+    public void createPath() {
         if(start.isEmpty()) {
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -396,7 +392,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         matcher.setUserMapCatalog(this.userOnMapCatalog);
 
         matcher.matchRoute(route.getPoints());
-        isMatchedAtLeastOnce = matcher.isMatchedAtLeastOnce();
         matcher.getMatchedMarkers();
     }
 

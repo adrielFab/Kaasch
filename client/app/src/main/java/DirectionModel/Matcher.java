@@ -15,14 +15,9 @@ public class Matcher {
     private Route route = new Route();
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
-    private boolean matchedAtLeastOnce = false;
 
     public Matcher(Route route) {
         this.route = route;
-    }
-
-    public boolean isMatchedAtLeastOnce (){
-        return matchedAtLeastOnce;
     }
 
     public void setMatchedMarkers(HashMap<Integer, Marker> matchedMarkers) {
@@ -94,7 +89,7 @@ public class Matcher {
      /**
      * Match routes on valid distance and user preferences
      */
-    private boolean matchDistance(int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
+    private void matchDistance(int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
                                LatLng pickUp, LatLng drop) {
         int i = 0;
         boolean pickUpBool = false;
@@ -116,14 +111,12 @@ public class Matcher {
                         Marker marker = matchedMarkers.get(key);
                         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
                         pickUpBool = true;
-                        matchedAtLeastOnce = true;
                         break;
                     }
                 }
             }
             i++;
         }
-        return pickUpBool;
     }
 
 
