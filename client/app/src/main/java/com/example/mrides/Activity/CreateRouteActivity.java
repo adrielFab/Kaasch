@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.Invitation.InvitePassengers;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
@@ -402,11 +403,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void Update(String response) {
         System.out.println(response);
-        if(response.contains("Fail")||response.contains("Success")){
-
+        requestHandler.detach(this);
+        if(response.contains("Success") && role.equals("driver")){
+            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers);
+            invitePassengers.invitePassengers();
         }
         else {
-            requestHandler.detach(this);
             RouteDeserializer deserializer = new RouteDeserializer();
             route = new Route();
             try {
@@ -503,8 +505,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * Brings user back to homepage
      */
     public void saveChanges() {
-        //Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
-        //startActivity(intent);
         requestHandler.attach(this);
         Map<String, String> jsonBody = new HashMap<>();
         jsonBody.put("route_name",this.in_title);
