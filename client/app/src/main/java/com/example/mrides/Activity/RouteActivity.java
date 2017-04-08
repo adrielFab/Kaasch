@@ -65,13 +65,11 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.imageTrash:
-                promptUserCancellation();
-                break;
-            default:
-                submitRating();
-                break;
+        if (view.getId()==R.id.imageTrash) {
+            promptUserCancellation();
+        }
+        else {
+            submitRating();
         }
 
     }
