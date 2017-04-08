@@ -80,28 +80,28 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         RadioButton radioTypeButton = (RadioButton) findViewById(selectedId);
 
         String choice = radioTypeButton.getText().toString();
+        Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
+        TextView tvDate = (TextView) findViewById(R.id.in_date);
+        TextView tvTime = (TextView) findViewById(R.id.in_time);
+        TextView tvTitle = (TextView) findViewById(R.id.in_title);
 
-
+        String inDate = tvDate.getText().toString();
+        String inTime = tvTime.getText().toString();
+        String title = tvTitle.getText().toString();
+        //Create the bundle
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("in_date", inDate);
+        bundle.putString("in_time", inTime);
+        bundle.putBoolean("likesSomes",isPreferenceChoiceSelected[0]);
+        bundle.putBoolean("likesBoys",isPreferenceChoiceSelected[1]);
+        bundle.putBoolean("likesGirls", isPreferenceChoiceSelected[2]);
+        //Add the bundle to the intent
+        intent.putExtras(bundle);
         if("Driver".equals(choice)) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             intent.putExtra("role", "driver");
-            TextView tvDate = (TextView) findViewById(R.id.in_date);
-            TextView tvTime = (TextView) findViewById(R.id.in_time);
-            TextView tvTitle = (TextView) findViewById(R.id.in_title);
-
-            String inDate = tvDate.getText().toString();
-            String inTime = tvTime.getText().toString();
-            String title = tvTitle.getText().toString();
-            //Create the bundle
-            Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-            bundle.putString("in_date", inDate);
-            bundle.putString("in_time", inTime);
-            //Add the bundle to the intent
-            intent.putExtras(bundle);
             startActivity(intent);
         } else if ("Passenger".equals(choice)) {
-            Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
             intent.putExtra("role", "passenger");
             startActivity(intent);
         }
