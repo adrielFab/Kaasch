@@ -177,7 +177,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param index
      */
     private void changeButtonPreference(ImageView img, int index, int img1, int img2) {
-        if(isPreferenceChoiceSelected[index] == true) {
+        if(isPreferenceChoiceSelected[index]) {
             img.setImageResource(img1);
             isPreferenceChoiceSelected[index] = false;
         } else {
@@ -194,12 +194,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param img2
      */
     private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2) {
-        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false) {
+        if(selectedPreferenceIndex==1 && !isPreferenceChoiceSelected[2]) {
             //reject men accept females
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
         }
-        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false) {
+        else if(selectedPreferenceIndex==2 && !isPreferenceChoiceSelected[1]) {
             //reject females accept males
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);

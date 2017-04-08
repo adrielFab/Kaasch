@@ -488,22 +488,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         startActivity(intent);
     }
 
-    public PopulateMap getPopulateMap() {
-        return populateMap;
-    }
-
-    public void setPopulateMap(PopulateMap populateMap) {
-        this.populateMap = populateMap;
-    }
-
-    public GoogleMap getGoogleMap() {
-        return mGoogleMap;
-    }
-
-    public void setGoogleMap(GoogleMap googleMap) {
-        mGoogleMap = googleMap;
-    }
-
     /**
      * Method that shows the search bar where the user will enter the location
      */
