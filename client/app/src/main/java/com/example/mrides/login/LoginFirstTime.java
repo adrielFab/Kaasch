@@ -1,9 +1,7 @@
 package com.example.mrides.login;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 
 import com.example.mrides.Activity.ActivityObserver;
