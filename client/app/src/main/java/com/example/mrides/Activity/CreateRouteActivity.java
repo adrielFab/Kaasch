@@ -402,15 +402,20 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void Update(String response) {
         System.out.println(response);
-        requestHandler.detach(this);
-        RouteDeserializer deserializer = new RouteDeserializer();
-        route = new Route();
-        try {
-            route = (Route) deserializer.parseJSON(response);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(response.contains("Fail")||response.contains("Success")){
+
         }
-        successObtainDirection();
+        else {
+            requestHandler.detach(this);
+            RouteDeserializer deserializer = new RouteDeserializer();
+            route = new Route();
+            try {
+                route = (Route) deserializer.parseJSON(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            successObtainDirection();
+        }
     }
 
     @Override
