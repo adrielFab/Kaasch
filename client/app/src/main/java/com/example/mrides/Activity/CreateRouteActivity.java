@@ -414,8 +414,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
             successObtainDirection();
         }
-        else if(role.equals("driver")){ //enters statement from create_route_driver
-            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers);
+        else if(role.equals("driver") ){ //enters statement from create_route_driver
+            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers,this.in_title);
             invitePassengers.invitePassengers();
         }
     }
