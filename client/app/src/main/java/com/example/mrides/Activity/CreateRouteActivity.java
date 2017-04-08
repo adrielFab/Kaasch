@@ -298,7 +298,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
 
     /**
-     * This method displays a progress dialog to let the user know that the route is being retrieved
+     * Method displays a progress dialog to let the user know that the route is being retrieved
      */
     public void startObtainDirection() {
 
@@ -334,7 +334,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * This methods creates the route from the input start address and the input end address
+     * Method that creates the route from the input start address and the input end address
+     * This also has an association with the matcher to invoke a matching algorithm with
+     * another route to see if a certain passenger can be picked up.
      *
      * @param route
      */
@@ -408,6 +410,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         successObtainDirection(route);
     }
 
+    /**
+     * Method that handles a click event towards a google marker. These google markers correspond only to
+     * passengers, and when a passenger is clicked, the user will be able to see the user's profile.
+     * In addition, a dialog will appear with the option to invite the passenger.
+     * @param marker
+     * @return boolean. A predefined boolean that indicates if the button is clickable or not.
+     */
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
@@ -439,6 +448,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         return false;
     }
 
+    /**
+     * Method that handles all the click events that are being done in the map. The click events
+     * are for entering a start and end location, inviting a passenger, and saving changes
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -464,6 +478,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * Method that sends a notification to a passenger which informs that user
+     * that he/she is invited to be a part of the route
+     *
+     */
     private void invitePassenger() {
 
         requestHandler.attach(this);
@@ -480,7 +499,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Brings user back to homepage
+     * Method that saves the changes made by the user for the creation of a route
+     * and sends that data to the database
+     *
+     * The user is then redirected back to the homepage
      */
     public void saveChanges() {
         Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
