@@ -201,7 +201,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        else if (response.equals("rating")) {
+        else if ("rating".equals(response)) {
             Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
         }
 

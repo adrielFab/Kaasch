@@ -56,7 +56,7 @@ public class FirstTimeActivity extends AppCompatActivity implements View.OnClick
         String gender = genderRadio.getText().toString();
         String smoker = smokerRadio.getText().toString();
         String smokerBit = "0";
-        if (smoker.equals("Smoker")) {
+        if ("Smoker".equals(smoker)) {
             smokerBit = "1";
         }
         sendData(smokerBit, gender);
