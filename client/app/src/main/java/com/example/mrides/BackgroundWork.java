@@ -8,6 +8,7 @@ package com.example.mrides;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -80,10 +81,10 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
 
         } catch (MalformedURLException e) {
 
-            e.printStackTrace();
+            Log.e("BackgroundWork", e.getMessage());
         } catch (IOException e) {
 
-            e.printStackTrace();
+            Log.e("BackgroundWork", e.getMessage());
         }
 
         return null;

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.example.mrides.Notification.InboxAdapter;
 import com.example.mrides.Notification.Invitation;
@@ -76,7 +77,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
                 invitations.add(invite);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("InboxActivity", e.getMessage());
         }
     }
 }
