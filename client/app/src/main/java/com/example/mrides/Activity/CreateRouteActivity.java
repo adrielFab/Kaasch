@@ -402,13 +402,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void Update(String response) {
-        System.out.println(response);
+        System.out.println("CreateRouteActivity: " + response);
         requestHandler.detach(this);
-        if(response.contains("Success") && role.equals("driver")){
-            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers);
-            invitePassengers.invitePassengers();
-        }
-        else {
+        if(!response.contains("Success")){ //enters statement from google api
             RouteDeserializer deserializer = new RouteDeserializer();
             route = new Route();
             try {
@@ -417,6 +413,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 e.printStackTrace();
             }
             successObtainDirection();
+        }
+        else if(role.equals("driver")){ //enters statement from create_route_driver
+            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers);
+            invitePassengers.invitePassengers();
         }
     }
 
@@ -499,9 +499,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         jsonBody.put("smoking", String.valueOf(likesSmokes));
         jsonBody.put("boy", String.valueOf(this.isLikesBoys));
         jsonBody.put("girl",String.valueOf(this.isLikesGirls));
-        Map<String, String> passengerInfo = new HashMap<>();
+        Map<String, String> passengerInfo;
         passengerInfo = UserSerializer.getParameters(RequestHandler.getUser());
         jsonBody.putAll(passengerInfo);
+        System.out.println("createroute: passenger: " + jsonBody.get("smoking"));
+        System.out.println("createroute: passenger: " + jsonBody.get("boy"));
+        System.out.println("createroute: passenger: " + jsonBody.get("girl"));
         if(role.equals("driver")){
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
                             "/create_route_driver.php",jsonBody,
