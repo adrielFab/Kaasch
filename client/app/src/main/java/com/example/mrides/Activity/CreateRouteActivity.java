@@ -13,11 +13,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -80,7 +77,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private LocationManager locationManager;
-    private LocationListener locationListener;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap<Marker, User> googleMarkerHash = new HashMap<>();
@@ -92,34 +88,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean startOrEnd;
     private String start;
     private String destination;
-    final static int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private String in_date;
-    private String in_time;
-    private String in_title;
+    static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    private String inDate;
+    private String inTime;
+    private String inTitle;
     private String role;
-
-    /**
-     * Method that requests the user to capture their current location
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                
-                    //requestLocationUpdates demands an explicit permission check
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                }
-            }
-        }
-    }
 
     /**
      * Method that is called to load the activity
@@ -134,9 +107,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
         //Extract the data…
-        in_date = bundle.getString("in_date");
-        in_time = bundle.getString("in_time");
-        in_title = bundle.getString("in_title");
+        inDate = bundle.getString("in_date");
+        inTime = bundle.getString("in_time");
+        inTitle = bundle.getString("in_title");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -169,6 +142,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     /**
      * Method that handles user inputs and executes the creation of path after successful evaluation
+     * Create path uses the google maps url to get the route by appending the start and end
+     * addresses along with the google map api key
      */
     public void createPath(){
         if(start.isEmpty()) {
@@ -182,14 +157,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         String url = "";
         try {
-
             String urlOrigin = URLEncoder.encode(start, "utf-8");
             String urlDestination = URLEncoder.encode(destination, "utf-8");
             url = getString(R.string.direction_url_api) + "origin=" + urlOrigin + "&destination=" +
                     urlDestination + "&key=" + getString(R.string.google_maps_api_key);
         } catch (UnsupportedEncodingException e) {
 
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         startObtainDirection();
         requestHandler.attach(this);
@@ -209,60 +183,29 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        locationListener = new LocationListener() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            @Override
-            public void onLocationChanged(Location location) {
-
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-
-        if (Build.VERSION.SDK_INT < 23) {
-
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
 
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            LatLng myLocation;
+
+            if(lastKnownLocation != null) {
+                myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
             } else {
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-                Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-                LatLng myLocation;
-
-                if(lastKnownLocation != null) {
-                    myLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                } else {
-                    myLocation = new LatLng(45.4958567,-73.5743482);
-                }
-
-                mGoogleMap.clear();
-
-                mGoogleMap.addMarker(new MarkerOptions()
-                        .position(myLocation)
-                        .title("My Location"));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
+                myLocation = new LatLng(45.4958567,-73.5743482);
             }
+
+            mGoogleMap.clear();
+
+            mGoogleMap.addMarker(new MarkerOptions()
+                    .position(myLocation)
+                    .title("My Location"));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         }
+
 
         populateMap.requestUsers(this);
     }
@@ -299,7 +242,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
 
     /**
-     * This method displays a progress dialog to let the user know that the route is being retrieved
+     * Method displays a progress dialog to let the user know that the route is being retrieved
      */
     public void startObtainDirection() {
 
@@ -335,7 +278,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * This methods creates the route from the input start address and the input end address
+     * Method that creates the route from the input start address and the input end address
+     * This also has an association with the matcher to invoke a matching algorithm with
+     * another route to see if a certain passenger can be picked up.
      *
      * @param route
      */
@@ -372,11 +317,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
         Date date = null;
-        String strDate = this.in_date + " " + this.in_time;
+        String strDate = this.inDate + " " + this.inTime;
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
 
         route.setDate(date);
@@ -396,7 +341,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void Update(String response) {
-        System.out.println(response);
         requestHandler.detach(this);
         RouteDeserializer deserializer = new RouteDeserializer();
         Route route = new Route();
@@ -404,11 +348,18 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
             route = (Route) deserializer.parseJSON(response);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("CreateRouteActivity", e.getMessage());
         }
         successObtainDirection(route);
     }
 
+    /**
+     * Method that handles a click event towards a google marker. These google markers correspond only to
+     * passengers, and when a passenger is clicked, the user will be able to see the user's profile.
+     * In addition, a dialog will appear with the option to invite the passenger.
+     * @param marker
+     * @return boolean. A predefined boolean that indicates if the button is clickable or not.
+     */
     @Override
     public boolean onMarkerClick(Marker marker) {
         selectedPassenger = googleMarkerHash.get(marker);
@@ -440,6 +391,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         return false;
     }
 
+    /**
+     * Method that handles all the click events that are being done in the map. The click events
+     * are for entering a start and end location, inviting a passenger, and saving changes
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -465,6 +421,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * Method that sends a notification to a passenger which informs that user
+     * that he/she is invited to be a part of the route
+     *
+     */
     private void invitePassenger() {
 
         requestHandler.attach(this);
@@ -481,7 +442,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Brings user back to homepage
+     * Method that saves the changes made by the user for the creation of a route
+     * and sends that data to the database
+     *
+     * The user is then redirected back to the homepage
      */
     public void saveChanges() {
         Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
@@ -502,9 +466,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
 
         } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
+            Log.e("CreateRouteError: ", e.toString());
         } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
+            Log.e("CreateRouteError: ", e.toString());
         }
     }
 
@@ -512,20 +476,15 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                String apple = "";
                 if (!startOrEnd) {
-                    apple = "start";
                     start = place.getName().toString();
                     textViewStartLocation.setText(start);
                 } else {
-                    apple = "end";
                     destination = place.getName().toString();
                     textViewEndLocation.setText(destination);
                 }
-                Toast.makeText(CreateRouteActivity.this, apple + place.getName().toString(), Toast.LENGTH_SHORT).show();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
-                // TODO: Handle the error.
                 Log.i("Check", status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {

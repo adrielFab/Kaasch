@@ -85,7 +85,6 @@ public class HomePage extends AppCompatActivity implements
         String username = firstName + " " + lastName;
         String email = RequestHandler.getUser().getEmail();
         String photoUrl = RequestHandler.getUser().getPhotoUrl();
-        System.out.println(photoUrl);
         View headerView = navigationView.getHeaderView(0);
         ImageView imageView = (ImageView)headerView.findViewById(R.id.profile_image);
         TextView textViewNameNav = (TextView)headerView.findViewById(R.id.username);
@@ -332,7 +331,6 @@ public class HomePage extends AppCompatActivity implements
             Log.e("Error: ", e.toString());
         }
 
-        System.out.println("WHOOOOOOOOOOOOOOOOOOOOo" + routeList);
         createRoutes();
     }
 }

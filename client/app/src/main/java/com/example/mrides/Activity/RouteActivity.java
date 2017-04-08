@@ -33,11 +33,11 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private String route;
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> photoURL = new ArrayList<>();
+    private ArrayList<String> emails = new ArrayList<>();
     private CustomList customList;
-    private JSONArray ratingsJSON = new JSONArray();
     private String distance;
     private String duration;
-    private final double GAS_PRICE = 1.20;
+    private static final double GAS_PRICE = 1.20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 promptUserCancellation();
                 break;
             default:
-//                submitRating();
+                submitRating();
                 break;
         }
 
@@ -104,27 +104,34 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      * If the user did not provide a rating, the application will prompt the user
      * to assign a rating to all members before submission
      */
-//    public void submitRating() {
-//
-//        HashMap ratingsOfUser = customList.getRatings();
-//
-//        if ( ratingsOfUser.size() == names.length) {
-//            jsonConversion(ratingsOfUser);
-//            deleteRoute();
-//            Intent intent = new Intent(RouteActivity.this, HomePage.class);
-//            startActivity(intent);
-//            Toast.makeText(RouteActivity.this, "Ratings have been submitted" + route, Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+    public void submitRating() {
+
+        HashMap ratingsOfUser = customList.getRatings();
+        if ( ratingsOfUser.size() == names.size()) {
+            sendRating(ratingsOfUser);
+            Intent intent = new Intent(RouteActivity.this, HomePage.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
     /**
      * Method that allows the user to delete the current route
      */
     public void deleteRoute() {
+        RequestHandler requestHandler =  new RequestHandler();
+        requestHandler.attach(this);
+
+        Map<String, String> jsonBody = new HashMap<>();
+        jsonBody.put("route_name", route);
+
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/delete_route.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
+
         Intent intent = new Intent(RouteActivity.this, HomePage.class);
         startActivity(intent);
     }
@@ -133,17 +140,42 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      * Method that converts the data to JSON format which is readable
      * by the web server
      */
-    public void jsonConversion(HashMap<String, Float> hashMap) {
+    public void sendRating(HashMap<String, String> hashMap) {
 
-        for (Map.Entry<String, Float> entry : hashMap.entrySet()) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (HashMap.Entry<String, String> entry : hashMap.entrySet()) {
+            String email = entry.getKey();
+            String rating = entry.getValue();
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put(entry.getKey(), entry.getValue());
-                ratingsJSON.put(jsonObject);
+                jsonObject.put("email", email);
+                jsonObject.put("rating", rating);
             } catch (JSONException e) {
-                Log.e("RouteActivity error: ", e.toString());
+                Log.e("RouteActivity", e.toString());
             }
+
+            jsonArray.put(jsonObject);
         }
+
+        String stringJSONArray = jsonArray.toString();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("ratingsList", stringJSONArray);
+        } catch (JSONException e) {
+            Log.e("ErrorRoute: ", e.toString());
+        }
+
+        RequestHandler requestHandler =  new RequestHandler();
+        requestHandler.attach(this);
+
+        Map<String, String> jsonBody = new HashMap<>();
+        jsonBody.put("ratingsList", stringJSONArray);
+
+        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                        "/submit_ratings.php",jsonBody,
+                RequestHandler.URLENCODED ,this);
+
     }
 
     /**
@@ -180,31 +212,40 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        try {
-            JSONArray jsonArray = new JSONArray(response);
-
-            for (int i = 0; i < jsonArray.length()-1; i++) {
-                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-                String firstName = jsonObject.getString("first_name");
-                String lastName = jsonObject.getString("last_name");
-                String name = firstName + " " + lastName;
-                String photoUrl = jsonObject.getString("profile_picture");
-
-                names.add(name);
-                photoURL.add(photoUrl);
-            }
-
-            JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length()-1);
-            duration = jsonObject.getString("duration");
-            distance = jsonObject.getString("distance");
-            Log.i("VALUEE", duration.getClass().getName() + " and " + distance);
-
-        } catch (JSONException e) {
-            Log.e("Error: ", e.toString());
+        else if ("rating".equals(response)) {
+            Toast.makeText(RouteActivity.this, "Ratings have been submitted", Toast.LENGTH_SHORT).show();
         }
 
-        populateTheList();
-        displayMetrics();
+        else {
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+
+                for (int i = 0; i < jsonArray.length() - 1; i++) {
+                    JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                    String firstName = jsonObject.getString("first_name");
+                    String lastName = jsonObject.getString("last_name");
+                    String name = firstName + " " + lastName;
+                    String photoUrl = jsonObject.getString("profile_picture");
+                    String email = jsonObject.getString("email");
+
+                    emails.add(email);
+                    names.add(name);
+                    photoURL.add(photoUrl);
+                }
+
+                JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length() - 1);
+                duration = jsonObject.getString("duration");
+                distance = jsonObject.getString("distance");
+                Log.i("VALUEE", duration.getClass().getName() + " and " + distance);
+
+            } catch (JSONException e) {
+                Log.e("Error: ", e.toString());
+            }
+
+            populateTheList();
+            displayMetrics();
+        }
     }
 
     /**
@@ -238,7 +279,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
      * to rate the user
      */
     public void populateTheList() {
-        customList = new CustomList(this, names, photoURL);
+        customList = new CustomList(this, names, photoURL, emails);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(customList);

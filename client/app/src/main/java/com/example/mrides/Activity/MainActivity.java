@@ -31,7 +31,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, (GoogleApiClient.OnConnectionFailedListener) this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        System.out.println("Refreshed token: " + FirebaseInstanceId.getInstance().getToken());
     }
 
     /**
@@ -129,9 +127,6 @@ public class MainActivity extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             firebaseAuthWithGoogle(acct);
-        } else {
-
-            System.out.println("Failed");
         }
     }
 
@@ -213,11 +208,6 @@ public class MainActivity extends AppCompatActivity implements
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),
                     RequestHandler.URLENCODED, this);
-            System.out.println("onAuthStateChanged:signed_in:" + firebaseuser.getUid());
-            System.out.println("onAuthStateChanged:email:" + firebaseuser.getEmail());
-            System.out.println("onAuthStateChanged:profil" + firebaseuser.getPhotoUrl());
-        } else {
-            System.out.println("onAuthStateChanged:signed_out");
         }
     }
 
@@ -225,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onComplete(@NonNull Task<AuthResult> task) {
 
         if (!task.isSuccessful()) {
-            System.out.println( task.getException());
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();
         }

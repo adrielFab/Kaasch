@@ -37,10 +37,11 @@
 //            f.set(mActivityRule.getActivity(), user);
 //
 //        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
+//              Log.e("SignInTest", e.getMessage());
+
 //        }
 //        catch(NoSuchFieldException e){
-//            e.printStackTrace();
+//              Log.e("SignInTest", e.getMessage());
 //        }
 //        onView(withId(R.id.email)).perform(click())
 //                .check(matches(isDisplayed()));

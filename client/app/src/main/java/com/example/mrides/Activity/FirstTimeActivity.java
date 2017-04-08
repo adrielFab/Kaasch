@@ -1,7 +1,7 @@
 package com.example.mrides.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,7 +56,7 @@ public class FirstTimeActivity extends AppCompatActivity implements View.OnClick
         String gender = genderRadio.getText().toString();
         String smoker = smokerRadio.getText().toString();
         String smokerBit = "0";
-        if (smoker.equals("Smoker")) {
+        if ("Smoker".equals(smoker)) {
             smokerBit = "1";
         }
         sendData(smokerBit, gender);
