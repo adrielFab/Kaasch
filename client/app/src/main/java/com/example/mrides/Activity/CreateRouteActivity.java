@@ -177,7 +177,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     /**
      * Method that handles user inputs and executes the creation of path after successful evaluation
      */
-    public void createPath(){
+    public void createPath() {
         if(start.isEmpty()) {
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -387,11 +387,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         route.setDate(date);
 
-        Matcher matcher = new Matcher(route);
+        Matcher matcher = new Matcher();
         matcher.setMatchedMarkers(this.matchedMarkers);
         matcher.setUserMapCatalog(this.userOnMapCatalog);
 
         matcher.matchRoute(route.getPoints());
+        matcher.getMatchedMarkers();
     }
 
     /**

@@ -9,15 +9,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Matcher {
 
-    private Route route = new Route();
     private ArrayList <User> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
 
-    public Matcher(Route route) {
-        this.route = route;
+    public Matcher() {
     }
 
     public void setMatchedMarkers(HashMap<Integer, Marker> matchedMarkers) {
@@ -37,8 +37,7 @@ public class Matcher {
     }
 
     /** calculates the distance between two locations in MILES */
-    private double distance(double lat1, double lng1, double lat2, double lng2) { 
-
+    public double distance(double lat1, double lng1, double lat2, double lng2) {
         double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
         double dLat = Math.toRadians(lat2-lat1);
         double dLng = Math.toRadians(lng2-lng1);
@@ -58,14 +57,9 @@ public class Matcher {
      * @param userLocation
      * @return boolean
      */
-    public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) { 
-        if (distance( passengerLocation.latitude, passengerLocation.longitude,
-                userLocation.latitude, userLocation.longitude) <= 0.1) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean validateDistance(LatLng passengerLocation, LatLng userLocation) {
+            return (distance( passengerLocation.latitude, passengerLocation.longitude,
+                    userLocation.latitude, userLocation.longitude) <= 0.1) ;
     }
 
     /**
@@ -83,13 +77,11 @@ public class Matcher {
                 int passengerRouteId = route.getId();
                 Date date = route.getDate();
                 int dateMatched = 0;
-//                int dateMatched = date.compareTo(this.route.getDate());
-                boolean pickUpBool = false;
-                boolean goToEnd = false;
-                int i = 0;
+//                dateMatched = date.compareTo(this.route.getDate());
+
 
                 // the value of pickUpBool and goToEnd are modified in matchDistance method
-                matchDistance(i, passengerRouteId, dateMatched, routeOfUser,  pickUpBool, goToEnd, pickUp, drop);
+                matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }
         }
     }
@@ -97,17 +89,25 @@ public class Matcher {
      /**
      * Match routes on valid distance and user preferences
      */
-    private void matchDistance(int i, int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
-                               boolean pickUpBool, boolean goToEnd, LatLng pickUp, LatLng drop) {
+    private void matchDistance(int passengerRouteId, int dateMatched, List<LatLng> routeOfUser,
+                               LatLng pickUp, LatLng drop) {
+        int i = 0;
+        boolean pickUpBool = false;
+        boolean goToEnd = false;
+
         while (i < routeOfUser.size() && !pickUpBool) {
             LatLng pointInPoly = routeOfUser.get(i);
+            // match the pickup points
             if (this.validateDistance(pickUp, pointInPoly) && !goToEnd && dateMatched==0) {
                 goToEnd = true;
-                i++;
+            } else {
+                Marker marker = matchedMarkers.get(passengerRouteId);
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
             }
-
+            // match the dropout points
             if (this.validateDistance(drop, pointInPoly) && goToEnd) {
-                for ( int key : matchedMarkers.keySet()) {
+                for (Map.Entry<Integer, Marker> entry : matchedMarkers.entrySet()) {
+                    int key = entry.getKey();
                     if(key == passengerRouteId) {
                         Marker marker = matchedMarkers.get(key);
                         marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
