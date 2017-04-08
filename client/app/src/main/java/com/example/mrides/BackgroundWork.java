@@ -69,7 +69,7 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
             InputStream inputStream =  httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
             String result ="Result: \n";
-            String line = "";
+            String line;
             while ((line = bufferedReader.readLine()) != null){
                 result += line;
             }
