@@ -35,6 +35,7 @@
 
     <!--Not translated-->
     <string name="invited_to_route">Route Invitation From:</string> <!--right after this sentence is the name-->
+    <string name="invite_from">From:</string>
     <string name="accept">Accept Invite</string>
     <string name="inbox">Inbox</string>
     <string name="find_path">Find path</string>
@@ -57,5 +58,6 @@
     <string name="smoker">Smoker</string>
     <string name="non_smoker">Non-Smoker</string>
     <string name="i_am_ready">I AM READY</string>
+    <string name="route_invitation">Route Invitation</string>
 
 </resources>

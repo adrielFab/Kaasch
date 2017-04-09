@@ -62,10 +62,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         holder.setInvitation(invitations.get(position));
         UserProfileListener listener = new UserProfileListener(invitations.get(position),inboxContext);
         holder.itemMessage.setOnClickListener(listener);
-        holder.profilePciture.setOnClickListener(listener);
+        holder.profilePicture.setOnClickListener(listener);
     }
-
-
 
     /**
      * Returns the count of items to be added to the inbox.
@@ -78,9 +76,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         return invitations.size();
     }
 
-
-
-
     /**
      * Provide a reference to the views for each data item
      * Complex data items may need more than one view per item, and
@@ -90,20 +85,22 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView itemMessage;
-        ImageView profilePciture;
+        TextView itemMessageType;
+        ImageView profilePicture;
         View v;
         public ViewHolder(View v, Invitation invitation) {
             super(v);
             //v.setOnClickListener(this);
-            profilePciture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
+            profilePicture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
             itemMessage = (TextView) itemView.findViewById(R.id.item_title);
+            itemMessageType = (TextView) itemView.findViewById(R.id.message_type);
             //this.invitation = invitation;
         }
 
         public void setInvitation(Invitation invitation) {
-            this.itemMessage.setText(inboxContext.getString(R.string.invited_to_route)+
+            this.itemMessageType.setText(R.string.route_invitation);
+            this.itemMessage.setText(inboxContext.getString(R.string.invite_from)+ " " +
                     invitation.getFirstName());
         }
-
     }
 }
