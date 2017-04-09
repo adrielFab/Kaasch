@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static final int RC_SIGN_IN = 9001;
     private RequestHandler requestHandler = new RequestHandler();
-    private User user;
     private GoogleSignInAccount googleuser;
     private ProgressDialog mProgressDialog;
 
@@ -198,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements
 
         if (firebaseuser != null && googleuser!= null) {
             // User is signed in
-            user = new User(firebaseuser,googleuser);
+            User user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
             /*requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)+"/register_user.php",
