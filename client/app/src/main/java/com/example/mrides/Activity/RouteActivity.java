@@ -109,6 +109,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             sendRating(ratingsOfUser);
             Intent intent = new Intent(RouteActivity.this, HomePage.class);
             startActivity(intent);
+            Toast.makeText(RouteActivity.this, "RATING SUBMITTED", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
