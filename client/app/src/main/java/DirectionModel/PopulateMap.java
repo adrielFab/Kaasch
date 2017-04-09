@@ -100,7 +100,8 @@ public class PopulateMap implements ActivityObserver{
             String routeName = jsonObject.getString("route_name");
             Preference preference = new Preference(wantsBoy, wantsGirl, wantsSmoker);
 
-            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+            System.out.println("Start "+startDateTime);
+            DateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
             Date date = null;
             try {
                 date = sdf.parse(startDateTime);
@@ -108,6 +109,8 @@ public class PopulateMap implements ActivityObserver{
                 Log.e("PopulateMap ", e.getMessage());
             }
 
+
+            System.out.println("Date is "+date);
             route.setId(id);
             route.setTitle(routeName);
             route.setPreference(preference);
