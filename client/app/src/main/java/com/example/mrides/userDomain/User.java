@@ -48,6 +48,8 @@ public class User {
     private String smokes;
     private String gender;
 
+    private String rating;
+
     public User(){
 
     }
@@ -163,6 +165,14 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
 }
