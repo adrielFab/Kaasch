@@ -1,11 +1,14 @@
 package DirectionModel;
 
+import android.util.Log;
+
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,9 +90,23 @@ public class Matcher {
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
                 int passengerRouteId = route.getId();
-                Date date = route.getDate();
-                int dateMatched = 0;
-                dateMatched = date.compareTo(this.route.getDate());
+                Date dateOfPassenger = route.getDate(); //from the passenger
+                Date dateOfUser = this.route.getDate(); //from the user
+                int dateMatched = 1;
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dateOfUser);
+                cal.add(Calendar.HOUR, +1);
+                Date datePlusAnHour = cal.getTime();
+
+                cal.setTime(dateOfUser);
+                cal.add(Calendar.HOUR, -1);
+                Date dateMinusAnHour = cal.getTime();
+
+                if (dateOfPassenger.after(dateMinusAnHour) && dateOfPassenger.before(datePlusAnHour)) {
+                    dateMatched = 0;
+                }
+
                 boolean pickUpBool = false;
                 boolean goToEnd = false;
                 int i = 0;
