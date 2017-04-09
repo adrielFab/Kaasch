@@ -111,7 +111,7 @@ public class PopulateMap implements ActivityObserver{
 
 
             System.out.println("Date is "+date);
-            route.setId(id);
+            route.setId(Integer.parseInt(searchId));
             route.setTitle(routeName);
             route.setPreference(preference);
             route.setDate(date);
@@ -120,6 +120,7 @@ public class PopulateMap implements ActivityObserver{
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
+            user.setRating(rating);
 
             String[] latlongStart =  jsonObject.getString("start_point").split(",");
             double latitudeS = Double.parseDouble(latlongStart[0]);
