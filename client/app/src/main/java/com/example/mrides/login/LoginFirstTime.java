@@ -1,9 +1,7 @@
 package com.example.mrides.login;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 
 import com.example.mrides.Activity.ActivityObserver;
@@ -26,7 +24,6 @@ public class LoginFirstTime implements ActivityObserver{
 
     @Override
     public void Update(String response) {
-        System.out.println("First Time user "+ response);
         requestHandler.detach(this);
         mProgressDialog.dismiss();
         Intent intent = new Intent(activity, HomePage.class);

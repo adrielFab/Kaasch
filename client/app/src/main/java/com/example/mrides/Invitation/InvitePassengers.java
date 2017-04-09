@@ -18,16 +18,18 @@ import java.util.Map;
 public class InvitePassengers implements ActivityObserver{
 
     private List<User> invitedUsers;
+    private String in_title;
     private CreateRouteActivity createRouteActivity;
     private RequestHandler requestHandler = new RequestHandler();
 
-    public InvitePassengers(CreateRouteActivity createRouteActivity, List<User> invitedUsers) {
+    public InvitePassengers(CreateRouteActivity createRouteActivity, List<User> invitedUsers, String in_title) {
         this.createRouteActivity =createRouteActivity;
         this.invitedUsers = invitedUsers;
+        this.in_title = in_title;
     }
 
     public void invitePassengers() {
-        requestHandler.attach(createRouteActivity);
+        requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
         Map<String,String> driverJsonBody = UserSerializer.getParameters(RequestHandler.getUser());
         for(User selected : invitedUsers) {
@@ -35,6 +37,7 @@ public class InvitePassengers implements ActivityObserver{
             Map<String,String> jsonBody = new HashMap<>();
             jsonBody.putAll(driverJsonBody);
             jsonBody.putAll(passengerJSonBody);
+            jsonBody.put("route_name",in_title);
             requestHandler.httpPostStringRequest("http://"+
                     createRouteActivity.getString(R.string.web_server_ip)  +
                             "/invitePassenger.php",jsonBody,
@@ -45,9 +48,9 @@ public class InvitePassengers implements ActivityObserver{
         createRouteActivity.startActivity(intent);
     }
 
-
     @Override
     public void Update(String response) {
+        System.out.println("Invite Passenger." + response);
         requestHandler.detach(this);
     }
 }

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -73,8 +74,8 @@ public class RequestHandler implements Subject{
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         error.printStackTrace();
+                        Log.e("RequestHandler", error.getMessage());
                     }
                 }) {
             @Override
@@ -111,7 +112,7 @@ public class RequestHandler implements Subject{
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        error.printStackTrace();
+                        Log.e("RequestHandler", error.getMessage());
                     }
                 });
         RequestQueueSingleton.getInstance(context).addToRequestQueue(stringRequest);
@@ -127,7 +128,6 @@ public class RequestHandler implements Subject{
 
         ConnectivityManager cm =
                 (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        System.out.println("check");
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();

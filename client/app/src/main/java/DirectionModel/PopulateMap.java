@@ -6,6 +6,7 @@
 package DirectionModel;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.CreateRouteActivity;
@@ -113,7 +114,7 @@ public class PopulateMap implements ActivityObserver{
         try {
             parseUserandMarker(response);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("PopulateMap", e.getMessage());
         }
     }
 }
