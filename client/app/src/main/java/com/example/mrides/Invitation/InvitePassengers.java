@@ -7,6 +7,7 @@ import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.Activity.HomePage;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.PassengerSerializer;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
@@ -17,12 +18,12 @@ import java.util.Map;
 
 public class InvitePassengers implements ActivityObserver{
 
-    private List<User> invitedUsers;
+    private List<Passenger> invitedUsers;
     private String in_title;
     private CreateRouteActivity createRouteActivity;
     private RequestHandler requestHandler = new RequestHandler();
 
-    public InvitePassengers(CreateRouteActivity createRouteActivity, List<User> invitedUsers, String in_title) {
+    public InvitePassengers(CreateRouteActivity createRouteActivity, List<Passenger> invitedUsers, String in_title) {
         this.createRouteActivity =createRouteActivity;
         this.invitedUsers = invitedUsers;
         this.in_title = in_title;
@@ -32,7 +33,7 @@ public class InvitePassengers implements ActivityObserver{
         requestHandler.attach(this);
         //combine map so that it contains driver information and passenger information
         Map<String,String> driverJsonBody = UserSerializer.getParameters(RequestHandler.getUser());
-        for(User selected : invitedUsers) {
+        for(Passenger selected : invitedUsers) {
             Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selected);
             Map<String,String> jsonBody = new HashMap<>();
             jsonBody.putAll(driverJsonBody);
