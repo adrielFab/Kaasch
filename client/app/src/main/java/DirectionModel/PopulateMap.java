@@ -115,7 +115,7 @@ public class PopulateMap implements ActivityObserver{
             passenger.setPhotoUrl(profile_picture);
             passenger.setDeviceId(deviceKey);
             passenger.setRating(rating);
-            passenger.setSearchId(Integer.getInteger(searchId));
+            passenger.setSearchId(Integer.parseInt(searchId));
             passenger.setWantsSmoker(intWantsSmoker);
             passenger.setWantsBoy(intWantsSmoker);
             passenger.setWantsGirl(intWantsGirl);

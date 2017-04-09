@@ -11,6 +11,7 @@ import com.example.mrides.Notification.Notification;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.UserSerializer;
 import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONArray;
@@ -53,7 +54,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
 
     private void getInboxData() {
         requestHandler.attach(this);
-        Map<String,String> userInfo = PassengerSerializer.getParameters(RequestHandler.getUser());
+        Map<String,String> userInfo = UserSerializer.getParameters(RequestHandler.getUser());
         requestHandler.httpPostStringRequest("http://"+this.getString(R.string.web_server_ip)+
                         "/getNotifications.php",userInfo,
                 RequestHandler.URLENCODED, this);
