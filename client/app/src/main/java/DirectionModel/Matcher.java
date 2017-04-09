@@ -78,12 +78,15 @@ public class Matcher {
             ArrayList<Route> passengerRoutes = user.getRoutes();
 
             for (Route route : passengerRoutes) {
+
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
                 int passengerRouteId = route.getId();
                 Date date = route.getDate();
                 int dateMatched = 0;
-//                int dateMatched = date.compareTo(this.route.getDate());
+                System.out.println(this.route.getDate()+"Hello");
+                System.out.println("Hi "+date);
+                dateMatched = date.compareTo(this.route.getDate());
                 boolean pickUpBool = false;
                 boolean goToEnd = false;
                 int i = 0;
