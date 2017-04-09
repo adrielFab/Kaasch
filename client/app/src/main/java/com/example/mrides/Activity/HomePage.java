@@ -144,6 +144,10 @@ public class HomePage extends AppCompatActivity implements
         if (!routeList.isEmpty()) {
             for (int i = 0; i < routeList.size(); i++) {
                 boolean type = false;
+
+                if ("DRIVER".equals(routeList.get(i).getUserType())) {
+                    type = true;
+                }
                 String status =routeList.get(i).getRouteStatus();
                 Button button = createRouteButton(routeList.get(i).getTitle(), type, status);
                 hashRouteButton.put(routeList.get(i).getTitle(), button);

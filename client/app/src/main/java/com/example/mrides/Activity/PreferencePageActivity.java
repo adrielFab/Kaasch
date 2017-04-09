@@ -95,8 +95,6 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         bundle.putString("in_date", inDate);
         bundle.putString("in_time", inTime);
 
-
-
         if(title.isEmpty()) {
             Toast.makeText(PreferencePageActivity.this, "PLEASE INPUT A ROUTE NAME", Toast.LENGTH_SHORT).show();
         }
