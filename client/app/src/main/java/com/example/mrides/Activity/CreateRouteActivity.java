@@ -29,7 +29,7 @@ import android.widget.Toast;
 import com.example.mrides.Invitation.InvitePassengers;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
-import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -80,11 +80,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private LocationManager locationManager;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
-    private HashMap<Marker, User> googleMarkerHash = new HashMap<>();
-    private User selectedPassenger;
-    private User loggedInUser = RequestHandler.getUser();
+    private HashMap<Marker, Passenger> googleMarkerHash = new HashMap<>();
+    private Passenger selectedPassenger;
     private Dialog dialog;
-    private ArrayList<User> userOnMapCatalog = new ArrayList<>();
+    private ArrayList<Passenger> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
     private boolean startOrEnd;
     private String start;
@@ -98,7 +97,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean isLikesBoys;
     private boolean isLikesGirls;
     private Route route;
-    private List<User> invitedUsers = new ArrayList<>();
+    private List<Passenger> invitedPassengers = new ArrayList<>();
     /**
      * Method that is called to load the activity
      *
@@ -226,7 +225,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
-        for (User user : userOnMapCatalog) {
+        for (Passenger user : userOnMapCatalog) {
             ArrayList<Route> userRoutes = user.getRoutes();
             for (Route route : userRoutes) {
                 LatLng location = route.getStartLocation();
@@ -363,7 +362,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             successObtainDirection();
         }
         else if(role.equals("driver") ){ //enters statement from create_route_driver
-            InvitePassengers invitePassengers = new InvitePassengers(this,invitedUsers,this.in_title);
+            InvitePassengers invitePassengers = new InvitePassengers(this, invitedPassengers,this.in_title);
             invitePassengers.invitePassengers();
         }
     }
@@ -441,8 +440,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      *
      */
     private void addPassengerToInvitationList(){
-        if(!invitedUsers.contains(selectedPassenger)){
-            invitedUsers.add(selectedPassenger);
+        if(!invitedPassengers.contains(selectedPassenger)){
+            invitedPassengers.add(selectedPassenger);
             Toast.makeText(CreateRouteActivity.this,
                     getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
         }

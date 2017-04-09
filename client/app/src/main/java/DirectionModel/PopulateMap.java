@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.CreateRouteActivity;
 import com.example.mrides.controller.RequestHandler;
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 public class PopulateMap implements ActivityObserver{
 
     private CreateRouteActivity createRouteActivity;
-    private ArrayList<User> usersOnMapCatalog = new ArrayList<>();
+    private ArrayList<Passenger> usersOnMapCatalog = new ArrayList<>();
     private RequestHandler requestHandler = new RequestHandler();
 
     public PopulateMap(CreateRouteActivity createRouteActivity){
@@ -34,7 +35,7 @@ public class PopulateMap implements ActivityObserver{
      * Accessor method for usersOnMapCatalog
      * @return ArrayList<User> This returns a list of all the user to be shown on the map
      */
-    public ArrayList<User> getUsersOnMapCatalog() {
+    public ArrayList<Passenger> getUsersOnMapCatalog() {
 
         return usersOnMapCatalog;
     }
@@ -43,7 +44,7 @@ public class PopulateMap implements ActivityObserver{
      * Mutator method for usersOnMapCatalog
      * @param usersOnMapCatalog
      */
-    public void setUsersOnMapCatalog(ArrayList<User> usersOnMapCatalog) {
+    public void setUsersOnMapCatalog(ArrayList<Passenger> usersOnMapCatalog) {
 
         this.usersOnMapCatalog = usersOnMapCatalog;
     }
@@ -73,7 +74,7 @@ public class PopulateMap implements ActivityObserver{
 
         for(int i = 0; i < jsonData.length(); i ++){
 
-            User user = new User();
+            //Passenger user = new Passenger();
             Route route = new Route();
 
             JSONObject jsonObject = (JSONObject) jsonData.get(i);
