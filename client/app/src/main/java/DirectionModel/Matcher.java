@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class Matcher {
 
-    private ArrayList <Passenger> userOnMapCatalog = new ArrayList<>();
+    private List <Passenger> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
 
     public Matcher() {
@@ -29,11 +29,11 @@ public class Matcher {
         return this.matchedMarkers;
     }
 
-    public void setUserMapCatalog(ArrayList <Passenger> userOnMapCatalog) {
+    public void setUserMapCatalog(List <Passenger> userOnMapCatalog) {
         this.userOnMapCatalog = userOnMapCatalog;
     }
 
-    public ArrayList <Passenger> getUserMapCatalog() {
+    public List <Passenger> getUserMapCatalog() {
         return this.userOnMapCatalog;
     }
 
