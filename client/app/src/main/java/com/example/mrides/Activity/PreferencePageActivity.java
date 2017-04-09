@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mrides.R;
 
@@ -78,32 +79,35 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     public void goToCreateRoute(View view) {
         int selectedId = radioTypeGroup.getCheckedRadioButtonId();
         RadioButton radioTypeButton = (RadioButton) findViewById(selectedId);
-
         String choice = radioTypeButton.getText().toString();
         Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
         TextView tvDate = (TextView) findViewById(R.id.in_date);
         TextView tvTime = (TextView) findViewById(R.id.in_time);
         TextView tvTitle = (TextView) findViewById(R.id.in_title);
-
         String inDate = tvDate.getText().toString();
         String inTime = tvTime.getText().toString();
         String title = tvTitle.getText().toString();
-        //Create the bundle
-        Bundle bundle = new Bundle();
-        bundle.putString("in_title", title);
-        bundle.putString("in_date", inDate);
-        bundle.putString("in_time", inTime);
-        bundle.putBoolean("likesSomes",isPreferenceChoiceSelected[0]);
-        bundle.putBoolean("likesBoys",isPreferenceChoiceSelected[1]);
-        bundle.putBoolean("likesGirls", isPreferenceChoiceSelected[2]);
-        //Add the bundle to the intent
-        intent.putExtras(bundle);
-        if("Driver".equals(choice)) {
-            intent.putExtra("role", "driver");
-            startActivity(intent);
-        } else if ("Passenger".equals(choice)) {
-            intent.putExtra("role", "passenger");
-            startActivity(intent);
+        if(title.isEmpty()) {
+            Toast.makeText(PreferencePageActivity.this, "PLEASE INPUT A ROUTE NAME", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            //Create the bundle
+            Bundle bundle = new Bundle();
+            bundle.putString("in_title", title);
+            bundle.putString("in_date", inDate);
+            bundle.putString("in_time", inTime);
+            bundle.putBoolean("likesSomes", isPreferenceChoiceSelected[0]);
+            bundle.putBoolean("likesBoys", isPreferenceChoiceSelected[1]);
+            bundle.putBoolean("likesGirls", isPreferenceChoiceSelected[2]);
+            //Add the bundle to the intent
+            intent.putExtras(bundle);
+            if ("Driver".equals(choice)) {
+                intent.putExtra("role", "driver");
+                startActivity(intent);
+            } else if ("Passenger".equals(choice)) {
+                intent.putExtra("role", "passenger");
+                startActivity(intent);
+            }
         }
     }
 
@@ -177,7 +181,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param index
      */
     private void changeButtonPreference(ImageView img, int index, int img1, int img2) {
-        if(isPreferenceChoiceSelected[index] == true) {
+        if(isPreferenceChoiceSelected[index]) {
             img.setImageResource(img1);
             isPreferenceChoiceSelected[index] = false;
         } else {
@@ -194,12 +198,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
      * @param img2
      */
     private void toggleBoyGirl(ImageView img, int selectedPreferenceIndex, int img1, int img2) {
-        if(selectedPreferenceIndex==1 && isPreferenceChoiceSelected[2]==false) {
+        if(selectedPreferenceIndex==1 && !isPreferenceChoiceSelected[2]) {
             //reject men accept females
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);
         }
-        else if(selectedPreferenceIndex==2 && isPreferenceChoiceSelected[1]==false) {
+        else if(selectedPreferenceIndex==2 && !isPreferenceChoiceSelected[1]) {
             //reject females accept males
             changeButtonPreference(btnMalePref, 1, R.drawable.men_not_accepted, R.drawable.men_accepted);
             changeButtonPreference(btnFemalePref, 2, R.drawable.women_not_accepted, R.drawable.women_accepted);

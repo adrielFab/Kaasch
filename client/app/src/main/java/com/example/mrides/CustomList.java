@@ -16,14 +16,16 @@ public class CustomList extends ArrayAdapter {
 
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<String> photoURL = new ArrayList<>();
+    private ArrayList<String> emails = new ArrayList<>();
     private Activity context;
-    private HashMap<String, Float> ratingOfUser = new HashMap<>();
+    private HashMap<String, String> ratingOfUser = new HashMap<>();
 
-    public CustomList(Activity context, ArrayList<String> names, ArrayList<String> photoURL) {
+    public CustomList(Activity context, ArrayList<String> names, ArrayList<String> photoURL, ArrayList<String> emails) {
         super(context, R.layout.list_layout, names);
         this.context = context;
         this.names = names;
         this.photoURL = photoURL;
+        this.emails = emails;
     }
 
     @Override
@@ -42,8 +44,8 @@ public class CustomList extends ArrayAdapter {
 
             @Override
             public void onRatingChanged(RatingBar ratingBar, float value, boolean b) {
-                ratingOfUser.put(names.get(position), value);
-                System.out.println(value + " " + names.get(position) );
+                String valueString = Float.toString(value);
+                ratingOfUser.put(emails.get(position), valueString);
             }
         });
 
