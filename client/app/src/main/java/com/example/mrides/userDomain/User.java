@@ -47,7 +47,9 @@ public class User {
     private ArrayList<Route> routes = new ArrayList<>();
     private String smokes;
     private String gender;
-
+    private int wantsBoy;
+    private int wantsGirl;
+    private int wantsSmoker;
     private String rating;
 
     public User(){
@@ -134,6 +136,10 @@ public class User {
         return photoUrl;
     }
 
+    public void setPhotoUrl(String url){
+        this.photoUrl = url;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -165,4 +171,27 @@ public class User {
         this.rating = rating;
     }
 
+    public int getWantsBoy() {
+        return wantsBoy;
+    }
+
+    public void setWantsBoy(int wantsBoy) {
+        this.wantsBoy = wantsBoy;
+    }
+
+    public int getWantsGirl() {
+        return wantsGirl;
+    }
+
+    public void setWantsGirl(int wantsGirl) {
+        this.wantsGirl = wantsGirl;
+    }
+
+    public int getWantsSmoker() {
+        return wantsSmoker;
+    }
+
+    public void setWantsSmoker(int wantsSmoker) {
+        this.wantsSmoker = wantsSmoker;
+    }
 }

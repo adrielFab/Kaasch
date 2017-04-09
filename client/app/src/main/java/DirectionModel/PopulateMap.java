@@ -102,6 +102,19 @@ public class PopulateMap implements ActivityObserver{
             String startDateTime = jsonObject.getString("start_date_time");
             String routeName = jsonObject.getString("route_name");
             Preference preference = new Preference(wantsBoy, wantsGirl, wantsSmoker);
+            passenger.setId(id);
+            passenger.setFirstName(firstName);
+            passenger.setLastName(lastName);
+            passenger.setEmail(email);
+            passenger.setGender(gender);
+            passenger.setSmokes(smoker);
+            passenger.setPhotoUrl(profile_picture);
+            passenger.setDeviceId(deviceKey);
+            passenger.setRating(rating);
+            passenger.setSearchId(Integer.getInteger(searchId));
+            passenger.setWantsSmoker(Integer.getInteger(wantsSmoker));
+            passenger.setWantsBoy(Integer.getInteger(wantsBoy));
+            passenger.setWantsGirl(Integer.getInteger(wantsGirl));
 
             System.out.println("Start "+startDateTime);
             DateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
