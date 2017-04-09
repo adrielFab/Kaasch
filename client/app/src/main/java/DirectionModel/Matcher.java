@@ -1,5 +1,6 @@
 package DirectionModel;
 
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 public class Matcher {
 
-    private ArrayList <User> userOnMapCatalog = new ArrayList<>();
+    private ArrayList <Passenger> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
 
     public Matcher() {
@@ -28,11 +29,11 @@ public class Matcher {
         return this.matchedMarkers;
     }
 
-    public void setUserMapCatalog(ArrayList <User> userOnMapCatalog) {
+    public void setUserMapCatalog(ArrayList <Passenger> userOnMapCatalog) {
         this.userOnMapCatalog = userOnMapCatalog;
     }
 
-    public ArrayList <User> getUserMapCatalog() { 
+    public ArrayList <Passenger> getUserMapCatalog() {
         return this.userOnMapCatalog;
     }
 
@@ -72,6 +73,11 @@ public class Matcher {
             ArrayList<Route> passengerRoutes = user.getRoutes();
 
             for (Route route : passengerRoutes) {
+
+                // Match current user's preference to other users'information
+                if(!matchPreferences(route, user)){
+                    continue;
+                }
 
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
@@ -118,5 +124,8 @@ public class Matcher {
         }
     }
 
+    private boolean matchPreferences(Route route, User user) {
+        return route.getPreference().matchPreferences(user);
+    }
 
 }

@@ -65,6 +65,7 @@ import java.util.Map;
 
 import DirectionModel.Matcher;
 import DirectionModel.PopulateMap;
+import DirectionModel.Preference;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
@@ -84,7 +85,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private HashMap<Marker, Passenger> googleMarkerHash = new HashMap<>();
     private Passenger selectedPassenger;
     private Dialog dialog;
-    private ArrayList<Passenger> userOnMapCatalog = new ArrayList<>();
+    private List<Passenger> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
     private boolean startOrEnd;
     private String start;
@@ -99,26 +100,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private boolean isLikesGirls;
     private Route route;
     private List<Passenger> invitedPassengers = new ArrayList<>();
-    /**
-     * Method that requests the user to capture their current location
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    private Preference preference;
 
-                    //requestLocationUpdates demands an explicit permission check
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
-            }
-        }
-    }
           
     /**
      * Method that is called to load the activity
@@ -139,6 +122,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         likesSmokes =  bundle.getBoolean("likesSomes");
         isLikesBoys =  bundle.getBoolean("likesBoys");
         isLikesGirls = bundle.getBoolean("likesGirls");
+        preference = bundle.getParcelable("preference");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -233,7 +217,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     .title("My Location"));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         }
-
 
         populateMap.requestUsers(this);
     }
@@ -352,6 +335,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             System.out.println("ParseEx is here: "+e.getMessage());
         }
 
+        route.setPreference(preference);
         route.setDate(date);
 
         Matcher matcher = new Matcher();

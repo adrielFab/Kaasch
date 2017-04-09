@@ -144,6 +144,18 @@ public class User {
         return gender;
     }
 
+    public boolean isMale(){
+        return gender.equalsIgnoreCase("male");
+    }
+
+    public boolean isFemale(){
+        return gender.equalsIgnoreCase("female");
+    }
+
+    public boolean isSmoker(){
+        return smokes.equals("1");
+    }
+
     public String getSmokes() {
         return smokes;
     }
