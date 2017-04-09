@@ -84,8 +84,6 @@ public class Matcher {
                 int passengerRouteId = route.getId();
                 Date date = route.getDate();
                 int dateMatched = 0;
-                System.out.println(this.route.getDate()+"Hello");
-                System.out.println("Hi "+date);
                 dateMatched = date.compareTo(this.route.getDate());
                 boolean pickUpBool = false;
                 boolean goToEnd = false;

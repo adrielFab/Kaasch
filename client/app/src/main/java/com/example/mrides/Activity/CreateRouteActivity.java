@@ -315,10 +315,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-        DateFormat sdf = new SimpleDateFormat("d-m-yy hh:mm");
-//        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = new SimpleDateFormat("d-MM-yy hh:mm");
         Date date = null;
-//        String strDate = this.inDate;
         String strDate = this.inDate + " " + this.inTime;
         try {
             date = sdf.parse(strDate);
