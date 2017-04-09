@@ -17,6 +17,7 @@ public class Passenger extends User {
         DEVICEID("passengerDeviceId"),
         PROFILEURL("passengerProfileUrl"),
         GENDER("passengerGender"),
+        SEARCHID("passengerSearchId"),
         SMOKES("passengerSmokes");
 
         private String key;
@@ -31,7 +32,18 @@ public class Passenger extends User {
         }
     }
 
+    private int searchId;
+
     public Passenger(FirebaseUser acct, GoogleSignInAccount googleSignInAccount) {
         super(acct, googleSignInAccount);
     }
+
+    public void setSearchId(int searchId){
+        this.searchId = searchId;
+    }
+
+    public int getSearchId(){
+        return searchId;
+    }
+
 }
