@@ -31,6 +31,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,ActivityObserver, FirebaseAuth.AuthStateListener,
@@ -162,14 +163,15 @@ public class MainActivity extends AppCompatActivity implements
         mProgressDialog.dismiss();
         requestHandler.detach(this);
         if(response.contains("True")) { // this is not the first time the user is logged in
-            Intent intent = new Intent(MainActivity.this, HomePage.class);
-            this.startActivity(intent);
-        }
-        else if(response.contains("False")) { // this is the first time the user is logged in
             requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/updateDeviceId.php", UserSerializer.getParameters(RequestHandler.getUser()),
                     RequestHandler.URLENCODED, this);
+
+        }
+        else if(response.contains("Device")) { // returning user update device id
+            Intent intent = new Intent(MainActivity.this, HomePage.class);
+            this.startActivity(intent);
         }
         else {
             Intent intent = new Intent(MainActivity.this, FirstTimeActivity.class);
@@ -208,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),
                     RequestHandler.URLENCODED, this);
+            System.out.println("token: " + FirebaseInstanceId.getInstance().getToken() );
         }
     }
 

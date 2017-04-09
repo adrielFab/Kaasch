@@ -458,8 +458,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         requestHandler.attach(this);
         Map<String, String> jsonBody = new HashMap<>();
         jsonBody.put("route_name",this.in_title);
-        jsonBody.put("start",route.getStartLocation().toString());
-        jsonBody.put("end",route.getEndLocation().toString());
+        jsonBody.put("start",route.getStartLocationAsSting());
+        jsonBody.put("end",route.getEndLocationAsSting());
         jsonBody.put("duration",String.valueOf(route.getDuration().getValue()));
         jsonBody.put("distance",String.valueOf(route.getDistance().getValue()));
         jsonBody.put("time", route.getDate().toString());
