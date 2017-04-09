@@ -90,7 +90,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private String inDate;
     private String inTime;
-    private String inTitle;
     private String role;
 
     /**
@@ -108,7 +107,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         //Extract the data…
         inDate = bundle.getString("in_date");
         inTime = bundle.getString("in_time");
-        inTitle = bundle.getString("in_title");
+        String inTitle = bundle.getString("in_title");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
