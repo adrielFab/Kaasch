@@ -24,10 +24,28 @@ public class Route {
     private List<LatLng> points;
     private String userType;
     private String routeStatus;
+    private Preference preference;
 
     public Route () {
 
     }
+
+    /**
+     * Mutator method for preference
+     */
+    public void setPreference(Preference preference) {
+
+        this.preference = preference;
+    }
+
+    /**
+     * Mutator method for preference
+     */
+    public Preference getPreference() {
+
+        return this.preference;
+    }
+
 
     /**
      * Mutator method for title

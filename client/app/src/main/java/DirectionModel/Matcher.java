@@ -72,14 +72,12 @@ public class Matcher {
             ArrayList<Route> passengerRoutes = user.getRoutes();
 
             for (Route route : passengerRoutes) {
+
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
                 int passengerRouteId = route.getId();
                 Date date = route.getDate();
                 int dateMatched = 0;
-//                dateMatched = date.compareTo(this.route.getDate());
-
-
                 // the value of pickUpBool and goToEnd are modified in matchDistance method
                 matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }

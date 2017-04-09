@@ -9,6 +9,10 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class Passenger extends User {
 
+    public Passenger() {
+
+    }
+
     public enum ParameterKeys{
 
         EMAIL("passengerEmail"),

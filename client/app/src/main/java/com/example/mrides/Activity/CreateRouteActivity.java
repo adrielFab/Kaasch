@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -341,13 +342,14 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-        DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
+        DateFormat sdf = new SimpleDateFormat("d-MM-yy hh:mm");
         Date date = null;
         String strDate = this.in_date + " " + this.in_time;
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
             Log.e("CreateRouteActivity", e.getMessage());
+            System.out.println("ParseEx is here: "+e.getMessage());
         }
 
         route.setDate(date);
@@ -405,6 +407,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             dialog.setContentView(R.layout.userprofile_dialog_layout);
             dialog.show();
 
+            TextView textViewRatingValue = (TextView) dialog.findViewById(R.id.textViewRatingValue);
+            textViewRatingValue.setText(selectedPassenger.getRating());
             TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
             textViewFullName.setText(marker.getTitle());
 
