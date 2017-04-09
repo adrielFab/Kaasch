@@ -20,7 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +61,6 @@ public class PopulateMap implements ActivityObserver{
      * @param context the context of the activty making the request
      */
     public void requestUsers(Context context) {
-        System.out.println("BOBOBOBOBBOBBOBBOBOOBOB");
         requestHandler.attach(this);
         Map<String,String> jsonBody = new HashMap<>();
         requestHandler.httpPostStringRequest("http://"+context.getString(R.string.web_server_ip)  +
@@ -77,7 +80,6 @@ public class PopulateMap implements ActivityObserver{
             return;
 
         JSONArray jsonData = new JSONArray(result);
-        System.out.println(result + "cuej");
         for(int i = 0; i < jsonData.length(); i ++){
 
             User user = new User();
@@ -90,22 +92,26 @@ public class PopulateMap implements ActivityObserver{
             String email = jsonObject.getString("email");
             String deviceKey = jsonObject.getString("device_key");
             String rating = jsonObject.getString("rating");
-//            String startPoint = jsonObject.getString("start_point");
-//            String endPoint = jsonObject.getString("end_point");
             String searchId = jsonObject.getString("search_id");
             String wantsSmoker = jsonObject.getString("wantsSmoker");
             String wantsBoy = jsonObject.getString("wantsBoy");
             String wantsGirl = jsonObject.getString("wantsGirl");
             String startDateTime = jsonObject.getString("start_date_time");
             String routeName = jsonObject.getString("route_name");
-            //String passengerDeviceId = jsonObject.getString("deviceId"); //TODO needs to be added to database
-            //user.setDeviceId(passengerDeviceId);
             Preference preference = new Preference(wantsBoy, wantsGirl, wantsSmoker);
 
-            System.out.print("Added"+id);
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+            Date date = null;
+            try {
+                date = sdf.parse(startDateTime);
+            } catch (ParseException e) {
+                Log.e("PopulateMap ", e.getMessage());
+            }
+
             route.setId(id);
             route.setTitle(routeName);
             route.setPreference(preference);
+            route.setDate(date);
 
             user.setDeviceId(deviceKey);
             user.setFirstName(firstName);

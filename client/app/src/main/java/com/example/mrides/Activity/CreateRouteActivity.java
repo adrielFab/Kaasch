@@ -315,12 +315,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-//        DateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = new SimpleDateFormat("d-m-yy hh:mm");
+//        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
-        String strDate = this.inDate;
-//        String strDate = this.inDate + " " + this.inTime;
-        System.out.println(this.inDate+" date shit");
+//        String strDate = this.inDate;
+        String strDate = this.inDate + " " + this.inTime;
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
@@ -328,8 +327,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             System.out.println("ParseEx is here: "+e.getMessage());
         }
 
-        System.out.println(date+" date good");
         route.setDate(date);
+        System.out.println(this.inDate+" my date");
 
         Matcher matcher = new Matcher(route);
         matcher.setMatchedMarkers(this.matchedMarkers);
