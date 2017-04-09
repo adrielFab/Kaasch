@@ -63,6 +63,7 @@ import java.util.Map;
 
 import DirectionModel.Matcher;
 import DirectionModel.PopulateMap;
+import DirectionModel.Preference;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
@@ -93,6 +94,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private String inTime;
     private String inTitle;
     private String role;
+    private Preference preference;
 
     /**
      * Method that is called to load the activity
@@ -110,6 +112,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         inDate = bundle.getString("in_date");
         inTime = bundle.getString("in_time");
         inTitle = bundle.getString("in_title");
+        preference = bundle.getParcelable("preference");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -205,7 +208,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                     .title("My Location"));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         }
-
 
         populateMap.requestUsers(this);
     }
@@ -325,8 +327,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             System.out.println("ParseEx is here: "+e.getMessage());
         }
 
+        route.setPreference(preference);
         route.setDate(date);
-        System.out.println(this.inDate+" my date");
+        System.out.println("Preference in CRActivity " + route.getPreference());
 
         Matcher matcher = new Matcher(route);
         matcher.setMatchedMarkers(this.matchedMarkers);

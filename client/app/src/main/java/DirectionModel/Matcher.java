@@ -37,7 +37,7 @@ public class Matcher {
     }
 
     /** calculates the distance between two locations in MILES */
-    private double distance(double lat1, double lng1, double lat2, double lng2) { 
+    private double distance(double lat1, double lng1, double lat2, double lng2) {
 
         double earthRadius = 3958.75; // in miles, change to 6371 for kilometer output
         double dLat = Math.toRadians(lat2-lat1);
@@ -78,6 +78,11 @@ public class Matcher {
             ArrayList<Route> passengerRoutes = user.getRoutes();
 
             for (Route route : passengerRoutes) {
+
+                // Match current user's preference to other users'information
+                if(!matchPreferences(this.route, user)){
+                    continue;
+                }
 
                 LatLng pickUp = route.getStartLocation();
                 LatLng drop = route.getEndLocation();
@@ -121,5 +126,8 @@ public class Matcher {
         }
     }
 
+    private boolean matchPreferences(Route route, User user) {
+        return route.getPreference().matchPreferences(user);
+    }
 
 }

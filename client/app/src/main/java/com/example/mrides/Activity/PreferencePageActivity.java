@@ -10,6 +10,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import com.example.mrides.R;
 
 import java.util.Calendar;
+
+import DirectionModel.Preference;
 
 public class PreferencePageActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -104,6 +107,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 intent.putExtra("role", "driver");
                 //Add the bundle to the intent
                 intent.putExtras(bundle);
+                intent.putExtra("preference", toPreference());
                 startActivity(intent);
             } else if ("Passenger".equals(choice)) {
                 Intent intent = new Intent(PreferencePageActivity.this, CreateRouteActivity.class);
@@ -112,6 +116,12 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
                 startActivity(intent);
             }
         }
+    }
+
+    public Preference toPreference(){
+        return new Preference(isPreferenceChoiceSelected[0],
+                isPreferenceChoiceSelected[1],
+                isPreferenceChoiceSelected[2]);
     }
 
     /**

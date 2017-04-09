@@ -93,14 +93,20 @@ public class PopulateMap implements ActivityObserver{
             String deviceKey = jsonObject.getString("device_key");
             String rating = jsonObject.getString("rating");
             String searchId = jsonObject.getString("search_id");
-            String wantsSmoker = jsonObject.getString("wantsSmoker");
-            String wantsBoy = jsonObject.getString("wantsBoy");
-            String wantsGirl = jsonObject.getString("wantsGirl");
+            int intWantsSmoker = jsonObject.getInt("wantsSmoker");
+            int intWantsBoy = jsonObject.getInt("wantsBoy");
+            int intWantsGirl = jsonObject.getInt("wantsGirl");
             String startDateTime = jsonObject.getString("start_date_time");
             String routeName = jsonObject.getString("route_name");
+            String gender = jsonObject.getString("gender");
+            String smoker = jsonObject.getString("smoker");
+
+            boolean wantsSmoker = (intWantsSmoker != 0);
+            boolean wantsBoy = (intWantsBoy != 0);
+            boolean wantsGirl = (intWantsGirl != 0);
             Preference preference = new Preference(wantsBoy, wantsGirl, wantsSmoker);
 
-            System.out.println("Start "+startDateTime);
+            System.out.println("boy "+wantsBoy);
             DateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
             Date date = null;
             try {
@@ -120,6 +126,8 @@ public class PopulateMap implements ActivityObserver{
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);
+            user.setSmokes(smoker);
+            user.setGender(gender);
 
             String[] latlongStart =  jsonObject.getString("start_point").split(",");
             double latitudeS = Double.parseDouble(latlongStart[0]);
