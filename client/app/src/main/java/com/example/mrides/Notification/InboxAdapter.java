@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mrides.Invitation.Invitation;
 import com.example.mrides.R;
 
 import java.util.ArrayList;
@@ -96,11 +97,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
             itemMessageType = (TextView) itemView.findViewById(R.id.message_type);
             //this.invitation = invitation;
         }
-      
-        public void setInvitation(Invitation invitation) {
+        public void setInvitation(Notification notification) {
             this.itemMessageType.setText(R.string.route_invitation);
             this.itemMessage.setText(inboxContext.getString(R.string.invite_from)+ " " +
-                    invitation.getFirstName());
+                    notification.getFirstName());
         }
+
     }
 }
