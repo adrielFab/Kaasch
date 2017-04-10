@@ -40,6 +40,7 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
     private int mMonth;
     private int mDay;
     private int mHour;
+    private int mMin;
     private boolean [] isPreferenceChoiceSelected = {true, true, true};
 
     /**
@@ -232,12 +233,23 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         //set current date
         Calendar c = Calendar.getInstance();
          mYear = c.get(Calendar.YEAR) %100;
-         mMonth = c.get(Calendar.MONTH);
+         mMonth = c.get(Calendar.MONTH) + 1;
          mDay = c.get(Calendar.DAY_OF_MONTH);
         txtDate.setText(mDay + "-" + mMonth + "-" + mYear);
         //set current time + 10mins
          mHour = c.get(Calendar.HOUR_OF_DAY);
-        int mMin = c.get(Calendar.MINUTE) + 10;
+        if(c.get(Calendar.MINUTE) > 49) {
+            if(mHour == 23) {
+                mHour = 0;
+            }
+            else {
+                mHour++;
+            }
+            mMin = c.get(Calendar.MINUTE) - 50;
+        }
+        else {
+            mMin = c.get(Calendar.MINUTE) + 10;
+        }
         txtTime.setText(mHour + ":" + mMin);
     }
 }
