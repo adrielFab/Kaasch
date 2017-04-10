@@ -329,7 +329,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             date = sdf.parse(strDate);
         } catch (ParseException e) {
             Log.e("CreateRouteActivity", e.getMessage());
-            System.out.println("ParseEx is here: "+e.getMessage());
         }
 
         route.setPreference(preference);
@@ -473,10 +472,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         jsonBody.put("girl",String.valueOf(this.isLikesGirls));
         Map<String, String> passengerInfo;
         passengerInfo = UserSerializer.getParameters(RequestHandler.getUser());
-        jsonBody.putAll(passengerInfo);
-        System.out.println("createroute: passenger: " + jsonBody.get("smoking"));
-        System.out.println("createroute: passenger: " + jsonBody.get("boy"));
-        System.out.println("createroute: passenger: " + jsonBody.get("girl"));
+        jsonBody.putAll(passengerInfo);  
         if(role.equals("driver")){
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
                             "/create_route_driver.php",jsonBody,
