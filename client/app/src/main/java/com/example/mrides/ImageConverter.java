@@ -17,6 +17,12 @@ public class ImageConverter extends AsyncTask<String, Void, Bitmap>{
         this.imageView = bmImage;
     }
 
+    /**
+     * Method that takes in a valid google image url and converts into an actual
+     * image which is to be displayed in the application.
+     * @param urls, Photo Urls strings which are to be converted into actual images
+     * @return
+     */
     @Override
     protected Bitmap doInBackground(String... urls) {
         String urldisplay = urls[0];

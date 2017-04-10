@@ -32,10 +32,10 @@ public class CustomList extends ArrayAdapter {
      * This will create the list item for each user in the list of users on that route
      * What will be displayed in this view is the name of the user, their profile picture,
      * and a rating bar where the user will be able to rate the user
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position The index of that passenger in the list
+     * @param convertView A View which will convert the data into a view
+     * @param parent Calls the view group, also known as the list
+     * @return view. The view corresponds to the list_layout of a passenger
      */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -61,6 +61,11 @@ public class CustomList extends ArrayAdapter {
         return listViewItem;
     }
 
+    /**
+     * Returns the hashMapge ratingsOfUser which contains the ratings that the user
+     * has assigned to the other users shown
+     * @return
+     */
     public HashMap getRatings() {
         return this.ratingOfUser;
     }
