@@ -85,11 +85,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         View v;
         public ViewHolder(View v, Notification notification) {
             super(v);
-            //v.setOnClickListener(this);
             profilePicture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
             itemMessage = (TextView) itemView.findViewById(R.id.item_title);
             itemMessageType = (TextView) itemView.findViewById(R.id.message_type);
-            //this.invitation = invitation;
         }
         public void setInvitation(Notification notification) {
             this.itemMessageType.setText(R.string.route_invitation);

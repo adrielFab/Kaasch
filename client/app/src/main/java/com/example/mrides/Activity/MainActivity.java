@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -201,10 +200,6 @@ public class MainActivity extends AppCompatActivity implements
             // User is signed in
             User user = new User(firebaseuser,googleuser);
             requestHandler.setUser(user);
-            /*requestHandler.attach(this);
-            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)+"/register_user.php",
-                    UserSerializer.getParameters(user), RequestHandler.URLENCODED,
-                    this);*/
             requestHandler.attach(this);
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),

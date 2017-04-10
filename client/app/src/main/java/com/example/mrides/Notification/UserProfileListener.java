@@ -66,7 +66,6 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
 
         ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
         //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
-        //       .execute();
         imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
