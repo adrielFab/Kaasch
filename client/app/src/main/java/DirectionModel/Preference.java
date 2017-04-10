@@ -35,18 +35,6 @@ public class Preference implements Parcelable{
         }
     };
 
-    private boolean getWantsSmoker() {
-        return this.wantsSmoker;
-    }
-
-    private boolean getWantsBoy() {
-        return this.wantsBoy;
-    }
-
-    private boolean getWantsGirl() {
-        return this.wantsGirl;
-    }
-
     public boolean matchPreferences(User user){
         if (!this.wantsSmoker && user.isSmoker()) {
             return false;
