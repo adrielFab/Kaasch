@@ -223,7 +223,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 LatLng location = route.getStartLocation();
 
                 Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.no_men_icon))
                         .title(user.getFirstName() + " " + user.getLastName() + route.getId())
                         .position(location));
 
