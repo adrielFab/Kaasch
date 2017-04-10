@@ -205,8 +205,7 @@ public class Route {
     }
 
     public String getEndLocationAsSting(){
-        String locationAsString = "";
-        locationAsString = endLocation.toString().replace("lat/lng: (", "");
+        String locationAsString = endLocation.toString().replace("lat/lng: (", "");
         locationAsString = locationAsString.replace(")", "");
         return locationAsString;
     }
