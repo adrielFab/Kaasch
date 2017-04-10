@@ -70,7 +70,7 @@ public class Matcher {
      * Matches route of driver and passengers
      * @param routeOfUser
      */
-    public void matchRoute(List<LatLng> routeOfUser) {
+    public boolean matchRoute(List<LatLng> routeOfUser) {
 
         for (User user : userOnMapCatalog) {
             ArrayList<Route> passengerRoutes = user.getRoutes();
@@ -109,6 +109,7 @@ public class Matcher {
                 matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }
         }
+        return true;
     }
 
      /**
