@@ -1,8 +1,7 @@
 package DirectionModel;
 
-import com.example.mrides.userDomain.Passenger;
-import android.util.Log;
 import com.example.mrides.R;
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -14,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Matcher {
 
@@ -72,7 +70,7 @@ public class Matcher {
      * Matches route of driver and passengers
      * @param routeOfUser
      */
-    public void matchRoute(List<LatLng> routeOfUser) {
+    public boolean matchRoute(List<LatLng> routeOfUser) {
 
         for (User user : userOnMapCatalog) {
             ArrayList<Route> passengerRoutes = user.getRoutes();
@@ -111,6 +109,7 @@ public class Matcher {
                 matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }
         }
+        return true;
     }
 
      /**
