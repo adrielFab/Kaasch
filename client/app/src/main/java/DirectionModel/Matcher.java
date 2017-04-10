@@ -129,7 +129,7 @@ public class Matcher {
                 goToEnd = true;
             } else {
                 Marker marker = matchedMarkers.get(passengerRouteId);
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.no_men_icon));
             }
             // match the dropout points
             if (this.validateDistance(drop, pointInPoly) && goToEnd) {
