@@ -70,7 +70,6 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         imageViewProfile.setImageResource(R.drawable.sample_profile_image);
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
-        //TODO button id needs to be changed. diologue is also used in createrouteActivity
         buttonInvite.setId(R.id.accept);
         buttonInvite.setText(R.string.accept);
         buttonInvite.setOnClickListener(this);

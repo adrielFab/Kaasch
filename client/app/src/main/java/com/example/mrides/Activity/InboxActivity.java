@@ -35,7 +35,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
      *
      * @param savedInstanceState
      */
-    @Override //TODO a script is needed to retrieve past notifications that have not been accepted yet
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
@@ -47,7 +47,7 @@ public class InboxActivity extends AppCompatActivity implements ActivityObserver
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        getInboxData(); //TODO call this method to get the list of inbox data
+        getInboxData();
 
     }
 

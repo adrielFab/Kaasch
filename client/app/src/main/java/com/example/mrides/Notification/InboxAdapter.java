@@ -47,10 +47,6 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         return vh;
     }
 
-    //TODO this method only adds 1 item to the inbox. That item is the notification message
-    // Therefore the position variable is not used. In the future we need to implement a
-    // script to get all the inbox messages
-
     /**
      * This method is called when the data needs to be bound to the view. In this case the
      * data are past notifications which have not yet been declined or accepted.
@@ -69,8 +65,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
      * Returns the count of items to be added to the inbox.
      * @return
      */
-    //TODO number of elements which need to be shown for now 1 however as the inbox grows
-    //TODO more the item list needs to be representative of the number of inbox values
+
     @Override
     public int getItemCount() {
         return notifications.size();

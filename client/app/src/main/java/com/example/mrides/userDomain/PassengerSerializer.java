@@ -17,7 +17,6 @@ public class PassengerSerializer {
      * @return Return a map of key value pair of passenger attributes.
      *
      */
-    //TODO the paramter needs to be changed to a passenger in the future. For now user works
     public static Map<String, String> getParameters(Passenger passenger) {
         Map<String, String> map = new HashMap<>();
         map.put(Passenger.ParameterKeys.EMAIL.toString(), passenger.getEmail());
