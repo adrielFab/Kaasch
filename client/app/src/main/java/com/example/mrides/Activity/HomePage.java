@@ -176,6 +176,19 @@ public class HomePage extends AppCompatActivity implements
     }
 
     /**
+     *  When the user selects the back button from the Sign in page, the user will be brought
+     *  back to the Android home page. This prevents the user from accesing the application without
+     *  logging in.
+     */
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        Intent intent = new Intent(HomePage.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Resizes given drawable
      * @param image
      * @return Drawable
