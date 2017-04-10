@@ -145,15 +145,15 @@ public class User {
     }
 
     public boolean isMale(){
-        return gender.equalsIgnoreCase("male");
+        return "male".equalsIgnoreCase(gender);
     }
 
     public boolean isFemale(){
-        return gender.equalsIgnoreCase("female");
+        return "female".equalsIgnoreCase(gender);
     }
 
     public boolean isSmoker(){
-        return smokes.equals("1");
+        return "1".equals(smokes);
     }
 
     public String getSmokes() {

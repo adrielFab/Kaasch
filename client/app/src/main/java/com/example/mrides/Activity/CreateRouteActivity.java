@@ -364,11 +364,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             }
             successObtainDirection();
         }
-        else if(role.equals("driver") ){ //enters statement from create_route_driver
+        else if("driver".equals(role) ){ //enters statement from create_route_driver
             InvitePassengers invitePassengers = new InvitePassengers(this, invitedPassengers,this.in_title);
             invitePassengers.invitePassengers();
         }
-        else if(role.equals("passenger")){
+        else if("passenger".equals(role)){
             Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
             startActivity(intent);
         }
@@ -477,7 +477,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         Map<String, String> passengerInfo;
         passengerInfo = UserSerializer.getParameters(RequestHandler.getUser());
         jsonBody.putAll(passengerInfo);  
-        if(role.equals("driver")){
+        if("driver".equals(role)){
             requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
                             "/create_route_driver.php",jsonBody,
                     RequestHandler.URLENCODED ,this);
