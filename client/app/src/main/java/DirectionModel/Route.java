@@ -199,16 +199,14 @@ public class Route {
     }
 
     public String getStartLocationAsSting(){
-        String locationAsString = "";
-        locationAsString = startLocation.toString().replace("lat/lng: (", "");
-        locationAsString = locationAsString.toString().replace(")", "");
+        String locationAsString = startLocation.toString().replace("lat/lng: (", "");
+        locationAsString = locationAsString.replace(")", "");
         return locationAsString;
     }
 
     public String getEndLocationAsSting(){
-        String locationAsString = "";
-        locationAsString = endLocation.toString().replace("lat/lng: (", "");
-        locationAsString = locationAsString.toString().replace(")", "");
+        String locationAsString = endLocation.toString().replace("lat/lng: (", "");
+        locationAsString = locationAsString.replace(")", "");
         return locationAsString;
     }
 

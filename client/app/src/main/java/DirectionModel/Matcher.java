@@ -102,9 +102,6 @@ public class Matcher {
                     dateMatched = 0;
                 }
 
-                boolean pickUpBool = false;
-                boolean goToEnd = false;
-                int i = 0;
                 // the value of pickUpBool and goToEnd are modified in matchDistance method
                 matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }

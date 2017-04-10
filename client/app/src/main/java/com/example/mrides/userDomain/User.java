@@ -172,9 +172,6 @@ public class User {
         this.gender = gender;
     }
 
-    public boolean equals(User user) {
-        return this.email == user.email;
-    }
     public String getRating() {
         return rating;
     }
