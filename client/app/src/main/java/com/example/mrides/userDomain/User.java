@@ -47,6 +47,10 @@ public class User {
     private ArrayList<Route> routes = new ArrayList<>();
     private String smokes;
     private String gender;
+    private int wantsBoy;
+    private int wantsGirl;
+    private int wantsSmoker;
+    private String rating;
 
     public User(){
 
@@ -132,8 +136,24 @@ public class User {
         return photoUrl;
     }
 
+    public void setPhotoUrl(String url){
+        this.photoUrl = url;
+    }
+
     public String getGender() {
         return gender;
+    }
+
+    public boolean isMale(){
+        return gender.equalsIgnoreCase("male");
+    }
+
+    public boolean isFemale(){
+        return gender.equalsIgnoreCase("female");
+    }
+
+    public boolean isSmoker(){
+        return smokes.equals("1");
     }
 
     public String getSmokes() {
@@ -141,7 +161,6 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-
         this.firstName = firstName;
     }
 
@@ -153,4 +172,38 @@ public class User {
         this.gender = gender;
     }
 
+    public boolean equals(User user) {
+        return this.email == user.email;
+    }
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public int getWantsBoy() {
+        return wantsBoy;
+    }
+
+    public void setWantsBoy(int wantsBoy) {
+        this.wantsBoy = wantsBoy;
+    }
+
+    public int getWantsGirl() {
+        return wantsGirl;
+    }
+
+    public void setWantsGirl(int wantsGirl) {
+        this.wantsGirl = wantsGirl;
+    }
+
+    public int getWantsSmoker() {
+        return wantsSmoker;
+    }
+
+    public void setWantsSmoker(int wantsSmoker) {
+        this.wantsSmoker = wantsSmoker;
+    }
 }

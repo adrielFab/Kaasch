@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -26,9 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.Invitation.InvitePassengers;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
-import com.example.mrides.userDomain.PassengerSerializer;
+import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -63,6 +65,7 @@ import java.util.Map;
 
 import DirectionModel.Matcher;
 import DirectionModel.PopulateMap;
+import DirectionModel.Preference;
 import DirectionModel.Route;
 import DirectionModel.RouteDeserializer;
 
@@ -78,20 +81,27 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private List<Polyline> polylinePaths = new ArrayList<>();
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
-    private HashMap<Marker, User> googleMarkerHash = new HashMap<>();
-    private User selectedPassenger;
-    private User loggedInUser = RequestHandler.getUser();
+    private HashMap<Marker, Passenger> googleMarkerHash = new HashMap<>();
+    private Passenger selectedPassenger;
     private Dialog dialog;
-    private ArrayList<User> userOnMapCatalog = new ArrayList<>();
+    private List<Passenger> userOnMapCatalog = new ArrayList<>();
     private HashMap<Integer, Marker> matchedMarkers = new HashMap<>();
     private boolean startOrEnd;
     private String start;
     private String destination;
     static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    private String inDate;
-    private String inTime;
+    private String in_date;
+    private String in_time;
+    private String in_title;
     private String role;
+    private boolean likesSmokes;
+    private boolean isLikesBoys;
+    private boolean isLikesGirls;
+    private Route route;
+    private List<Passenger> invitedPassengers = new ArrayList<>();
+    private Preference preference;
 
+          
     /**
      * Method that is called to load the activity
      *
@@ -105,10 +115,13 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         //Get the bundle
         Bundle bundle = getIntent().getExtras();
         //Extract the data…
-        inDate = bundle.getString("in_date");
-        inTime = bundle.getString("in_time");
-        String inTitle = bundle.getString("in_title");
-
+        in_date = bundle.getString("in_date");
+        in_time = bundle.getString("in_time");
+        in_title = bundle.getString("in_title");
+        likesSmokes =  bundle.getBoolean("likesSomes");
+        isLikesBoys =  bundle.getBoolean("likesBoys");
+        isLikesGirls = bundle.getBoolean("likesGirls");
+        preference = bundle.getParcelable("preference");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -143,7 +156,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * Create path uses the google maps url to get the route by appending the start and end
      * addresses along with the google map api key
      */
-    public void createPath(){
+    public void createPath() {
         if(start.isEmpty()) {
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -204,7 +217,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 18));
         }
 
-
         populateMap.requestUsers(this);
     }
 
@@ -217,7 +229,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         userOnMapCatalog = populateMap.getUsersOnMapCatalog();
 
-        for (User user : userOnMapCatalog) {
+        for (Passenger user : userOnMapCatalog) {
             ArrayList<Route> userRoutes = user.getRoutes();
             for (Route route : userRoutes) {
                 LatLng location = route.getStartLocation();
@@ -280,9 +292,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * This also has an association with the matcher to invoke a matching algorithm with
      * another route to see if a certain passenger can be picked up.
      *
-     * @param route
      */
-    public void successObtainDirection(Route route) {
+    public void successObtainDirection() {
 
         mProgressDialog.dismiss();
         polylinePaths = new ArrayList<>();
@@ -313,15 +324,17 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         polylinePaths.add(mGoogleMap.addPolyline(polylineOptions));
 
-        DateFormat sdf = new SimpleDateFormat("mm-dd-yyyy hh:mm");
+        DateFormat sdf = new SimpleDateFormat("d-MM-yy hh:mm");
         Date date = null;
-        String strDate = this.inDate + " " + this.inTime;
+        String strDate = this.in_date + " " + this.in_time;
         try {
             date = sdf.parse(strDate);
         } catch (ParseException e) {
             Log.e("CreateRouteActivity", e.getMessage());
+            System.out.println("ParseEx is here: "+e.getMessage());
         }
 
+        route.setPreference(preference);
         route.setDate(date);
 
         Matcher matcher = new Matcher(route);
@@ -329,6 +342,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         matcher.setUserMapCatalog(this.userOnMapCatalog);
 
         matcher.matchRoute(route.getPoints());
+        matcher.getMatchedMarkers();
     }
 
     /**
@@ -339,16 +353,24 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      */
     @Override
     public void Update(String response) {
+        Log.e("CreateRouteActivity: " , response);
         requestHandler.detach(this);
-        RouteDeserializer deserializer = new RouteDeserializer();
-        Route route = new Route();
-        try {
+        if(!response.contains("Success")){ //enters statement from google api
+            RouteDeserializer deserializer = new RouteDeserializer();
+            route = new Route();
+            try {
+                route = (Route) deserializer.parseJSON(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("CreateRouteActivity", e.getMessage());
 
-            route = (Route) deserializer.parseJSON(response);
-        } catch (JSONException e) {
-            Log.e("CreateRouteActivity", e.getMessage());
+            }
+            successObtainDirection();
         }
-        successObtainDirection(route);
+        else if(role.equals("driver") ){ //enters statement from create_route_driver
+            InvitePassengers invitePassengers = new InvitePassengers(this, invitedPassengers,this.in_title);
+            invitePassengers.invitePassengers();
+        }
     }
 
     /**
@@ -368,6 +390,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             dialog.setContentView(R.layout.userprofile_dialog_layout);
             dialog.show();
 
+            TextView textViewRatingValue = (TextView) dialog.findViewById(R.id.textViewRatingValue);
+            textViewRatingValue.setText(selectedPassenger.getRating());
             TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
             textViewFullName.setText(marker.getTitle());
 
@@ -398,7 +422,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonInvite:
-                invitePassenger();
+                addPassengerToInvitationList();
                 break;
             case R.id.buttonCancel:
                 dialog.cancel();
@@ -420,23 +444,15 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     }
 
     /**
-     * Method that sends a notification to a passenger which informs that user
-     * that he/she is invited to be a part of the route
+     * Adds a passenger to the invites list to be invited after a route is created
      *
      */
-    private void invitePassenger() {
-
-        requestHandler.attach(this);
-        //combine map so that it contains driver information and passenger information
-        Map<String,String> driverJsonBody = UserSerializer.getParameters(loggedInUser);
-        Map<String,String> passengerJSonBody = PassengerSerializer.getParameters(selectedPassenger);
-        Map<String,String> jsonBody = new HashMap<>();
-        jsonBody.putAll(driverJsonBody);
-        jsonBody.putAll(passengerJSonBody);
-        requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
-                        "/invitePassenger.php",jsonBody,
-                RequestHandler.URLENCODED ,this);
-        Toast.makeText(CreateRouteActivity.this, getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
+    private void addPassengerToInvitationList(){
+        if(!invitedPassengers.contains(selectedPassenger)){
+            invitedPassengers.add(selectedPassenger);
+            Toast.makeText(CreateRouteActivity.this,
+                    getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -446,8 +462,33 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * The user is then redirected back to the homepage
      */
     public void saveChanges() {
-        Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
-        startActivity(intent);
+        requestHandler.attach(this);
+        Map<String, String> jsonBody = new HashMap<>();
+        jsonBody.put("route_name",this.in_title);
+        jsonBody.put("start",route.getStartLocationAsSting());
+        jsonBody.put("end",route.getEndLocationAsSting());
+        jsonBody.put("duration",String.valueOf(route.getDuration().getValue()));
+        jsonBody.put("distance",String.valueOf(route.getDistance().getValue()));
+        jsonBody.put("time", route.getDate().toString());
+        jsonBody.put("smoking", String.valueOf(likesSmokes));
+        jsonBody.put("boy", String.valueOf(this.isLikesBoys));
+        jsonBody.put("girl",String.valueOf(this.isLikesGirls));
+        Map<String, String> passengerInfo;
+        passengerInfo = UserSerializer.getParameters(RequestHandler.getUser());
+        jsonBody.putAll(passengerInfo);
+        System.out.println("createroute: passenger: " + jsonBody.get("smoking"));
+        System.out.println("createroute: passenger: " + jsonBody.get("boy"));
+        System.out.println("createroute: passenger: " + jsonBody.get("girl"));
+        if(role.equals("driver")){
+            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                            "/create_route_driver.php",jsonBody,
+                    RequestHandler.URLENCODED ,this);
+        }
+        else{
+            requestHandler.httpPostStringRequest("http://"+getString(R.string.web_server_ip)  +
+                            "/create_route_passenger.php",jsonBody,
+                    RequestHandler.URLENCODED ,this);
+        }
     }
 
     /**

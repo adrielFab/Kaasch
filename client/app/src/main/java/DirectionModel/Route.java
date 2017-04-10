@@ -24,10 +24,28 @@ public class Route {
     private List<LatLng> points;
     private String userType;
     private String routeStatus;
+    private Preference preference;
 
     public Route () {
 
     }
+
+    /**
+     * Mutator method for preference
+     */
+    public void setPreference(Preference preference) {
+
+        this.preference = preference;
+    }
+
+    /**
+     * Mutator method for preference
+     */
+    public Preference getPreference() {
+
+        return this.preference;
+    }
+
 
     /**
      * Mutator method for title
@@ -178,6 +196,20 @@ public class Route {
     public LatLng getStartLocation() {
 
         return startLocation;
+    }
+
+    public String getStartLocationAsSting(){
+        String locationAsString = "";
+        locationAsString = startLocation.toString().replace("lat/lng: (", "");
+        locationAsString = locationAsString.toString().replace(")", "");
+        return locationAsString;
+    }
+
+    public String getEndLocationAsSting(){
+        String locationAsString = "";
+        locationAsString = endLocation.toString().replace("lat/lng: (", "");
+        locationAsString = locationAsString.toString().replace(")", "");
+        return locationAsString;
     }
 
     /**
