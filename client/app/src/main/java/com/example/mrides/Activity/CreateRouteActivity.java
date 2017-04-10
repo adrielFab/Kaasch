@@ -371,6 +371,10 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             InvitePassengers invitePassengers = new InvitePassengers(this, invitedPassengers,this.in_title);
             invitePassengers.invitePassengers();
         }
+        else if(role.equals("passenger")){
+            Intent intent = new Intent(CreateRouteActivity.this, HomePage.class);
+            startActivity(intent);
+        }
     }
 
     /**
