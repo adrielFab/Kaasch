@@ -118,6 +118,11 @@ public class PreferencePageActivity extends AppCompatActivity implements View.On
         }
     }
 
+    /**
+     * Method that returns the selected preferenes by the logged in user
+     * @return Preference object. The preference object holds all the preferences
+     * of the currently logged in user
+     */
     public Preference toPreference(){
         return new Preference(isPreferenceChoiceSelected[0],
                 isPreferenceChoiceSelected[1],

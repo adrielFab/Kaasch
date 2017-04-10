@@ -28,6 +28,15 @@ public class CustomList extends ArrayAdapter {
         this.emails = emails;
     }
 
+    /**
+     * This will create the list item for each user in the list of users on that route
+     * What will be displayed in this view is the name of the user, their profile picture,
+     * and a rating bar where the user will be able to rate the user
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();

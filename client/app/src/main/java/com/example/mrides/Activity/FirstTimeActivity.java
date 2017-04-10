@@ -63,7 +63,8 @@ public class FirstTimeActivity extends AppCompatActivity implements View.OnClick
     }
 
     /**
-     * This method sends the data to the server
+     * This method sends the data to the server. SInce this is the first time that the user is logging in,
+     * the server is receiving needed information which are the gender and if the user is a smoker
      */
     public void sendData(String smokerBit, String gender) {
         RequestHandler.getUser().setSmokes(smokerBit);

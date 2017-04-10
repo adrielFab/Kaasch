@@ -495,6 +495,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
     /**
      * Method that shows the search bar where the user will enter the location
+     * This search bar is actually an autocomplete suggestion box which provides
+     * the user with suggested places as he/she is partially typing the location
      */
     public void showSearchLocationDialog() {
         try {

@@ -22,6 +22,11 @@ public class LoginFirstTime implements ActivityObserver{
         this.activity = activity;
     }
 
+    /**
+     * Method that directs the user to their HomePage after registration
+     * of the new user
+     * @param response A string response formated in a json string returned from the request handler
+     */
     @Override
     public void Update(String response) {
         requestHandler.detach(this);
@@ -30,6 +35,10 @@ public class LoginFirstTime implements ActivityObserver{
         activity.startActivity(intent);
     }
 
+    /**
+     * Method that sends the gender and isSmoker data of the new logged in user
+     * back to the database
+     */
     public void registerUser() {
         mProgressDialog = ProgressDialog.show(activity, "Please wait.",
                 "Processing Data", true);

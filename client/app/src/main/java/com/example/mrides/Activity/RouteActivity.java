@@ -37,6 +37,12 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
     private String duration;
     private static final double GAS_PRICE = 1.20;
 
+    /**
+     * When this page is loaded, this displays all the users that are also part of the route,
+     * the metrics of the route, a trash icon which will allow the user to delete the route,
+     * and the submit rating button where the user will be able to submit ratings
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
