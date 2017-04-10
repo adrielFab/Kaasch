@@ -37,7 +37,6 @@ public class BackgroundWork extends AsyncTask<boolean[], Void, String> {
     protected String doInBackground(boolean[]... params) {
 
         String saveUrl = "http://successdrivingschool.ca/new_test_android.php";
-        //String saveUrl = "https://httpbin.org/post";
 
         boolean [] array1 = params[0];
         String wantsPet = String.valueOf(array1[0]);
