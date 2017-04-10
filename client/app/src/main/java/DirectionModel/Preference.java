@@ -48,16 +48,17 @@ public class Preference implements Parcelable{
     }
 
     public boolean matchPreferences(User user){
-        System.out.println("Now matching");
-        if(this.wantsBoy && this.wantsGirl && this.wantsSmoker){
+        if (!this.wantsSmoker && user.isSmoker()) {
+            return false;
+        }
+        if (!this.wantsBoy && user.isFemale()) {
+            return false;
+        }
+        if (!this.wantsGirl && user.isMale()) {
+            return false;
+        } else {
             return true;
         }
-
-        if(this.wantsBoy && this.wantsGirl && !this.wantsSmoker && (!user.isSmoker())){
-            return true;
-        }
-        return ((((!this.wantsBoy && user.isFemale()) || (!this.wantsGirl && user.isMale()))
-                && (!this.wantsSmoker) && (!user.isSmoker())));
     }
 
     @Override
