@@ -1,63 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
-
-    <ImageView
-        android:layout_width="wrap_content"
+    <TableLayout
         android:layout_height="wrap_content"
-        android:layout_rowSpan="2"
-        android:id="@+id/imageView"
-        android:layout_row="0"
-        android:layout_column="0"
-        app:srcCompat="@drawable/sample_profile_image"/>
+        android:layout_width="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:gravity="center_horizontal">
+        <TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Adriel Fabella"
-            android:layout_columnWeight="1"
-            android:id="@+id/textViewName"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:textSize="18sp"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView"
+                app:srcCompat="@drawable/sample_profile_image"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1.0"
-            android:rating="0"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_columnWeight="1"
-            android:layout_weight="1"/>
+            <TableLayout>
 
-    </LinearLayout>
+                <TableRow>
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="New Text"-->
-        <!--android:layout_columnWeight="1"-->
-        <!--android:id="@+id/textViewDesc"-->
-        <!--android:layout_row="1"-->
-        <!--android:layout_column="1" />-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Adriel Fabella"
+                        android:id="@+id/textViewName"
+                        android:textSize="18sp"
+                        android:gravity="center_horizontal"/>
 
+                </TableRow>
 
-</GridLayout>
+                <TableRow>
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="1.0"
+                        android:rating="0"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

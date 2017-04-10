@@ -22,12 +22,12 @@ import java.util.List;
  */
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
 
-    private List<Invitation> invitations = new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>();
     protected static Context inboxContext;
 
-    public InboxAdapter(Context inboxContext,List<Invitation> invitations) {
+    public InboxAdapter(Context inboxContext,List<Notification> notifications) {
         this.inboxContext = inboxContext;
-        this.invitations = invitations;
+        this.notifications = notifications;
     }
 
     /**
@@ -43,7 +43,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.activity_inbox_list_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(view,invitations.get(viewType));
+        ViewHolder vh = new ViewHolder(view, notifications.get(viewType));
         return vh;
     }
 
@@ -59,8 +59,8 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setInvitation(invitations.get(position));
-        UserProfileListener listener = new UserProfileListener(invitations.get(position),inboxContext);
+        holder.setInvitation(notifications.get(position));
+        UserProfileListener listener = new UserProfileListener(notifications.get(position),inboxContext);
         holder.itemMessage.setOnClickListener(listener);
         holder.profilePicture.setOnClickListener(listener);
     }
@@ -73,7 +73,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
     //TODO more the item list needs to be representative of the number of inbox values
     @Override
     public int getItemCount() {
-        return invitations.size();
+        return notifications.size();
     }
 
     /**
@@ -88,7 +88,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
         TextView itemMessageType;
         ImageView profilePicture;
         View v;
-        public ViewHolder(View v, Invitation invitation) {
+        public ViewHolder(View v, Notification notification) {
             super(v);
             //v.setOnClickListener(this);
             profilePicture = (ImageView) itemView.findViewById(R.id.inbox_profile_pic);
@@ -96,7 +96,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder>{
             itemMessageType = (TextView) itemView.findViewById(R.id.message_type);
             //this.invitation = invitation;
         }
-
+      
         public void setInvitation(Invitation invitation) {
             this.itemMessageType.setText(R.string.route_invitation);
             this.itemMessage.setText(inboxContext.getString(R.string.invite_from)+ " " +

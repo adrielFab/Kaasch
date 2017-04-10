@@ -109,6 +109,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
             sendRating(ratingsOfUser);
             Intent intent = new Intent(RouteActivity.this, HomePage.class);
             startActivity(intent);
+            Toast.makeText(RouteActivity.this, "RATING SUBMITTED", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(RouteActivity.this, "PLEASE RATE ALL USERS", Toast.LENGTH_SHORT).show();
@@ -283,7 +284,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         listView.setAdapter(customList);
 
         // if there are no passengers, hide the please submit review Text and Button
-        if(names.size() == 0) {
+        if(names.isEmpty()) {
             View button = findViewById(R.id.ratingButton);
             button.setVisibility(View.INVISIBLE);
             View text = findViewById(R.id.rateText);

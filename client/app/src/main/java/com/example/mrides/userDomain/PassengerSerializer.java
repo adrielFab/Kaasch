@@ -13,18 +13,23 @@ public class PassengerSerializer {
     /**
      * This method converts the important passenger information into a mapping.
      *
-     * @param user The passenger we want to be sent in a POST request
+     * @param passenger The passenger we want to be sent in a POST request
      * @return Return a map of key value pair of passenger attributes.
      *
      */
     //TODO the paramter needs to be changed to a passenger in the future. For now user works
-    public static Map<String, String> getParameters(User user) {
+    public static Map<String, String> getParameters(Passenger passenger) {
         Map<String, String> map = new HashMap<>();
-        map.put("passengerEmail", "adriel.fab@gmail.com");
-        map.put("passengerLastName", user.getLastName());
-        map.put("passengerFirstName",user.getFirstName());
-        map.put("passengerDeviceId", "dZqG2lST6uo:APA91bF1f5ZkYW5xTNCawaEzXbgEeWe6eB74F6rFyJGRsWfTTxJX6C2Nxv54b1eS5QK6suhwYxX8GkL-W9C3z7HlbYZYZSFqtm8NMsygvDVsYaosUx2BBoU5ZB2pU9UV3aji_qej-my5");
-        map.put("passengerProfileUrl", "photoUrl");
+        map.put(Passenger.ParameterKeys.EMAIL.toString(), passenger.getEmail());
+        map.put(Passenger.ParameterKeys.LASTNAME.toString(), passenger.getLastName());
+        map.put(Passenger.ParameterKeys.FIRSTNAME.toString(),passenger.getFirstName());
+        map.put(Passenger.ParameterKeys.DEVICEID.toString(), passenger.getDeviceId());
+        map.put(Passenger.ParameterKeys.PROFILEURL.toString(), passenger.getPhotoUrl());
+        map.put(Passenger.ParameterKeys.SEARCHID.toString(), String.valueOf(passenger.getSearchId()));
+        if(passenger.getGender()!=null) { //when the user logs in for the first time the gender is not set
+            map.put(Passenger.ParameterKeys.GENDER.toString(), passenger.getGender());
+            map.put(Passenger.ParameterKeys.SMOKES.toString(), passenger.getSmokes());
+        }
         return map;
     }
 }

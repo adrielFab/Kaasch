@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class UserSerializer {
 
+
     public static Map<String, String> getParameters(User user){
         Map<String, String> map = new HashMap<>();
         map.put(User.ParameterKeys.EMAIL.toString(), user.getEmail());

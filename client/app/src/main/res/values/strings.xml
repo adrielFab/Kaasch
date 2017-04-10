@@ -58,6 +58,6 @@
     <string name="smoker">Smoker</string>
     <string name="non_smoker">Non-Smoker</string>
     <string name="i_am_ready">I AM READY</string>
-    <string name="route_invitation">Route Invitation</string>
+    <string name="input_route_name">PLEASE INPUT A ROUTE NAME</string>
 
 </resources>

@@ -74,7 +74,7 @@ public class RequestHandler implements Subject{
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        error.printStackTrace();
                         Log.e("RequestHandler", error.getMessage());
                     }
                 }) {
