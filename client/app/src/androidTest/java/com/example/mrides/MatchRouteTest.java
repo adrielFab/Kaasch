@@ -34,7 +34,7 @@ public class MatchRouteTest {
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testValideDistance() {
+    public void testValidDistance() {
         Route route = new Route();
         Matcher matcher = new Matcher(route);
         LatLng start1 = new LatLng(45.498672,-73.631370);
@@ -49,7 +49,7 @@ public class MatchRouteTest {
 
     @Test
     // Test validateDistance method can match two coordinates within a reasonable distance
-    public void testInvalideDistance() {
+    public void testInvalidDistance() {
         Route route = new Route();
         Matcher matcher = new Matcher(route);
         LatLng start1 = new LatLng(45.498672,-73.631370);
