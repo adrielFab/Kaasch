@@ -101,7 +101,7 @@ public class Matcher {
                 if (dateOfPassenger.after(dateMinusAnHour) && dateOfPassenger.before(datePlusAnHour)) {
                     dateMatched = 0;
                 }
-                
+
                 // the value of pickUpBool and goToEnd are modified in matchDistance method
                 matchDistance(passengerRouteId, dateMatched, routeOfUser, pickUp, drop);
             }
