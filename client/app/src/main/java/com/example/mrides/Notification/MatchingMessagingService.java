@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.mrides.Activity.MainActivity;
 import com.example.mrides.R;
@@ -26,16 +27,16 @@ public class MatchingMessagingService extends FirebaseMessagingService{
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        System.out.println("From: " + remoteMessage.getFrom());
+        Log.i("From: ",remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            System.out.println("Message data payload: " + remoteMessage.getData());
+            Log.i("Message_data_payload: ", remoteMessage.getData().toString());
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            System.out.println("Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.i("MessageBody: ", remoteMessage.getNotification().getBody().toString());
         }
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds

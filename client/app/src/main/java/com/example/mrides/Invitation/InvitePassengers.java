@@ -50,7 +50,6 @@ public class InvitePassengers implements ActivityObserver{
 
     @Override
     public void Update(String response) {
-        System.out.println("Invite Passenger." + response);
         requestHandler.detach(this);
     }
 }

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements
             requestHandler.httpPostStringRequest("http://" + getString(R.string.web_server_ip) +
                             "/is_first_time.php", UserSerializer.getParameters(RequestHandler.getUser()),
                     RequestHandler.URLENCODED, this);
-            System.out.println("token: " + FirebaseInstanceId.getInstance().getToken() );
+            Log.i("token: ", FirebaseInstanceId.getInstance().getToken() );
         }
     }
 
