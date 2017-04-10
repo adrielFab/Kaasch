@@ -57,7 +57,7 @@ public class PopulateMap implements ActivityObserver{
 
     /**
      *  This method requests the users from our server to be added to usersOnMapCatalog
-     * @param context the context of the activty making the request
+     * @param context the context of the activity making the request
      */
     public void requestUsers(Context context) {
         requestHandler.attach(this);
@@ -151,6 +151,12 @@ public class PopulateMap implements ActivityObserver{
         this.createRouteActivity.populateGoogleMap();
     }
 
+    /**
+     * The response received is a list of all the passengers that are searching for a carpool on the google
+     * map. It then sends a message to the method parseUserandMarker with the response from the server
+     * as a parameter
+     * @param response A string response formated in a json string returned from the request handler
+     */
     @Override
     public void Update(String response) {
         requestHandler.detach(this);

@@ -35,6 +35,16 @@ public class Preference implements Parcelable{
         }
     };
 
+    /**
+     * This checks 3 conditions:
+     * - User does not want smoker but the other user is a smoker.
+     * - User does not want woman but the other user is a woman.
+     * - User does not want man but the other user is a man.
+     * If any of the following 3 conditions are not satisfied, this will return false,
+     * indicating that the user and passenger are not compatible based on preference
+     * @param user
+     * @return
+     */
     public boolean matchPreferences(User user){
         if (!this.wantsSmoker && user.isSmoker()) {
             return false;

@@ -236,36 +236,70 @@ public class Route {
         this.routeStatus = routeStatus;
     }
 
+    /**
+     * Accessor method for distance text
+     * @return String. The distance as a string
+     */
     public String getDistanceText() {
         return distanceText;
     }
 
+    /**
+     * Mutator method for distance text
+     * @param distanceText
+     */
     public void setDistanceText(String distanceText) {
         this.distanceText = distanceText;
     }
 
+    /**
+     * Accessor method for duration text
+     * @return String. The duration as a string
+     */
     public String getDurationText() {
         return durationText;
     }
 
+    /**
+     * Mutator method for duration text
+     * @param durationText
+     */
     public void setDurationText(String durationText) {
         this.durationText = durationText;
     }
 
+    /**
+     * Accessor method for duration value
+     * @return int. The duration as an actual quantitative value
+     */
     public int getDurationValue() {
         return durationValue;
     }
 
+    /**
+     * Mutator method for distance value
+     * @param distanceValue
+     */
+    public void setDistanceValue(int distanceValue) {
+        this.distanceValue = distanceValue;
+    }
+
+    /**
+     * Mutator method for distance value
+     * @param durationValue
+     */
     public void setDurationValue(int durationValue) {
         this.durationValue = durationValue;
     }
 
+    /**
+     * Accessor method for distance value
+     * @return int. The distance as an actual quantitative value
+     */
     public int getDistanceValue() {
         return distanceValue;
     }
 
-    public void setDistanceValue(int distanceValue) {
-        this.distanceValue = distanceValue;
-    }
+
 
 }

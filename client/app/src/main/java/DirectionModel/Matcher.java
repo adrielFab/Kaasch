@@ -24,14 +24,26 @@ public class Matcher {
         this.route = route;
     }
 
+    /**
+     * Mutator method for matchedMarkers
+     * @param matchedMarkers
+     */
     public void setMatchedMarkers(HashMap<Integer, Marker> matchedMarkers) {
         this.matchedMarkers = matchedMarkers;
     }
 
+    /**
+     * Accessor method for matchedMarkers
+     * @return a hashmap matchedMarkers
+     */
     public HashMap<Integer, Marker> getMatchedMarkers() {
         return this.matchedMarkers;
     }
 
+    /**
+     * Mutator method for userOnMapCatalog
+     * @param userOnMapCatalog
+     */
     public void setUserMapCatalog(List <Passenger> userOnMapCatalog) {
         this.userOnMapCatalog = userOnMapCatalog;
     }
@@ -143,6 +155,15 @@ public class Matcher {
         }
     }
 
+    /**
+     * Method that matches the preferences of the user logged in and the passengers on the map.
+     * Despite the routes matching, if the preferences do not match, then the passenger will not
+     * be provided as a suggestion to the driver
+     * @param route
+     * @param user
+     * @return boolean. This will return true if the preferences do match meaning that carpooling
+     * is a possiblity
+     */
     private boolean matchPreferences(Route route, User user) {
         return route.getPreference().matchPreferences(user);
     }
