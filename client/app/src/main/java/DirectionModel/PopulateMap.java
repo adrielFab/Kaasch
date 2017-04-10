@@ -118,7 +118,6 @@ public class PopulateMap implements ActivityObserver{
             passenger.setWantsBoy(intWantsSmoker);
             passenger.setWantsGirl(intWantsGirl);
 
-            System.out.println("boy "+wantsBoy);
             DateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
             Date date = null;
             try {
@@ -154,7 +153,6 @@ public class PopulateMap implements ActivityObserver{
 
     @Override
     public void Update(String response) {
-        System.out.println("RESS" + response);
         requestHandler.detach(this);
         try {
             parseUserandMarker(response);
