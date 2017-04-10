@@ -42,11 +42,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".InboxListItem"/>
-        <activity android:name=".Activity.CreateRouteActivity"/>
-        <activity android:name=".Activity.HomePage"/>
-        <activity android:name=".Activity.InboxActivity"/>
-        <activity android:name=".Activity.SettingsActivity"/>
+        <activity android:name=".InboxListItem"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.CreateRouteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.HomePage"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.InboxActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SettingsActivity"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".Notification.MatchingMessagingService">
             <intent-filter>
@@ -61,10 +66,12 @@
 
         <activity
             android:name=".Activity.RouteActivity"
-            android:theme="@style/AppTheme2">
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".Activity.FirstTimeActivity"
-            android:theme="@style/AppTheme2">
+            android:theme="@style/AppTheme2"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

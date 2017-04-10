@@ -2,6 +2,7 @@ package DirectionModel;
 
 import com.example.mrides.userDomain.Passenger;
 import android.util.Log;
+import com.example.mrides.R;
 import com.example.mrides.userDomain.User;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -136,7 +137,7 @@ public class Matcher {
                     int key = entry.getKey();
                     if(key == passengerRouteId) {
                         Marker marker = matchedMarkers.get(key);
-                        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                        marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.men_icon));
                         pickUpBool = true;
                         break;
                     }

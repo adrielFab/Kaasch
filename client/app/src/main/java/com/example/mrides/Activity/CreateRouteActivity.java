@@ -79,7 +79,6 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private List<Marker> startMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
-    private LocationManager locationManager;
     private RequestHandler requestHandler = new RequestHandler();
     private PopulateMap populateMap = new PopulateMap(this);
     private HashMap<Marker, Passenger> googleMarkerHash = new HashMap<>();
@@ -193,7 +192,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
         mGoogleMap = googleMap;
 
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -236,7 +235,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 LatLng location = route.getStartLocation();
 
                 Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.no_men_icon))
                         .title(user.getFirstName() + " " + user.getLastName() + route.getId())
                         .position(location));
 

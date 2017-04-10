@@ -284,7 +284,7 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         listView.setAdapter(customList);
 
         // if there are no passengers, hide the please submit review Text and Button
-        if(names.size() == 0) {
+        if(names.isEmpty()) {
             View button = findViewById(R.id.ratingButton);
             button.setVisibility(View.INVISIBLE);
             View text = findViewById(R.id.rateText);
