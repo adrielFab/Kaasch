@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -234,8 +235,8 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 JSONObject jsonObject = (JSONObject) jsonArray.get(jsonArray.length() - 1);
-                duration = jsonObject.getString("duration");
-                distance = jsonObject.getString("distance");
+                distance = jsonObject.getString("duration");
+                duration = jsonObject.getString("distance");
                 Log.i("VALUEE", duration.getClass().getName() + " and " + distance);
 
             } catch (JSONException e) {
@@ -259,17 +260,22 @@ public class RouteActivity extends AppCompatActivity implements View.OnClickList
         TextView textViewDistance = (TextView) findViewById(R.id.textViewDistanceValue);
         TextView textViewPrice = (TextView) findViewById(R.id.textViewPriceValue);
 
-        textViewDistance.setText(distance);
-        textViewDuration.setText(duration);
+        double durationDouble = Double.parseDouble(duration);
+        double distanceDouble = Double.parseDouble(distance);
 
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.CEILING);
+        durationDouble = durationDouble/1000;
+        distanceDouble = distanceDouble/60;
 
-        double distanceValue = Double.parseDouble(distance);
-        double doublePrice = distanceValue*GAS_PRICE;
-        double roundOff = (double) Math.round(doublePrice * 100) / 100;
-        String totalPrice = Double.toString(roundOff);
+        double roundOffDuration = (double) Math.round(durationDouble * 100)/100;
+        double roundOffDistance = (double) Math.round(distanceDouble * 100)/100;
+
+        double doublePrice = roundOffDuration*GAS_PRICE;
+        double roundOffPrice = (double) Math.round(doublePrice * 100) / 100;
+        String totalPrice = Double.toString(roundOffPrice);
+
         textViewPrice.setText(totalPrice);
+        textViewDistance.setText(Double.toString(roundOffDuration));
+        textViewDuration.setText(Double.toString(roundOffDistance));
     }
 
     /**
