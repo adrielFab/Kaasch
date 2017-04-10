@@ -53,6 +53,8 @@ import org.json.JSONException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -392,7 +394,9 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             dialog.show();
 
             TextView textViewRatingValue = (TextView) dialog.findViewById(R.id.textViewRatingValue);
-            textViewRatingValue.setText(selectedPassenger.getRating());
+            double rating = Double.parseDouble(selectedPassenger.getRating());
+            NumberFormat formatter = new DecimalFormat("#0.00");
+            textViewRatingValue.setText(formatter.format(rating));
             TextView textViewFullName = (TextView) dialog.findViewById(R.id.textViewFirstName);
             textViewFullName.setText(marker.getTitle());
 
