@@ -9,7 +9,6 @@ import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 import com.example.mrides.userDomain.Passenger;
 import com.example.mrides.userDomain.PassengerSerializer;
-import com.example.mrides.userDomain.User;
 import com.example.mrides.userDomain.UserSerializer;
 
 import java.util.HashMap;
