@@ -15,8 +15,6 @@ public class Route {
     private int id;
     private String title;
     private Date date; // Date variable include date and time
-    private Distance distance;
-    private Duration duration;
     private String endAddress;
     private LatLng endLocation;
     private String startAddress;
@@ -25,6 +23,10 @@ public class Route {
     private String userType;
     private String routeStatus;
     private Preference preference;
+    private String durationText;
+    private int durationValue;
+    private String distanceText;
+    private int distanceValue;
 
     public Route () {
 
@@ -97,42 +99,6 @@ public class Route {
     public void setId(int id) {
 
         this.id = id;
-    }
-
-    /**
-     * Accessor method for distance
-     * @return Distance This returns a distance object
-     */
-    public Distance getDistance() {
-
-        return distance;
-    }
-
-    /**
-     * Mutator method for distance
-     * @param distance
-     */
-    public void setDistance(Distance distance) {
-
-        this.distance = distance;
-    }
-
-    /**
-     * Accessor method for duration
-     * @return Duration This returns a duration object
-     */
-    public Duration getDuration() {
-
-        return duration;
-    }
-
-    /**
-     * Mutator method for duration
-     * @param duration
-     */
-    public void setDuration(Duration duration) {
-
-        this.duration = duration;
     }
 
     /**
@@ -268,6 +234,38 @@ public class Route {
      */
     public void setRouteStatus(String routeStatus) {
         this.routeStatus = routeStatus;
+    }
+
+    public String getDistanceText() {
+        return distanceText;
+    }
+
+    public void setDistanceText(String distanceText) {
+        this.distanceText = distanceText;
+    }
+
+    public String getDurationText() {
+        return durationText;
+    }
+
+    public void setDurationText(String durationText) {
+        this.durationText = durationText;
+    }
+
+    public int getDurationValue() {
+        return durationValue;
+    }
+
+    public void setDurationValue(int durationValue) {
+        this.durationValue = durationValue;
+    }
+
+    public int getDistanceValue() {
+        return distanceValue;
+    }
+
+    public void setDistanceValue(int distanceValue) {
+        this.distanceValue = distanceValue;
     }
 
 }

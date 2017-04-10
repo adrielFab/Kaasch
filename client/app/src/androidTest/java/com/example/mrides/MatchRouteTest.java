@@ -103,9 +103,6 @@ public class MatchRouteTest {
 
         double end1 = 90.05/2;
         double end2 = -73.0000001;
-
-        System.out.println("Distance is here "+matcher.distance(start1, start2, end1, end2));
-//        assertEquals(matcher.distance(start1, start2, end1, end2), 0.0);
     }
 
     @Test

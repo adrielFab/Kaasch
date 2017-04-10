@@ -301,8 +301,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         destinationMarkers = new ArrayList<>();
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getStartLocation(), 16));
-        ((TextView) findViewById(R.id.textDuration)).setText(route.getDuration().getText());
-        ((TextView) findViewById(R.id.textDistance)).setText(route.getDistance().getText());
+        ((TextView) findViewById(R.id.textDuration)).setText(route.getDurationText());
+        ((TextView) findViewById(R.id.textDistance)).setText(route.getDistanceText());
 
         startMarkers.add(mGoogleMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
@@ -472,8 +472,8 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
         jsonBody.put("route_name",this.in_title);
         jsonBody.put("start",route.getStartLocationAsSting());
         jsonBody.put("end",route.getEndLocationAsSting());
-        jsonBody.put("duration",String.valueOf(route.getDuration().getValue()));
-        jsonBody.put("distance",String.valueOf(route.getDistance().getValue()));
+        jsonBody.put("duration",String.valueOf(route.getDurationValue()));
+        jsonBody.put("distance",String.valueOf(route.getDistanceValue()));
         jsonBody.put("time", route.getDate().toString());
         jsonBody.put("smoking", String.valueOf(likesSmokes));
         jsonBody.put("boy", String.valueOf(this.isLikesBoys));

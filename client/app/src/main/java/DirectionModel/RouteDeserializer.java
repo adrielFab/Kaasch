@@ -45,8 +45,10 @@ public class RouteDeserializer {
             JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
             JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
 
-            route.setDistance(new Distance(jsonDistance.getString("text"), jsonDistance.getInt("value")));
-            route.setDuration(new Duration(jsonDuration.getString("text"), jsonDuration.getInt("value")));
+            route.setDistanceText(jsonDistance.getString("text"));
+            route.setDistanceValue(jsonDistance.getInt("value"));
+            route.setDurationText(jsonDuration.getString("text"));
+            route.setDurationValue(jsonDuration.getInt("value"));
             route.setEndAddress(jsonLeg.getString("end_address"));
             route.setStartAddress(jsonLeg.getString("start_address"));
             route.setStartLocation(new LatLng(jsonStartLocation.getDouble("lat"), jsonStartLocation.getDouble("lng")));
