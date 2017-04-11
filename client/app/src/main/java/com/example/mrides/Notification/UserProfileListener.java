@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.mrides.Activity.ActivityObserver;
 import com.example.mrides.Activity.HomePage;
+import com.example.mrides.ImageConverter;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 
@@ -69,6 +70,9 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
         //new DownloadImageTask((ImageView) findViewById(R.id.imageView1))
         imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+
+        ImageConverter imageConverter = new ImageConverter(imageViewProfile);
+        imageConverter.execute(notification.getDriverProfilePicRul());
 
         Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
         buttonInvite.setId(R.id.accept);

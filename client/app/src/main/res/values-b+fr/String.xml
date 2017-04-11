@@ -34,4 +34,5 @@
     <string name="find_path">Trouver route</string>
     <string name="cancel">Annuler</string>
     <string name="invite">Inviter</string>
+    <string name="active_routes">Itinéraires</string>
 </resources>

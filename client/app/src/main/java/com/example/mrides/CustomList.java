@@ -44,7 +44,9 @@ public class CustomList extends ArrayAdapter {
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         RatingBar ratingBar = (RatingBar) listViewItem.findViewById(R.id.ratingBar);
         ImageView imageView = (ImageView) listViewItem.findViewById(R.id.imageView);
+        TextView textViewEmail = (TextView) listViewItem.findViewById(R.id.textViewEmail);
 
+        textViewEmail.setText(emails.get(position));
         textViewName.setText(names.get(position));
         ImageConverter imageConverter = new ImageConverter(imageView);
         imageConverter.execute(photoURL.get(position));

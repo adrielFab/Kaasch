@@ -61,5 +61,6 @@
     <string name="i_am_ready">I AM READY</string>
     <string name="input_route_name">PLEASE INPUT A ROUTE NAME</string>
     <string name="you_have_been_matched">You now have a driver!</string>
+    <string name="please_find_path">PLEASE FIND PATH</string>
 
 </resources>

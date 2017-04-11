@@ -31,6 +31,18 @@
 
                 <TableRow>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="adrielfab@gmail.com"
+                        android:id="@+id/textViewEmail"
+                        android:textSize="13sp"
+                        android:gravity="center_horizontal"/>
+
+                </TableRow>
+
+                <TableRow>
+
                     <RatingBar
                         android:id="@+id/ratingBar"
                         android:layout_width="match_parent"

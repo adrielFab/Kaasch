@@ -101,7 +101,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
     private Route route;
     private List<Passenger> invitedPassengers = new ArrayList<>();
     private Preference preference;
-
+    private boolean findPathClicked = false;
           
     /**
      * Method that is called to load the activity
@@ -158,6 +158,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
      * addresses along with the google map api key
      */
     public void createPath() {
+        findPathClicked = true;
         if(start.isEmpty()) {
             Toast.makeText(this, "Please enter a starting address", Toast.LENGTH_SHORT).show();
             return;
@@ -433,7 +434,12 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
                 dialog.cancel();
                 break;
             case R.id.buttonSaveChanges:
-                saveChanges();
+                if (findPathClicked) {
+                    saveChanges();
+                } else {
+                    Toast.makeText(CreateRouteActivity.this, R.string.please_find_path, Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.textViewStartLocation:
                 startOrEnd = false;
@@ -458,6 +464,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             Toast.makeText(CreateRouteActivity.this,
                     getString(R.string.invite_sent), Toast.LENGTH_SHORT).show();
         }
+        dialog.cancel();
     }
 
     /**
