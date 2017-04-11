@@ -35,4 +35,32 @@
     <string name="cancel">Annuler</string>
     <string name="invite">Inviter</string>
     <string name="active_routes">Itinéraires</string>
+
+    <string name="invited_to_route">Invitation proviens de:</string> <!--right after this sentence is the name-->
+    <string name="route_invitation">Invitation</string>
+    <string name="invite_from">De</string>
+    <string name="accept">Accepter</string>
+    <string name="invite_accepted">Invitation Accepté</string>
+    <string name="loggedOut">Déconnecté</string>
+    <string name="save_changes">Sauvegarder</string>
+    <string name="click_to_enter_start_address">Adresse de départ</string>
+    <string name="click_to_enter_destination_address">Déstination</string>
+    <string name="submit_rating">Soumettre</string>
+    <string name="delete_route">Supprimer la route</string>
+    <string name="prompt_message">Êtes-vous sur de vouloir effacer cette route?</string>
+    <string name="delete_confirm">Route Supprimée</string>
+    <string name="rate_people">Veuillez evaluer vos co-passagers</string>
+    <string name="welcome_to_mrides">Bienvenue à mRides</string>
+    <string name="welcome_description">mRides est une application de co-voiturage qui vous permettra de partager la route avec d'autres utilisateurs. Plus besoin de prendre le bus ou counduire tout seul. Trouvez quelqu'un pour faire du covoiturage. Sauvez l'environnement et vos poches!</string>
+    <string name="woman">Femme</string>
+    <string name="man">Homme</string>
+    <string name="smoker">Fumeur</string>
+    <string name="non_smoker">Non-Fumeur</string>
+    <string name="i_am_ready">JE SUIS PRÊT</string>
+    <string name="input_route_name">SVP CHOISIR UN NOM DE ROUTE</string>
+    <string name="you_have_been_matched">Vous avez un conducteur!</string>
+    <string name="please_find_path">SVP TROUVER UNE ROUTE</string>
+
+
+
 </resources>
