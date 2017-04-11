@@ -80,6 +80,9 @@ public class HomePage extends AppCompatActivity implements
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_drawer);
         navigationView.setNavigationItemSelectedListener(this);
 
+        ImageView imageViewRefresh = (ImageView) findViewById(R.id.imageRefresh);
+        imageViewRefresh.setOnClickListener(this);
+
         String firstName = RequestHandler.getUser().getFirstName();
         String lastName = RequestHandler.getUser().getLastName();
         String username = firstName + " " + lastName;
@@ -290,11 +293,18 @@ public class HomePage extends AppCompatActivity implements
     @Override
     public void onClick(View view) {
 
-        for (HashMap.Entry<String, Button> entry : hashRouteButton.entrySet()) {
-            if (entry.getValue() == view) {
-                Intent intent = new Intent(HomePage.this, RouteActivity.class);
-                intent.putExtra("nameOfRoute", entry.getKey());
-                startActivity(intent);
+        if (view.getId() == R.id.imageRefresh) {
+            finish();
+            startActivity(getIntent());
+        }
+
+        else {
+            for (HashMap.Entry<String, Button> entry : hashRouteButton.entrySet()) {
+                if (entry.getValue() == view) {
+                    Intent intent = new Intent(HomePage.this, RouteActivity.class);
+                    intent.putExtra("nameOfRoute", entry.getKey());
+                    startActivity(intent);
+                }
             }
         }
 

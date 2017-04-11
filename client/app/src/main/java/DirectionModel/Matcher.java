@@ -99,7 +99,7 @@ public class Matcher {
                 int passengerRouteId = route.getId();
                 Date dateOfPassenger = route.getDate(); //from the passenger
                 Date dateOfUser = this.route.getDate(); //from the user
-                int dateMatched = 0;
+                int dateMatched = 1;
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(dateOfUser);
