@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mrides.ImageConverter;
 import com.example.mrides.Invitation.InvitePassengers;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
@@ -404,12 +405,11 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
             textViewEmail.setText(selectedPassenger.getEmail());
 
             ImageView imageViewProfile = (ImageView) dialog.findViewById(R.id.imageViewProfile);
-            imageViewProfile.setImageResource(R.drawable.sample_profile_image);
+            ImageConverter imageConverter = new ImageConverter(imageViewProfile);
+            imageConverter.execute(selectedPassenger.getPhotoUrl());
 
             Button buttonInvite = (Button) dialog.findViewById(R.id.buttonInvite);
-
             buttonInvite.setOnClickListener(this);
-
             Button buttonCancel = (Button) dialog.findViewById(R.id.buttonCancel);
             buttonCancel.setOnClickListener(this);
 
