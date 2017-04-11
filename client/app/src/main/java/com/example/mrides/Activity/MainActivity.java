@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             firebaseAuthWithGoogle(acct);
         }
+        else{
+            mProgressDialog.dismiss();
+        }
     }
 
     /**
@@ -185,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     /**
@@ -196,7 +198,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
         FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
-
         if (firebaseuser != null && googleuser!= null) {
             // User is signed in
             User user = new User(firebaseuser,googleuser);
@@ -211,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
-
         if (!task.isSuccessful()) {
             Toast.makeText(MainActivity.this, "Authentication failed.",
                     Toast.LENGTH_SHORT).show();
