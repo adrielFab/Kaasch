@@ -65,8 +65,6 @@ public class HomePage extends AppCompatActivity implements
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        finish();
-        startActivity(getIntent());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
