@@ -236,7 +236,7 @@ public class CreateRouteActivity extends FragmentActivity implements OnMapReadyC
 
                 Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.no_men_icon))
-                        .title(user.getFirstName() + " " + user.getLastName() + route.getId())
+                        .title(user.getFirstName() + " " + user.getLastName())
                         .position(location));
 
                 matchedMarkers.put(route.getId(), marker);
