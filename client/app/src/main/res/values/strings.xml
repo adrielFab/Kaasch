@@ -60,5 +60,6 @@
     <string name="non_smoker">Non-Smoker</string>
     <string name="i_am_ready">I AM READY</string>
     <string name="input_route_name">PLEASE INPUT A ROUTE NAME</string>
+    <string name="you_have_been_matched">You now have a driver!</string>
 
 </resources>

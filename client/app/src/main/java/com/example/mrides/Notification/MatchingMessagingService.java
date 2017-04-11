@@ -48,6 +48,7 @@ public class MatchingMessagingService extends FirebaseMessagingService{
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle("mRides");
+        notificationBuilder.setContentText(getResources().getString(R.string.you_have_been_matched));
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setSmallIcon(R.mipmap.icon);
         notificationBuilder.setContentIntent(pendingIntent);
