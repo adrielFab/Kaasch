@@ -99,7 +99,7 @@ public class Matcher {
                 int passengerRouteId = route.getId();
                 Date dateOfPassenger = route.getDate(); //from the passenger
                 Date dateOfUser = this.route.getDate(); //from the user
-                int dateMatched = 1;
+                int dateMatched = 0;
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(dateOfUser);
@@ -162,7 +162,7 @@ public class Matcher {
      * @param route
      * @param user
      * @return boolean. This will return true if the preferences do match meaning that carpooling
-     * is a possiblity
+     * is a possibility
      */
     private boolean matchPreferences(Route route, User user) {
         return route.getPreference().matchPreferences(user);

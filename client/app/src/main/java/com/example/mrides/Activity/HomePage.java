@@ -318,7 +318,7 @@ public class HomePage extends AppCompatActivity implements
      * The response received corresponds to the list of routes that is to be displayed in the user's
      * profile. This includes the name of the route, the status of the route, and if the route is
      * either a passenger or a driver route
-     * @param response A string response formated in a json string returned from the request handler
+     * @param response A string response form ated in a json string returned from the request handler
      */
     @Override
     public void Update(String response) {
