@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:checkedButton="@+id/Driver"
+            android:checkedButton="@+id/Passenger"
             android:id="@+id/radioGroupType">
             <RadioButton
                 android:id="@+id/Driver"
