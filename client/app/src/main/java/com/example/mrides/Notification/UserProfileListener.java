@@ -3,6 +3,7 @@ package com.example.mrides.Notification;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrides.Activity.ActivityObserver;
+import com.example.mrides.Activity.HomePage;
 import com.example.mrides.R;
 import com.example.mrides.controller.RequestHandler;
 
@@ -93,6 +95,8 @@ public class UserProfileListener implements View.OnClickListener, ActivityObserv
         Toast.makeText(inboxContext, inboxContext.getString(R.string.invite_accepted),
                 Toast.LENGTH_SHORT).show();
         dialog.hide();
+        Intent intent = new Intent(inboxContext, HomePage.class);
+        inboxContext.startActivity(intent);
     }
 
     @Override

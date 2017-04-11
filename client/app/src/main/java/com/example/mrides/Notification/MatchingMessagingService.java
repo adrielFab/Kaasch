@@ -33,7 +33,6 @@ public class MatchingMessagingService extends FirebaseMessagingService{
         if (remoteMessage.getData().size() > 0) {
             Log.i("Message_data_payload: ", remoteMessage.getData().toString());
         }
-
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.i("MessageBody: ", remoteMessage.getNotification().getBody().toString());
@@ -49,7 +48,6 @@ public class MatchingMessagingService extends FirebaseMessagingService{
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
         notificationBuilder.setContentTitle("mRides");
-        notificationBuilder.setContentText(remoteMessage.getNotification().getBody());
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setSmallIcon(R.mipmap.icon);
         notificationBuilder.setContentIntent(pendingIntent);
