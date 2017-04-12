@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_route"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
+    tools:context="com.example.mrides.Activity.CreateRouteActivity">
+
+    <EditText
+        android:id="@+id/textViewStartLocation"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:textAlignment="center"
+        android:text="@string/click_to_enter_start_address"
+        android:backgroundTint="@color/orangeAccent"/>
+
+    <EditText
+        android:id="@+id/textViewEndLocation"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.9"
+        android:textAlignment="center"
+        android:text="@string/click_to_enter_destination_address"
+        android:backgroundTint="@color/orangeAccent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/find_path"
+            android:background="@drawable/change_button"
+            style="@style/small_white"
+            android:id="@+id/buttonFindPath"/>
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/road_icon"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 km"
+            android:id="@+id/textDistance" />
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:src="@drawable/clock_icon"/>
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 min"
+            android:id="@+id/textDuration" />
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="6.4" />
+
+    <Button
+        android:text="@string/save_changes"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@drawable/squared_orange_button"
+        style="@style/medium_white"
+        android:id="@+id/buttonSaveChanges"/>
+
+</LinearLayout>

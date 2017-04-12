@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\car1.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-mdpi\\car1.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\sample_profile_image.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-mdpi\\sample_profile_image.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_add_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_add_black_24dp.png"
+    }
+]

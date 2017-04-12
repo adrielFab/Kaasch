@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        style="@style/header"
+        android:id="@+id/routeTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.5"
+        android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:text="@string/rate_people"
+        android:id="@+id/rateText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="5.5"
+        android:orientation="vertical">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView" />
+
+        <Button
+            android:text="@string/submit_rating"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingButton"
+            android:layout_gravity="right"
+            android:background="@drawable/change_button"
+            style="@style/small_white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </LinearLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:stretchColumns="*"
+        android:layout_weight="2"
+
+        android:id="@+id/linearLayoutValues"
+        android:layout_below="@+id/listView">
+        <TableRow>
+            <TextView
+                android:text="12"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:textColor="#000000"
+                android:id="@+id/textViewDistanceValue"
+                android:gravity="center_horizontal"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:text="20"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewDurationValue"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:text="99.99"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewPriceValue"
+                android:textColor="#000000"
+                android:gravity="center_horizontal"
+                android:textSize="30dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Distance (km)"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:id="@+id/textViewDistance"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="Duration (min)"
+                android:layout_width="0dip"
+                android:textColor="#000000"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewDuration"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="Price (CAD)"
+                android:layout_width="0dip"
+                android:textColor="#000000"
+                android:layout_height="wrap_content"
+                android:id="@+id/textViewPrice"
+                android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        app:srcCompat="@drawable/trash"
+        android:layout_gravity="right|bottom"
+        android:id="@+id/imageTrash"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_preference_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="com.example.mrides.Activity.PreferencePageActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:weightSum="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/route_name"
+            android:layout_weight="3"
+            android:textStyle="bold"
+            style="@style/regularSizeText"/>
+        <EditText
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_name"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:id="@+id/in_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="12"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="35sp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:src="@mipmap/calendar" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textStyle="bold"
+            android:text="@string/Departure_date"
+            style="@style/regularSizeText"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_date"
+            android:text=""
+            android:layout_weight="3"
+            android:focusable="false"/>
+        <Button
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/change_button"
+            android:text="@string/Select"
+            style="@style/small_white"
+            android:id="@+id/btn_date"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="12"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="35sp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:src="@mipmap/clock" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textStyle="bold"
+            android:text="@string/Arrival_time"
+            style="@style/regularSizeText"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/in_time"
+            android:text=""
+            android:layout_weight="3"
+            android:focusable="false"/>
+        <Button
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Select"
+            android:background="@drawable/change_button"
+            style="@style/small_white"
+            android:id="@+id/btn_time"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioGroup
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:checkedButton="@+id/Driver"
+            android:id="@+id/radioGroupType">
+            <RadioButton
+                android:id="@+id/Driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dip"
+                android:text="@string/Driver"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                style="@style/regularSizeText"/>
+            <RadioButton
+                android:id="@+id/Passenger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
+                android:text="@string/Passenger"
+                android:textStyle="bold"
+                style="@style/regularSizeText"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        style="@style/regularSizeText"
+        android:textStyle="bold"
+        android:id="@+id/textViewPref"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="9">
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@drawable/smoking_accepted"
+            android:id="@+id/img_smoke"
+            android:clickable="true"
+            android:layout_width="0dip"
+            android:layout_weight="3" />
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@drawable/men_accepted"
+            android:id="@+id/img_boy"
+            android:clickable="true"
+            android:layout_weight="3"
+            android:layout_width="0dip" />
+        <ImageView
+            android:layout_height="@dimen/preference_icon_height"
+            android:src="@drawable/women_accepted"
+            android:id="@+id/img_girl"
+            android:clickable="true"
+            android:layout_width="0dip"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical" >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Next"
+            android:onClick="goToCreateRoute"
+            android:background="@drawable/change_button"
+            style="@style/small_white"
+            android:id="@+id/buttonGoToCreate"/>
+
+
+    </LinearLayout>
+</LinearLayout>

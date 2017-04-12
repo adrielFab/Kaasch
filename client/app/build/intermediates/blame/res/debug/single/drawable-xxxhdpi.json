@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\wheel.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\wheel.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\smoking_not_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\smoking_not_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\women_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\women_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\women_not_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\women_not_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\men_not_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\men_not_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\smoking_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\smoking_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\men_icon.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\men_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_add_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_add_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\seat.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\seat.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\men_accepted.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\men_accepted.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\road_icon.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\road_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\trash.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\trash.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\no_men_icon.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\drawable-xxxhdpi\\no_men_icon.png"
+    }
+]

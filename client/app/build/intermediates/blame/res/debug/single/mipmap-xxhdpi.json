@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\refresh_icon.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\refresh_icon.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_sms_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_sms_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_exit_to_app_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_exit_to_app_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_settings_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_settings_black_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_account_box_black_24dp.png",
+        "source": "C:\\Users\\a-jam\\OneDrive\\Documents\\GitHub\\Kaasch\\client\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_account_box_black_24dp.png"
+    }
+]
